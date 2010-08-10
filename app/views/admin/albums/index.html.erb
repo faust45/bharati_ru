@@ -1,0 +1,9 @@
+<table>
+<% @albums.each do |audio| %>
+  <%= album_tr(audio) %>
+<% end %>
+</table>
+
+
+
+<%= link_to 'Add album', new_admin_album_path %>

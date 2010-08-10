@@ -1,0 +1,9 @@
+<div id="login_dialog" title="Login">
+  <div class="msg"></div>
+  <%= simple_form_for :user, {:url => login_path(:format => :js), :method => :post} do |f| %>
+    <%= f.input :login, :input_html => {:size => 30} %>
+    <%= f.input :password %>
+
+    <%= f.submit(:class => 'hide') %>
+  <% end %>
+</div>

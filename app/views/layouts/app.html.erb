@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AprakritA</title>
+    <%= stylesheet_link_tag 'main.css' %>
+    <%= stylesheet_link_tag 'jquery.autocomplete' %>
+    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' %>
+
+
+    <%#= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" %>
+    <%#= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" %>
+    <%= javascript_include_tag 'jquery.min', 'jquery-ui.min' %>
+    <%= javascript_include_tag 'jquery.form' %>
+    <%= javascript_include_tag 'rails', 'mustache', 'jquery.behavior' %>
+    <%= javascript_include_tag 'application' %>
+    <% unless current_user.logged_in? %>
+      <%= javascript_include_tag 'login_dialog' %>
+    <% end %>
+    <%= yield :include_js %>
+
+    <script>
+      <%= yield :js %>
+    </script>
+  </head>
+
+  <body>
+    <div id="<%= css_style %>">
+      <div id="main_in">
+        <ul id="lang">
+      	<li><a href="#" title="Русский">Русский</a></li>
+    	<li><a href="#" title="Spain">Spain</a></li>
+        <li><a href="#" title="English">English</a></li>
+        <li><a href="#" title="Deutch">Deutch</a></li>
+        <li id="link_to_change_style"><%= link_to_change_style %></li>
+        </ul>
+        <div id="logo_block">
+          <div id="logo">
+            <a href="#">
+              <%= image_tag "logo_w.gif", :width => "161", :height => "145", :alt => "AprakritA" %>
+            </a>
+          </div>
+        </div>
+    
+        <%= render :partial => 'shared/main_menu' %>
+
+        <% if current_user.logged_in? %>
+          <%= render :partial => 'shared/user_menu' %>
+        <% end %>
+
+        <%= render :partial => 'shared/search' %>
+
+        <%= flash[:notice] %>
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

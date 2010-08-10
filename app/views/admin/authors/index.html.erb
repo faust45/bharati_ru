@@ -1,0 +1,9 @@
+<table>
+  <% @authors.each do |author| %>
+    <%= author_tr(author) %>
+  <% end %>
+</table>
+
+</br>
+</br>
+<%= link_to 'Add new', new_admin_author_path %>

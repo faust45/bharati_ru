@@ -1,0 +1,10 @@
+<%= include_js('add_bookmark') %>
+
+<div id="add_bookmark_dialog" title="Add bookmark">
+  <form id="add_bookmark_form" action="<%= audio_bookmark_create_path %>" method="get">
+    <p>Title:</p>
+    <input type="textfield" name="bookmark[title]" size="40">
+    <input type="hidden" name="bookmark[time]">
+    <input type="hidden" name="bookmark[original_id]">
+  </form>
+</div>

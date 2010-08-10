@@ -1,0 +1,16 @@
+<% bm = @bm || my_bookmark %>
+
+<div class="bm" id="my_bm_<%= bm.id %>">
+  <div class="time"> <%= ftime(bm.time) %> </div>
+  <div class="info"> <%= link_to(bm.title, '#', 'data-time' => bm.time) %> </div>
+
+  <div class="bg_right">
+    <% unless bm.is_copy? %>
+      <%= link_to_share_or_private(bm) %>
+    <% else %>
+      <%= link_to_owner(bm) %>
+    <% end %>
+
+    <%= link_to_del(bm) %>
+  </div> 
+</div> 

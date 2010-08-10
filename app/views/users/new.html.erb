@@ -1,0 +1,8 @@
+<%= simple_form_for @user, {:method => :post} do |f| %>
+   <%= f.input :login    %>
+   <%= f.input :email    %>
+   <%= f.input :password, :input_html => {:value => ''} %>
+   <%= f.input :password_confirmation, :input_html => {:value => ''} %>
+
+   <%= f.submit %>
+<% end %>

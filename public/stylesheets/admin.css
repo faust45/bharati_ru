@@ -1,0 +1,24 @@
+ul {
+  list-style-type: none;
+}
+
+form ul {
+  padding-left: 1em;
+}
+
+form ul li input[type="checkbox"] {
+  padding-right: 2em;
+}
+
+form ul li label {
+  width: 40%;
+}
+
+#tracks li img {
+  margin-right: 1em;
+}
+
+img.handle  {
+  cursor:move;
+}
+

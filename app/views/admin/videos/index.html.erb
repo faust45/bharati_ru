@@ -1,0 +1,9 @@
+<table>
+<% @videos.each do |video| %>
+  <%= video_tr(video) %>
+<% end %>
+</table>
+
+</br>
+</br>
+<%= link_to 'Add new', new_admin_video_path %>

@@ -1,0 +1,11 @@
+<br />
+<br />
+<table>
+<% @audios.each do |audio| %>
+  <tr>
+    <td>
+      <%= link_to audio.title || '', audio_path(audio) %>
+    </td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,38 @@
+<% include_js('player') %>
+<% js_gen_player %>
+
+<% if current_user.logged_in? %>
+  <%= render :partial => 'context_menu' %>
+<% end %>
+
+
+<div id="navigation">
+  <strong class="nav_left">Another track this albom</strong>
+  <%= album_navigation %>
+</div>
+
+<%= render :partial => 'add_bookmark_dialog' %>
+
+<div id="player">
+  <div id="flash_player">
+    <div id="player_block">
+    </div>
+  </div>
+  <div id="music_text">
+    <p>Author: <%= link_to @audio.author[:name] %>  Cathegory:  <a href="#">Religion, Story</a>   Date:  <%= link_to @audio.record_date, '' %>  Record place: <%= link_to @audio.record_place[:name] %></p>
+    <p>Tags:  <%= tags %> </p>
+  </div>
+</div>
+
+<div id="content">
+  <%= render :partial => 'author_bookmarks' %>
+
+  <% if current_user.logged_in? %>
+    <%= render :partial => 'my_bookmarks' %>
+  <% end %>
+
+  <%= render :partial => 'shared_bookmarks' %>
+
+  <h1>Conspect of this lection</h1>
+  <%= @audio.description.html_safe %>
+</div>

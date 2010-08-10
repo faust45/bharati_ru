@@ -1,0 +1,9 @@
+<table>
+<% @audios.each do |audio| %>
+  <%= audio_tr(audio) %>
+<% end %>
+</table>
+
+</br>
+</br>
+<%= link_to 'Add new', new_admin_audio_path %>

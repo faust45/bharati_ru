@@ -1,0 +1,13 @@
+Simple Rails Auth.
+
+User model required fields: 
+  (login, password, salt, security_token, security_token_expiry, verified)
+
+By default all actions is login_required,
+  to cancel this behavior use free_actions(:login, :show, :list)
+
+How we can know user logged_in or not?
+  ask current_user.logged_in? or current_user.anonymous? 
+
+We want get all registered users which already activat account:
+  User.active

@@ -1,0 +1,2 @@
+page["##{css_style.revert}"].attr('id', "#{css_style}")
+page['#link_to_change_style'].html(link_to_change_style)

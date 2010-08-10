@@ -1,0 +1,14 @@
+<script>
+jQuery(function ($) {
+  $('#<%= input %>_value').autocomplete('<%= autocomplete_admin_authors_path %>', {
+        width: 320,
+        dataType: 'json',
+        highlight: false,
+        scroll: true,
+        scrollHeight: 300,
+        matchSubset: false,
+  }).result(function(event, item, id, id2) {
+    $('#<%= input %>_id').val(item[1]);
+  });
+});
+</script>

@@ -1,0 +1,22 @@
+<%= include_js('application', 'jquery.autocomplete', 'jquery.ui.autocomplete.ext', 'jquery.templating', 'jquery.dimensions', 'prettify/prettify') %>
+<% content_for(:js) do %>
+  <%= include_tiny_mce_js %>
+<% end %>
+<%= tiny_mce_init %>
+
+<%= simple_form_for [:admin, center], :url => url, :html => {:multipart => true, :method => form_method} do |f| %>
+   <%= f.input :name %>
+   <%= f.input :display_name %>
+   <%= f.input :country, :as => :string %>
+   <%= f.input :city %>
+   <%= f.input :address %>
+   <%= f.input :phones %>
+   <%= f.input :fax %>
+   <%= f.input :web %>
+   <%= f.input :email %>
+
+   <%= f.input :photo, :as => :file, :label => "Photos #{photos}"  %>
+   
+   <%= f.input :description, :as => :text, :input_html => { :class => 'mceEditor', :cols => 70 } %>
+   <%= f.submit 'save' %>
+<% end %>

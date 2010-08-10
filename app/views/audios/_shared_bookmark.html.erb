@@ -1,0 +1,11 @@
+<% bm = shared_bookmark %>
+
+<div class="bm">
+  <div class="time"> <%= ftime(bm.time) %> </div>
+  <div class="info"> <%= link_to(bm.title, '#', 'data-time' => bm.time) %> </div>
+
+  <div class="bg_right">
+    <%= link_to_owner(bm) %>
+    <%= link_to_add(bm) if current_user.can_add_bookmark?(bm) %>
+  </div> 
+</div> 
