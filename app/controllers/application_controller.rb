@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   layout 'app'
 
-  include NoficationSystem 
+  #include NoficationSystem 
 
   use_zero_auth
 
