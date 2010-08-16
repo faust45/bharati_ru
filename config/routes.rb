@@ -69,7 +69,7 @@ MahaMandala::Application.routes.draw do |map|
   end
 
   controller :audio_bookmarks do
-    scope 'audio/:id/bookmark', :as => 'audio_bookmark' do
+    scope 'audio/:id/bookmark' do
       match 'create',         :to => :create,  :as => :audio_bookmark_create
       match ':bm_id/destroy', :to => :destroy, :as => :audio_bookmark_delete
       match ':bm_id/share',   :to => :share,   :as => :audio_bookmark_share
@@ -79,14 +79,14 @@ MahaMandala::Application.routes.draw do |map|
   end
 
   controller 'admin/authors' do
-    scope '/auhors', :as => 'author' do
-      match 'autocomplete', :to => :autocomplete, :as => :author_autocomplete
+    scope '/author' do
+      match 'autocomplete', :to => :autocomplete
     end
   end
 
   controller 'admin/centers' do
-    scope :as => 'centers' do
-      match 'autocomplete', :to => :autocomplete, :as => :centers_autocomplete
+    scope '/centers' do
+      match 'autocomplete', :to => :autocomplete
     end
   end
 
@@ -108,7 +108,7 @@ MahaMandala::Application.routes.draw do |map|
     end
 
     controller :contents do
-      scope '/contents', :as => 'contents' do
+      scope '/contents' do
         match ':id/delete_file', :to => :delete_file, :as => :contents_delete_file
       end
     end
