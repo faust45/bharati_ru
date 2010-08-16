@@ -19,7 +19,7 @@ module MahaMandala
     # -- all .rb files in that directory are automatically loaded.
 
     # Add additional load paths for your own custom dirs
-    #config.load_paths += %W( #{config.root}/lib )
+    config.autoload_paths += %W( #{config.root}/lib )
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named
@@ -49,6 +49,6 @@ module MahaMandala
     config.session_store :cookie_store, 
      :key    => '_maha_mandala_session',
      :secret => 'b90ada47c5aa27373329b427f8e9613cb73f8b47b7c458bc4ec01af6f7ef084dd99356c0a279e24c44aec188aefe21ae491ef06791b9a95da349598a8272825f',
-     :expire_after => 1.week
+     :expire_after => 1.week 
   end
 end
