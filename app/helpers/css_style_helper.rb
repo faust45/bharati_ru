@@ -37,7 +37,7 @@ module CssStyleHelper
 
   def link_to_change_style
     revert_style = css_style.revert
-    link_to(revert_style.human, user_change_css_style_path(:css_style => revert_style), :remote => true).html_safe
+    link_to(revert_style.human, user_change_css_style_path(:css_style => 'cool'), :remote => true).html_safe
   end
 
   def css_style
