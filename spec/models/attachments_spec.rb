@@ -4,6 +4,12 @@ class Audio
   use_database TEST_SERVER.default_database
 end
 
+class FileStore
+  TEST_SERVER.default_database = 'test_file_store'
+  use_database TEST_SERVER.default_database
+end
+
+
 describe 'Attachments module' do
   before(:all) do
     dir = Rails.root + 'spec/models/files/'
@@ -14,7 +20,7 @@ describe 'Attachments module' do
       end
     end
 
-    @audio = Audio.create(:title => 'Audio title', :source => @file)
+    @audio = Audio.create(:title => 'Audio title', :source_file => @file)
   end
 
   it 'should persist audio' do
@@ -22,7 +28,7 @@ describe 'Attachments module' do
   end
 
   it 'source_attachments should include original file name' do
-    @audio.source_attachments.should include(@file.original_filename)
+    @audio.source.file_name.should  be_eql(@file.original_filename)
   end
 
   it 'should assign correct duration' do
@@ -31,13 +37,16 @@ describe 'Attachments module' do
 
   it 'should update' do
     audio = Audio.create(:title => 'Audio title')
-    audio.update_attributes(:source => @file)
+    audio.update_attributes(:source_file => @file)
     audio = audio.reload
 
-    audio.source_attachments.should include(@file.original_filename)
+    audio.source.file_name.should  be_eql(@file.original_filename)
     audio.duration.should be_eql(18 * 1000)
   end
 
+  it 'should assign content-type' do
+    doc = FileStore.get(@audio.source.doc_id)
+    doc['_attachments'][@audio.source.file_name]['content_type'].should be_eql('audio/mpeg')
+  end
+
 end
-
-

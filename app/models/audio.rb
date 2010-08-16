@@ -4,11 +4,13 @@ class Audio < MediaContent
 
   property :duration
 
-  has_attachment :source
+  has_attachment :source, :content_type => 'audio/mpeg' do |file|
+    info = Mp3Info.open(file.path)
+    self.duration = calc_duration(info)
+  end
+
   has_attachment :photos
 
-  #
-  #Audio.find_in_album(id, position)
   view_by :album, :map => <<-MAP
     function(doc) {
       if(doc['couchrest-type'] == 'Audio') {
@@ -18,13 +20,6 @@ class Audio < MediaContent
   MAP
 
 
-  before_save_source_attachment do
-    info = Mp3Info.open(@file.path)
-    self.duration = calc_duration(info)
-    @content_type = 'audio/mpeg'
-  end
-
-    
   def albums
     @albums ||= Album.by_albums_by_track(:key => self.id)
   end
