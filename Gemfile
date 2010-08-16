@@ -1,20 +1,20 @@
 source 'http://rubygems.org/'
 
-#git 'git://github.com/rails/rails.git'
-git 'git://github.com/plataformatec/simple_form.git'
-gem 'simple_form'
+git 'git://github.com/plataformatec/simple_form.git' do
+  gem 'simple_form'
+end
 
 #gem 'rails', '~> 3.0.0.beta4'
-gem 'activesupport',     '~> 3.0.0.beta4', :require => 'active_support'
-gem 'activemodel',       '~> 3.0.0.beta4', :require => 'active_model'
-gem 'actionpack',        '~> 3.0.0.beta4', :require => 'action_pack'
-gem 'railties',          '~> 3.0.0.beta4', :require => 'rails'
-gem 'actionmailer',      '~> 3.0.0.beta4', :require => 'action_mailer'
+gem 'activesupport',     '= 3.0.0.rc', :require => 'active_support'
+gem 'activemodel',       '= 3.0.0.rc', :require => 'active_model'
+gem 'actionpack',        '= 3.0.0.rc', :require => 'action_pack'
+gem 'railties',          '= 3.0.0.rc', :require => 'rails'
+gem 'actionmailer',      '= 3.0.0.rc', :require => 'action_mailer'
 
 gem 'validatable'
 
 gem 'mongrel'
-gem 'thin'
+#gem 'thin'
 gem 'hirb'
 gem 'wirble'
 gem 'abstract'
@@ -27,35 +27,58 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'mime-types'
 
 
-git 'git://github.com/josevalim/inherited_resources.git'
-#gem 'inherited_resources',  '~> 1.1.0'
 gem 'couchrest'
 gem 'couchrest_extended_document'
 gem 'couchrest_model'
 gem 'json_pure'
 gem 'rest-client'
-#gem 'fastercsv'
-gem 'will_paginate', :branch => 'rails3', :git => 'http://github.com/mislav/will_paginate.git', :require => 'will_paginate'
+gem 'fastercsv'
+
+git 'http://github.com/mislav/will_paginate.git', :branch => 'rails3' do
+  gem 'will_paginate', :require => 'will_paginate'
+end
 
 source 'http://gems.github.com'
 gem 'i18n'
-gem 'yaroslav-russian', :require => 'russian'
+
+git 'http://github.com/yaroslav/russian.git' do
+  gem 'russian', :require => 'russian'
+end
 
 gem 'tzinfo'
 
-#git 'git://github.com/rspec/rspec.git'
-#git 'git://github.com/rspec/rspec-core.git'
-#git 'git://github.com/rspec/rspec-expectations.git'
-#git 'git://github.com/rspec/rspec-mocks.git'
-#git 'git://github.com/rspec/rspec-rails.git'
+##git 'git://github.com/rspec/rspec.git' do
+##git 'git://github.com/rspec/rspec-core.git'
+##git 'git://github.com/rspec/rspec-expectations.git'
+##git 'git://github.com/rspec/rspec-mocks.git'
+##git 'git://github.com/rspec/rspec-rails.git'
+#
+git 'git://github.com/rtomayko/rack-cache.git' do
+  gem 'rack-cache'
+end
 
-gem 'rack-cache', :git => 'git://github.com/rtomayko/rack-cache.git'
-gem 'dragonfly', :git => 'git://github.com/markevans/dragonfly.git'
-
+git 'git://github.com/markevans/dragonfly.git' do
+  gem 'dragonfly'
+end
+#
 group(:test) do
-  gem "rspec-rails",        :git => "git://github.com/rspec/rspec-rails.git"
-  gem "rspec",              :git => "git://github.com/rspec/rspec.git"
-  gem "rspec-core",         :git => "git://github.com/rspec/rspec-core.git"
-  gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
-  gem "rspec-mocks",        :git => "git://github.com/rspec/rspec-mocks.git"
+  git "git://github.com/rspec/rspec-rails.git" do
+    gem "rspec-rails"
+  end
+
+  git "git://github.com/rspec/rspec.git" do
+    gem "rspec"
+  end
+
+  git "git://github.com/rspec/rspec-core.git" do
+    gem "rspec-core"
+  end
+
+  git "git://github.com/rspec/rspec-expectations.git" do
+    gem "rspec-expectations"
+  end
+
+  git "git://github.com/rspec/rspec-mocks.git" do
+    gem "rspec-mocks"
+  end
 end
