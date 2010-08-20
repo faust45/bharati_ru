@@ -20,4 +20,14 @@ class Author < BaseModel
     }
   JS
 
+  def self.get_by_name_or_create(display_name)
+    authors = by_display_name(:key => display_name)
+
+    unless authors.blank?
+      authors.first
+    else
+      create(:display_name => display_name)
+    end
+  end
+
 end

@@ -1,8 +1,18 @@
 class Admin::AudiosController < Admin::ContentsController
   uses_tiny_mce
+  skip_before_filter :verify_authenticity_token
+  free_actions :upload
 
   def index
     @audios = Audio.all
+    logger.info 'in index cool'
+  end
+
+  def upload
+    audio = Audio.new(:source_file => params['Filedata'])
+    audio.save
+    logger.info audio.inspect
+    render :json => {:redirect_to => edit_admin_audio_path(audio)} 
   end
 
   def create

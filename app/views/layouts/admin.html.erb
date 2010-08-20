@@ -4,10 +4,11 @@
     <%= stylesheet_link_tag 'jquery.autocomplete' %>
     <%= stylesheet_link_tag 'application' %>
     <%= stylesheet_link_tag 'admin' %>
+    <%= stylesheet_link_tag 'uploadify' %>
 
-    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" %>
-    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" %>
-    <%= javascript_include_tag 'rails', 'marks' %>
+    <%= javascript_include_tag "jquery.min.js" %>
+    <%= javascript_include_tag "jquery-ui.min.js" %>
+    <%= javascript_include_tag 'rails', 'marks', 'jquery.uploadify.v2.1.0.js', 'swfobject.js' %>
     <%= javascript_include_tag 'jquery.behavior' %>
     <%= yield :include_js %>
 

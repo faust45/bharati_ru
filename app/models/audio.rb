@@ -1,15 +1,17 @@
 class Audio < MediaContent
 
-  Types = %w(lecture seminar appeal kirtan music)
-
   property :duration
 
   has_attachment :source, :content_type => 'audio/mpeg' do |file|
-    info = Mp3Info.open(file.path)
+    info = Mp3Info.open(file.path, :encoding => 'utf-8')
+    info_tags = info.tag2
+
+    assign_from_tags(info_tags)
     self.duration = calc_duration(info)
   end
 
   has_attachment :photos
+
 
   view_by :album, :map => <<-MAP
     function(doc) {
@@ -20,14 +22,14 @@ class Audio < MediaContent
   MAP
 
 
-  def albums
-    @albums ||= Album.by_albums_by_track(:key => self.id)
-  end
-
   class <<self
     def find_in_album(album_id, position)
       by_album(:key => [album_id.to_s, position.to_i])
     end
+  end
+
+  def albums
+    @albums ||= Album.by_albums_by_track(:key => self.id)
   end
 
   def shared_bookmarks
@@ -39,6 +41,53 @@ class Audio < MediaContent
     bm.audio_id = self.id
     bm
   end
+
+  def assign_from_tags(info)
+    self.assign_title_and_record_date(info['TT2'])
+    self.assign_author(info['TP1'])
+    self.assign_tags(info['TCM'])
+    self.add_to_album(info['TAL'])
+  end  
+
+  protected
+    def assign_author(name)
+      unless name.blank?
+        self.set_author(Author.get_by_name_or_create(name))
+      end
+    end
+
+    def assign_tags(tags)
+      unless tags.blank?
+        tags = tags.split(',')
+        tags = tags.map(&:strip)
+        self.tags = tags unless tags.blank?
+      end
+    end
+
+    def add_to_album(name)
+      unless name.blank?
+        name.strip!
+        name.sub!(/\.$/, '')
+
+        album = Album.get_by_name_or_create(name)
+        album << self
+      end
+    end
+
+    def assign_title_and_record_date(title_and_record_date)
+      unless title_and_record_date.blank?
+        m_date = title_and_record_date.match(/\d{4}\.\d{2}\.\d{2}/)
+        if m_date
+          self.record_date = Date.parse(m_date[0]) 
+          self.title = title_and_record_date.sub(m_date[0], '')
+        else
+          self.title = title_and_record_date
+        end
+
+        self.title.strip!
+        self.title.sub!(/\.$/, '')
+      end
+    end
 
   private
     def calc_duration(info)

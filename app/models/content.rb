@@ -3,7 +3,7 @@ class Content < BaseModel
 
   property :title
   property :content_type
-  property :author, :type => HHash, :default => HHash.new  #name id
+  property :author, :type => HHash, :default => HHash.new #name id
   property :co_authors, :default => []
   property :description
   property :tags,       :default => []
@@ -15,5 +15,12 @@ class Content < BaseModel
   timestamps!
 
   view_by :title
+
+  def set_author(author)
+    unless author.blank?
+      self.author[:id]   = author.id
+      self.author[:name] = author.display_name
+    end
+  end
 
 end

@@ -1,17 +1,10 @@
 require 'spec_helper'
 
-class Audio 
-  use_database TEST_SERVER.default_database
-end
 
-class FileStore
-  TEST_SERVER.default_database = 'test_file_store'
-  use_database TEST_SERVER.default_database
-end
-
-
-describe 'Attachments module' do
+describe 'FileStore' do
   before(:all) do
+    FileStore.use_database TEST_SERVER.database('test_file_store')
+
     dir = Rails.root + 'spec/models/files/'
     @file = File.open(dir + '17_sec.mp3')
     class <<@file 
@@ -20,33 +13,27 @@ describe 'Attachments module' do
       end
     end
 
-    @audio = Audio.create(:title => 'Audio title', :source_file => @file)
+    FileStore.delete_all
   end
 
-  it 'should persist audio' do
-    @audio.should_not be_new
+  it 'should assign content-type audio/mpeg' do
+    content_type = 'audio/mpeg'
+    @doc = FileStore.create(@file, :content_type => content_type)
+    @doc = FileStore.get(@doc.id)
+
+    @doc['_attachments'][@file.original_filename]['content_type'].should be_eql(content_type)
   end
 
-  it 'source_attachments should include original file name' do
-    @audio.source.file_name.should  be_eql(@file.original_filename)
+  it 'should assign content-type image/x-bmp' do
+    content_type = "image/x-bmp"
+    @doc = FileStore.create(@file, :content_type => content_type)
+    @doc = FileStore.get(@doc.id)
+
+    @doc['_attachments'][@file.original_filename]['content_type'].should be_eql(content_type)
   end
 
-  it 'should assign correct duration' do
-    @audio.duration.should be_eql(18 * 1000)
-  end
+end
 
-  it 'should update' do
-    audio = Audio.create(:title => 'Audio title')
-    audio.update_attributes(:source_file => @file)
-    audio = audio.reload
 
-    audio.source.file_name.should  be_eql(@file.original_filename)
-    audio.duration.should be_eql(18 * 1000)
-  end
-
-  it 'should assign content-type' do
-    doc = FileStore.get(@audio.source.doc_id)
-    doc['_attachments'][@audio.source.file_name]['content_type'].should be_eql('audio/mpeg')
-  end
-
+describe 'Attachments module' do
 end

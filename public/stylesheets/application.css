@@ -59,3 +59,12 @@ ul.bookmarks {
 .bm .del {
   visibility:hidden;
 }
+
+#mp3_uploadQueue {
+  width: 100%;
+  float: left;
+}
+
+#img_loader {
+  float: left;
+}

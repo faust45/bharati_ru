@@ -19,13 +19,8 @@ module ApplicationHelper
     link_to image_tag('del.png'), url, options
   end
 
-  def g_link_to_del(url, options = {})
-    options[:method] ||= :delete
-    link_to image_tag('del.png'), url, options
-  end
-
   def link_to_edit(url, options = {})
-    link_to(image_tag('edit.jpg', :width => '20', :height => '20'), url)
+    link_to(image_tag('edit.jpg', :width => '20', :height => '20'), url, options)
   end
 
 end

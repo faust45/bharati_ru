@@ -1,6 +1,8 @@
 module SimpleForm
   module Inputs
     class AlbumsInput < StringInput
+      #include ActionView::Helpers::TagHelper
+      #include ActionView::Helpers::CaptureHelper
 
       def input
         return if object.new?
@@ -12,9 +14,11 @@ module SimpleForm
         albums = Album.all.map do |a|
           album_id = a['_id']
           cclass = 'selected' if selected_albums.include?(a)
-          template.content_tag(:li, a.title, :class => cclass, 
-                                             'data-add-url' => add_url.call(album_id),
-                                             'data-del-url' => del_url.call(album_id))
+          link_to_album = template.link_to_edit(template.edit_admin_album_path(a), :target => "_blank")
+          template.content_tag(:li, :class => cclass, 'data-add-url' => add_url.call(album_id), 'data-del-url' => del_url.call(album_id)) do
+            (template.content_tag(:span, a.title) + link_to_album).html_safe
+          end
+          
         end
 
         template.content_tag(:ul, albums.join.html_safe, :class => 'albums')

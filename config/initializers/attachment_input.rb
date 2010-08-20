@@ -2,7 +2,7 @@ module SimpleForm
   module Inputs
     class AttachmentInput < Base
       def input
-        @builder.file_field(attribute_name, input_html_options)
+        @builder.file_field("#{attribute_name}_file", input_html_options)
       end
 
       def components_list
@@ -11,24 +11,22 @@ module SimpleForm
 
       def attachments
         attach_content = ''
-        attachments = object.send("#{attribute_name}_attachments")
+        attachments = object.send("#{attribute_name}")
 
         if options[:img]
-          attachments.each do |file|
-            attach_url = object.attachment_url(file)
-            del_url = template.send(:admin_contents_delete_file_path, object.id, :attach => file)
+          attachments.each do |attach|
+            del_url = template.send(:admin_contents_delete_file_path, object.id, :attach => attach.doc_id)
 
-            attach_content << template.image_tag(attach_url)
+            attach_content << template.image_tag(attach.url)
             attach_content << template.link_to('del', del_url, :remote => true)
           end
         else
-          attachments.each do |file|
-            attach_url = object.attachment_url(file)
-            del_url = template.send(:admin_contents_delete_file_path, object.id, :attach => file)
+          [attachments].flatten.each do |attach|
+            del_url = template.send(:admin_contents_delete_file_path, object.id, :attach => attach.doc_id)
 
-            attach_content << template.link_to(file, attach_url)
+            attach_content << template.link_to(attach.file_name, attach.url)
             attach_content << '&nbsp;'
-            attach_content << template.link_to('del', del_url, :remote => true)
+            attach_content << template.link_to(template.image_tag('/images/cancel.png'), del_url, :remote => true)
           end
         end
 

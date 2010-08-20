@@ -10,7 +10,6 @@
 <%= simple_form_for [:admin, form_adapter], :url => url, :html => {:multipart => true, :method => form_method} do |f| %>
   <%= f.input :is_published, :as => :boolean, :label_wrap => false %>
   <%= f.input :title %>
-  <%= f.input :content_type, :collection => ContentFormAdapter::Types, :value_method => :first, :label_method => :last %>
   <%= f.input :author,       :as => :autocomplete %>
   <%= f.input :record_place, :as => :autocomplete %>
   <%= f.input :record_date,  :as => :date, :include_blank => true, :start_year => 1900 %>

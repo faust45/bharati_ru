@@ -13,7 +13,8 @@ function AlbumsBehavior(element, config) {
   var element = $(element);
 
   var elClass = element.attr('class');
-  var title   = element.html();
+  var title   = element.find('span').html();
+  var img     = element.find('a');
   var addUrl = element.attr('data-add-url');
   var delUrl = element.attr('data-del-url');
 
@@ -28,8 +29,9 @@ function AlbumsBehavior(element, config) {
   label.append(checkbox);
   label.append(title);
   element.html(label);
+  element.append(img);
 
-  element.click(function() {
+  label.click(function() {
     var isChecked = checkbox.attr('checked');
 
     if (isChecked) {

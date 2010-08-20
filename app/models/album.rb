@@ -11,6 +11,8 @@ class Album < BaseModel
   has_attachment :cover
 
 
+  view_by :title
+
   view_by :traks_by_album, :map => <<-MAP
     function(doc) {
       if(doc['couchrest-type'] == 'Album') {
@@ -45,6 +47,16 @@ class Album < BaseModel
     }
   JS
 
+
+  def self.get_by_name_or_create(album_name)
+    album = by_title(:key => album_name)
+
+    unless album.blank?
+      album.first
+    else
+      create(:title => album_name)
+    end
+  end
 
   def get_tracks
     self.class.by_traks_by_album(:startkey => [self.id], :endkey => [self.id, {}])

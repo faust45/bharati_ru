@@ -1,3 +1,30 @@
-<%= title 'Create audio' %>
+<%= title 'Upload audio' %>
 
-<%= render :partial => 'form', :locals => {:url => admin_audios_path, :form_method => :post} %>
+<div>
+  <input id="mp3_upload" name="fileInput" type="file" />
+  <img id="img_loader" src="/images/ajax-loader.gif" class="hide" />
+</div>
+
+<script type="text/javascript"> 
+  $(document).ready(function() { 
+    $('#mp3_upload').uploadify({ 
+      'uploader':  '/uploadify.swf', 
+      'script':    '<%= admin_audios_upload_path %>', 
+      'folder':    '/path/to/uploads-folder', 
+      'cancelImg': '/images/cancel.png',
+      'multi':     false,
+      'auto': true,
+      'onComplete': function(event, queueID, fileObj, response, data) {
+        $("#img_loader").addClass('hide')
+
+        var resp = eval('('+response+')');
+        window.location = resp.redirect_to;
+      },
+      'onProgress': function(event, queueID, fileObj, data) {
+        if(data.percentage == 100) {
+          $("#img_loader").removeClass('hide')
+        }
+      }
+    }); 
+  }); 
+</script> 

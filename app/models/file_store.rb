@@ -15,7 +15,7 @@ class FileStore < BaseModel
 
     options_for_attachment = {}
     if options[:content_type]
-      options_for_attachment['Content-Type'] = options[:content_type]
+      options_for_attachment[:content_type]  = options[:content_type]
     end
 
     doc = super(options_for_doc)

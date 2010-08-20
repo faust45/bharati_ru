@@ -25,6 +25,8 @@ module Attachments
       end
 
       before_save do
+        p 'in before save'
+        p self['_id']
         file = send(file_source)
 
         unless file.blank?
@@ -36,6 +38,8 @@ module Attachments
           if block_given?
             block.bind(self).call(file)
           end
+
+          #self.save_without_callbacks
         end
       end
     end

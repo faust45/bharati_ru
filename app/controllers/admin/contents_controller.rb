@@ -1,4 +1,5 @@
 class Admin::ContentsController < AdminController
+  include Admin::AudiosHelper
 
   def new
     @content = model.new
@@ -6,6 +7,7 @@ class Admin::ContentsController < AdminController
 
   def destroy
     content.destroy
+    redirect_to index_action
   end
 
   def delete_file
