@@ -81,4 +81,6 @@ group(:test) do
   git "git://github.com/rspec/rspec-mocks.git" do
     gem "rspec-mocks"
   end
+
+  gem 'flexmock'
 end
