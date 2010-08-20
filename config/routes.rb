@@ -107,6 +107,12 @@ MahaMandala::Application.routes.draw do |map|
     resources :audios do
     end
 
+    controller :audios do
+      scope '/audios' do
+        match 'upload', :to => :upload
+      end
+    end
+
     controller :contents do
       scope '/contents' do
         match ':id/delete_file', :to => :delete_file, :as => :contents_delete_file
