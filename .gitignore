@@ -1,3 +1,4 @@
+*.swm
 Gemfile.lock
 .swm
 .swn
