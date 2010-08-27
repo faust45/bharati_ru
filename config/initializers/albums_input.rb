@@ -18,7 +18,6 @@ module SimpleForm
           template.content_tag(:li, :class => cclass, 'data-add-url' => add_url.call(album_id), 'data-del-url' => del_url.call(album_id)) do
             (template.content_tag(:span, a.title) + link_to_album).html_safe
           end
-          
         end
 
         template.content_tag(:ul, albums.join.html_safe, :class => 'albums')

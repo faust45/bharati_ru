@@ -4,32 +4,35 @@ class Audio < MediaContent
 
   has_attachment :source, :content_type => 'audio/mpeg' do |file|
     info = Mp3Info.open(file.path, :encoding => 'utf-8')
-    info_tags = info.tag2
 
-    assign_from_tags(info_tags)
+    @is_need_update_info ||= true
+    if @is_need_update_info
+      info_tags = info.tag2
+      assign_from_tags(info_tags)
+    end
+
     self.duration = calc_duration(info)
   end
 
   has_attachment :photos
 
 
-  view_by :album, :map => <<-MAP
-    function(doc) {
-      if(doc['couchrest-type'] == 'Audio') {
-        emit(doc['_id'], {'_id': doc.author.id});
-      }
-    }
-  MAP
-
-
-  class <<self
-    def find_in_album(album_id, position)
-      by_album(:key => [album_id.to_s, position.to_i])
-    end
-  end
-
   def albums
     @albums ||= Album.by_albums_by_track(:key => self.id)
+  end
+
+  def source_replace(file, is_need_update_info = false)
+    @is_need_update_info = is_need_update_info
+    source_delete
+    update_attributes(:source_file => file)
+  end
+
+  def source_delete
+    source_id = source.doc_id
+    source.delete
+    source_attachments.reject!{|el|
+      el.doc_id == source_id
+    }
   end
 
   def shared_bookmarks

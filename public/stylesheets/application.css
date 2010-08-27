@@ -1,4 +1,4 @@
-div.string, .file, .autocomplete, .date, .email, .select, .attachment, .password, .tags_autocomplete, .marks_autocomplete {
+div.string, .text, .mp3_attachment, .file, .autocomplete, .date, .email, .select, .attachment, .password, .tags_autocomplete, .marks_autocomplete {
   margin: 1em 0 0 0;
 }
 

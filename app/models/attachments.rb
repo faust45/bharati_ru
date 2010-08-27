@@ -25,8 +25,6 @@ module Attachments
       end
 
       before_save do
-        p 'in before save'
-        p self['_id']
         file = send(file_source)
 
         unless file.blank?

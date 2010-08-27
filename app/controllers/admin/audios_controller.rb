@@ -1,7 +1,7 @@
 class Admin::AudiosController < Admin::ContentsController
   uses_tiny_mce
   skip_before_filter :verify_authenticity_token
-  free_actions :upload
+  free_actions :upload, :replace_source
 
   def index
     @audios = Audio.all
@@ -13,6 +13,16 @@ class Admin::AudiosController < Admin::ContentsController
     audio.save
     logger.info audio.inspect
     render :json => {:redirect_to => edit_admin_audio_path(audio)} 
+  end
+
+  def replace_source
+    is_need_update_info = params['need_update_info']
+    is_need_update_info = is_need_update_info == 'true' ? true : false
+
+    audio = Audio.get(params[:id])
+    audio.source_replace(params['Filedata'], is_need_update_info)
+
+    render :json => audio.source 
   end
 
   def create

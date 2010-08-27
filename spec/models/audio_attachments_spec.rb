@@ -234,3 +234,55 @@ describe 'Audio mp3 attachments tags' do
   end
 
 end
+
+
+describe 'Audio mp3 attachments replace' do
+  before(:all) do
+    FileStore.use_database TEST_SERVER.database('test_file_store')
+    Audio.use_database TEST_SERVER.database('test_audio')
+
+    dir = Rails.root + 'spec/models/files/'
+    @file = File.open(dir + '17_sec.mp3')
+    def @file.original_filename
+      '17_sec.mp3'
+    end
+
+    @new_file = File.open(dir + '20_sec.mp3')
+    def @new_file.original_filename
+      '20_sec.mp3'
+    end
+
+    FileStore.delete_all
+    Audio.delete_all
+
+    flexmock(Audio).new_instances do |m|
+      m.should_receive(:assign_from_tags)
+    end
+    
+    @audio = Audio.create(:title => 'Audio title', :source_file => @file)
+  end
+
+  before(:each) do
+    flexmock(Audio).new_instances do |m|
+      m.should_receive(:assign_from_tags)
+    end
+  end
+
+  it 'should persist audio' do
+    @audio.should_not be_new
+  end
+
+  it 'should delete old attachment' do
+    flexmock(@audio).should_receive(:update_attributes)
+    @audio.source_replace(@new_file)
+
+    @audio.source_attachments.should be_empty
+  end
+
+  it 'should have new attachment' do
+    @audio.source_replace(@new_file)
+
+    @audio.source_attachments.first.file_name = @new_file.original_filename
+  end
+
+end

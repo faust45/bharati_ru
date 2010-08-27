@@ -110,6 +110,7 @@ MahaMandala::Application.routes.draw do |map|
     controller :audios do
       scope '/audios' do
         match 'upload', :to => :upload
+        match ':id/replace_source', :to => :replace_source, :as => 'audio_replace_source'
       end
     end
 

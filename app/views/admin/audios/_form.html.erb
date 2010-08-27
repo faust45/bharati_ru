@@ -1,7 +1,7 @@
 <%= include_js('application', 'app_autocomplete', 
                'jquery.autocomplete', 'jquery.ui.autocomplete.ext', 
                'jquery.templating', 'jquery.dimensions', 
-               'prettify/prettify', 'jcalendar-source', 'edit_albums') %>
+               'prettify/prettify', 'jcalendar-source', 'edit_albums', 'replace_mp3') %>
 <% content_for(:include_js) do %>
   <%= include_tiny_mce_js %>
 <% end %>
@@ -17,7 +17,7 @@
   <%= f.input :albums, :as => :albums %>
   <%= f.input :tags,   :as => :tags_autocomplete  %>
 
-  <%= f.input :source, :as => :attachment %>
+  <%= f.input :source, :as => :mp3_attachment %>
   
   <%= f.input :description, :as => :text, :input_html => { :class => 'mceEditor', :cols => 70 } %>
   <%= f.submit 'save' %>

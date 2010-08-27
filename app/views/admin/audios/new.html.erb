@@ -3,6 +3,7 @@
 <div>
   <input id="mp3_upload" name="fileInput" type="file" />
   <img id="img_loader" src="/images/ajax-loader.gif" class="hide" />
+  <a href="javascript:$('#mp3_upload').uploadifyUpload();">Upload Files</a>
 </div>
 
 <script type="text/javascript"> 
@@ -12,9 +13,9 @@
       'script':    '<%= admin_audios_upload_path %>', 
       'folder':    '/path/to/uploads-folder', 
       'cancelImg': '/images/cancel.png',
-      'multi':     false,
-      'auto': true,
-      'onComplete': function(event, queueID, fileObj, response, data) {
+      'multi':     true,
+      'auto': false,
+      'onAllComplete': function(event, queueID, fileObj, response, data) {
         $("#img_loader").addClass('hide')
 
         var resp = eval('('+response+')');
@@ -22,7 +23,7 @@
       },
       'onProgress': function(event, queueID, fileObj, data) {
         if(data.percentage == 100) {
-          $("#img_loader").removeClass('hide')
+          //$("#img_loader").removeClass('hide')
         }
       }
     }); 
