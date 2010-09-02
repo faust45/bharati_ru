@@ -1,28 +1,17 @@
 class FileStore < BaseModel
   use_db 'file_store'
 
-  attr_accessor :file_name
+  attr_accessor :file
+
+  property :file_name
 
   class FileSaveIsFail < Exception; end
 
+  before_save :assign_meta_info
+  after_save  :assign_attachment
+
   def self.create(file, options = {})
-    file_name = Russian::translit(file.original_filename)
-
-    options_for_doc = {}
-    if options[:type]
-      options_for_doc[:type] = options[:type] 
-    end
-
-    options_for_attachment = {}
-    if options[:content_type]
-      options_for_attachment[:content_type]  = options[:content_type]
-    end
-
-    doc = super(options_for_doc)
-    doc.put_attachment(file_name, file.read, options_for_attachment)
-    doc.file_name = file_name
-
-    doc
+    super({:file => file})
   end
 
   def self.create!(file, options = {})
@@ -32,4 +21,36 @@ class FileStore < BaseModel
     doc
   end
 
+  #replace only attachment
+  def replace(new_file, options = {})
+    unless self['_attachments'].blank?
+      old_file_name = self['_attachments'].keys.first
+      delete_attachment(old_file_name)
+
+      new_file_name = prepare_file_name(new_file)
+
+      put_attachment(new_file_name, new_file.read, options_for_attachment)
+    end
+  end
+
+  private
+    #Can be implement by concret class
+    def assign_meta_info
+      self.file_name = prepare_file_name
+    end
+
+    def assign_attachment
+      options_for_attachment = {}
+      assign_content_type(options_for_attachment)
+
+      put_attachment(self.file_name, file.read, options_for_attachment)
+    end
+
+    def prepare_file_name
+      Russian::translit(file.original_filename)
+    end
+  
+    def assign_content_type(options)
+      options[:content_type] ||= MIME::Types.type_for(file.original_filename).last.content_type
+    end
 end

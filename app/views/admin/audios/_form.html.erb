@@ -15,9 +15,10 @@
   <%= f.input :record_date,  :as => :date, :include_blank => true, :start_year => 1900 %>
 
   <%= f.input :albums, :as => :albums %>
-  <%= f.input :tags,   :as => :tags_autocomplete  %>
+  <%= f.input :tags,   :as => :tags_autocomplete %>
 
   <%= f.input :source, :as => :mp3_attachment %>
+  <%#= f.input :photos, :as => :img_attachment %>
   
   <%= f.input :description, :as => :text, :input_html => { :class => 'mceEditor', :cols => 70 } %>
   <%= f.submit 'save' %>

@@ -1,29 +1,48 @@
-<%= title 'Upload audio' %>
+<div id="container_upload">
+  <div id="go_upload" class="hide">
+    <a href=javascript:$('#mp3_upload').uploadifyUpload();>Начать загрузку</a>
+  </div>
 
-<div>
   <input id="mp3_upload" name="fileInput" type="file" />
   <img id="img_loader" src="/images/ajax-loader.gif" class="hide" />
-  <a href="javascript:$('#mp3_upload').uploadifyUpload();">Upload Files</a>
+  
 </div>
 
 <script type="text/javascript"> 
   $(document).ready(function() { 
     $('#mp3_upload').uploadify({ 
-      'uploader':  '/uploadify.swf', 
-      'script':    '<%= admin_audios_upload_path %>', 
-      'folder':    '/path/to/uploads-folder', 
-      'cancelImg': '/images/cancel.png',
-      'multi':     true,
-      'auto': false,
-      'onAllComplete': function(event, queueID, fileObj, response, data) {
+      uploader:  '/uploadify.swf', 
+      script:    '<%= admin_audios_upload_path %>', 
+      folder:    '/path/to/uploads-folder', 
+      cancelImg: '/images/cancel.png',
+      width: 350,
+      height: 150,
+      buttonImg: '/images/upload.png',
+      buttonText: '',
+      fileExt: '*.mp3',
+      fileDesc: 'Only *.mp3 allow',
+      multi:     true,
+      auto: false,
+      onAllComplete: function(event, queueID, fileObj, response, data) {
         $("#img_loader").addClass('hide')
 
         var resp = eval('('+response+')');
         window.location = resp.redirect_to;
       },
-      'onProgress': function(event, queueID, fileObj, data) {
+      onProgress: function(event, queueID, fileObj, data) {
         if(data.percentage == 100) {
           //$("#img_loader").removeClass('hide')
+        }
+      },
+      onSelectOnce: function(event, data) {
+        $('#go_upload').removeClass('hide');
+      },
+      onClearQueue: function(event, data) {
+        $('#go_upload').addClass('hide');
+      },
+      onCancel: function(event, queueID, fileObj, data) {
+        if(data.fileCount == 0) {
+          $('#go_upload').addClass('hide');
         }
       }
     }); 

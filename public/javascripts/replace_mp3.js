@@ -28,7 +28,10 @@ function Mp3Attachment(element, config) {
     cancelImg: '/images/cancel.png',
     multi:     false,
     auto:      false,
-    buttonText: 'Replace',
+    width: 150,
+    height: 50,
+    buttonImg: '/images/replace.png',
+    buttonText: '',
     fileExt: '*.mp3',
     fileDesc: 'Only *.mp3 allow',
     onSelect: function(event, queueID, fileObj) {
@@ -56,7 +59,7 @@ function buildControlDiv() {
   var newDiv = $("<div />");
   var checkBox = $("<input type='checkbox' />");
   var label = $("<label />");
-  var linkToUpload = $("<a href='#'>Go</a>");
+  var linkToUpload = $("<a href='#'>Залить</a>");
 
   label.append(checkBox);
   label.append("зменить теги");

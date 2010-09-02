@@ -18,9 +18,8 @@ module SimpleForm
         attachment = object.send("#{attribute_name}")
 
         content.safe_concat link_to(attachment.file_name, attachment.url, :class => 'download')
-        content.safe_concat '&nbsp&nbsp'
-        content.safe_concat link_to(image_tag('/images/cancel.png'), '', :class => 'delete')
-        content.safe_concat '&nbsp&nbsp'
+        content.safe_concat '<br />'
+        content.safe_concat link_to(image_tag('/images/delete.png'), '', :class => 'delete', :confirm => 'Вы действительно хотите удалить фаил?')
         content.safe_concat @builder.file_field("#{attribute_name}_file", input_html_options)
 
         content_tag(:div, content, :id => 'attachments')
