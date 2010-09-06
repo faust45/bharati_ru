@@ -1,5 +1,5 @@
 class Admin::VideosController < Admin::ContentsController
-  uses_tiny_mce 
+  #uses_tiny_mce 
 
   def index
     @videos = Video.all

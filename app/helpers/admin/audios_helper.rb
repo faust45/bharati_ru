@@ -16,6 +16,10 @@ module Admin::AudiosHelper
     centers_autocomplete_path
   end
 
+  def author_autocomplete_path
+    autocomplete_admin_authors_path
+  end
+
   def index_action
     admin_audios_path
   end

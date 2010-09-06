@@ -2,7 +2,7 @@ class Video < MediaContent
 
   Types = %w(lecture seminar appeal kirtan)
 
-  has_attachment :source
+  #has_attachment :source
 
   view_by :tag, :map => <<-MAP
     function(doc) {

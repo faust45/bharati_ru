@@ -8,7 +8,7 @@ class FileStore < BaseModel
   class FileSaveIsFail < Exception; end
 
   before_save :assign_meta_info
-  after_save  :assign_attachment
+  after_save  :put_attachment_directly
 
   def self.create(file, options = {})
     super({:file => file})
@@ -22,16 +22,16 @@ class FileStore < BaseModel
   end
 
   #replace only attachment
-  def replace(new_file, options = {})
-    unless self['_attachments'].blank?
-      old_file_name = self['_attachments'].keys.first
-      delete_attachment(old_file_name)
+  #def replace(new_file, options = {})
+  #  unless self['_attachments'].blank?
+  #    old_file_name = self['_attachments'].keys.first
+  #    delete_attachment(old_file_name)
 
-      new_file_name = prepare_file_name(new_file)
+  #    new_file_name = prepare_file_name(new_file)
 
-      put_attachment(new_file_name, new_file.read, options_for_attachment)
-    end
-  end
+  #    put_attachment(new_file_name, new_file.read, options_for_attachment)
+  #  end
+  #end
 
   private
     #Can be implement by concret class
@@ -39,7 +39,7 @@ class FileStore < BaseModel
       self.file_name = prepare_file_name
     end
 
-    def assign_attachment
+    def put_attachment_directly
       options_for_attachment = {}
       assign_content_type(options_for_attachment)
 

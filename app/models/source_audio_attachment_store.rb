@@ -1,5 +1,6 @@
 class SourceAudioAttachmentStore < FileStore
 
+  property :title
   property :author_name
   property :album_name
   property :record_date, Date
@@ -7,7 +8,7 @@ class SourceAudioAttachmentStore < FileStore
   property :duration
 
 
-  private
+  protected 
     def assign_meta_info
       super
 

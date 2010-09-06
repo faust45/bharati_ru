@@ -13,7 +13,7 @@ class Center < BaseModel
   property :web
   property :description
 
-  has_attachment :photo
+  #has_attachment :photo
 
   view_by :country
 

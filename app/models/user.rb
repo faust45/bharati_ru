@@ -10,7 +10,7 @@ class User < BaseModel
 
   view_by :login
 
-  has_attachment :photo
+  #has_attachment :photo
 
   def can_add_bookmark?(bm)
     !is_owner?(bm)

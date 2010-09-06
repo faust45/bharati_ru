@@ -12,27 +12,27 @@ module Attachments
 
       property attachment_collection_name, [SingleAttachment], :default => []
       attr_accessor file_source
+      attr_accessor "#{attr_name}_doc" 
+
+      callback_method = "save_#{attachment_collection_name.singularize}"
+      define_model_callbacks callback_method, :only => :after
 
       define_method attr_name do
         collection = send(attachment_collection_name)
         collection.first
       end
 
-      after_create do
-        file = send(file_source)
+      before_save do
+        send("_run_#{callback_method}_callbacks") do
+          file = send(file_source)
 
-        unless file.blank?
-          send("#{file_source}=", nil)
-          doc = store_class.create!(file, options)
+          unless file.blank?
+            doc = store_class.create!(file, options)
+            send("#{attr_name}_doc=", doc)
 
-          collection = send(attachment_collection_name)
-          collection << {:doc_id => doc.id, :file_name => doc.file_name}
-        end
-
-        if store_class.has_meta_info?
-          attach = self.send(attr_name)
-          doc = store_class.get(attach.doc_id)
-          self.assign_meta_info(doc)
+            collection = send(attachment_collection_name)
+            collection << {:doc_id => doc.id, :file_name => doc.file_name}
+          end
         end
       end
     end

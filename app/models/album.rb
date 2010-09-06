@@ -8,7 +8,7 @@ class Album < BaseModel
   property :sort_type, :default => :by_date
   property :tracks, [], :default => []
 
-  has_attachment :cover
+  #has_attachment :cover
 
 
   view_by :title
@@ -48,7 +48,7 @@ class Album < BaseModel
   JS
 
 
-  def self.get_by_name_or_create(album_name)
+  def self.get_by_title_or_create(album_name)
     album = by_title(:key => album_name)
 
     unless album.blank?

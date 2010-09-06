@@ -1,5 +1,5 @@
 class Admin::AudiosController < Admin::ContentsController
-  uses_tiny_mce
+  #uses_tiny_mce
   skip_before_filter :verify_authenticity_token
   free_actions :upload, :replace_source
 
