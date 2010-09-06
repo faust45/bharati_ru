@@ -4,12 +4,11 @@ git 'git://github.com/plataformatec/simple_form.git' do
   gem 'simple_form'
 end
 
-#gem 'rails', '~> 3.0.0.beta4'
-gem 'activesupport',     '= 3.0.0.rc', :require => 'active_support'
-gem 'activemodel',       '= 3.0.0.rc', :require => 'active_model'
-gem 'actionpack',        '= 3.0.0.rc', :require => 'action_pack'
-gem 'railties',          '= 3.0.0.rc', :require => 'rails'
-gem 'actionmailer',      '= 3.0.0.rc', :require => 'action_mailer'
+gem 'activesupport',     '= 3.0.0', :require => 'active_support'
+gem 'activemodel',       '= 3.0.0', :require => 'active_model'
+gem 'actionpack',        '= 3.0.0', :require => 'action_pack'
+gem 'railties',          '= 3.0.0', :require => 'rails'
+gem 'actionmailer',      '= 3.0.0', :require => 'action_mailer'
 
 gem 'validatable'
 
