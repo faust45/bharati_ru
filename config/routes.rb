@@ -1,4 +1,4 @@
-MahaMandala::Application.routes.draw do |map|
+MahaMandala::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -78,18 +78,6 @@ MahaMandala::Application.routes.draw do |map|
     end
   end
 
-  controller 'admin/authors' do
-    scope '/author' do
-      match 'autocomplete', :to => :autocomplete
-    end
-  end
-
-  controller 'admin/centers' do
-    scope '/centers' do
-      match 'autocomplete', :to => :autocomplete
-    end
-  end
-
   controller 'admin/albums' do
     match 'admin/albums/:id/add_track/:track_id', :to => :add_track, :as => :album_add_track
     match 'admin/albums/:id/del_track/:track_id', :to => :del_track, :as => :album_del_track
@@ -124,9 +112,13 @@ MahaMandala::Application.routes.draw do |map|
       scope :as => 'centers' do
         match ':id/delete_file', :to => :delete_file, :as => :delete_file
       end
+
     end
 
     resources :authors do
+      collection do
+        get 'autocomplete'
+      end
     end
 
     controller :authors do
