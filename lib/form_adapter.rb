@@ -10,4 +10,8 @@ class FormAdapter
     content.send(method, *args)
   end
 
+  def respond_to?(method)
+    super(method) || content.respond_to?(method)
+  end
+
 end
