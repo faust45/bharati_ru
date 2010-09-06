@@ -14,8 +14,10 @@ module Attachments
       attr_accessor file_source
       attr_accessor "#{attr_name}_doc" 
 
-      callback_method = "save_#{attachment_collection_name.singularize}"
-      define_model_callbacks callback_method, :only => :after
+      callback_create_method = "create_#{attachment_collection_name.singularize}"
+      callback_replace_method = "replace_#{attachment_collection_name.singularize}"
+      define_model_callbacks callback_create_method,  :only => :after
+      define_model_callbacks callback_replace_method, :only => :after
 
       define_method attr_name do
         collection = send(attachment_collection_name)
@@ -23,15 +25,25 @@ module Attachments
       end
 
       before_save do
-        send("_run_#{callback_method}_callbacks") do
-          file = send(file_source)
+        file = send(file_source)
 
-          unless file.blank?
-            doc = store_class.create!(file, options)
-            send("#{attr_name}_doc=", doc)
+        unless file.blank?
+          unless send(attr_name).blank?
+            #replace attachment
+            send("_run_#{callback_replace_method}_callbacks") do
+              doc = store_class.get(send(attr_name).doc_id)
+              doc.replace(file)
+              send("#{attr_name}_doc=", doc)
+            end
+          else
+            #create new attachment
+            send("_run_#{callback_create_method}_callbacks") do
+              doc = store_class.create!(file, options)
+              send("#{attr_name}_doc=", doc)
 
-            collection = send(attachment_collection_name)
-            collection << {:doc_id => doc.id, :file_name => doc.file_name}
+              collection = send(attachment_collection_name)
+              collection << {:doc_id => doc.id, :file_name => doc.file_name}
+            end
           end
         end
       end

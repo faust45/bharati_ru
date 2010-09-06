@@ -4,6 +4,7 @@ class FileStore < BaseModel
   attr_accessor :file
 
   property :file_name
+  property :upload_at, Time
 
   class FileSaveIsFail < Exception; end
 
@@ -22,16 +23,12 @@ class FileStore < BaseModel
   end
 
   #replace only attachment
-  #def replace(new_file, options = {})
-  #  unless self['_attachments'].blank?
-  #    old_file_name = self['_attachments'].keys.first
-  #    delete_attachment(old_file_name)
-
-  #    new_file_name = prepare_file_name(new_file)
-
-  #    put_attachment(new_file_name, new_file.read, options_for_attachment)
-  #  end
-  #end
+  def replace(new_file, options = {})
+    unless self['_attachments'].blank?
+      delete_attachment(self.file_name)
+      update_attributes(:file => new_file)
+    end
+  end
 
   private
     #Can be implement by concret class

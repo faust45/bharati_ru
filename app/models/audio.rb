@@ -3,30 +3,25 @@ class Audio < MediaContent
   property :duration
 
   has_attachment :source, SourceAudioAttachmentStore
-  #has_attachments :photos
 
-  after_save_source_attachment :assign_meta_info
+  after_create_source_attachment  :assign_meta_info
+  after_replace_source_attachment :assign_meta_info, :if => :is_source_need_update_meta_info?
 
 
   def albums
     @albums ||= Album.by_albums_by_track(:key => self.id)
   end
 
-  def source_replace(file, is_need_update_info = false)
-    @is_need_update_info = is_need_update_info
-    source_delete
-    update_attributes(:source_file => file)
-  end
-
-  def source_delete
-    source_id = source.doc_id
-    source.delete_attachment()
-    source_attachments.reject!{|el|
-      el.doc_id == source_id
-    }
+  def source_replace(new_file, is_need_update_info = false)
+    @is_source_need_update_info = is_need_update_info
+    update_attributes(:source_file => new_file)
   end
 
   private
+    def is_source_need_update_meta_info?
+      @is_source_need_update_info ||= true
+    end
+
     def assign_meta_info
       self.title = source_doc.title
       self.record_date = source_doc.record_date

@@ -78,7 +78,7 @@ describe 'SourceAudioAttachmentStore' do
     FileStore.delete_all
 
     flexmock(SourceAudioAttachmentStore).new_instances do |m|
-      m.should_receive(:put_attachment)
+      #m.should_receive(:put_attachment)
     end
   end
 
@@ -158,6 +158,65 @@ describe 'SourceAudioAttachmentStore' do
 end
 
 
+describe 'SourceAudioAttachmentStore replace' do
+  # @file_new has tags:
+  #   title:  'Roberto Song true. 2010.10.03.'
+  #   artist: 'Solo'
+  #   album:  'Pointer test'
+  #   composer(tags): 'Cool, Street, View'
+  #
+  #
+  
+  before(:all) do
+    FileStore.use_database TEST_SERVER.database('test_file_store')
+
+    dir = Rails.root + 'spec/models/files/'
+    @file = File.open(dir + '17_sec.mp3')
+    class <<@file 
+      def original_filename
+        '17_sec.mp3'
+      end
+    end
+
+    @file_new = File.open(dir + '20_sec.mp3')
+    class <<@file_new
+      def original_filename
+        '20_sec.mp3'
+      end
+    end
+
+    FileStore.delete_all
+    @attach = SourceAudioAttachmentStore.create(@file)
+    @attach = SourceAudioAttachmentStore.get(@attach.id)
+    @attach.replace(@file_new)
+  end
+
+  before(:each) do
+  end
+
+  it 'should assign new title' do
+    @attach.title.should be_eql('Roberto Song true. ')
+  end
+
+  it 'should assign new author_name' do
+    @attach.author_name.should be_eql('Solo')
+  end
+
+  it 'should assign new album_name' do
+    @attach.album_name.should be_eql('Pointer test')
+  end
+
+  it 'should assign new record_date' do
+    @attach.record_date.should be_eql(Date.parse('2010.10.03'))
+  end
+
+  it 'should assign new tags' do
+    @attach.tags.should include('Cool', 'Street', 'View')
+  end
+
+end
+
+
 describe 'Audio create' do
   # @file has tags:
   #   title:  'O забавах. 2010.10.03'
@@ -187,7 +246,7 @@ describe 'Audio create' do
     Album.delete_all
 
     flexmock(SourceAudioAttachmentStore).new_instances do |m|
-      m.should_receive(:put_attachment)
+      #m.should_receive(:put_attachment)
     end
   end
 
@@ -267,5 +326,77 @@ describe 'Audio create' do
     album = Album.first
     album.tracks.should include(audio.id)
   end
+
+end
+
+
+describe 'Audio replace attachment' do
+  # @file_new has tags:
+  #   title:  'Roberto Song true. 2010.10.03.'
+  #   artist: 'Solo'
+  #   album:  'Pointer test'
+  #   composer(tags): 'Cool, Street, View'
+  #
+  #
+ 
+  before(:all) do
+    FileStore.use_database TEST_SERVER.database('test_file_store')
+    Audio.use_database TEST_SERVER.database('test_audio')
+    Album.use_database TEST_SERVER.database('test_audio')
+    Author.use_database TEST_SERVER.database('test_author')
+
+    dir = Rails.root + 'spec/models/files/'
+    @file = File.open(dir + '17_sec.mp3')
+    class <<@file 
+      def original_filename
+        '17_sec.mp3'
+      end
+    end
+
+    @file_new = File.open(dir + '20_sec.mp3')
+    class <<@file_new
+      def original_filename
+        '20_sec.mp3'
+      end
+    end
+
+    FileStore.delete_all
+    Audio.delete_all
+    Author.delete_all
+    Album.delete_all
+
+    @audio = Audio.create(:source_file => @file)
+    @audio.source_replace(@file_new, true)
+  end
+
+  before(:each) do
+  end
+
+  it 'should assign title' do
+    @audio.title.should be_eql('Roberto Song true. ')
+  end
+
+  it 'should assign new author_name' do
+    @audio.author.name.should be_eql('Solo')
+  end
+
+  it 'should create new album' do
+    album = Album.by_title(:key => 'Pointer test')
+    album.should_not be_blank
+  end
+
+  it 'new album should include track' do
+    album = Album.first
+    album.tracks.should include(@audio.id)
+  end
+
+  it 'should assign new record_date' do
+    @audio.record_date.should be_eql(Date.parse('2010.10.03'))
+  end
+
+  it 'should assign new tags' do
+    #@audio.tags.should include('Cool', 'Street', 'View')
+  end
+
 
 end
