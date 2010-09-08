@@ -366,6 +366,7 @@ describe 'Audio replace attachment' do
     Album.delete_all
 
     @audio = Audio.create(:source_file => @file)
+    @old_source = @audio.source.clone
     @audio.source_replace(@file_new, true)
   end
 
@@ -395,8 +396,15 @@ describe 'Audio replace attachment' do
   end
 
   it 'should assign new tags' do
-    #@audio.tags.should include('Cool', 'Street', 'View')
+    @audio.tags.should include('Cool', 'Street', 'View')
   end
 
+  it 'should replace file_name' do
+    @audio.source.file_name.should be_eql(@file_new.original_filename)
+  end
+
+  it 'should not replace doc_id' do
+    @audio.source.doc_id.should be_eql(@old_source.doc_id)
+  end
 
 end

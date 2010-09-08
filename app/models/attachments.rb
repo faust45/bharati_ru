@@ -36,6 +36,10 @@ module Attachments
               doc = store_class.get(send(attr_name).doc_id)
               doc.replace(file)
               send("#{attr_name}_doc=", doc)
+
+              collection = send(attachment_collection_name)
+              collection.replace([])
+              collection << doc.to_item
             end
           else
             #create new attachment
