@@ -26,7 +26,7 @@ module SimpleForm
       end
 
       def input_html_options
-        {'data-replace-url' => template.admin_audio_replace_source_path}
+        {'data-replace-url' => template.replace_source_admin_audio_path}
       end
     end
   end

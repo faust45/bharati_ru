@@ -93,12 +93,12 @@ MahaMandala::Application.routes.draw do
     end
 
     resources :audios do
-    end
+      member do
+        post 'replace_source'
+      end
 
-    controller :audios do
-      scope '/audios' do
-        match 'upload', :to => :upload
-        match ':id/replace_source', :to => :replace_source, :as => 'audio_replace_source'
+      collection do
+        post 'upload'
       end
     end
 
