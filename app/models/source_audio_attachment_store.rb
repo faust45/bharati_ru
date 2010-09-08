@@ -73,8 +73,8 @@ class SourceAudioAttachmentStore < FileStore
           self.title = title_and_record_date
         end
 
+        self.title.sub!(/[. ]*$/, '')
         self.title.strip!
-        self.title.sub!(/\.$/, '')
       end
     end
 end

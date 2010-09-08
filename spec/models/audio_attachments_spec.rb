@@ -195,7 +195,7 @@ describe 'SourceAudioAttachmentStore replace' do
   end
 
   it 'should assign new title' do
-    @attach.title.should be_eql('Roberto Song true. ')
+    @attach.title.should be_eql('Roberto Song true')
   end
 
   it 'should assign new author_name' do
@@ -365,46 +365,77 @@ describe 'Audio replace attachment' do
     Author.delete_all
     Album.delete_all
 
-    @audio = Audio.create(:source_file => @file)
-    @old_source = @audio.source.clone
-    @audio.source_replace(@file_new, true)
   end
 
   before(:each) do
   end
 
-  it 'should assign title' do
-    @audio.title.should be_eql('Roberto Song true. ')
+  context 'replace tags not replace' do
+    # @file has tags:
+    #   title:  'O забавах. 2010.10.03'
+    #   artist: 'Б.Ч. Бхарати Махарадж'
+    #   album:  'Вереницы уходят.'
+    #   composer(tags): 'Душа, Кришна, Праздник'
+    #
+    before(:all) do
+      @audio = Audio.create(:source_file => @file)
+      @old_source = @audio.source.clone
+      @audio.source_replace(@file_new, false)
+    end
+
+    it 'should not replace title' do
+      @audio.title.should be_eql('O забавах')
+    end
+
+    it 'should not replace author name' do
+      @audio.author.name.should be_eql('Б.Ч. Бхарати Махарадж')
+    end
+
+    it 'should not replace tags' do
+      @audio.tags.should include('Душа', 'Кришна', 'Праздник')
+    end
   end
 
-  it 'should assign new author_name' do
-    @audio.author.name.should be_eql('Solo')
-  end
+  context 'replace with tags' do
+    before(:all) do
+      @audio = Audio.create(:source_file => @file)
+      @old_source = @audio.source.clone
+      @audio.source_replace(@file_new, true)
+    end
 
-  it 'should create new album' do
-    album = Album.by_title(:key => 'Pointer test')
-    album.should_not be_blank
-  end
+    it 'should assign title' do
+      @audio.title.should be_eql('Roberto Song true')
+    end
 
-  it 'new album should include track' do
-    album = Album.first
-    album.tracks.should include(@audio.id)
-  end
+    it 'should assign new author_name' do
+      @audio.author.name.should be_eql('Solo')
+    end
 
-  it 'should assign new record_date' do
-    @audio.record_date.should be_eql(Date.parse('2010.10.03'))
-  end
+    it 'should create new album' do
+      album = Album.by_title(:key => 'Pointer test')
+      album.should_not be_blank
+    end
 
-  it 'should assign new tags' do
-    @audio.tags.should include('Cool', 'Street', 'View')
-  end
+    it 'new album should include track' do
+      album = Album.first
+      album.tracks.should include(@audio.id)
+    end
 
-  it 'should replace file_name' do
-    @audio.source.file_name.should be_eql(@file_new.original_filename)
-  end
+    it 'should assign new record_date' do
+      @audio.record_date.should be_eql(Date.parse('2010.10.03'))
+    end
 
-  it 'should not replace doc_id' do
-    @audio.source.doc_id.should be_eql(@old_source.doc_id)
+    it 'should assign new tags' do
+      @audio.tags.should include('Cool', 'Street', 'View')
+    end
+
+    it 'should replace file_name' do
+      @audio.source.file_name.should be_eql(@file_new.original_filename)
+    end
+
+    it 'should not replace doc_id' do
+      @audio.source.doc_id.should be_eql(@old_source.doc_id)
+    end
   end
 
 end
