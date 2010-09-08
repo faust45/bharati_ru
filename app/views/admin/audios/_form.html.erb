@@ -15,6 +15,7 @@
   <%= f.input :source, :as => :mp3_attachment %>
   <%#= f.input :photos, :as => :img_attachment %>
   
+  <%= f.input :bookmarks_raw, :as => :text %>
   <%= f.input :description, :as => :text, :input_html => { :class => 'mceEditor', :cols => 70 } %>
   <%= f.submit 'save' %>
 <% end %>

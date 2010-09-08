@@ -1,9 +1,10 @@
 class Audio < MediaContent
 
   property :duration
+  property :bookmarks, :default => [] #:time :name
 
   has_attachment :source, SourceAudioAttachmentStore
-  has_attachments :photos, PhotoStore
+  #has_attachments :photos, PhotoStore
 
   after_create_source_attachment  :assign_meta_info
   after_replace_source_attachment :assign_meta_info, :if => :is_source_need_update_meta_info?
@@ -18,9 +19,30 @@ class Audio < MediaContent
     update_attributes(:source_file => new_file)
   end
 
+  def bookmarks_raw
+    self.bookmarks.map do |v|
+      "#{v['time']} #{v['name']}"
+    end.join("\n")
+  end
+
+  def bookmarks_raw=(value)
+    unless value.blank?
+      a = value.split("\n")
+
+      self.bookmarks = []
+      a.each do |str|
+        m = str.match(/(\d{2}:\d{2})(.*)$/)
+        if m
+          self.bookmarks << {:time => m[1], :name => m[2].strip}
+        end
+      end
+    end
+  end
+
   private
     def is_source_need_update_meta_info?
-      @is_source_need_update_info ||= true
+      @is_source_need_update_info = true if @is_source_need_update_info.nil?
+      @is_source_need_update_info
     end
 
     def assign_meta_info
