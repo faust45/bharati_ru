@@ -7,12 +7,13 @@ class Author < BaseModel
 
   as_slug :display_name
 
-  #has_attachment :photos
+  has_attachment :main_photo, AuthorMainPhotoStore
+  #has_attachments :photos, AuthorPhotoStore
 
   view_by :full_name
   view_by :display_name
 
-  search_index <<-JS 
+  search_index <<-JS
     if(doc['couchrest-type'] && doc['couchrest-type'] == 'Author') {
       var ret = new Document();
       ret.add(doc.display_name, {"store": "yes"});

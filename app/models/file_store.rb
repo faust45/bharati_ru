@@ -4,6 +4,7 @@ class FileStore < BaseModel
   attr_accessor :file
 
   property :file_name
+  property :owner_type
   property :upload_at, Time
 
   class FileSaveIsFail < Exception; end
@@ -12,7 +13,7 @@ class FileStore < BaseModel
   after_save  :put_attachment_directly
 
   def self.create(file, options = {})
-    super({:file => file})
+    super({:file => file}.merge(options))
   end
 
   def self.create!(file, options = {})
@@ -30,6 +31,11 @@ class FileStore < BaseModel
     end
   end
 
+  #Can be implement by concret class
+  def to_item
+    {:doc_id => id, :file_name => file_name}
+  end
+
   private
     #Can be implement by concret class
     def assign_meta_info
@@ -44,10 +50,19 @@ class FileStore < BaseModel
     end
 
     def prepare_file_name
-      Russian::translit(file.original_filename)
+      Russian::translit(original_filename)
     end
-  
+
     def assign_content_type(options)
-      options[:content_type] ||= MIME::Types.type_for(file.original_filename).last.content_type
+      options[:content_type] ||= MIME::Types.type_for(original_filename).last.content_type
     end
+
+    def original_filename
+      if file.respond_to?(:original_filename)
+        file.original_filename
+      else
+        File.basename(file.path)
+      end
+    end
+
 end

@@ -1,0 +1,2 @@
+class AuthorPhotoStore < FileStore
+end

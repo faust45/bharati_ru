@@ -3,6 +3,7 @@ class Audio < MediaContent
   property :duration
 
   has_attachment :source, SourceAudioAttachmentStore
+  has_attachments :photos, PhotoStore
 
   after_create_source_attachment  :assign_meta_info
   after_replace_source_attachment :assign_meta_info, :if => :is_source_need_update_meta_info?

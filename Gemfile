@@ -11,6 +11,7 @@ gem 'railties',          '= 3.0.0', :require => 'rails'
 gem 'actionmailer',      '= 3.0.0', :require => 'action_mailer'
 
 gem 'validatable'
+gem 'mini_magick'
 
 gem 'mongrel'
 #gem 'thin'
