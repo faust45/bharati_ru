@@ -2,10 +2,6 @@
                'jquery.autocomplete', 'jquery.ui.autocomplete.ext', 
                'jquery.templating', 'jquery.dimensions', 
                'prettify/prettify', 'jcalendar-source', 'edit_albums', 'replace_mp3') %>
-<% content_for(:include_js) do %>
-  <%#= include_tiny_mce_js %>
-<% end %>
-<%#= tiny_mce_init %>
 
 <%= simple_form_for [:admin, form_adapter], :url => url, :html => {:multipart => true, :method => form_method} do |f| %>
   <%= f.input :is_published, :as => :boolean, :label_wrap => false %>
