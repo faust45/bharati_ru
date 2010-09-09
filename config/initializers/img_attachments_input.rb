@@ -1,6 +1,6 @@
 module SimpleForm
   module Inputs
-    class ImgAttachmentInput < Base
+    class ImgAttachmentsInput < Base
       def input
         @builder.file_field("#{attribute_name}_file", input_html_options)
       end
@@ -11,9 +11,10 @@ module SimpleForm
 
       def attachments
         attach_content = ''
-        img = object.send("#{attribute_name}")
+        imgs = object.send("#{attribute_name}")
 
-        img.thumbs.each do |k, v|
+        imgs.each do |img|
+          v = img.thumbs['small']
           attach_content << template.image_tag(v['url'])
         end
 

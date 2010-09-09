@@ -13,7 +13,7 @@
   <%= f.input :tags,   :as => :tags_autocomplete %>
 
   <%= f.input :source, :as => :mp3_attachment %>
-  <%#= f.input :photos, :as => :img_attachment %>
+  <%= f.input :photos, :as => :img_attachments %>
   
   <%= f.input :bookmarks_raw, :as => :text %>
   <%= f.input :description, :as => :text, :input_html => { :class => 'mceEditor', :cols => 70 } %>

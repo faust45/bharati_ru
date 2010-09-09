@@ -4,7 +4,7 @@ class Audio < MediaContent
   property :bookmarks, :default => [] #:time :name
 
   has_attachment :source, SourceAudioAttachmentStore
-  #has_attachments :photos, PhotoStore
+  has_attachments :photos, BigPhotoStore
 
   after_create_source_attachment  :assign_meta_info
   after_replace_source_attachment :assign_meta_info, :if => :is_source_need_update_meta_info?

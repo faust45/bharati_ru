@@ -8,7 +8,7 @@ class Album < BaseModel
   property :sort_type, :default => :by_date
   property :tracks, [], :default => []
 
-  #has_attachment :cover
+  has_photo_attachment :cover
 
 
   view_by :title

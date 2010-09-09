@@ -6,13 +6,13 @@ module Attachments
 
   module ClassMethods
     #Single attachment mount
-    def has_attachment(attr_name, store_class, options = {}, &block)
+    def has_attachment(attr_name, store_class, options = {}, item_class = SingleAttachment, &block)
       options[:owner_type] = self.class.to_s
 
       attachment_collection_name = "#{attr_name}_attachments"
       file_source = "#{attr_name}_file"
 
-      property attachment_collection_name, [SingleAttachment], :default => []
+      property attachment_collection_name, [item_class], :default => []
       attr_accessor file_source
       attr_accessor "#{attr_name}_doc"
 
@@ -34,7 +34,7 @@ module Attachments
             #replace attachment
             send("_run_#{callback_replace_method}_callbacks") do
               doc = store_class.get(send(attr_name).doc_id)
-              doc.replace(file)
+              doc.replace(file, options)
               send("#{attr_name}_doc=", doc)
 
               collection = send(attachment_collection_name)
@@ -55,41 +55,68 @@ module Attachments
       end
     end
 
-    def has_attachments(attr_name, store_class, options = {}, &block)
+    def has_attachments(attr_name, store_class, options = {}, item_class = SingleAttachment, &block)
+      options[:owner_type] = self.class.to_s
+
       attachment_collection_name = "#{attr_name}_attachments"
       file_source = "#{attr_name}_file"
 
-      property attachment_collection_name, [SingleAttachment], :default => []
+      property attachment_collection_name, [item_class], :default => []
       attr_accessor file_source
-      attr_accessor "#{attr_name}_doc" 
+      attr_accessor "#{attr_name}_doc"
 
-      #callback_create_method = "create_#{attachment_collection_name.singularize}"
-      #callback_replace_method = "replace_#{attachment_collection_name.singularize}"
-      #define_model_callbacks callback_create_method,  :only => :after
-      #define_model_callbacks callback_replace_method, :only => :after
+      callback_add_method = "add_#{attachment_collection_name.singularize}"
+      callback_delete_method = "delete_#{attachment_collection_name.singularize}"
+      define_model_callbacks callback_add_method,  :only => :after
+      define_model_callbacks callback_delete_method, :only => :after
 
       define_method attr_name do
         send(attachment_collection_name)
+      end
+
+      define_method "#{attr_name}_delete" do |attach_id|
+        collection = send(attachment_collection_name)
+        el = collection.find{|a| a.doc_id == attach_id}
+
+        if el
+          send("_run_#{callback_delete_method}_callbacks") do
+            attach = store_class.get(el.doc_id)
+            attach.destroy
+            collection.reject!{|a| a.doc_id == attach_id}
+          end
+        end
       end
 
       before_save do
         file = send(file_source)
 
         unless file.blank?
-          #create new attachment
-          send("_run_#{callback_create_method}_callbacks") do
+          #add attachment
+          send("_run_#{callback_add_method}_callbacks") do
             doc = store_class.create!(file, options)
             send("#{attr_name}_doc=", doc)
 
             collection = send(attachment_collection_name)
-            collection << {:doc_id => doc.id, :file_name => doc.file_name}
+            collection << doc.to_item
           end
         end
       end
     end
 
-    def has_photo_attachment(attr_name, size)
+    def has_photo_attachment(attr_name)
+      has_attachment(attr_name, PhotoStore)
+    end
+
+    def has_photo_attachments(attr_name)
+      has_attachments(attr_name, PhotoStore)
+    end
+
+    def has_thumb_attachment(attr_name, size)
       has_attachment(attr_name, PhotoThumbStore, {:size => size, :thumb_type => attr_name})
+    end
+
+    def has_big_thumb_attachment(attr_name, size)
+      has_attachment(attr_name, BigPhotoThumbStore, {:size => size, :thumb_type => attr_name})
     end
 
   end

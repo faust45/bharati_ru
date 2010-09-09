@@ -112,7 +112,6 @@ MahaMandala::Application.routes.draw do
       scope :as => 'centers' do
         match ':id/delete_file', :to => :delete_file, :as => :delete_file
       end
-
     end
 
     resources :authors do
@@ -121,15 +120,8 @@ MahaMandala::Application.routes.draw do
       end
     end
 
-    controller :authors do
-      scope '/auhors', :as => 'authors' do
-        match ':id/delete_file', :to => :delete_file, :as => :delete_file
-      end
-    end
-
     resources :tags do
     end
-
   end
 
   match 'autocomplete/tags', :to => 'admin/tags#autocomplete', :as => :autocomplete_tags

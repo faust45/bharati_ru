@@ -1,15 +1,9 @@
-<% content_for(:js) do %>
-  <%= include_tiny_mce_js %>
-<% end %>
-<%= tiny_mce_init %>
-
 <%= simple_form_for [:admin, @author], :url => url, :html => {:multipart => true, :method => form_method} do |f| %>
   <%= f.input :full_name    %>
   <%= f.input :display_name %>
   <%= f.input :slug %>
 
-  <%= display_photo %>
-  <%= f.input :photo, :as => :file %>
+  <%= f.input :main_photo, :as => :img_attachment %>
   <%= f.input :description, :as => :text, :input_html => { :class => 'mceEditor', :cols => 70} %>
 
   <%= f.submit 'Save' %>

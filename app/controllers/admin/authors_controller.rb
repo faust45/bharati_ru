@@ -1,4 +1,4 @@
-class Admin::AuthorsController < ApplicationController
+class Admin::AuthorsController < AdminController
   #uses_tiny_mce 
 
   def autocomplete
@@ -29,7 +29,7 @@ class Admin::AuthorsController < ApplicationController
   end
 
   def edit
-    @author = Author.get params[:id]
+    @author = Author.get(params[:id])
   end
 
   def update

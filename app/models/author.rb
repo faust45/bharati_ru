@@ -7,7 +7,7 @@ class Author < BaseModel
 
   as_slug :display_name
 
-  has_attachment :main_photo, AuthorMainPhotoStore
+  has_photo_attachment :main_photo
   #has_attachments :photos, AuthorPhotoStore
 
   view_by :full_name

@@ -1,0 +1,2 @@
+class CoverAlbumPhotoStore < FileStore
+end

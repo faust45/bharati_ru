@@ -7,6 +7,7 @@ class FileStore < BaseModel
   property :owner_type
   property :upload_at, Time
 
+  define_model_callbacks :put_attachment_directly,  :only => [:before, :after]
   class FileSaveIsFail < Exception; end
 
   before_save :assign_meta_info
@@ -27,7 +28,7 @@ class FileStore < BaseModel
   def replace(new_file, options = {})
     unless self['_attachments'].blank?
       delete_attachment(self.file_name)
-      update_attributes(:file => new_file)
+      update_attributes({:file => new_file}.merge(options))
     end
   end
 
@@ -43,10 +44,12 @@ class FileStore < BaseModel
     end
 
     def put_attachment_directly
-      options_for_attachment = {}
-      assign_content_type(options_for_attachment)
+      _run_put_attachment_directly_callbacks do
+        options_for_attachment = {}
+        assign_content_type(options_for_attachment)
 
-      put_attachment(self.file_name, file.read, options_for_attachment)
+        put_attachment(self.file_name, file.read, options_for_attachment)
+      end
     end
 
     def prepare_file_name

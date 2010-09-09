@@ -1,20 +1,10 @@
+<%= include_js 'admin/edit_album' %>
+
 <%= simple_form_for [:admin, album], :url => url, :html => {:multipart => true, :method => form_method} do |f| %>
   <%= f.input :title %>
   <%= f.input :description %>
   <%= f.input :tracks, :as => :sort_tracks %>
 
-  <%= f.input :cover, :as => :attachment, :img => true %>
+  <%= f.input :cover, :as => :img_attachment %>
   <%= f.submit 'save' %>
 <% end %>
-
-
-<script>
-  var tracks = $('.sort_tracks input[type=hidden]')
-
-  $('#tracks > li').each(function() {
-    $(this).prepend("<img class='handle' src='/images/arrow.png'>");
-  });
-
-  $('#tracks').sortable({
-  });
-</script>
