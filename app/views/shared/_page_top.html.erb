@@ -1,0 +1,38 @@
+<div id="nav">
+  <div class="bg"></div>
+  <div class="container">
+    <ul><!-- Для пунктов этого меню часть элементов формируется в common.js -->
+      <li><a href="#">Учители</a></li><!-- При наличии class="active" пункт будет выделен, как и при наведении (сделал 2 варианта, т.к. не знаю какой именно требуется) -->
+      <li><a href="#">Новости</a></li>
+      <li><a href="#">Библиотека</a></li>
+      <li><a href="audio.html" class="active">Аудио</a></li>
+      <li><a href="#">Видео</a></li>
+
+      <li><a href="#">Фото</a></li>
+      <li><a href="#">Форум</a></li>
+      <li><a href="#">О сайте</a></li>
+      <li><a href="#">Магазин</a></li>
+      <li><a href="#">Контакты</a></li>
+    </ul>
+
+    <form method="post" action="">
+      <div class="selector">
+        <div class="top"></div>
+        <div class="searchType">
+          <a href="#" class="active">по аудио</a>
+          <a href="#">по видео</a>
+          <a href="#">по текстам</a>
+
+          <a href="#">на форуме</a>
+          <a href="#">по всему</a>
+        </div>
+        <div class="bottom"></div>
+      </div>
+      <fieldset>
+        <input type="text" class="field" />
+        <input type="submit" value="OK" class="button" /><!-- кнопка скрыта, т.к. подобная форма поиска подразумевает отправку запроса по enter -->
+
+      </fieldset>
+    </form>
+  </div>
+</div>

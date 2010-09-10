@@ -1,9 +1,10 @@
 <%= include_js 'admin/edit_album' %>
 
-<%= simple_form_for [:admin, album], :url => url, :html => {:multipart => true, :method => form_method} do |f| %>
+<%= simple_form_for [:admin, form_adapter], :url => url, :html => {:multipart => true, :method => form_method} do |f| %>
   <%= f.input :title %>
   <%= f.input :description %>
-  <%= f.input :tracks, :as => :sort_tracks %>
+  <%= f.input :author, :as => :autocomplete %>
+  <%= f.input :tracks, :as => :sort_tracks  %>
 
   <%= f.input :cover, :as => :img_attachment %>
   <%= f.submit 'save' %>

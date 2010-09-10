@@ -2,7 +2,7 @@ class Content < BaseModel
   use_rand_id
 
   property :title
-  property :author, :type => HHash, :default => HHash.new #name id
+  property :author_id
   property :co_authors, :default => []
   property :description
   property :tags,       :default => []
@@ -13,14 +13,8 @@ class Content < BaseModel
 
   timestamps!
 
-
-  def set_author(author)
-    unless author.blank?
-      unless author.new?
-        self.author[:id]   = author.id
-        self.author[:name] = author.display_name
-      end
-    end
+  def author
+    @author ||= Author.get(self.author_id)
   end
 
 end

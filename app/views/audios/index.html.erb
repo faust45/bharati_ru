@@ -1,11 +1,28 @@
-<br />
-<br />
-<table>
-<% @audios.each do |audio| %>
-  <tr>
-    <td>
-      <%= link_to audio.title || '', audio_path(audio) %>
-    </td>
-  </tr>
-<% end %>
-</table>
+<%= render :partial => 'sidebar' %>
+
+<div class="lecture">
+  <h1>“...карма действует на нас в той области, в которой мы считаем себя деятелями...”</h1><!-- По семантике тег H1 должен встречаться 1 раз, не больше не меньше. На этой странице мне показалось, что H1 будет уместнее именно здесь, на внутряках, это лучше сделать в заголовках новостей. -->
+  <p><a href="#">Слушать эту лекцию</a></p>
+</div>
+
+<div class="block last-audio">
+  <div class="title">Последнее аудио</div>
+  <div class="text">
+    <div class="item">
+      <img src="images/photo.png" alt="" width="80" height="97" />
+      <div class="name"><a href="#">“Ложное эго – препятствие или помощь?”</a></div>
+      <p>Лекция от 12 октября 1987 года Шридхар Махарадж</p>
+
+      <div class="date">18 апреля 2010</div>
+    </div>
+    <div class="item">
+      <img src="images/photo.png" alt="" width="80" height="97" />
+      <div class="name"><a href="#">“Высшая планка религиозности”</a></div>
+      <p>Лекция от 12 октября 1987 года Шридхар Махарадж</p>
+      <div class="date">из альбома <a href="#">“Мгновения Прекрасной Реальности”</a> 18 апреля 2010</div>
+    </div>
+  </div>
+  <div class="bottom"></div>
+</div>
+
+<%= render :partial => 'shared/tags' %>

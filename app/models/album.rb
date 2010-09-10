@@ -5,6 +5,7 @@ class Album < BaseModel
 
   property :title
   property :description
+  property :author_id
   property :sort_type, :default => :by_date
   property :tracks, [], :default => []
 
@@ -56,6 +57,10 @@ class Album < BaseModel
     else
       create(:title => album_name)
     end
+  end
+
+  def author
+    @author ||= Author.get(author_id)
   end
 
   def get_tracks

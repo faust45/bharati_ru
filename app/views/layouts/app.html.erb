@@ -2,7 +2,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>AprakritA</title>
-    <%= stylesheet_link_tag 'main.css' %>
+    <%= stylesheet_link_tag 'style' %>
     <%= stylesheet_link_tag 'jquery.autocomplete' %>
     <%= stylesheet_link_tag 'application' %>
     <%= stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' %>
@@ -13,7 +13,7 @@
     <%= javascript_include_tag 'jquery.min', 'jquery-ui.min' %>
     <%= javascript_include_tag 'jquery.form' %>
     <%= javascript_include_tag 'rails', 'mustache', 'jquery.behavior' %>
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application', 'common' %>
     <% unless current_user.logged_in? %>
       <%= javascript_include_tag 'login_dialog' %>
     <% end %>
@@ -25,34 +25,24 @@
   </head>
 
   <body>
-    <div id="<%= css_style %>">
-      <div id="main_in">
-        <ul id="lang">
-      	<li><a href="#" title="Русский">Русский</a></li>
-    	<li><a href="#" title="Spain">Spain</a></li>
-        <li><a href="#" title="English">English</a></li>
-        <li><a href="#" title="Deutch">Deutch</a></li>
-        <li id="link_to_change_style"><%= link_to_change_style %></li>
-        </ul>
-        <div id="logo_block">
-          <div id="logo">
-            <a href="#">
-              <%= image_tag "logo_w.gif", :width => "161", :height => "145", :alt => "AprakritA" %>
-            </a>
-          </div>
-        </div>
-    
-        <%= render :partial => 'shared/main_menu' %>
+    <%= render :partial => 'shared/page_top' %>
+    <%= render :partial => 'shared/site_path' %>
 
-        <% if current_user.logged_in? %>
-          <%= render :partial => 'shared/user_menu' %>
-        <% end %>
+    <%= yield :before_main_block %>
 
-        <%= render :partial => 'shared/search' %>
-
-        <%= flash[:notice] %>
+    <div id="main">
+      <!-- КОНТЕНТ -->
+      <div id="content">
         <%= yield %>
       </div>
+
+      <!-- ЛЕВАЯ КОЛОНКА -->
+      <div id="sidebar">
+        <%= yield :sidebar %>
+      </div>
     </div>
+
+    <%= render :partial => 'shared/page_bottom' %>
+    <%= render :partial => 'shared/page_footer' %>
   </body>
 </html>

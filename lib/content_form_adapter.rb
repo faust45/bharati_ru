@@ -14,22 +14,8 @@ class ContentFormAdapter < FormAdapter
     @content = content
   end
 
-  def author_id
-    author[:id]
+  def author_value
+    author.name
   end
-
-  def author_name
-    author[:name]
-  end
-  alias :author_value :author_name 
-
-  def record_place_id
-    content.record_place[:id]
-  end
-
-  def record_place_name
-    content.record_place[:name]
-  end
-  alias :record_place_value :record_place_name
 
 end

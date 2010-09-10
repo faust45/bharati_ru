@@ -35,6 +35,10 @@ class Admin::AlbumsController < Admin::ContentsController
     @album ||= Album.get(params[:id])
   end
 
+  def form_adapter
+    @form_adapter ||= AlbumFormAdapter.new(album)
+  end
+
   def autocomplete
     albums = Album.search(params[:q])
     albums.map!{|t| "#{t['fields']['default']}|#{t['id']}"}

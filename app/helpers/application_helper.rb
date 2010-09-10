@@ -1,5 +1,15 @@
 module ApplicationHelper
 
+  def content(&block)
+    content_for(:content, block)
+  end
+
+  def sidebar(&block)
+    content_for(:sidebar) do
+      yield
+    end
+  end
+
   def strong(text)
     content_tag(:strong, text)
   end

@@ -1,6 +1,12 @@
 module AudiosHelper
   include AudioBookmarksHelper
 
+  def player
+    content_for :before_main_block do
+      render :partial => 'player'
+    end
+  end
+
   def album_navigation
     tracks = []
     @album.tracks.each_with_index do |track_id, i|
@@ -45,12 +51,10 @@ module AudiosHelper
   def js_track_params
     options = {
       :album_name  => @album.title,
-      :author_name => @audio.author[:name],
+      :author_name => @audio.author.display_name,
       :track_name  => @audio.title,
-      :track_url   => attachment_url,
+      :track_url   => @audio.source.url,
       :track_duration => @audio.duration,
-      :author_bookmarks => @author_bookmarks.map(&:time).join(','),
-      :user_bookmarks   => @bookmarks.map(&:time).join(',') 
     }
 
     options.map do |key, value|

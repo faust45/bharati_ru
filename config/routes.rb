@@ -66,6 +66,9 @@ MahaMandala::Application.routes.draw do
   end
 
   resources :audios do
+    collection do
+      get :album, :path => 'album/:album_id'
+    end
   end
 
   controller :audio_bookmarks do
