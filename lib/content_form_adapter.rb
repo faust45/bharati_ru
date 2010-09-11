@@ -15,7 +15,7 @@ class ContentFormAdapter < FormAdapter
   end
 
   def author_value
-    author.name
+    author.display_name
   end
 
 end

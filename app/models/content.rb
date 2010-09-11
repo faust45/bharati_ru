@@ -6,7 +6,6 @@ class Content < BaseModel
   property :co_authors, :default => []
   property :description
   property :tags,       :default => []
-  property :categories, :default => []
   property :is_published, :default => true 
   property :slug, :read_only => true
   property :upladed_by_id
@@ -15,6 +14,10 @@ class Content < BaseModel
 
   def author
     @author ||= Author.get(self.author_id)
+  end
+
+  def set_author(author)
+    self.author_id = author.id unless author.blank?
   end
 
 end

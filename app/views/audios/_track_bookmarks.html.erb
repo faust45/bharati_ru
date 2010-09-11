@@ -1,0 +1,7 @@
+<div class="playList">
+  <ul>
+    <% @audio.bookmarks.each do |b| %>
+      <li><%= link_to "#{b.str_time} #{b.name}", '#', 'data-time' => b.time %></li>
+    <% end %>
+  </ul>
+</div>

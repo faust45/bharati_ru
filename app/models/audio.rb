@@ -1,7 +1,7 @@
 class Audio < MediaContent
 
   property :duration
-  property :bookmarks, :default => [] #:time :name
+  property :bookmarks, [HHash],:default => [] #:time :name
 
   has_attachment :source, SourceAudioAttachmentStore
   has_attachments :photos, BigPhotoStore
@@ -21,7 +21,7 @@ class Audio < MediaContent
 
   def bookmarks_raw
     self.bookmarks.map do |v|
-      "#{v['time']} #{v['name']}"
+      "#{v['str_time']} #{v['name']}"
     end.join("\n")
   end
 
@@ -33,7 +33,7 @@ class Audio < MediaContent
       a.each do |str|
         m = str.match(/(\d{2}:\d{2})(.*)$/)
         if m
-          self.bookmarks << {:time => m[1], :name => m[2].strip}
+          self.bookmarks << {:str_time => m[1], :name => m[2].strip, :time => bm_time_ms(m[1])}
         end
       end
     end
@@ -49,6 +49,8 @@ class Audio < MediaContent
       self.title = source_doc.title
       self.record_date = source_doc.record_date
       self.tags = source_doc.tags
+      self.duration = source_doc.duration
+
       assign_author(source_doc.author_name)
       add_to_album(source_doc.album_name)
     end
@@ -64,6 +66,17 @@ class Audio < MediaContent
       unless album_name.blank?
         album = Album.get_by_title_or_create(album_name)
         album << self
+      end
+    end
+
+    def bm_time_ms(str_time)
+      m = str_time.match(/(\d+):(\d+)/)
+  
+      if m
+        min = m[1].to_i
+        sec = m[2].to_i
+  
+        msec = (min * 60 + sec) * 1000
       end
     end
 

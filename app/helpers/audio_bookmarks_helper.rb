@@ -1,7 +1,7 @@
 module AudioBookmarksHelper
   MS_IN_ONE_SEC = 1000
 
-  def my_bm_id(bm)
+    def my_bm_id(bm)
     "my_bm_#{bm.id}" 
   end
 
@@ -28,14 +28,6 @@ module AudioBookmarksHelper
     else 
       link_to(bm.owner_display_name, '#', :class => "user")
     end
-  end
-
-  def link_to_del(bm)
-    link_to('del this bookmark', audio_bookmark_delete_path(:bm_id => bm.id), :class => 'del')
-  end
-
-  def link_to_add(bm)
-    link_to('add this bookmark', audio_bookmark_copy_path(:bm_id => bm.id), :class => 'add')
   end
 
   def view_as_json(bm)

@@ -57,5 +57,7 @@ ul.albums li a {
   margin-left: 2em;
 }
 
-
-
+div.edit_block {
+  float: right;
+  width: 38em;
+}

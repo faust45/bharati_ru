@@ -2,31 +2,31 @@
 //Initialization
 
 $(document).ready(function() {
-  $('#tracks li').behavior(DropFromAlbumBehavior)
+  $('#tracks li').behavior(EditAlbumBehavior)
   $('#tracks').sortable({});
 });
 
 
 //--------------------------------------------------------------
 
-function DropFromAlbumBehavior(element, config) {
+function EditAlbumBehavior(element, config) {
   console.log('apply log');
 
   var element = $(element);
   var linkToDrop = element.find('a.drop');
-  var linkToEdit = element.find('a.edit');
+  var editBlock = element.find('div.edit_block');
+  //var linkToEdit = element.find('a.edit');
   var urlToDrop = linkToDrop.attr('href');
-  linkToDrop.hide();
+  editBlock.hide(); 
 
   element.prepend("<img class='handle' src='/images/arrow.png'>");
+
   element.mouseover(function() {
-    linkToDrop.show();
-    linkToEdit.show();
+    editBlock.show(); 
   });
 
   element.mouseout(function() {
-    linkToDrop.hide();
-    linkToEdit.hide();
+    editBlock.hide(); 
   });
 
 

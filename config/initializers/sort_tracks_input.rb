@@ -1,16 +1,18 @@
 module SimpleForm
   module Inputs
     class SortTracksInput < StringInput
-      delegate :link_to, :image_tag, :to => :template
+      delegate :content_tag, :link_to_del, :link_to_edit, :link_to, :image_tag, :to => :template
 
       def input
         tracks = object.get_tracks
         tracks_li = tracks.map do |t|
-          template.content_tag(:li) do
+          content_tag(:li) do
             t.title +
-            @builder.hidden_field('tracks', 'value' => t['_id'], :multiple => true) +
-            link_to(image_tag('cancel.png'), template.album_del_track_path(object.id, t.id), :class => 'drop') +
-            link_to('edit', template.edit_admin_audio_path(t.id), :class => 'edit', :target => '_blank')
+            content_tag(:div, :class => 'edit_block') do
+              link_to_edit(template.edit_admin_audio_path(t.id), :class => 'edit', :target => '_blank') +
+              link_to_del(template.album_del_track_path(object.id, t.id), :class => 'drop')
+            end +
+            @builder.hidden_field('tracks', 'value' => t['_id'], :multiple => true)
           end
         end
 
