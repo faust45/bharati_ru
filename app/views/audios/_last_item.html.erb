@@ -1,0 +1,7 @@
+<div class="item">
+  <%= small_thumb(last_item.author.main_photo) %>
+  <div class="name"><%= link_to "“#{last_item.title}”" %></div>
+  <p>Лекция от <%= last_item.record_date %> <%= last_item.author.display_name %></p>
+
+  <div class="date"><%= last_item.created_at %></div>
+</div>

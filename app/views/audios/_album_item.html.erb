@@ -1,0 +1,8 @@
+<div class="new">
+  <%= big_thumb(album_item.cover) %>
+  <div class="cnt">
+
+    <div class="name"><%= link_to(album_item.title, album_path(album_item)) %></div>
+    <div class="date"><%= album_item.created_at %><br /><%= album_item.tracks.size %> аудиотреков</div>
+  </div>
+</div>

@@ -47,10 +47,10 @@ h2{font-size:15px; font-weight:300;}
 	#header .logo{position:absolute; left:0; top:0; width:340px; padding:20px 0 0 10px; font-size:130%; line-height:1.1;}
 	#header .logo.inner{width:auto;}
 		#header .logo a{display:block; color:#FFF; text-decoration:none;}
-		#header .logo.inner a{float:left; padding:0 15px 0 0;}
+		#header .logo.inner a{display:inline;}
 			#header .logo span{font-size:330%;}
 			#header .logo strong{font-size:60px; font-weight:300; cursor:default;}
-				#header .logo span span{font-size:100%; color:#00AEEF;}
+				#header .logo span span{font-size:100%; color:#00AEEF; padding:0 12px 0 0;}
 			#header .logo i{padding:0 0 0 8px; font-size:170%; font-style:normal;}
 	#header .quote{position:absolute; left:372px; top:0; width:410px; padding:32px 0 0 0; font-size:114%; line-height:1.2;}
 	#header .track{position:absolute; left:0; top:100px; width:100%;font-size:210%; color:#FFF; text-align:center;}
@@ -95,9 +95,6 @@ h2{font-size:15px; font-weight:300;}
 		#content .block .title small{font-size:63%;;}
 	#content .block .text{min-height:100px; padding:20px 15px 20px 15px; border-top:1px solid #214058; background:url(../images/bg_block_sidebar.png) repeat 0 0;}
 	#content .block .bottom{height:10px; background:url(../images/bg_block_big_bottom.png) no-repeat 0 0;}
-
-.event{margin:0 0 10px 0; border-bottom:1px solid #1F3247;}
-	.event h2{font-size:114%; font-weight:300;}
 
 .video{font-size:16px;}
 .video .text{padding-top:25px!important;}
@@ -153,6 +150,8 @@ h2{font-size:15px; font-weight:300;}
 .aplay{margin:0 0 25px;}
 
 .events .text{padding-top:25px!important;}
+	.events .item{margin:0 0 10px 0; border-bottom:1px solid #1F3247;}
+		.events .item h2{font-size:114%; font-weight:300;}
 
 .pagenav{padding:10px 0 0 0; text-align:center; font-size:116%;}
 .pagenav .next{margin:0 10px;}
@@ -246,8 +245,8 @@ h2{font-size:15px; font-weight:300;}
 .update{}
 	.update .new{margin:0 0 30px 0;}
 	#content .update .new{margin:0 0 20px 0; padding:0 0 5px 0; position:relative; border-bottom:1px solid #25465D; overflow:hidden;}
-		.update .cnt{position:relative; border-bottom:1px solid #25465D; overflow:hidden;}
-		#content .update .cnt{border:0;}
+		.update .item{position:relative; border-bottom:1px solid #25465D; overflow:hidden;}
+		#content .update .item{border:0;}
 			.update .name{margin-bottom:0; font-size:100%; line-height:1.1;}
 			.update .txt{margin-bottom:5px; font-size:90%;}
 			.audioTab img{width:77px; height:88px;}
@@ -259,10 +258,10 @@ h2{font-size:15px; font-weight:300;}
 		.update .rss a:hover{color:#F75D53;}
 
 .forum{font-size:100%;}
-	.forum .reply{margin:0 0 15px 0; border-bottom:1px solid #244357;}
-		.forum .reply .name{font-size:114%;}
-		.forum .reply .author{font-size:114%;}
-		.forum .reply .date{margin:-20px 0 0 0; text-align:right; font-size:100%; color:#989FA5;}
+	.forum .item{margin:0 0 15px 0; border-bottom:1px solid #244357;}
+		.forum .item .name{font-size:114%;}
+		.forum .item .author{font-size:114%;}
+		.forum .item .date{margin:-20px 0 0 0; text-align:right; font-size:100%; color:#989FA5;}
 
 .lect ul{position:relative; margin:0 0 0 -8px; padding:12px 0 0 0; overflow:hidden;}
 	.lect li{float:left; width:105px; list-style:none; font-size:116%;}

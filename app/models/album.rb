@@ -9,23 +9,13 @@ class Album < BaseModel
   property :sort_type, :default => :by_date
   property :tracks, [], :default => []
 
+  timestamps!
+
   has_photo_attachment :cover
 
 
   view_by :title
-
-  view_by :traks_by_album, :map => <<-MAP
-    function(doc) {
-      if(doc['couchrest-type'] == 'Album') {
-        if(doc.tracks) {
-          for(i in doc.tracks) {
-            var track = doc.tracks[i];
-            emit([doc['_id'], i], {'_id': track});
-          };
-        }
-      }
-    }
-  MAP
+  view_by :author_id
 
   view_by :albums_by_track, :map => <<-MAP
     function(doc) {
@@ -39,7 +29,6 @@ class Album < BaseModel
     }
   MAP
 
-
   search_index <<-JS 
     if(doc['couchrest-type'] && doc['couchrest-type'] == 'Album') {
       var ret = new Document();
@@ -49,22 +38,32 @@ class Album < BaseModel
   JS
 
 
-  def self.get_by_title_or_create(album_name)
-    album = by_title(:key => album_name)
+  class <<self
+    def get_by_title_or_create(album_name)
+      album = by_title(:key => album_name)
 
-    unless album.blank?
-      album.first
-    else
-      create(:title => album_name)
+      unless album.blank?
+        album.first
+      else
+        create(:title => album_name)
+      end
     end
+
+    def get_by_author(author_id)
+      by_author_id(:key => author_id)
+    end
+
+    def get_albums_by_track(track_id)
+      self.by_albums_by_track(:key => track_id)
+    end
+  end
+
+  def get_tracks
+    Audio.by_album(:startkey => [self.id], :endkey => [self.id, {}])
   end
 
   def author
     @author ||= Author.get(author_id)
-  end
-
-  def get_tracks
-    self.class.by_traks_by_album(:startkey => [self.id], :endkey => [self.id, {}])
   end
 
   def <<(content)

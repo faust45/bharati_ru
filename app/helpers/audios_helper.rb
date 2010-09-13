@@ -1,6 +1,25 @@
 module AudiosHelper
   include AudioBookmarksHelper
 
+  def random_author_photo(author)
+    photo = author.photos.first
+    image_tag photo.thumbs['small']['url'] if photo
+  end
+
+  def is_selected_author?(author_item)
+    @current_author == author_item
+  end
+
+  def site_path_items
+    ['Аудио', @author.display_name]
+  end
+
+  def track_img
+    unless @current_track.photos.blank?
+      image_tag(@current_track.photos.first.thumbs['small']['url']) 
+    end
+  end
+
   def player
     content_for :before_main_block do
       render :partial => 'player'
@@ -19,9 +38,11 @@ module AudiosHelper
   end
 
   def tags
-    @audio.tags.map{|t|
-      link_to t, ''
-    }.join(',').html_safe
+    unless @current_track.tags.blank?
+      @current_track.tags.map{|t|
+        link_to t, ''
+      }.join(',&nbsp;').html_safe
+    end
   end
 
   def attachment_url
@@ -51,10 +72,10 @@ module AudiosHelper
   def js_track_params
     options = {
       :album_name  => @album.title,
-      :author_name => @audio.author.display_name,
-      :track_name  => @audio.title,
-      :track_url   => @audio.source.url,
-      :track_duration => @audio.duration,
+      :author_name => @current_track.author.display_name,
+      :track_name  => @current_track.title,
+      :track_url   => @current_track.source.url,
+      :track_duration => @current_track.duration,
     }
 
     options.map do |key, value|

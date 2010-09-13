@@ -1,9 +1,9 @@
 <div class="trackAuthor">
-  <div class="trackPhoto"><img src="pics/trackPhoto.jpg" alt="" /></div>
+  <div class="trackPhoto"><%= track_img %></div>
   <div class="trackInfo">
-    <div class="author"><span>Автор:</span> Шридхар Махарадж</div>
-    <div class="tags"><a href="#">совесть</a>, <a href="#">эго</a>, <a href="#">препятствия</a>, <a href="#">помощь</a>, <a href="#">вера</a></div>
+    <div class="author"><span>Автор:</span> <%= @album.author.display_name %></div>
+    <div class="tags"><%= tags %></div>
 
-    <div class="download"><a href="#"><b>&#160;</b><i>&#160;</i>скачать этот трек (25 Мб)</a></div>
+    <div class="download"><%= link_to "<b>&#160;</b><i>&#160;</i>скачать этот трек (25 Мб)".html_safe, @current_track.source.url %></div>
   </div>
 </div>

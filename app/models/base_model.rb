@@ -10,6 +10,7 @@ module Doc
 end
 
 class BaseModel < CouchRest::Model::Base
+  include ActiveSupport::Memoizable
   include DirtyBehavior
   include Attachments
   include Slug 

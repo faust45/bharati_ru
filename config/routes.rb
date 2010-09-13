@@ -61,24 +61,14 @@ MahaMandala::Application.routes.draw do
   match 'users/logout' => 'users#logout', :as => 'logout'
   match 'users/change_css_style/:css_style' => 'users#change_css_style', :as => 'user_change_css_style'
 
+  match 'audios/album/:album_id/' => 'audios#album', :as => 'album'
+  match 'audios/album/:album_id/track/:id' => 'audios#album', :as => 'album_track'
+  match 'audios/author/:author_id' => 'audios#author', :as => 'author_audios'
 
   resources :users do
   end
 
   resources :audios do
-    collection do
-      get :album, :path => 'album/:album_id'
-    end
-  end
-
-  controller :audio_bookmarks do
-    scope 'audio/:id/bookmark' do
-      match 'create',         :to => :create,  :as => :audio_bookmark_create
-      match ':bm_id/destroy', :to => :destroy, :as => :audio_bookmark_delete
-      match ':bm_id/share',   :to => :share,   :as => :audio_bookmark_share
-      match ':bm_id/private', :to => :private, :as => :audio_bookmark_private
-      match ':bm_id/copy',    :to => :copy,    :as => :audio_bookmark_copy
-    end
   end
 
   controller 'admin/albums' do

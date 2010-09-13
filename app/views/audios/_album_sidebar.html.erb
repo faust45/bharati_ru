@@ -3,10 +3,7 @@
     <div class="title">Треки альбома</div>
     <div class="text">
       <ul>
-        <li class="active"><strong>1. “Ложное эго – препятствие или помощь?”</strong><div><span>Лекция от 12 октября 1987 года</span><br />18 апреля 2010</div></li>
-        <li><a href="#">2. “Высшая планка религиозности”</a><div><span>Лекция от 12 октября 1987 года</span><br />18 апреля 2010</div></li>
-
-        <li><a href="#">3. “Высшая планка религиозности”</a><div><span>Лекция от 12 октября 1987 года</span><br />18 апреля 2010</div></li>
+        <%= render :partial => 'track_item', :collection => @tracks %>
       </ul>
     </div>
     <div class="bottom"></div>

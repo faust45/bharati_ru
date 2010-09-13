@@ -4,6 +4,7 @@
   <%= f.input :slug %>
 
   <%= f.input :main_photo, :as => :img_attachment %>
+  <%= f.input :photos, :as => :img_attachments %>
   <%= f.input :description, :as => :text, :input_html => { :class => 'mceEditor', :cols => 70} %>
 
   <%= f.submit 'Save' %>

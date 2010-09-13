@@ -1,5 +1,31 @@
 module ApplicationHelper
 
+  def small_thumb(photo)
+    url = thumb_url(photo)
+    if url 
+      image_tag(url, :width => "80", :height => "97")
+    end
+  end
+
+  def big_thumb(photo)
+    url = thumb_url(photo)
+    if url 
+      image_tag(url, :width => "77", :height => "88")
+    end
+  end
+
+  def thumb_url(photo)
+    unless photo.blank?
+      photo.thumbs['small']['url']
+    end
+  end
+
+  def site_path
+    site_path_items.map do |item|
+      content_tag(:strong, "> #{item}")
+    end.join
+  end
+
   def content(&block)
     content_for(:content, block)
   end

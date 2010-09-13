@@ -1,14 +1,54 @@
 class Audio < MediaContent
 
   property :duration
-  property :bookmarks, [HHash],:default => [] #:time :name
+  property :bookmarks, [HHash],:default => [] #:time :str_time :name
 
-  has_attachment :source, SourceAudioAttachmentStore
+  has_attachment  :source, SourceAudioAttachmentStore
   has_attachments :photos, BigPhotoStore
 
   after_create_source_attachment  :assign_meta_info
   after_replace_source_attachment :assign_meta_info, :if => :is_source_need_update_meta_info?
 
+  after_destroy :drop_from_albums
+
+  view_by :album, :map => <<-MAP
+    function(doc) {
+      if(doc['couchrest-type'] == 'Album') {
+        if(doc.tracks) {
+          for(i in doc.tracks) {
+            emit([doc['_id'], i], {'_id': doc.tracks[i]});
+          };
+        }
+      }
+    }
+  MAP
+
+  view_by :order_by_created_at, :map => <<-MAP
+    function(doc) {
+      if(doc['couchrest-type'] == 'Audio') {
+        emit(doc['created_at'], null);
+      }
+    }
+  MAP
+
+  view_by :author, :map => <<-MAP
+    function(doc) {
+      if(doc['couchrest-type'] == 'Audio') {
+        emit([doc['author_id'], doc['created_at']], null);
+      }
+    }
+  MAP
+
+
+  class <<self
+    def get_by_author(author_id)
+      by_author(:key => author_id)
+    end
+
+    def order_by_created_at(limit = 10)
+      by_order_by_created_at(:startkey => '', :endkey => {})
+    end
+  end
 
   def albums
     @albums ||= Album.by_albums_by_track(:key => self.id)
@@ -40,6 +80,12 @@ class Audio < MediaContent
   end
 
   private
+    def drop_from_albums
+      Album.get_albums_by_track(self.id).each do |album|
+        album >> self
+      end
+    end
+
     def is_source_need_update_meta_info?
       @is_source_need_update_info = true if @is_source_need_update_info.nil?
       @is_source_need_update_info

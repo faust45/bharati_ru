@@ -1,0 +1,14 @@
+<% if is_selected_author?(author_item) %>
+  <li>
+    <strong>
+      <%= image_tag(author_item.main_photo.thumbs['small']['url'], :width => "88", :height => "119") %>
+      <span><%= author_item.display_name %></span>
+    </strong>
+  </li>
+<% else %>
+  <li>
+    <%= link_to(image_tag(author_item.main_photo.thumbs['small']['url'], :width => "88", :height => "119") + "<span>#{author_item.display_name}</span>".html_safe,
+        author_audios_path(author_item))
+    %>
+  </li>
+<% end %>

@@ -3,8 +3,8 @@
 <%= simple_form_for [:admin, form_adapter], :url => url, :html => {:multipart => true, :method => form_method} do |f| %>
   <%= f.input :title %>
   <%= f.input :description %>
-  <%= f.input :author, :as => :autocomplete %>
-  <%= f.input :tracks, :as => :sort_tracks  %>
+  <%= f.input :author_id, :as => :author_select %>
+  <%= f.input :tracks, :as => :sort_tracks      %>
 
   <%= f.input :cover, :as => :img_attachment %>
   <%= f.submit 'save' %>
