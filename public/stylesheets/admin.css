@@ -162,8 +162,3 @@ ul.sub_nav li.add_new a {
   float: left;
   margin-right: 1.5em;
 }
-
-#context_nav select {
-  font-weight: bold;
-  font-size: 1em;
-}

@@ -5,9 +5,7 @@ module Admin::AudiosHelper
       @author.albums
     else
       Album.all
-    end.map {|a|
-      [a.title, a.id]
-    }
+    end
   end
 
   def prepare_sub_nav

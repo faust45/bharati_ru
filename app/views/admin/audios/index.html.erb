@@ -1,11 +1,22 @@
-<% include_js('admin/audio_list_nav') %>
+<% include_js('admin/audio_form_nav') %>
 
 <% context_nav do %>
   <%= render :partial => 'list_nav' %>
 <% end %>
 
-<table>
-<% @audios.each do |audio| %>
-  <%= audio_tr(audio) %>
-<% end %>
-</table>
+<div class="tab active">
+  <table>
+    <% @audios.each do |audio| %>
+      <%= audio_tr(audio) %>
+    <% end %>
+  </table>
+</div>
+
+<div class="tab">
+  <ul>
+    <%= render :partial => 'album_item', :collection => albums %>
+  </ul>
+</div>
+
+<div class="tab active">
+</div>
