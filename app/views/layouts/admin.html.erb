@@ -18,7 +18,19 @@
   </head>
 
   <body>
-        <%= flash[:notice] %>
+    <%= flash[:notice] %>
+
+    <div id="main">
+      <div id="content">
+        <div id="context_nav">
+          <%= yield :context_nav %>
+        </div>
         <%= yield %>
+      </div>
+
+      <div id="sidebar">
+        <%= render_sidebar %>
+      </div>
+    </div>
   </body>
 </html>

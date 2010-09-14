@@ -61,3 +61,109 @@ div.edit_block {
   float: right;
   width: 40em;
 }
+
+#main{position:relative; width:100%; margin:0 auto; padding:0 0 0 0; text-align:left; z-index:6; overflow:hidden;}
+	#content{float:right; position:relative; width:76%; margin:0em 0 0 0;}
+	#sidebar{float:left; position:relative; width:24%;}
+
+#nav {
+  padding: 0 0 0 1em;
+  margin: 0 2em 0 0;
+  border-right: 2px solid black; 
+}
+
+#nav li {
+  margin-bottom: 0.5em;
+}
+
+ul.sub_nav {
+  padding: 0 0 0 1em;
+  margin: 0 0 0 0;
+}
+
+ul.sub_nav li.add_new {
+  padding-top: 1.6em;
+}
+
+ul.sub_nav li.author_item a {
+  color: #4667A3;
+  font-size: 1.1em;
+}
+
+ul.sub_nav li.active a {
+  color: #8C2A48;
+}
+
+
+
+ul.sub_nav li.add_new a {
+  color: #098F78;
+}
+
+
+
+
+#context_nav {
+  margin-bottom: 4em;
+}
+
+#context_nav ul {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+}
+
+#context_nav ul.form_edit li {
+  background: none repeat scroll 0 0 #F2F2EE;
+  display: block;
+  height: 19px;
+  line-height: 11px;
+  margin-bottom: 1px;
+  padding-left: 8px;
+  padding-top: 6px;
+  width: 102px;
+  
+  float: left;
+  margin-right: 0.5em;
+}
+
+#context_nav ul li a {
+  color: #2786C2;
+}
+
+#context_nav a:hover {
+  color: #F75342;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#context_nav ul.tabs_control li {
+}
+
+#context_nav ul.tabs_control li.active {
+  background: none repeat scroll 0 0 #34B0FF;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+#context_nav ul.tabs_control li.active a {
+  color: white;
+}
+
+.tab {
+  display:none;
+}
+
+.active {
+  display:block;
+}
+
+
+#context_nav ul.list_control li {
+  float: left;
+  margin-right: 1.5em;
+}
+
+#context_nav select {
+  font-weight: bold;
+  font-size: 1em;
+}

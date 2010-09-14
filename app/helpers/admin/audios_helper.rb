@@ -1,5 +1,21 @@
 module Admin::AudiosHelper
 
+  def albums
+    unless @author.blank?
+      @author.albums
+    else
+      Album.all
+    end.map {|a|
+      [a.title, a.id]
+    }
+  end
+
+  def prepare_sub_nav
+    content_for :audios_nav do
+      render :partial => 'sub_nav'
+    end
+  end
+
   def object_name
     'audio'
   end

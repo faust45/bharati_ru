@@ -42,7 +42,7 @@ class Audio < MediaContent
 
   class <<self
     def get_by_author(author_id)
-      by_author(:key => author_id)
+      by_author(:startkey => [author_id], :endkey => [author_id, {}])
     end
 
     def order_by_created_at(limit = 10)

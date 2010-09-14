@@ -77,7 +77,9 @@ MahaMandala::Application.routes.draw do
   end
 
   namespace :admin do
-    root :to => "contents#index"
+    root :to => "audios#index"
+
+    match 'audios/author/:author_id', :to => "audios#author", :as => :author_audios
 
     resources :albums do
     end

@@ -1,11 +1,16 @@
 class Admin::AudiosController < Admin::ContentsController
-  #uses_tiny_mce
   skip_before_filter :verify_authenticity_token
   free_actions :upload, :replace_source
 
   def index
     @audios = Audio.all
-    logger.info 'in index cool'
+  end
+
+  def author
+    @author = Author.get!(params[:author_id])
+    @audios = Audio.get_by_author(@author.id)
+
+    render :action => :index
   end
 
   def upload

@@ -265,7 +265,7 @@ h2{font-size:15px; font-weight:300;}
 
 .lect ul{position:relative; margin:0 0 0 -8px; padding:12px 0 0 0; overflow:hidden;}
 	.lect li{float:left; width:105px; list-style:none; font-size:116%;}
-		.lect li a, .lect li strong{display:block; width:88px; height:166px; padding:8px; text-decoration:none;}
+		.lect li a, .lect li strong{display:block; width:88px; padding:8px; text-decoration:none;}
 		.lect li strong{padding:0; border:8px solid #00AEEF; font-weight:300;}
 			.lect li img{width:88px; height:119px; list-style:none;}
 			.lect li span{display:block; width:87px; padding:0 0 0 1px;}

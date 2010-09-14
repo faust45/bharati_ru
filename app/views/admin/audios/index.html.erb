@@ -1,9 +1,11 @@
+<% include_js('admin/audio_list_nav') %>
+
+<% context_nav do %>
+  <%= render :partial => 'list_nav' %>
+<% end %>
+
 <table>
 <% @audios.each do |audio| %>
   <%= audio_tr(audio) %>
 <% end %>
 </table>
-
-</br>
-</br>
-<%= link_to 'Add new', new_admin_audio_path %>
