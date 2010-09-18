@@ -72,8 +72,8 @@ MahaMandala::Application.routes.draw do
   end
 
   controller 'admin/albums' do
-    match 'admin/albums/:id/add_track/:track_id', :to => :add_track, :as => :album_add_track
-    match 'admin/albums/:id/del_track/:track_id', :to => :del_track, :as => :album_del_track
+    match 'admin/albums/add_track',  :to => :add_track,  :as => :album_add_track
+    match 'admin/albums/drop_track', :to => :drop_track, :as => :album_drop_track
   end
 
   namespace :admin do

@@ -1,14 +1,11 @@
+<% raise 'form is off now' %>
 <%= include_js('application', 'app_autocomplete', 
                'jquery.autocomplete', 'jquery.ui.autocomplete.ext', 
                'jquery.templating', 'jquery.dimensions', 
-               'prettify/prettify', 'jcalendar-source', 'edit_albums', 'replace_mp3', 'admin/audio_form_nav') %>
+               'prettify/prettify', 'jcalendar-source', 'edit_albums', 'replace_mp3') %>
 
 
-<% context_nav do %>
-  <%= render :partial => 'context_nav' %>
-<% end %>
-
-<%= simple_form_for [:admin, form_adapter], :url => url, :html => {:multipart => true, :method => form_method} do |f| %>
+<%= simple_form_for [:admin, AudioFormAdapter.new(Audio.first)], :url => url, :html => {:multipart => true, :method => form_method} do |f| %>
   <div class="tab active">
     <%= f.input :is_published, :as => :boolean, :label_wrap => false %>
     <%= f.input :title %>
@@ -26,13 +23,11 @@
     <%= f.input :photos, :as => :img_attachments %>
   </div>
 
-  <div id="add_to" class="tab">
+  <div class="tab">
     <%= f.input :albums, :as => :albums %>
   </div>
 
-  <div id="source_file" class="tab">
+  <div class="tab">
     <%= f.input :source, :as => :mp3_attachment %>
   </div>
-
-  <%= f.submit 'save' %>
 <% end %>

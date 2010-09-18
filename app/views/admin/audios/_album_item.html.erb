@@ -1,3 +1,5 @@
-<li>
-  <%= album_item.title %>
+<li class="tree">
+  <span class="ico">
+    <%= link_to album_item.title, '', 'data-id' => album_item.id %>
+  </span>
 </li>

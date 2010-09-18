@@ -41,7 +41,7 @@ AddBookmark.Event.MakeCopySuccess = function(html) {
 
 
 function BookmarkBehavior(element, config) {
-  element = $(element);
+  var element = $(element);
 
   var link = element.find('.info a');
   var time = link.attr('data-time');

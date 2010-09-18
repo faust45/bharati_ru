@@ -17,7 +17,7 @@ class Album < BaseModel
   view_by :title
   view_by :author_id
 
-  view_by :albums_by_track, :map => <<-MAP
+  view_by :track, :map => <<-MAP
     function(doc) {
       if(doc['couchrest-type'] == 'Album') {
         if(doc.tracks) {

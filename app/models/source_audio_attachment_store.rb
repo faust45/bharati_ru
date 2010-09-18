@@ -58,6 +58,8 @@ class SourceAudioAttachmentStore < FileStore
       unless name.blank?
         name.strip!
         name.sub!(/\.$/, '')
+        name.sub!(/^\./, '')
+        name.strip!
 
         self.album_name = name 
       end

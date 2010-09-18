@@ -32,7 +32,7 @@ class Admin::AlbumsController < Admin::ContentsController
   end
 
   def album
-    @album ||= Album.get(params[:id])
+    @album ||= Album.get(params[:album_id])
   end
 
   def form_adapter
@@ -52,10 +52,13 @@ class Admin::AlbumsController < Admin::ContentsController
     audio = Audio.get!(params[:track_id])
     album << audio
 
-    render :json => 'ok'
+    render :json => 'ok', :content_type => "text/plain", :cache_control => 'no-cache' 
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
-  def del_track
+  def drop_track
     audio = Audio.get!(params[:track_id])
     album >> audio
 

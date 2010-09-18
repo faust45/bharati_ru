@@ -1,5 +1,12 @@
 module ApplicationHelper
 
+  def collect_options(items, &block)
+     items.map {|i|
+       ret = yield i
+       "<option value='%s'>%s</option>" % ret
+     }.join.html_safe
+  end
+
   def small_thumb(photo)
     url = thumb_url(photo)
     if url 

@@ -1,22 +1,29 @@
-<% include_js('admin/audio_form_nav') %>
+<% include_js('admin/album_dir_nav', 'admin/track_form', 'admin/tracks') %>
 
 <% context_nav do %>
   <%= render :partial => 'list_nav' %>
 <% end %>
 
-<div class="tab active">
-  <table>
-    <% @audios.each do |audio| %>
-      <%= audio_tr(audio) %>
-    <% end %>
-  </table>
+<div id="main_tabs">
+  <div class="tab files">
+    <ul class="tracks">
+      <%= render :partial => 'audio_item', :collection => @audios %>
+    </ul>
+  </div>
+
+  <div class="tab cont files">
+    <div id="albums_dir" class="sub_cont">
+      <ul> <%= render :partial => 'album_item', :collection => albums %> </ul>
+    </div>
+
+    <div id="tracks_list" class="sub_cont">
+    </div>
+  </div>
+
+  <div class="tab">
+  </div>
 </div>
 
-<div class="tab">
-  <ul>
-    <%= render :partial => 'album_item', :collection => albums %>
-  </ul>
-</div>
-
-<div class="tab active">
+<div id="lect_edit">
+  <%= render :partial => 'track_form' %>
 </div>

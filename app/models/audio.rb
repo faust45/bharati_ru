@@ -51,7 +51,7 @@ class Audio < MediaContent
   end
 
   def albums
-    @albums ||= Album.by_albums_by_track(:key => self.id)
+    @albums ||= Album.by_track(:key => self.id)
   end
 
   def source_replace(new_file, is_need_update_info = false)

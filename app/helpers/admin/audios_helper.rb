@@ -1,5 +1,17 @@
 module Admin::AudiosHelper
 
+  def edit_tags
+
+  end
+
+  def select_authors
+    options = collect_options(Author.all) {|a|
+      [a.id, a.display_name]
+    } 
+
+    select_tag 'author', options
+  end
+
   def albums
     unless @author.blank?
       @author.albums

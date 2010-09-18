@@ -8,12 +8,6 @@ class Admin::AudiosController < Admin::ContentsController
 
   def author
     @author = Author.get!(params[:author_id])
-
-    unless params[:by_author].blank?
-    end
-    unless params[:by_year].blank?
-    end
-
     @audios = Audio.get_by_author(@author.id)
 
     render :action => :index

@@ -64,7 +64,7 @@ div.edit_block {
 
 #main{position:relative; width:100%; margin:0 auto; padding:0 0 0 0; text-align:left; z-index:6; overflow:hidden;}
 	#content{float:right; position:relative; width:76%; margin:0em 0 0 0;}
-	#sidebar{float:left; position:relative; width:24%;}
+	#sidebar{float:left; position:relative; width:24%; height: 100%}
 
 #nav {
   padding: 0 0 0 1em;
@@ -112,7 +112,7 @@ ul.sub_nav li.add_new a {
   margin: 0 0 0 0;
 }
 
-#context_nav ul.form_edit li {
+ul.form_edit li {
   background: none repeat scroll 0 0 #F2F2EE;
   display: block;
   height: 19px;
@@ -126,26 +126,23 @@ ul.sub_nav li.add_new a {
   margin-right: 0.5em;
 }
 
-#context_nav ul li a {
+ul.form_edit li a {
   color: #2786C2;
 }
 
-#context_nav a:hover {
+ul.form_edit a:hover {
   color: #F75342;
   cursor: pointer;
   text-decoration: none;
 }
 
-#context_nav ul.tabs_control li {
-}
-
-#context_nav ul.tabs_control li.active {
+ul.tabs_control li.active {
   background: none repeat scroll 0 0 #34B0FF;
   color: #FFFFFF;
   font-weight: bold;
 }
 
-#context_nav ul.tabs_control li.active a {
+ul.tabs_control li.active a {
   color: white;
 }
 
@@ -161,4 +158,91 @@ ul.sub_nav li.add_new a {
 #context_nav ul.list_control li {
   float: left;
   margin-right: 1.5em;
+}
+
+#content ul {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+}
+
+ul.albums li {
+  width: 100%;
+}
+
+.ico {
+  background: url("/images/mp31.png") no-repeat scroll 3px 50% transparent;
+  display: block;
+}
+
+.tree .ico {
+  background-image: url("/images/dir1.png");
+}
+
+
+
+div.cont {
+}
+
+div.sub_cont {
+  float: left;
+}
+
+div#albums_dir {
+  width: 45%;
+  border-right: 2px solid black; 
+}
+
+div#tracks_list {
+  margin-left: 1em;
+}
+
+.files li {
+  background-color: #F8F8F8;
+  border-bottom: 1px solid #CCCCCC;
+  list-style: none outside none;
+  height: 2em;
+}
+
+.files li a {
+  color: #0A5D94;
+  display: block;
+  padding: 8px 8px 8px 3em;
+}
+
+.files a:hover {
+  color: #F75342;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#lect_edit {
+  float: none;
+  border-top: 3px solid #CCCCCC;
+  margin-top: 2em;
+  padding-top: 2em;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#main_tabs {
+  min-height: 15em;
+}
+
+#edit_menu {
+  padding-top: 1em;
+  position:absolute; 
+  top:0;
+  width: 100%;
+}
+
+#form_tabs {
+  padding-top: 2em;
+  position: absolute; 
+  width: 100%;
+}
+
+
+.input {
+  margin-bottom: 1em;
 }
