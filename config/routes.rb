@@ -71,15 +71,23 @@ MahaMandala::Application.routes.draw do
   resources :audios do
   end
 
-  controller 'admin/albums' do
-    match 'admin/albums/add_track',  :to => :add_track,  :as => :album_add_track
-    match 'admin/albums/drop_track', :to => :drop_track, :as => :album_drop_track
-  end
-
   namespace :admin do
     root :to => "audios#index"
 
     match 'audios/author/:author_id', :to => "audios#author", :as => :author_audios
+
+    controller 'albums' do
+      scope 'albums' do
+        match 'add_track',  :to => :add_track,  :as => :album_add_track
+        match 'drop_track', :to => :drop_track, :as => :album_drop_track
+      end
+    end
+
+    controller 'audios' do
+      scope 'audios' do
+        match 'upload_photo',  :to => :upload_photo, :as => :audio_upload_photo
+      end
+    end
 
     resources :albums do
     end

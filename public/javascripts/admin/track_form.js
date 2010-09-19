@@ -2,12 +2,12 @@
 //Initialization
 
 $(document).ready(function() {
-  $.ajaxSetup({
-    'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "*/*")},
-    'complete': function() {
-      console.log('stuff complete');
-    }
-  });
+  //$.ajaxSetup({
+  //  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "*/*")},
+  //  'complete': function() {
+  //    console.log('in global stuff complete');
+  //  }
+  //});
   
   var f = new TrackForm();
   EditForm = f;
@@ -35,21 +35,24 @@ TrackForm.prototype = {
     fields.tags    = $('<input>', {type: 'text', size: '25'});
     fields.recordDate = $('<select></select><select></select><select></select>');
     fields.bookmarks  = $('<textarea>', {cols: '30', rows: '15'});
-    fields.mp3File    = $('<input>', {type: 'file', name: 'source_file', id: 'cool_file'});
+    fields.mp3File    = $('<input>', {type: 'file', name: 'mp3_file', id: 'mp3_file_upload'});
     fields.albums     = $('<ul>', {'class': 'track-albums'});
+    fields.photos     = $('<div>', {id: 'photo_file_upload'});
 
     var basicInfo = new FieldSet(fields, ['title', 'authors', 'recordDate', 'tags']);
     var bookmarks = new FieldSet(fields, ['bookmarks']);
     var mp3File   = new FieldSet(fields, ['mp3File']);
     var albums    = new FieldSet(fields, ['albums']);
+    var photos    = new FieldSet(fields, ['photos']);
 
-    this.append([basicInfo, bookmarks, mp3File, albums]);
+    this.append([basicInfo, bookmarks, albums, photos, mp3File]);
 
-    fields.tags.asTagsInput(); 
-    fields.authors.asAuthorsInput(); 
-    fields.recordDate.asDateInput();
-    fields.mp3File.asMp3FileInput();
-    fields.albums.asAlbumsInput();
+    //fields.tags.asTagsInput(); 
+    //fields.authors.asAuthorsInput(); 
+    //fields.recordDate.asDateInput();
+    //fields.mp3File.asMp3FileInput();
+    fields.photos.asPhotosInput();
+    //fields.albums.asAlbumsInput();
 
     return this.form;
   },
@@ -75,6 +78,8 @@ TrackForm.prototype = {
     this.setRecordDate(track.record_date);
     this.setTags(track.tags);
     this.setAlbums(track['_id']);
+    this.setPhotos(track);
+    //this.setMp3File(track.source_attachments[0]);
   },
 
   setTitle: function(value) {
@@ -95,6 +100,14 @@ TrackForm.prototype = {
 
   setAlbums: function(trackId) {
     this.fields.albums.ctl.update(trackId);
+  },
+
+  setPhotos: function(track) {
+    this.fields.photos.ctl.update(track);
+  },
+
+  setMp3File: function(sourceFile) {
+    this.fields.mp3File.ctl.update(sourceFile);
   }
 };
 
@@ -322,6 +335,52 @@ DateSelect.prototype = {
   }
 }
 
+
+//----------------------------------------------------------------------
+PhotosInput = function(input) {
+  this.input = input;
+
+  this.imgBlock = $('<div></div>', { 'class': 'track_photos'});
+  this.input.parent().append(this.imgBlock);
+}
+
+PhotosInput.prototype = {
+  update: function(track) {
+    var self = this; 
+    this.trackId = track['_id'];
+    this.photos  = track['photos_attachments'];
+
+    this.imgBlock.html('');
+    $.each(this.photos, function() {
+      if (this.thumbs.small) {
+        self.imgBlock.append($('<img />', {src: this.thumbs.small.url}));
+      }
+    });
+  },
+
+  fireOnOpen: function() {
+    $(this.input).uploadifySettings('scriptData', {track_id: this.trackId});
+  }
+}
+
+
+//----------------------------------------------------------------------
+Mp3FileInput = function(input) {
+  this.input = input;
+  this.fileCont = $('<div></div>');
+  this.input.parent().prepend(this.fileCont);
+};
+
+Mp3FileInput.prototype = {
+  update: function(trackMp3File) {
+    this.fileCont.html('');
+    var a = $('<a>' + trackMp3File.file_name + '</a>');
+    a.attr('href', trackMp3File.url);
+    this.fileCont.append(a);
+  }
+};
+
+
 //----------------------------------------------------------------------
 function range(first, last) {
   var arr = [];
@@ -335,6 +394,21 @@ function range(first, last) {
 
 
 //----------------------------------------------------------------------
+$.fn.asPhotosInput = function() {
+  var self = $(this);
+  var ctl  = new PhotosInput(this);
+  this.ctl = ctl; 
+
+  var uploader = new qq.FileUploader({
+    element: $(this)[0],
+    action: '/admin/audios/upload_photo',
+    onComplete: function(id, fileName, responseJSON){
+      console.log('onComplete photo upload');
+      return true;
+    }
+  });
+};
+
 $.fn.asTagsInput = function() {
   this.ctl = new TagsInput(this);
 };
@@ -368,6 +442,8 @@ $.fn.asAlbumsInput = function() {
 $.fn.asMp3FileInput = function() {
   var control = buildControlDiv();
   control.hide();
+  var ctl = new Mp3FileInput(this);
+  this.ctl = ctl;
 
   control.linkToUpload.click(function(el) {
     this.uploadifySettings('scriptData', {need_update_info: control.isNeedUpdateInfo()});
@@ -383,8 +459,8 @@ $.fn.asMp3FileInput = function() {
     cancelImg: '/images/cancel.png',
     multi:     false,
     auto:      false,
-    width: 150,
-    height: 50,
+    width: 250,
+    height: 100,
     buttonImg: '/images/replace.png',
     buttonText: '',
     fileExt: '*.mp3',

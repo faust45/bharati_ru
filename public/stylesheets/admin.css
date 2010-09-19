@@ -246,3 +246,10 @@ div#tracks_list {
 .input {
   margin-bottom: 1em;
 }
+
+div.tags {
+}
+
+div.track_photos img {
+  padding: 3 3 3 3;
+}

@@ -1,6 +1,6 @@
 class Admin::AudiosController < Admin::ContentsController
   skip_before_filter :verify_authenticity_token
-  free_actions :upload, :replace_source
+  free_actions :upload, :replace_source, :upload_photo
 
   def index
     @audios = Audio.all
@@ -18,6 +18,16 @@ class Admin::AudiosController < Admin::ContentsController
     audio.save
     logger.info audio.inspect
     render :json => {:redirect_to => edit_admin_audio_path(audio)} 
+  end
+
+  def upload_photo
+    audio = Audio.get!(params['track_id'])
+    audio.photos_file = params['Filedata']
+    audio.save
+
+    audio = Audio.get(audio.id)
+
+    render :json => {'doc' => audio} 
   end
 
   def replace_source

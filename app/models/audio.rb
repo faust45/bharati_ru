@@ -81,7 +81,7 @@ class Audio < MediaContent
 
   private
     def drop_from_albums
-      Album.get_albums_by_track(self.id).each do |album|
+      Album.by_track(self.id).each do |album|
         album >> self
       end
     end
