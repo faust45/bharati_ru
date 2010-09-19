@@ -2,12 +2,12 @@
 //Initialization
 
 $(document).ready(function() {
-  //$.ajaxSetup({
-  //  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "*/*")},
-  //  'complete': function() {
-  //    console.log('in global stuff complete');
-  //  }
-  //});
+  $.ajaxSetup({
+    'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "*/*")},
+    'complete': function() {
+      console.log('in global stuff complete');
+    }
+  });
   
   var f = new TrackForm();
   EditForm = f;
@@ -47,12 +47,12 @@ TrackForm.prototype = {
 
     this.append([basicInfo, bookmarks, albums, photos, mp3File]);
 
-    //fields.tags.asTagsInput(); 
-    //fields.authors.asAuthorsInput(); 
-    //fields.recordDate.asDateInput();
+    fields.tags.asTagsInput(); 
+    fields.authors.asAuthorsInput(); 
+    fields.recordDate.asDateInput();
     //fields.mp3File.asMp3FileInput();
     fields.photos.asPhotosInput();
-    //fields.albums.asAlbumsInput();
+    fields.albums.asAlbumsInput();
 
     return this.form;
   },
