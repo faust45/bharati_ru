@@ -5,6 +5,7 @@ describe 'Audio mp3 attachments' do
   before(:all) do
     FileStore.use_database TEST_SERVER.database('test_file_store')
     Audio.use_database TEST_SERVER.database('test_audio')
+    Album.use_database TEST_SERVER.database('test_audio')
 
     dir = Rails.root + 'spec/models/files/'
     @file = File.open(dir + '17_sec.mp3')
@@ -15,6 +16,7 @@ describe 'Audio mp3 attachments' do
     end
 
     FileStore.delete_all
+    Album.delete_all
     Audio.delete_all
 
     flexmock(SourceAudioAttachmentStore).new_instances do |m|
@@ -263,14 +265,14 @@ describe 'Audio create' do
     audio.record_date.should be_eql(Date.parse('2010.10.03'))
   end
 
-  it 'should assign author, when author exist' do
+  it 'should assign correct author_id, when author exist' do
     Author.delete_all
 
     author = Author.create(:display_name => 'Б.Ч. Бхарати Махарадж')
     author.should_not be_new
 
     audio = Audio.create(:source_file => @file)
-    audio.author.name.should be_eql('Б.Ч. Бхарати Махарадж')
+    audio.author_id.should be_eql(author.id)
   end
 
   it 'should create new author, when author not exist' do
@@ -280,11 +282,12 @@ describe 'Audio create' do
     }.should change{ Author.count }.by(+1)
   end
 
-  it 'should assign author, when author not exist' do
+  it 'should assign correct author_id, when author not exist' do
     Author.delete_all
 
     audio = Audio.create(:source_file => @file)
-    audio.author.name.should be_eql('Б.Ч. Бхарати Махарадж')
+    author = Author.get(audio.author_id)
+    author.display_name.should be_eql('Б.Ч. Бхарати Махарадж')
   end
 
   it 'should assign tags' do
@@ -361,10 +364,9 @@ describe 'Audio replace attachment' do
     end
 
     FileStore.delete_all
+    Album.delete_all
     Audio.delete_all
     Author.delete_all
-    Album.delete_all
-
   end
 
   before(:each) do
@@ -381,14 +383,16 @@ describe 'Audio replace attachment' do
       @audio = Audio.create(:source_file => @file)
       @old_source = @audio.source.clone
       @audio.source_replace(@file_new, false)
+
+      @audio = Audio.get(@audio.id)
+    end
+
+    it 'should update file_name' do
+      @audio.source['file_name'].should be_eql(@file_new.original_filename)
     end
 
     it 'should not replace title' do
       @audio.title.should be_eql('O забавах')
-    end
-
-    it 'should not replace author name' do
-      @audio.author.name.should be_eql('Б.Ч. Бхарати Махарадж')
     end
 
     it 'should not replace tags' do
@@ -401,14 +405,12 @@ describe 'Audio replace attachment' do
       @audio = Audio.create(:source_file => @file)
       @old_source = @audio.source.clone
       @audio.source_replace(@file_new, true)
+
+      @audio = Audio.get(@audio.id)
     end
 
     it 'should assign title' do
       @audio.title.should be_eql('Roberto Song true')
-    end
-
-    it 'should assign new author_name' do
-      @audio.author.name.should be_eql('Solo')
     end
 
     it 'should create new album' do

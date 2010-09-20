@@ -18,8 +18,21 @@ class BaseModel < CouchRest::Model::Base
 
   use_database DB
 
+  class BlankDocId < Exception
+  end
+
 
   class <<self
+    def get_doc(id)
+      raise BlankDocId if id.blank?
+      get(id)
+    end
+
+    def get_doc!(id)
+      raise BlankDocId if id.blank?
+      get!(id)
+    end
+
     def delete_all
       all.each do |doc|
         doc.destroy
@@ -43,6 +56,7 @@ class BaseModel < CouchRest::Model::Base
       use_database db
     end
   end
+
 
   def make_copy 
     attributes = self.to_hash.dup

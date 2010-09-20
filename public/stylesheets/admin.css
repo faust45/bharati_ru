@@ -253,3 +253,27 @@ div.tags {
 div.track_photos img {
   padding: 3 3 3 3;
 }
+
+span.response {
+  margin-left: 1em;
+  font: 10px verdana,sans-serif;
+}
+
+span.response-added {
+  text-color: green;
+}
+
+span.response-removed {
+  text-color: red;
+}
+
+ul.track-albums {
+  font: 15px verdana,sans-serif;
+  cursor: default;
+}
+
+#last_tracks ul li.current {
+  background-color: #51DEE8 !important;
+}
+
+

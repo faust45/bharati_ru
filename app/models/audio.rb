@@ -48,6 +48,10 @@ class Audio < MediaContent
     def order_by_created_at(limit = 10)
       by_order_by_created_at(:startkey => '', :endkey => {})
     end
+
+    def clean_up
+      all.map{|e| database.delete_doc({'_id' => e['_id'], '_rev' => e['_rev']}) if e.title.blank? && e['_id']}
+    end
   end
 
   def albums

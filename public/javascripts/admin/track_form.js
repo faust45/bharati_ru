@@ -2,16 +2,21 @@
 //Initialization
 
 $(document).ready(function() {
+  $(document).ajaxError(function(e, xhr, settings, exception) { 
+    alert('error in: ' + settings.url + ' \n'+'error:\n' + xhr.responseText ); 
+  }); 
+  
   $.ajaxSetup({
-    'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "*/*")},
+    'success': function() {
+      console.log('in global stuff success');
+    },
     'complete': function() {
       console.log('in global stuff complete');
     }
   });
   
-  var f = new TrackForm();
-  EditForm = f;
-  var htmlForm = f.buildForm();
+  EditForm = new TrackForm();
+  var htmlForm = EditForm.buildForm();
 
   $('#form_tabs').append(htmlForm);
   $('#edit_menu ul').behavior(TabsBehavior);
@@ -35,7 +40,7 @@ TrackForm.prototype = {
     fields.tags    = $('<input>', {type: 'text', size: '25'});
     fields.recordDate = $('<select></select><select></select><select></select>');
     fields.bookmarks  = $('<textarea>', {cols: '30', rows: '15'});
-    fields.mp3File    = $('<input>', {type: 'file', name: 'mp3_file', id: 'mp3_file_upload'});
+    fields.mp3File    = $('<div>', {id: 'mp3_file_upload'});
     fields.albums     = $('<ul>', {'class': 'track-albums'});
     fields.photos     = $('<div>', {id: 'photo_file_upload'});
 
@@ -50,7 +55,7 @@ TrackForm.prototype = {
     fields.tags.asTagsInput(); 
     fields.authors.asAuthorsInput(); 
     fields.recordDate.asDateInput();
-    //fields.mp3File.asMp3FileInput();
+    fields.mp3File.asMp3FileInput();
     fields.photos.asPhotosInput();
     fields.albums.asAlbumsInput();
 
@@ -67,7 +72,7 @@ TrackForm.prototype = {
 
   editTrack: function(trackId) {
     var self = this;
-    db.getDoc(trackId, function(track) {
+    Track.get(trackId, function(track) {
       self.setTrack(track);
     });
   },
@@ -79,7 +84,7 @@ TrackForm.prototype = {
     this.setTags(track.tags);
     this.setAlbums(track['_id']);
     this.setPhotos(track);
-    //this.setMp3File(track.source_attachments[0]);
+    this.setMp3File(track);
   },
 
   setTitle: function(value) {
@@ -106,8 +111,8 @@ TrackForm.prototype = {
     this.fields.photos.ctl.update(track);
   },
 
-  setMp3File: function(sourceFile) {
-    this.fields.mp3File.ctl.update(sourceFile);
+  setMp3File: function(track) {
+    this.fields.mp3File.ctl.update(track);
   }
 };
 
@@ -214,8 +219,14 @@ AlbumsInput = function(inputUl) {
   inputUl.find('li').each(function() {
     var li = $(this);
     var box = li.find('input[type=checkbox]');
+    var response = li.find('span.response');
+    var albumId = li.attr('data-id');
 
-    li.click(function() { 
+    li.albumId = albumId;
+    li.box = box;
+    li.response = response;
+
+    li.click(function() {
       if (box.is(':checked')) {
         self.dropFromAlbum(li);
       } else {
@@ -227,55 +238,26 @@ AlbumsInput = function(inputUl) {
 
 AlbumsInput.prototype = {
   trackId: null,
-  addUrl: '/admin/albums/add_track',
-  delUrl: '/admin/albums/drop_track',
-  trackAlbumsView: '_design/Album/_view/by_track',
+  addUrl:  '/admin/albums/add_track',
+  dropUrl: '/admin/albums/drop_track',
 
-  addToAlbum: function(li) {
-    var box = li.find('input[type=checkbox]');
-    var albumId = li.attr('data-id');
-
-    console.log('in add track');
-    li.ajaxSuccess(function() {
-      console.log('in li success');
-    });
-
-    li.ajaxComplete(function() {
-      console.log('in li complete');
-    });
-
-    $.ajax({
-      url: this.addUrl,
-      data: {album_id: albumId, track_id: this.trackId},
-      cache: false,
-      global: false,
-      ifModified: false,
-      'complete': function(data) {
-        alert('cool');
-        console.log('add track success');
-        console.log(resp);
-        resp.responseText;
-        box.attr('checked', true);
-      }
+    addToAlbum: function(li) {
+    this.request(this.addUrl, li.albumId, function() {
+       li.box.attr('checked', true);
+       li.response.html('added');
+       li.response.show();
+       li.response.css('color', 'green');
+       li.response.fadeOut(3000);
     });
   },
 
   dropFromAlbum: function(li) {
-    var box = li.find('input[type=checkbox]');
-    var albumId = li.attr('data-id');
-
-    console.log('in drop track');
-    $.ajax({
-      type: 'post',
-      url: this.dropUrl,
-      data: {album_id: albumId, track_id: this.trackId},
-      complete: function(resp) {
-        console.log('drop track success');
-        console.log(resp);
-
-        resp.responseText;
-        box.attr('checked', false);
-      }
+    this.request(this.dropUrl, li.albumId, function() {
+       li.box.attr('checked', false);
+       li.response.html('removed');
+       li.response.show();
+       li.response.css('color', 'red');
+       li.response.fadeOut(3000);
     });
   },
 
@@ -284,14 +266,24 @@ AlbumsInput.prototype = {
     this.trackId = trackId;
 
     this.cleanUp();
-    db.view(this.trackAlbumsView, {include_docs: true, key: trackId}, function(data) {
+    Album.trackAlbums(trackId, function(data) {
       $.each(data.rows, function() {
         self.checkAlbum(this.doc['_id']);
       });
     });
   },
 
-   
+  request: function(url, albumId, fun) {
+    $.ajax({
+      url: url,
+      data: {album_id: albumId, track_id: this.trackId},
+      cache: false,
+      global: false,
+      ifModified: false,
+      complete: fun 
+    });
+  },
+
   cleanUp: function() {
     this.inputUl.find('li input[type=checkbox]').each(function() {
       $(this).attr('checked', false);
@@ -338,44 +330,109 @@ DateSelect.prototype = {
 
 //----------------------------------------------------------------------
 PhotosInput = function(input) {
-  this.input = input;
+  var self = this;
+  this.input = $(input);
 
-  this.imgBlock = $('<div></div>', { 'class': 'track_photos'});
+  this.imgBlock = $('<div>', { 'class': 'track_photos'});
   this.input.parent().append(this.imgBlock);
+
+  this.uploader = new qq.FileUploader({
+    element: input[0],
+    action: '/admin/audios/upload/photo',
+    allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+    onSubmit: function(id, fileName) {
+      self.uploader.setParams({
+        track_id: self.trackId
+      });
+    },
+    onComplete: function(id, fileName, responseJSON) {
+      if (responseJSON.doc) {
+        self.hideFromSuccessList(id);
+        self.update(responseJSON.doc)
+      }
+    }
+  });
 }
 
 PhotosInput.prototype = {
+  hideFromSuccessList: function(num) {
+    var list = this.input.find('ul.qq-upload-list li');
+    var li = list[num];
+    if (li) {
+      $(li).fadeOut(5000);
+    }
+  },
+
   update: function(track) {
     var self = this; 
     this.trackId = track['_id'];
     this.photos  = track['photos_attachments'];
 
     this.imgBlock.html('');
-    $.each(this.photos, function() {
-      if (this.thumbs.small) {
-        self.imgBlock.append($('<img />', {src: this.thumbs.small.url}));
-      }
-    });
-  },
-
-  fireOnOpen: function() {
-    $(this.input).uploadifySettings('scriptData', {track_id: this.trackId});
+    if (this.photos) {
+      $.each(this.photos, function() {
+        if (this.thumbs.small) {
+          self.imgBlock.append($('<img />', {src: this.thumbs.small.url}));
+        }
+      });
+    }
   }
 }
 
 
 //----------------------------------------------------------------------
 Mp3FileInput = function(input) {
+  var self = this;
   this.input = input;
-  this.fileCont = $('<div></div>');
+  this.fileCont = $('<div>');
   this.input.parent().prepend(this.fileCont);
+
+  var label = $("<label />");
+  this.checkBox = $("<input type='checkbox' />");
+  label.append("зменить теги");
+  label.append(this.checkBox);
+  this.input.parent().append(label);
+
+  this.uploader = new qq.FileUploader({
+    element: input[0],
+    action: '/admin/audios/upload/replace_source',
+    allowedExtensions: ['mp3'],
+    onSubmit: function(id, fileName) {
+      self.uploader.setParams({
+        need_update_info: self.isNeedUpdateInfo(),
+        track_id: self.trackId
+      });
+    },
+    onComplete: function(id, fileName, responseJSON) {
+      if (responseJSON.doc) {
+        self.hideFromSuccessList(id);
+        self.update(responseJSON.doc)
+      }
+    }
+  });
 };
 
 Mp3FileInput.prototype = {
-  update: function(trackMp3File) {
+  isNeedUpdateInfo: function() {
+    return this.checkBox.is(':checked');
+  },
+
+  hideFromSuccessList: function(num) {
+    var list = this.input.find('ul.qq-upload-list li');
+    var li = list[num];
+    if (li) {
+      $(li).fadeOut(5000);
+    }
+  },
+
+  update: function(track) {
+    var self = this; 
+    this.trackId = track['_id'];
+    this.file = track.source_attachments[0];
+
     this.fileCont.html('');
-    var a = $('<a>' + trackMp3File.file_name + '</a>');
-    a.attr('href', trackMp3File.url);
+    var a = $('<a>' + this.file.file_name + '</a>');
+    a.attr('href', this.file.url);
     this.fileCont.append(a);
   }
 };
@@ -395,19 +452,9 @@ function range(first, last) {
 
 //----------------------------------------------------------------------
 $.fn.asPhotosInput = function() {
-  var self = $(this);
-  var ctl  = new PhotosInput(this);
-  this.ctl = ctl; 
+  this.ctl = new PhotosInput(this); 
 
-  var uploader = new qq.FileUploader({
-    element: $(this)[0],
-    action: '/admin/audios/upload_photo',
-    onComplete: function(id, fileName, responseJSON){
-      console.log('onComplete photo upload');
-      return true;
-    }
-  });
-};
+  };
 
 $.fn.asTagsInput = function() {
   this.ctl = new TagsInput(this);
@@ -430,86 +477,17 @@ $.fn.asDateInput = function() {
 
 $.fn.asAlbumsInput = function() {
   var self = this;
-  var viewUrl = '_design/Album/_view/all';
-  var template = "{{#rows}}{{#doc}}<li data-id={{_id}}><input type=checkbox>{{title}}</li>{{/doc}}{{/rows}}"
+  var template = "{{#rows}}{{#doc}}<li data-id={{_id}}><input type=checkbox>{{title}}<span class='response'></span></li>{{/doc}}{{/rows}}"
 
-  db.view(viewUrl, {include_docs: true}, function(data) {
+  Album.all(function(data) {
     self.append(Mustache.to_html(template, data));
     self.ctl = new AlbumsInput(self);
   });
 }
 
 $.fn.asMp3FileInput = function() {
-  var control = buildControlDiv();
-  control.hide();
-  var ctl = new Mp3FileInput(this);
-  this.ctl = ctl;
-
-  control.linkToUpload.click(function(el) {
-    this.uploadifySettings('scriptData', {need_update_info: control.isNeedUpdateInfo()});
-    this.uploadifyUpload();
-
-    return false;
-  });
-
-  this.uploadify({
-    uploader:  '/uploadify.swf', 
-    script:    '/replace', 
-    folder:    '/path/to/uploads-folder', 
-    cancelImg: '/images/cancel.png',
-    multi:     false,
-    auto:      false,
-    width: 250,
-    height: 100,
-    buttonImg: '/images/replace.png',
-    buttonText: '',
-    fileExt: '*.mp3',
-    fileDesc: 'Only *.mp3 allow',
-    onSelect: function(event, queueID, fileObj) {
-      control.checkBox.attr('checked', false);
-      control.show();
-    },
-    onCancel: function(event, queueID, fileObj) {
-      control.hide();
-    },
-    onComplete: function(event, queueID, fileObj, response, data) {
-      var resp = eval('(' + response + ')');
-      control.hide();
-      linkToDownload.attr('href', resp.url);
-      linkToDownload.html(resp.file_name);
-      linkToDownload.effect("highlight", {}, 10000);
-    },
-    onProgress: function(event, queueID, fileObj, data) {
-    }
-  }); 
-
-  var queue = $('<div>', {'class': 'uploadifyQueue', id: this.attr('id') + 'Queue'});
-  this.parent().append(queue);
-  this.parent().append(control);
+  this.ctl = new Mp3FileInput(this);
 }
-
-function buildControlDiv() {
-  var newDiv = $("<div />");
-  var checkBox = $("<input type='checkbox' />");
-  var label = $("<label />");
-  var linkToUpload = $("<a href='#'>Залить</a>");
-
-  label.append(checkBox);
-  label.append("зменить теги");
-  newDiv.append(label);
-  newDiv.append("&nbsp;&nbsp;");
-  newDiv.append(linkToUpload);
-
-  newDiv.linkToUpload = linkToUpload;
-  newDiv.isNeedUpdateInfo = function() {
-    return checkBox.is(':checked'); 
-  };
-
-  newDiv.checkBox = checkBox; 
-
-  return newDiv; 
-}
-
 
 $.fn.setSelected = function(value) {
   var option = this.find('option[value=' + value + ']');

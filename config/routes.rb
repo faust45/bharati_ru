@@ -85,7 +85,8 @@ MahaMandala::Application.routes.draw do
 
     controller 'audios' do
       scope 'audios' do
-        match 'upload_photo',  :to => :upload_photo, :as => :audio_upload_photo
+        match 'upload/photo', :to => :upload_photo, :as => :audio_upload_photo
+        match 'upload/replace_source', :to => :replace_source, :as => :audio_replace_source
       end
     end
 
@@ -96,10 +97,6 @@ MahaMandala::Application.routes.draw do
     end
 
     resources :audios do
-      member do
-        post 'replace_source'
-      end
-
       collection do
         post 'upload'
       end

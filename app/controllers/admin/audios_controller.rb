@@ -21,43 +21,27 @@ class Admin::AudiosController < Admin::ContentsController
   end
 
   def upload_photo
-    audio = Audio.get!(params['track_id'])
-    audio.photos_file = params['Filedata']
+    logger.debug(params.inspect)
+    audio = Audio.get_doc!(params['track_id'])
+    audio.photos_file = params['file']
     audio.save
 
     audio = Audio.get(audio.id)
 
-    render :json => {'doc' => audio} 
+    render :json => {'success' => true, 'doc' => audio} 
   end
 
   def replace_source
     is_need_update_info = params['need_update_info']
     is_need_update_info = is_need_update_info == 'true' ? true : false
 
-    audio = Audio.get(params[:id])
-    audio.source_replace(params['Filedata'], is_need_update_info)
+    logger.debug('original_filename')
+    logger.debug(params['file'].original_filename)
+    audio = Audio.get_doc!(params[:track_id])
+    audio.source_replace(params['file'], is_need_update_info)
 
-    render :json => audio.source 
-  end
-
-  def create
-    begin
-      adapted_params[:uploader] = current_user
-
-      @content = Audio.new(adapted_params)
-      @content.save
-
-      adapted_params.albums.each do |album|
-        album << @content
-      end
-
-      flash[:notice] = 'Audio created success!'
-      redirect_to admin_audios_path
-
-    rescue => ex
-      flash[:notice] = 'Audio created is fail!'
-      render :action => :new
-    end
+    audio = Audio.get_doc!(audio.id)
+    render :json => {'success' => true, 'doc' => audio} 
   end
 
   def update
