@@ -67,6 +67,10 @@ TrackForm.prototype = {
     return this.form;
   },
 
+  fireAddNewTrack: function(track) {
+    this.fields.albums.ctl.refresh();
+  },
+
   saveData: function() {
     $.ajax({
       url: '/admin/audios/save',
@@ -304,7 +308,17 @@ AlbumsInput.prototype = {
   addUrl:  '/admin/albums/add_track',
   dropUrl: '/admin/albums/drop_track',
 
-    addToAlbum: function(li) {
+  refresh: function() {
+    var self = this;
+    var template = "{{#rows}}{{#doc}}<li data-id={{_id}}><input type=checkbox>{{title}}<span class='response'></span></li>{{/doc}}{{/rows}}"
+
+    Album.all(function(data) {
+      self.inputUl.html('');
+      self.inputUl.append(Mustache.to_html(template, data));
+    });
+  },
+
+  addToAlbum: function(li) {
     this.request(this.addUrl, li.albumId, function() {
        li.box.attr('checked', true);
        li.response.html('added');

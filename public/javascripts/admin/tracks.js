@@ -38,12 +38,18 @@ LastTrackList = {
   },
 
   addNewTrack: function(data) {
+    var self = this;
     var template = '{{#doc}}<li data-id="{{_id}}"><span class="ico"><a href="">{{title}}</a></span></li>{{/doc}}';
        
     var html = Mustache.to_html(template, data);
     this.ul.prepend(html);
     var newLi = this.ul.find('li:first');
     newLi.effect("highlight", {}, 5000);
+    newLi.click(function() {
+      self.setCurrent(newLi);
+      return false;
+    });
+    EditForm.fireAddNewTrack(data.doc);
   },
 
   goNext: function() {
