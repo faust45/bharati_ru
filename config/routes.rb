@@ -74,7 +74,6 @@ MahaMandala::Application.routes.draw do
   namespace :admin do
     root :to => "audios#index"
 
-    match 'audios/author/:author_id', :to => "audios#author", :as => :author_audios
 
     controller 'albums' do
       scope 'albums' do
@@ -85,8 +84,11 @@ MahaMandala::Application.routes.draw do
 
     controller 'audios' do
       scope 'audios' do
+        match 'save', :to => :update, :as => :audio_update
+        match 'upload/new',   :to => :new, :as => :audio_new
         match 'upload/photo', :to => :upload_photo, :as => :audio_upload_photo
         match 'upload/replace_source', :to => :replace_source, :as => :audio_replace_source
+        match 'author/:author_id', :to => "audios#author", :as => :author_audios
       end
     end
 
@@ -94,12 +96,6 @@ MahaMandala::Application.routes.draw do
     end
 
     resources :videos do
-    end
-
-    resources :audios do
-      collection do
-        post 'upload'
-      end
     end
 
     controller :contents do

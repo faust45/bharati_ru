@@ -15,59 +15,49 @@ $(document).ready(function() {
   });
 
   $(document).focus();
-
+  $('#add_new_track').asAddNewTrack();
 });
 
 LastTrackList = {
   current: null,
-  tracks: [],
-  currentNum: 0,
-  maxNum: 0,
 
   init: function(ul) {
+    this.ul = $(ul);
     var self = this;
 
-    ul.find('li').each(function(i) {
+    ul.find('li').each(function() {
       var li = $(this);
-      self.tracks.push(li);
-      var id = li.attr('data-id');
-      li.docId = id;
-      li.itemNum = i; 
 
       li.click(function() {
         self.setCurrent(li);
-        self.currentNum = li.itemNum;
         return false;
       });
     });
 
-    var size =  $(this.tracks).size();
-    if(0 < size) {
-      this.maxNum = size - 1;
-    } else {
-      this.maxNum = 0;
-    }
+    this.setCurrent(this.ul.find('li:first'));
+  },
 
-
-    this.setCurrent(this.tracks[0]);
+  addNewTrack: function(data) {
+    var template = '{{#doc}}<li data-id="{{_id}}"><span class="ico"><a href="">{{title}}</a></span></li>{{/doc}}';
+       
+    var html = Mustache.to_html(template, data);
+    this.ul.prepend(html);
+    var newLi = this.ul.find('li:first');
+    newLi.effect("highlight", {}, 5000);
   },
 
   goNext: function() {
-    if(this.currentNum < this.maxNum) {
-      this.currentNum = this.currentNum + 1;
-      this.refresh();
+    var next = this.current.next();
+    if(next[0]) {
+      this.setCurrent(next);
     }
   },
 
   goPrev: function() {
-    if(0 < this.currentNum) {
-      this.currentNum = this.currentNum - 1;
-      this.refresh();
+    var prev = this.current.prev();
+    if(prev[0]) {
+      this.setCurrent(prev);
     }
-  },
-
-  refresh: function() {
-    this.setCurrent(this.tracks[this.currentNum]);
   },
 
   setCurrent: function(li) {
@@ -77,7 +67,24 @@ LastTrackList = {
 
     this.current = li;
     this.current.addClass('current');
-    EditForm.editTrack(li.docId);
+
+    var id = this.current.attr('data-id');
+    EditForm.editTrack(id);
   }
 }
 
+
+$.fn.asAddNewTrack = function() {
+  $(this).uploader = new qq.FileUploader({
+    element: this[0],
+    action: '/admin/audios/upload/new',
+    allowedExtensions: ['mp3'],
+    onSubmit: function(id, fileName) {
+    },
+    onComplete: function(id, fileName, responseJSON) {
+      if (responseJSON.doc) {
+        LastTrackList.addNewTrack(responseJSON);
+      }
+    }
+  });
+}

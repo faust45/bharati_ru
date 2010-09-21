@@ -43,6 +43,7 @@ TrackForm.prototype = {
     fields.mp3File    = $('<div>', {id: 'mp3_file_upload'});
     fields.albums     = $('<ul>', {'class': 'track-albums'});
     fields.photos     = $('<div>', {id: 'photo_file_upload'});
+    this.buttonSave   = $('#button_save');
 
     var basicInfo = new FieldSet(fields, ['title', 'authors', 'recordDate', 'tags']);
     var bookmarks = new FieldSet(fields, ['bookmarks']);
@@ -59,7 +60,55 @@ TrackForm.prototype = {
     fields.photos.asPhotosInput();
     fields.albums.asAlbumsInput();
 
+
+    console.log(this.fields.tags);
+    this.listenChanges();
+
     return this.form;
+  },
+
+  saveData: function() {
+    $.ajax({
+      url: '/admin/audios/save',
+      type: 'POST',
+      data: this.getData(),
+      success: function(resp) {
+        console.log(resp);
+      }
+    });
+  },
+
+  getData: function() {
+  },
+
+  listenChanges: function() {
+    var self = this;
+
+    this.fields.title.keypress(function() {
+      self.dataChanged();
+    });
+  },
+
+  dataNew: function() {
+    var pathSaved = '/images/saved.png';
+    this.buttonSave.attr('src', pathSaved);
+  },
+
+  dataChanged: function() {
+    var pathSave  = '/images/save.png';
+    this.buttonSave.attr('src', pathSave);
+  },
+
+  init: function() {
+    var self = this;
+
+    this.buttonSave.click(function() {
+      self.saveData();
+    });
+
+    this.fields.tags[0].bind('tagsChanged', function(e, value) {
+      console.log('tags changed');
+    });
   },
 
   append: function(blocks) {
@@ -74,6 +123,7 @@ TrackForm.prototype = {
     var self = this;
     Track.get(trackId, function(track) {
       self.setTrack(track);
+      self.dataNew();
     });
   },
 
@@ -104,7 +154,9 @@ TrackForm.prototype = {
   },
 
   setAlbums: function(trackId) {
-    this.fields.albums.ctl.update(trackId);
+    if(this.fields.albums.ctl) {
+      this.fields.albums.ctl.update(trackId);
+    }
   },
 
   setPhotos: function(track) {
@@ -169,9 +221,17 @@ TagsInput = function(inputField) {
 TagsInput.prototype = {
   fireAddNewTag: function() {
     this.add(this.inputField.attr('value'));
+    console.log('in fireAddNewTag');
+    console.log(this.inputField);
+    $(this.inputField).trigger('tagsChanged');            
+  },
+
+  fireDropTag: function() {
+    $(this.inputField).trigger('tagsChanged');            
   },
 
   add: function(value) {
+    var self = this;
     var existsTag = this.getTag(value);
 
     if (!existsTag) {
@@ -181,7 +241,10 @@ TagsInput.prototype = {
 
       label.append(checkbox);
       label.append(value);
-      label.click(function(){ $(this).remove() });
+      label.click(function() { 
+        $(this).remove();
+        self.fireDropTag();
+      });
 
       this.tagsCont.append(label);
     } else {
@@ -319,12 +382,28 @@ function DateSelect(inputs) {
 
 DateSelect.prototype = {
   update: function(newDate) {
-    var date = new Date(newDate);
+    var date = this.parseDate(newDate);
 
-    this.yearInput.setSelected(date.getFullYear());  
-    this.monthInput.setSelected(date.getMonth());  
-    this.dayInput.setSelected(date.getDay());  
+    if (date) {
+      this.yearInput.setSelected(date.getFullYear());  
+      this.monthInput.setSelected(date.getMonth());  
+      this.dayInput.setSelected(date.getDay());  
+    }
+  },
+
+  parseDate: function(input, format) {
+    format = format || 'yyyy-mm-dd'; // default format
+
+    if (input) {
+      var parts = input.match(/(\d+)/g), 
+          i = 0, fmt = {};
+      // extract date-part indexes from the format
+      format.replace(/(yyyy|dd|mm)/g, function(part) { fmt[part] = i++; });
+
+      return new Date(parts[fmt['yyyy']], parts[fmt['mm']], parts[fmt['dd']]);
+    }
   }
+  
 }
 
 
@@ -493,3 +572,5 @@ $.fn.setSelected = function(value) {
   var option = this.find('option[value=' + value + ']');
   option.attr('selected', 'selected');
 }
+
+

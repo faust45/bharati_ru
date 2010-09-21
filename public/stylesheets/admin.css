@@ -276,4 +276,6 @@ ul.track-albums {
   background-color: #51DEE8 !important;
 }
 
-
+#button_save {
+  cursor: wait;
+}

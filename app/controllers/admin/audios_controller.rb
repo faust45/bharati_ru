@@ -13,11 +13,12 @@ class Admin::AudiosController < Admin::ContentsController
     render :action => :index
   end
 
-  def upload
-    audio = Audio.new(:source_file => params['Filedata'])
+  def new 
+    audio = Audio.new(:source_file => params['file'])
     audio.save
     logger.info audio.inspect
-    render :json => {:redirect_to => edit_admin_audio_path(audio)} 
+
+    render :json => {'success' => true, 'doc' => audio} 
   end
 
   def upload_photo
