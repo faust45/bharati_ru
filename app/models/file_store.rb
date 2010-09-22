@@ -53,7 +53,8 @@ class FileStore < BaseModel
     end
 
     def prepare_file_name
-      Russian::translit(original_filename)
+      name = Russian::translit(original_filename)
+      name.gsub('@', '_')
     end
 
     def assign_content_type(options)
