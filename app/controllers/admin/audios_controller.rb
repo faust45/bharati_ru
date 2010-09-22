@@ -46,8 +46,9 @@ class Admin::AudiosController < Admin::ContentsController
   end
 
   def update
-    content.update_attributes(adapted_params)
-    redirect_to admin_audios_path
+    @audio = Audio.get(params[:track_id])
+    @audio.update_attributes(params)
+    render :json => "ok".to_json
   end
 
   private 

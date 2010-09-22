@@ -49,7 +49,8 @@ LastTrackList = {
       self.setCurrent(newLi);
       return false;
     });
-    EditForm.fireAddNewTrack(data.doc);
+
+    this.trigger('lastTracks.addNewTrack', [data.doc]);
   },
 
   goNext: function() {

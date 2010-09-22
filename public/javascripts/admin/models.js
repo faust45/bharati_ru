@@ -23,6 +23,16 @@ Track = {
   }
 }
 
+Author = {
+  viewAllUrl: '_design/Author/_view/all',
+
+  all: function(fun) {
+    db.view(this.viewAllUrl, {include_docs: true}, function(data) {
+      fun(data);
+    });
+  }
+}
+
 db = {
   urlPrefix: "http://192.168.1.100:5984/",
   name: "rocks",

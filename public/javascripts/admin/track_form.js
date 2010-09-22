@@ -3,15 +3,13 @@
 
 $(document).ready(function() {
   $(document).ajaxError(function(e, xhr, settings, exception) { 
-    alert('error in: ' + settings.url + ' \n'+'error:\n' + xhr.responseText ); 
+    alert('error in: ' + settings.url + 'exeption:' + exception + ' \n'+'error:\n' + xhr.responseText ); 
   }); 
   
   $.ajaxSetup({
     'success': function() {
-      console.log('in global stuff success');
     },
     'complete': function() {
-      console.log('in global stuff complete');
     }
   });
   
@@ -60,36 +58,85 @@ TrackForm.prototype = {
     fields.photos.asPhotosInput();
     fields.albums.asAlbumsInput();
 
-
-    console.log(this.fields.tags);
     this.listenChanges();
+    this.init();
 
     return this.form;
   },
 
-  fireAddNewTrack: function(track) {
-    this.fields.albums.ctl.refresh();
-  },
-
   saveData: function() {
+    var self = this;
+
     $.ajax({
       url: '/admin/audios/save',
-      type: 'POST',
+      type: 'post',
       data: this.getData(),
       success: function(resp) {
-        console.log(resp);
+        self.dataSaved();
       }
     });
   },
 
   getData: function() {
+    return {
+      track_id: this.currentTrack['_id'],
+      title: this.getTitle(),
+      tags:  this.getTags(),
+      author_id:   this.getAuthorId(),
+      record_date: this.getRecordDate(),
+      bookmarks_raw:   this.getBookmarks()
+    };
+  },
+
+  getTitle: function() {
+    return this.fields.title.val();
+  },
+
+  getTags: function() {
+    return this.fields.tags.ctl.getValues();
+  },
+
+  getAuthorId: function() {
+    return this.fields.authors.ctl.getSelected();
+  },
+
+  getRecordDate: function() {
+    return  this.fields.recordDate.ctl.getSelected();
+  },
+
+  getBookmarks: function() {
+    return this.fields.bookmarks.val();
   },
 
   listenChanges: function() {
     var self = this;
 
-    this.fields.title.keypress(function() {
+    this.form.bind('trackForm.changed', function() {
       self.dataChanged();
+    });
+
+    this.fields.title.keypress(function() {
+      self.form.trigger('trackForm.changed');
+    });
+
+    this.fields.tags.bind('tagsChanged', function() {
+      self.form.trigger('trackForm.changed');
+    });
+
+    this.fields.recordDate.bind('recordDateChanged', function() {
+      self.form.trigger('trackForm.changed');
+    });
+
+    this.fields.authors.bind('authorChanged', function() {
+      self.form.trigger('trackForm.changed');
+    });
+
+    this.fields.bookmarks.bind('bookmarksChanged', function() {
+      self.form.trigger('trackForm.changed');
+    });
+
+    this.fields.bookmarks.keypress(function() {
+      self.form.trigger('trackForm.changed');
     });
   },
 
@@ -103,6 +150,11 @@ TrackForm.prototype = {
     this.buttonSave.attr('src', pathSave);
   },
 
+  dataSaved: function() {
+    var pathSaved = '/images/saved.png';
+    this.buttonSave.attr('src', pathSaved);
+  },
+
   init: function() {
     var self = this;
 
@@ -110,8 +162,8 @@ TrackForm.prototype = {
       self.saveData();
     });
 
-    this.fields.tags[0].bind('tagsChanged', function(e, value) {
-      console.log('tags changed');
+    $(this).bind('lastTracks.addNewTrack', function() {
+      self.fields.albums.ctl.refresh();
     });
   },
 
@@ -132,6 +184,8 @@ TrackForm.prototype = {
   },
 
   setTrack: function(track) {
+    this.currentTrack = track;
+
     this.setTitle(track.title);
     this.setAuthor(track.author_id);
     this.setRecordDate(track.record_date);
@@ -223,10 +277,17 @@ TagsInput = function(inputField) {
 }
 
 TagsInput.prototype = {
+  getValues: function() {
+    var tags = [];
+    this.tagsCont.find('input[type=checkbox]').each(function() {
+      tags.push($(this).attr('value'));
+    });
+
+    return tags;
+  },
+
   fireAddNewTag: function() {
     this.add(this.inputField.attr('value'));
-    console.log('in fireAddNewTag');
-    console.log(this.inputField);
     $(this.inputField).trigger('tagsChanged');            
   },
 
@@ -392,16 +453,34 @@ function DateSelect(inputs) {
   this.monthInput.append(html);
   var html = Mustache.to_html("<option></option>{{#years}}<option value={{.}}>{{.}}</option>{{/years}}", {years: days});
   this.dayInput.append(html);
+
+
+  var self = this;
+  this.yearInput.change(function() {
+    self.inputs.trigger('recordDateChanged');
+  });
+  this.monthInput.change(function() {
+    self.inputs.trigger('recordDateChanged');
+  });
+  this.dayInput.change(function() {
+    self.inputs.trigger('recordDateChanged');
+  });
 }
 
 DateSelect.prototype = {
   update: function(newDate) {
+    console.log(newDate);
     var date = this.parseDate(newDate);
 
+    this.currentDate = date;
     if (date) {
       this.yearInput.setSelected(date.getFullYear());  
       this.monthInput.setSelected(date.getMonth());  
-      this.dayInput.setSelected(date.getDay());  
+      this.dayInput.setSelected(date.getDate());  
+    } else {
+      this.yearInput.setSelected('');
+      this.monthInput.setSelected('');
+      this.dayInput.setSelected('');
     }
   },
 
@@ -416,8 +495,15 @@ DateSelect.prototype = {
 
       return new Date(parts[fmt['yyyy']], parts[fmt['mm']], parts[fmt['dd']]);
     }
+  },
+
+  getSelected: function() {
+    var year  = this.yearInput.val();
+    var month = this.monthInput.val();
+    var day   = this.dayInput.val();
+
+    return (year + '-' + month + '-' + day);
   }
-  
 }
 
 
@@ -489,6 +575,7 @@ Mp3FileInput = function(input) {
   this.uploader = new qq.FileUploader({
     element: input[0],
     action: '/admin/audios/upload/replace_source',
+    multiple: false,
     allowedExtensions: ['mp3'],
     onSubmit: function(id, fileName) {
       self.uploader.setParams({
@@ -555,13 +642,22 @@ $.fn.asTagsInput = function() {
 
 $.fn.asAuthorsInput = function() {
   var self = this;
-  var viewUrl = '_design/Author/_view/all';
   var template = "{{#rows}}{{#doc}}<option value={{_id}}>{{display_name}}</option>{{/doc}}{{/rows}}"
 
   self.append($('<option>Select Author</option>'));
-  db.view(viewUrl, {include_docs: true}, function(data) {
+  Author.all(function(data) {
     self.append(Mustache.to_html(template, data));
   });
+
+  this.change(function() {
+    self.trigger('authorChanged');
+  });
+
+  this.ctl = {
+    getSelected: function() {
+      return self.val();
+    }
+  };
 };
 
 $.fn.asDateInput = function() {
