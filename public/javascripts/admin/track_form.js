@@ -58,10 +58,35 @@ TrackForm.prototype = {
     fields.photos.asPhotosInput();
     fields.albums.asAlbumsInput();
 
-    this.listenChanges();
     this.init();
 
     return this.form;
+  },
+
+  init: function() {
+    var self = this;
+
+    this.listenChanges();
+
+    this.buttonSave.click(function() {
+      self.saveData();
+    });
+
+    $(document).bind('currentTrackChanged', function(e, trackId) {
+      self.editTrack(trackId);
+    });
+
+    $(document).bind('addNewTrack', function(e, track) {
+      self.fields.albums.ctl.refresh();
+    });
+  },
+
+  editTrack: function(trackId) {
+    var self = this;
+    Track.get(trackId, function(track) {
+      self.setTrack(track);
+      self.dataNew();
+    });
   },
 
   saveData: function() {
@@ -88,58 +113,6 @@ TrackForm.prototype = {
     };
   },
 
-  getTitle: function() {
-    return this.fields.title.val();
-  },
-
-  getTags: function() {
-    return this.fields.tags.ctl.getValues();
-  },
-
-  getAuthorId: function() {
-    return this.fields.authors.ctl.getSelected();
-  },
-
-  getRecordDate: function() {
-    return  this.fields.recordDate.ctl.getSelected();
-  },
-
-  getBookmarks: function() {
-    return this.fields.bookmarks.val();
-  },
-
-  listenChanges: function() {
-    var self = this;
-
-    this.form.bind('trackForm.changed', function() {
-      self.dataChanged();
-    });
-
-    this.fields.title.keypress(function() {
-      self.form.trigger('trackForm.changed');
-    });
-
-    this.fields.tags.bind('tagsChanged', function() {
-      self.form.trigger('trackForm.changed');
-    });
-
-    this.fields.recordDate.bind('recordDateChanged', function() {
-      self.form.trigger('trackForm.changed');
-    });
-
-    this.fields.authors.bind('authorChanged', function() {
-      self.form.trigger('trackForm.changed');
-    });
-
-    this.fields.bookmarks.bind('bookmarksChanged', function() {
-      self.form.trigger('trackForm.changed');
-    });
-
-    this.fields.bookmarks.keypress(function() {
-      self.form.trigger('trackForm.changed');
-    });
-  },
-
   dataNew: function() {
     var pathSaved = '/images/saved.png';
     this.buttonSave.attr('src', pathSaved);
@@ -155,31 +128,11 @@ TrackForm.prototype = {
     this.buttonSave.attr('src', pathSaved);
   },
 
-  init: function() {
-    var self = this;
-
-    this.buttonSave.click(function() {
-      self.saveData();
-    });
-
-    $(this).bind('lastTracks.addNewTrack', function() {
-      self.fields.albums.ctl.refresh();
-    });
-  },
-
   append: function(blocks) {
     var form = this.form;
 
     $.each(blocks, function() {
       form.append(this.html());
-    });
-  },
-
-  editTrack: function(trackId) {
-    var self = this;
-    Track.get(trackId, function(track) {
-      self.setTrack(track);
-      self.dataNew();
     });
   },
 
@@ -223,6 +176,59 @@ TrackForm.prototype = {
 
   setMp3File: function(track) {
     this.fields.mp3File.ctl.update(track);
+  },
+
+  getTitle: function() {
+    return this.fields.title.val();
+  },
+
+  getTags: function() {
+    return this.fields.tags.ctl.getValues();
+  },
+
+  getAuthorId: function() {
+    return this.fields.authors.ctl.getSelected();
+  },
+
+  getRecordDate: function() {
+    return  this.fields.recordDate.ctl.getSelected();
+  },
+
+  getBookmarks: function() {
+    return this.fields.bookmarks.val();
+  },
+
+
+  listenChanges: function() {
+    var self = this;
+
+    this.form.bind('trackForm.changed', function() {
+      self.dataChanged();
+    });
+
+    this.fields.title.keypress(function() {
+      self.form.trigger('trackForm.changed');
+    });
+
+    this.fields.tags.bind('tagsChanged', function() {
+      self.form.trigger('trackForm.changed');
+    });
+
+    this.fields.recordDate.bind('recordDateChanged', function() {
+      self.form.trigger('trackForm.changed');
+    });
+
+    this.fields.authors.bind('authorChanged', function() {
+      self.form.trigger('trackForm.changed');
+    });
+
+    this.fields.bookmarks.bind('bookmarksChanged', function() {
+      self.form.trigger('trackForm.changed');
+    });
+
+    this.fields.bookmarks.keypress(function() {
+      self.form.trigger('trackForm.changed');
+    });
   }
 };
 
@@ -681,5 +687,3 @@ $.fn.setSelected = function(value) {
   var option = this.find('option[value=' + value + ']');
   option.attr('selected', 'selected');
 }
-
-

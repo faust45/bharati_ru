@@ -4,13 +4,15 @@
 $(document).ready(function() {
   LastTrackList.init($('#last_tracks ul'));
 
+  $(document).bind('keydown', 'a', function() {
+    Nav.openAlbums();
+  });
+
   $(document).bind('keydown', 'j', function() {
-    console.log('j is down');
     LastTrackList.goNext();
   });
 
   $(document).bind('keydown', 'k', function() {
-    console.log('k is down');
     LastTrackList.goPrev();
   });
 
@@ -34,14 +36,18 @@ LastTrackList = {
       });
     });
 
+    $(document).bind('addNewTrack', function(e, track) {
+      self.addNewTrack(track);
+    });
+
     this.setCurrent(this.ul.find('li:first'));
   },
 
-  addNewTrack: function(data) {
+  addNewTrack: function(track) {
     var self = this;
     var template = '{{#doc}}<li data-id="{{_id}}"><span class="ico"><a href="">{{title}}</a></span></li>{{/doc}}';
        
-    var html = Mustache.to_html(template, data);
+    var html = Mustache.to_html(template, {doc: track});
     this.ul.prepend(html);
     var newLi = this.ul.find('li:first');
     newLi.effect("highlight", {}, 5000);
@@ -49,8 +55,6 @@ LastTrackList = {
       self.setCurrent(newLi);
       return false;
     });
-
-    this.trigger('lastTracks.addNewTrack', [data.doc]);
   },
 
   goNext: function() {
@@ -76,7 +80,7 @@ LastTrackList = {
     this.current.addClass('current');
 
     var id = this.current.attr('data-id');
-    EditForm.editTrack(id);
+    $(document).trigger('currentTrackChanged', [id]);
   }
 }
 
@@ -86,11 +90,9 @@ $.fn.asAddNewTrack = function() {
     element: this[0],
     action: '/admin/audios/upload/new',
     allowedExtensions: ['mp3'],
-    onSubmit: function(id, fileName) {
-    },
     onComplete: function(id, fileName, responseJSON) {
       if (responseJSON.doc) {
-        LastTrackList.addNewTrack(responseJSON);
+        $(document).trigger('addNewTrack', [responseJSON.doc]);
       }
     }
   });

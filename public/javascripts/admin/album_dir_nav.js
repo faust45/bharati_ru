@@ -2,7 +2,7 @@
 //Initialization
 
 $(document).ready(function() {
-  var albums = $('#albums_dir ul a').behavior(AlbumDirBehavior);
+  var albums = $('#albums_list ul a').behavior(AlbumDirBehavior);
 });
 
 //--------------------------------------------------------------
