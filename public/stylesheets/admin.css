@@ -237,8 +237,7 @@ div#tracks_list {
 }
 
 #form_tabs {
-  padding-top: 2em;
-  position: absolute; 
+  padding-top: 3.5em;
   width: 100%;
 }
 
@@ -277,5 +276,9 @@ ul.track-albums {
 }
 
 #button_save {
-  cursor: wait;
+  cursor: pointer;
+}
+
+.qq-upload-drop-area {
+  width: 60% !important;
 }

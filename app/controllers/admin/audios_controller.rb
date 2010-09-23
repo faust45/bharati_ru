@@ -7,7 +7,7 @@ class Admin::AudiosController < Admin::ContentsController
   end
 
   def author
-    @author = Author.get!(params[:author_id])
+    @author = Author.get_doc!(params[:author_id])
     @audios = Audio.get_by_author(@author.id)
 
     render :action => :index
@@ -27,7 +27,7 @@ class Admin::AudiosController < Admin::ContentsController
     audio.photos_file = params['file']
     audio.save
 
-    audio = Audio.get(audio.id)
+    audio = Audio.get_doc!(audio.id)
 
     render :json => {'success' => true, 'doc' => audio} 
   end
@@ -46,14 +46,10 @@ class Admin::AudiosController < Admin::ContentsController
   end
 
   def update
-    @audio = Audio.get(params[:track_id])
+    @audio = Audio.get_doc!(params[:track_id])
     @audio.update_attributes(params)
+
     render :json => "ok".to_json
   end
-
-  private 
-    def model
-      Audio
-    end
 
 end

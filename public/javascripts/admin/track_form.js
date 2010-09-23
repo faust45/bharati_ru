@@ -469,7 +469,6 @@ function DateSelect(inputs) {
 
 DateSelect.prototype = {
   update: function(newDate) {
-    console.log(newDate);
     var date = this.parseDate(newDate);
 
     this.currentDate = date;
