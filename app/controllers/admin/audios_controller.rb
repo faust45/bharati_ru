@@ -1,6 +1,4 @@
 class Admin::AudiosController < Admin::ContentsController
-  skip_before_filter :verify_authenticity_token
-  free_actions :upload, :replace_source, :upload_photo
 
   def index
     @audios = Audio.all
@@ -36,8 +34,6 @@ class Admin::AudiosController < Admin::ContentsController
     is_need_update_info = params['need_update_info']
     is_need_update_info = is_need_update_info == 'true' ? true : false
 
-    logger.debug('original_filename')
-    logger.debug(params['file'].original_filename)
     audio = Audio.get_doc!(params[:track_id])
     audio.source_replace(params['file'], is_need_update_info)
 
