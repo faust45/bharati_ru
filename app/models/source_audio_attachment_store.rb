@@ -76,6 +76,7 @@ class SourceAudioAttachmentStore < FileStore
         end
 
         self.title.sub!(/[. ]*$/, '')
+        self.title.sub!(/^[. ]*/, '')
         self.title.strip!
       end
     end
