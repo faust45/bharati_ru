@@ -1,31 +1,28 @@
 //--------------------------------------------------------------
+//Evens:
+//  addNewTrack, currentTrackChanged
+//
+//
 //Initialization
 
 $(document).ready(function() {
-  LastTrackList.init($('#last_tracks ul'));
-
-  $(document).bind('keydown', 'a', function() {
-    Nav.openAlbums();
-  });
-
-  $(document).bind('keydown', 'j', function() {
-    LastTrackList.goNext();
-  });
-
-  $(document).bind('keydown', 'k', function() {
-    LastTrackList.goPrev();
-  });
+  View.LastTracks.init($('#last_tracks ul'));
 
   $(document).focus();
+
   $('#add_new_track').asAddNewTrack();
 });
 
-LastTrackList = {
+
+View = {};
+
+//--------------------------------------------------------------
+View.LastTracks = {
   current: null,
 
   init: function(ul) {
-    this.ul = $(ul);
     var self = this;
+    this.ul = $(ul);
 
     ul.find('li').each(function() {
       var li = $(this);
@@ -85,6 +82,7 @@ LastTrackList = {
 }
 
 
+//--------------------------------------------------------------
 $.fn.asAddNewTrack = function() {
   $(this).uploader = new qq.FileUploader({
     element: this[0],

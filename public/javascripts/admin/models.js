@@ -1,9 +1,17 @@
-Album = {
+Model = {};
+
+Model.Album = {
   all: function(fun) {
     var viewUrl = '_design/Album/_view/all';
     db.view(viewUrl, {include_docs: true}, function(data) {
       fun(data);
     });
+  },
+
+  tracks: function(albumID, fun) {
+    var viewUrl = '_design/Audio/_view/by_album';
+
+    db.view(viewUrl, {include_docs: true, startkey: [albumID], endkey: [albumID, {}]}, fun);
   },
 
   trackAlbums: function(trackId, fun) {
@@ -12,10 +20,14 @@ Album = {
     db.view(viewUrl, {include_docs: true, key: trackId}, function(data) {
       fun(data);
     });
+  },
+
+  get: function(id, fun) {
+    db.getDoc(id, fun);
   }
 }
 
-Track = {
+Model.Track = {
   get: function(id, fun) {
     db.getDoc(id, function(track) {
       fun(track);
@@ -23,7 +35,7 @@ Track = {
   }
 }
 
-Author = {
+Model.Author = {
   viewAllUrl: '_design/Author/_view/all',
 
   all: function(fun) {
@@ -38,11 +50,17 @@ db = {
   name: "rocks",
 
   getDoc: function(docId, fun) {
-    $.getJSON(this.urlPrefix + this.name + '/' + docId + '?callback=?', fun)
+    $.getJSON(this.urlPrefix + this.name + '/' + docId + '?callback=?', function(data) {
+      data.trim = trim;
+      fun(data);
+    });
   },
 
   view: function(url, options, fun) {
-    $.getJSON(this.urlPrefix + this.name + '/' + url + encodeOptions(options) + '&callback=?', fun)
+    $.getJSON(this.urlPrefix + this.name + '/' + url + encodeOptions(options) + '&callback=?', function(data) {
+      data.trim = trim;
+      fun(data);
+    });
   }
 }
 
@@ -65,3 +83,9 @@ function encodeOptions(options) {
 function toJSON(obj) {
   return obj !== null ? JSON.stringify(obj) : null;
 }
+
+function trim() {
+  return function(text, render) {
+    return render(this.title.substring(0, 40));
+  }
+};

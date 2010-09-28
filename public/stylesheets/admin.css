@@ -215,7 +215,7 @@ div#tracks_list {
   text-decoration: none;
 }
 
-#lect_edit {
+#track_edit {
   float: none;
   border-top: 3px solid #CCCCCC;
   margin-top: 2em;
@@ -281,4 +281,24 @@ ul.track-albums {
 
 .qq-upload-drop-area {
   width: 60% !important;
+}
+
+#albums_list .current .ico {
+  background-image: url("/images/open_dir1.png");
+}
+
+#albums_list ul {
+  cursor: pointer;
+}
+
+#tracks_list ul {
+  cursor: pointer;
+}
+
+#tracks_list ul li.current {
+  background-color: #51DEE8 !important;
+}
+
+.hide {
+  display:none;
 }

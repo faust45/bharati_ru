@@ -34,7 +34,7 @@ TrackForm.prototype = {
     this.form = $('<form>');
 
     fields.title   = $('<input>', {type: 'text', size: '25'});
-    fields.authors = $('<select>');
+    fields.authors = AuthorInput.create();
     fields.tags    = $('<input>', {type: 'text', size: '25'});
     fields.recordDate = $('<select></select><select></select><select></select>');
     fields.bookmarks  = $('<textarea>', {cols: '30', rows: '15'});
@@ -52,7 +52,6 @@ TrackForm.prototype = {
     this.append([basicInfo, bookmarks, albums, photos, mp3File]);
 
     fields.tags.asTagsInput(); 
-    fields.authors.asAuthorsInput(); 
     fields.recordDate.asDateInput();
     fields.mp3File.asMp3FileInput();
     fields.photos.asPhotosInput();
@@ -72,10 +71,6 @@ TrackForm.prototype = {
       self.saveData();
     });
 
-    $(document).bind('currentTrackChanged', function(e, trackId) {
-      self.editTrack(trackId);
-    });
-
     $(document).bind('addNewTrack', function(e, track) {
       self.fields.albums.ctl.refresh();
     });
@@ -83,7 +78,7 @@ TrackForm.prototype = {
 
   editTrack: function(trackId) {
     var self = this;
-    Track.get(trackId, function(track) {
+    Model.Track.get(trackId, function(track) {
       self.setTrack(track);
       self.dataNew();
     });
@@ -234,34 +229,6 @@ TrackForm.prototype = {
 
 
 //----------------------------------------------------------------------
-function FieldSet(fieldsHash, names) {
-  fields = [];
-
-  $.each(names, function() {
-    fields.push(fieldsHash[this]);
-  });
-
-  this.fields = fields;
-};
-
-FieldSet.prototype = {
-  fields: null,
-
-  html: function() {
-    var wrap = $('<div>', {'class': 'tab'});
-
-    $.each(this.fields, function() {
-      var div = $('<div>', {'class': 'input'})
-      div.append(this);
-      wrap.append(div);
-    });
-
-    return wrap;
-  }
-};
-
-
-//----------------------------------------------------------------------
 TagsInput = function(inputField) {
   var self = this;
   this.inputField = inputField;
@@ -379,7 +346,7 @@ AlbumsInput.prototype = {
     var self = this;
     var template = "{{#rows}}{{#doc}}<li data-id={{_id}}><input type=checkbox>{{title}}<span class='response'></span></li>{{/doc}}{{/rows}}"
 
-    Album.all(function(data) {
+    Model.Album.all(function(data) {
       self.inputUl.html('');
       self.inputUl.append(Mustache.to_html(template, data));
     });
@@ -410,7 +377,7 @@ AlbumsInput.prototype = {
     this.trackId = trackId;
 
     this.cleanUp();
-    Album.trackAlbums(trackId, function(data) {
+    Model.Album.trackAlbums(trackId, function(data) {
       $.each(data.rows, function() {
         self.checkAlbum(this.doc['_id']);
       });
@@ -632,58 +599,4 @@ function range(first, last) {
   }
 
   return arr;
-}
-
-
-//----------------------------------------------------------------------
-$.fn.asPhotosInput = function() {
-  this.ctl = new PhotosInput(this); 
-
-  };
-
-$.fn.asTagsInput = function() {
-  this.ctl = new TagsInput(this);
-};
-
-$.fn.asAuthorsInput = function() {
-  var self = this;
-  var template = "{{#rows}}{{#doc}}<option value={{_id}}>{{display_name}}</option>{{/doc}}{{/rows}}"
-
-  self.append($('<option>Select Author</option>'));
-  Author.all(function(data) {
-    self.append(Mustache.to_html(template, data));
-  });
-
-  this.change(function() {
-    self.trigger('authorChanged');
-  });
-
-  this.ctl = {
-    getSelected: function() {
-      return self.val();
-    }
-  };
-};
-
-$.fn.asDateInput = function() {
-  this.ctl = new DateSelect(this);
-}
-
-$.fn.asAlbumsInput = function() {
-  var self = this;
-  var template = "{{#rows}}{{#doc}}<li data-id={{_id}}><input type=checkbox>{{title}}<span class='response'></span></li>{{/doc}}{{/rows}}"
-
-  Album.all(function(data) {
-    self.append(Mustache.to_html(template, data));
-    self.ctl = new AlbumsInput(self);
-  });
-}
-
-$.fn.asMp3FileInput = function() {
-  this.ctl = new Mp3FileInput(this);
-}
-
-$.fn.setSelected = function(value) {
-  var option = this.find('option[value=' + value + ']');
-  option.attr('selected', 'selected');
 }

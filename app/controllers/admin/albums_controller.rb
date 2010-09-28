@@ -10,6 +10,17 @@ class Admin::AlbumsController < Admin::ContentsController
     @album = Album.new
   end
 
+  def upload_cover
+    album = Album.get_doc!(params[:album_id])
+
+    logger.debug(params)
+    album.cover_file = params[:file]
+    album.save
+    album = Album.get_doc!(album.id)
+
+    render :json => {'success' => true, 'doc' => album} 
+  end
+
   def create
     @album = Album.new(params[:album])
     @album.save
@@ -34,10 +45,7 @@ class Admin::AlbumsController < Admin::ContentsController
   def album
     @album ||= Album.get_doc!(params[:album_id])
   end
-
-  def form_adapter
-    @form_adapter ||= AlbumFormAdapter.new(album)
-  end
+  helper_method :album
 
   def autocomplete
     albums = Album.search(params[:q])
@@ -45,8 +53,6 @@ class Admin::AlbumsController < Admin::ContentsController
 
     render :json => albums.join("\n").to_json
   end
-
-  helper_method :album
 
   def add_track
     audio = Audio.get_doc!(params[:track_id])

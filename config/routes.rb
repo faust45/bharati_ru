@@ -79,6 +79,7 @@ MahaMandala::Application.routes.draw do
       scope 'albums' do
         match 'add_track',  :to => :add_track,  :as => :album_add_track
         match 'drop_track', :to => :drop_track, :as => :album_drop_track
+        match 'upload/cover', :to => :upload_cover, :as => :album_upload_cover
       end
     end
 

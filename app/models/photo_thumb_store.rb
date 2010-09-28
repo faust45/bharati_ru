@@ -6,7 +6,7 @@ class PhotoThumbStore < FileStore
 
   before_save :setup
   before_save :resize
-  before_save :convert_to_png
+  #before_save :convert_to_png
   before_save :rounded_corners
 
   private

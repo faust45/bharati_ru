@@ -1,4 +1,4 @@
-<% include_js('admin/album_dir_nav', 'admin/track_form', 'admin/tracks') %>
+<% include_js('admin/controls', 'admin/form_base', 'admin/track_form', 'admin/tracks', 'admin/albums', 'admin/album_form', 'admin/form_manager') %>
 
 <% context_nav do %>
   <%= render :partial => 'list_nav' %>
@@ -13,7 +13,6 @@
 
   <div class="tab cont files">
     <div id="albums_list" class="sub_cont">
-      <ul> <%= render :partial => 'album_item', :collection => albums %> </ul>
     </div>
 
     <div id="tracks_list" class="sub_cont">
@@ -24,6 +23,10 @@
   </div>
 </div>
 
-<div id="lect_edit">
+<div id="track_edit">
   <%= render :partial => 'track_form' %>
+</div>
+
+<div id="album_edit">
+  <%= render :partial => 'album_form' %>
 </div>
