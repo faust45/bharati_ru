@@ -1,5 +1,4 @@
 class Content < BaseModel
-  use_rand_id
 
   property :title
   property :author_id
@@ -8,7 +7,6 @@ class Content < BaseModel
   property :tags,       :default => []
   property :is_published, :default => true 
   property :slug, :read_only => true
-  property :upladed_by_id
 
   timestamps!
 

@@ -74,7 +74,6 @@ MahaMandala::Application.routes.draw do
   namespace :admin do
     root :to => "audios#index"
 
-
     controller 'albums' do
       scope 'albums' do
         match 'add_track',  :to => :add_track,  :as => :album_add_track
@@ -85,6 +84,7 @@ MahaMandala::Application.routes.draw do
 
     controller 'audios' do
       scope 'audios' do
+        root :to => "audios#index", :as => :audios
         match 'save', :to => :update, :as => :audio_update
         match 'upload/new',   :to => :new, :as => :audio_new
         match 'upload/photo', :to => :upload_photo, :as => :audio_upload_photo

@@ -1,22 +1,9 @@
 module Admin::VideosHelper
 
-  def videos_path
-    admin_videos_path
+  def embed(video)
+    s = "<iframe src='http://player.vimeo.com/video/#{video.id}?byline=0&amp;portrait=0&amp;color=fcf2eb' width='640' height='358' frameborder='0'> </iframe>"
+    s.html_safe
   end
 
-  def object_name
-    'video'
-  end
-
-  def video_tr(video)
-    content_tag(:tr) do
-      content_tag(:td, video.title) +
-      content_tag(:td, link_to_edit(edit_admin_video_path(video)))
-    end
-  end
-
-  def content
-    @video
-  end
 
 end

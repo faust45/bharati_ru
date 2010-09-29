@@ -11,14 +11,6 @@ class ApplicationController < ActionController::Base
   #rescue_from ActionView::MissingTemplate, :with => :page_404
 
   class <<self
-    def uses_tiny_mce 
-      super :options => {
-                          :theme => 'advanced',
-                          :theme_advanced_resizing => true,
-                          :theme_advanced_resize_horizontal => false,
-                          :plugins => %w{fullscreen preview paste advimage table advhr advlink contextmenu save},
-                         }
-    end
   end
 
   def logger

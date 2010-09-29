@@ -1,5 +1,4 @@
 class Admin::ContentsController < AdminController
-  include Admin::AudiosHelper
 
   def new
     @content = model.new

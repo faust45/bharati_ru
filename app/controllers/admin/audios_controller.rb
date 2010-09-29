@@ -1,4 +1,4 @@
-class Admin::AudiosController < Admin::ContentsController
+class Admin::AudiosController < AdminController
 
   def index
     @audios = Audio.all

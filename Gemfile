@@ -20,6 +20,7 @@ gem 'wirble'
 gem 'abstract'
 gem 'builder'
 gem 'ruby-mp3info', :require => 'mp3info'
+gem 'vimeo'
 
 
 gem 'ruby-debug'
