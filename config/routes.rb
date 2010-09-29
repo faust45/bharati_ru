@@ -93,9 +93,12 @@ MahaMandala::Application.routes.draw do
       end
     end
 
-    resources :albums do
+    controller 'albums' do
+      scope 'albums' do
+        match 'save', :to => :update, :as => :album_update
+      end
     end
-
+     
     resources :videos do
     end
 

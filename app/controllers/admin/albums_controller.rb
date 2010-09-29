@@ -13,7 +13,6 @@ class Admin::AlbumsController < Admin::ContentsController
   def upload_cover
     album = Album.get_doc!(params[:album_id])
 
-    logger.debug(params)
     album.cover_file = params[:file]
     album.save
     album = Album.get_doc!(album.id)
@@ -29,12 +28,11 @@ class Admin::AlbumsController < Admin::ContentsController
     redirect_to admin_albums_path
   end
 
-  def edit
-  end
-
   def update
-    album.update_attributes(params[:album])
-    redirect_to admin_albums_path
+    album = Album.get_doc!(params['id'])
+    album.update_attributes(params['album'])
+
+    render :json => {:doc => album}
   end
 
   def destroy

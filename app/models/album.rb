@@ -6,7 +6,7 @@ class Album < BaseModel
   property :title
   property :description
   property :author_id
-  property :sort_type, :default => :by_date
+  property :is_hand_sort, :default => false 
   property :tracks, [], :default => []
 
   timestamps!

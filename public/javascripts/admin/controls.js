@@ -1,3 +1,67 @@
+SortType = {
+  create: function() {
+    var sortType = $('<label class="sort-type">Hand sort</label>');
+    var checkbox = $('<input type="checkbox">');
+    sortType.prepend(checkbox);
+    checkbox.change(function() {
+      sortType.trigger('field.changed');
+    });
+
+    var ctl = {
+      refresh: function(doc) {
+        checkbox.attr('checked', doc.is_hand_sort == 'true' ? true : false);
+      },
+
+      getData: function() {
+        return checkbox.is(':checked');
+      }
+    };
+
+    sortType.ctl = ctl;
+    return sortType;
+  }
+}
+
+
+//--------------------------------------------------------------
+SortTracks = {
+  template: "{{#rows}}{{#doc}}<li><img src='/images/arrow.png' /><input type='hidden' value={{_id}}> {{title}}</li>{{/doc}}{{/rows}}",
+
+  create: function() {
+    var self = this;
+    var ul = $('<ul>', {'class': 'sort-tracks'});
+
+    var ctl = {
+      refresh: function(doc) {
+        this.albumID = doc['_id'];
+        Model.Album.tracks(this.albumID, function(data) {
+          ul.html(Mustache.to_html(self.template, data));
+          ul.sortable({
+            update: function(event, ui) { 
+              ul.trigger('field.changed');
+            }
+          });
+        });
+      },
+
+      getData: function() {
+        var tracks = [];
+
+        ul.find('input').each(function() {
+          tracks.push($(this).val());
+        });
+
+        return tracks;
+      }
+    };
+
+    ul.ctl = ctl;
+    return ul;
+  }
+}
+
+
+//--------------------------------------------------------------
 TitleInput = {
   create: function() {
     var self = this;
@@ -28,7 +92,7 @@ TitleInput = {
 PhotoInput = {
   create: function() {
     var node = document.createDocumentFragment();
-    var img = $('<img>');
+    var imgBlock = $('<div>');
     var div = $('<div>');
 
     var ctl = {
@@ -36,14 +100,14 @@ PhotoInput = {
         this.albumID = doc['_id'];
         if (doc.cover_attachments) {
           var cover = doc.cover_attachments[0];
-          console.log(this.coverUrl = cover.thumbs.small.url);
-
           if (cover) {
             this.coverUrl = cover.thumbs.small.url;
+
+            this.coverUrl = cover.thumbs.small.url;
+            var photo = $('<img />', {src: this.coverUrl + '?' + Math.floor(Math.random()*100)});
+            imgBlock.html(photo);
           }
         }
-
-        img.attr('src', this.coverUrl);
       },
 
       getData: function() {}
@@ -52,6 +116,7 @@ PhotoInput = {
     var uploader = new qq.FileUploader({
       element: div[0],
       action: '/admin/albums/upload/cover',
+      multiple: false,
       allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
       onSubmit: function(id, fileName) {
         uploader.setParams({
@@ -66,7 +131,7 @@ PhotoInput = {
     });
 
     node.appendChild(div[0]);
-    node.appendChild(img[0]);
+    node.appendChild(imgBlock[0]);
 
     node.ctl = ctl;
 
@@ -107,7 +172,7 @@ AuthorInput = {
       },
 
       refresh: function(doc) {
-        selectList.setSelected(doc['_id']);
+        selectList.setSelected(doc['author_id']);
       }
     };
 

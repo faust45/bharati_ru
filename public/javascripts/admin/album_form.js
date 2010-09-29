@@ -2,7 +2,9 @@
 //Initialization
 
 $(document).ready(function() {
+  View.AlbumForm.setSaveButton($('#album_form_menu img'));
   var html = View.AlbumForm.html();
+
   $('#album_form_tabs').html(html);
   $('#album_form_menu ul').behavior(TabsBehavior);
 });
@@ -10,7 +12,14 @@ $(document).ready(function() {
 
 //--------------------------------------------------------------
 View.AlbumForm = {
+  paramsSpace: 'album',
   album: null,
+  saveURL: '/admin/albums/save',
+
+  paramsMap: {
+    authors: 'author_id',
+    sortType: 'is_hand_sort'
+  },
 
   buildForm: function() {
     this.cont = $('<div>');
@@ -19,9 +28,8 @@ View.AlbumForm = {
     fields.title    = TitleInput.create();
     fields.authors  = AuthorInput.create();
     fields.cover    = PhotoInput.create();
-    //fields.sortType = $('<label><input type="checkbox">Custom sort</label>');
-    //fields.tracks   = $('<div>');
-    this.buttonSave = $('#album_button_save');
+    fields.sortType = SortType.create();
+    fields.tracks   = SortTracks.create();
 
     var basicInfo  = new FieldSet(fields, ['title', 'authors', 'cover']);
     var sortTracks = new FieldSet(fields, ['sortType', 'tracks']);
@@ -31,6 +39,10 @@ View.AlbumForm = {
     this.listenChanges();
 
     return this.cont;
+  },
+
+  getID: function() {
+    return this.album['_id'];
   },
 
   html: function() {
@@ -53,10 +65,6 @@ View.AlbumForm = {
     return this.album;
   },
 
-  dataChanged: function() {
-    var pathSave  = '/images/save.png';
-    this.buttonSave.attr('src', pathSave);
-  },
 };
 
 

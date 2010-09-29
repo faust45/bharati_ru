@@ -1,7 +1,9 @@
 
+
 FormBase = {
   fields: {},
   cont: null,
+  buttonSave: null,
 
   append: function(blocks) {
     var cont = this.cont;
@@ -14,8 +16,46 @@ FormBase = {
   refreshFields: function() {
     var album = this.album;
     $.each(this.fields, function(k, v) {
-      console.log(v);
       v.ctl.refresh(album);
+    });
+  },
+
+  setSaveButton: function(el) {
+    var self = this;
+    this.buttonSave = el;
+
+    el.click(function() {
+      self.saveData();
+    });
+  },
+
+  getData: function() {
+    var self = this;
+    var data = {};         
+
+    data['id'] = this.getID();
+    $.each(this.fields, function(k, v) {
+      var value = v.ctl.getData();
+      if (value != null) {
+        var param = self.paramsMap[k] || k;
+        var paramName = 'album[' + param + ']';
+        data[paramName] = value;
+      }
+    });
+
+    return data;
+  },
+
+  saveData: function() {
+    var self = this;
+
+    $.ajax({
+      url: this.saveURL,
+      type: 'post',
+      data: this.getData(),
+      success: function(resp) {
+        self.dataSaved();
+      }
     });
   },
 
@@ -31,7 +71,18 @@ FormBase = {
         $(self).trigger('form.changed');
       });
     });
-  }
+  },
+
+  dataChanged: function() {
+    var pathSave  = '/images/save.png';
+    this.buttonSave.attr('src', pathSave);
+  },
+
+  dataSaved: function() {
+    var pathSaved = '/images/saved.png';
+    this.buttonSave.attr('src', pathSaved);
+  },
+
 };
 
 

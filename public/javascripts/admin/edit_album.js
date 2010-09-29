@@ -3,7 +3,7 @@
 
 $(document).ready(function() {
   $('#tracks li').behavior(EditAlbumBehavior)
-  $('#tracks').sortable({});
+  //$('#tracks').sortable({});
 });
 
 
