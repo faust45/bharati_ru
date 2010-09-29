@@ -1,8 +1,16 @@
 class Video < MediaContent
+  use_db 'videos'
 
-  Types = %w(lecture seminar appeal kirtan)
+  property :title
+  property :duration
+  property :upload_date
+  property :url
+  property :height
+  property :width
+  property :thumbnail_small
+  property :thumbnail_medium
+  property :thumbnail_large
 
-  #has_attachment :source
 
   view_by :tag, :map => <<-MAP
     function(doc) {
