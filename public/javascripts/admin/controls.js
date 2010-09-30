@@ -1,15 +1,19 @@
+View = {};
+
+
 SortType = {
   create: function() {
     var sortType = $('<label class="sort-type">Hand sort</label>');
     var checkbox = $('<input type="checkbox">');
     sortType.prepend(checkbox);
+
     checkbox.change(function() {
       sortType.trigger('field.changed');
     });
 
     var ctl = {
-      refresh: function(doc) {
-        checkbox.attr('checked', doc.is_hand_sort == 'true' ? true : false);
+      refresh: function(docID, value) {
+        checkbox.attr('checked', value == 'true' ? true : false);
       },
 
       getData: function() {
@@ -32,9 +36,8 @@ SortTracks = {
     var ul = $('<ul>', {'class': 'sort-tracks'});
 
     var ctl = {
-      refresh: function(doc) {
-        this.albumID = doc['_id'];
-        Model.Album.tracks(this.albumID, function(data) {
+      refresh: function(docID, values) {
+        Model.Album.tracks(docID, function(data) {
           ul.html(Mustache.to_html(self.template, data));
           ul.sortable({
             update: function(event, ui) { 
@@ -62,30 +65,37 @@ SortTracks = {
 
 
 //--------------------------------------------------------------
-TitleInput = {
+StringInput = {
   create: function() {
-    var self = this;
-    var node = document.createDocumentFragment();
-    var input = $('<input>', {type: 'text', size: 25});
-    node.appendChild(input[0]);
+    return SimpleInput.create('input', {type: 'text', size: 25});
+  }
+}
+
+
+//--------------------------------------------------------------
+SimpleInput = {
+  create: function(type, options) {
+    var input = $('<' + type + '>', options);
 
     input.keypress(function() {
-      $(node).trigger('field.changed');
+      input.trigger('field.changed');
     });
 
-    node.ctl = {
+    input.ctl = {
       getData: function() {
         return input.val();
       },
 
-      refresh: function(doc) {
-        input.val(doc.title);
+      refresh: function(docID, value) {
+        input.val(value);
       }
     };
 
-    return node;
+    return input;
   }
 }
+
+
 
 
 //--------------------------------------------------------------
@@ -96,10 +106,10 @@ PhotoInput = {
     var div = $('<div>');
 
     var ctl = {
-      refresh: function(doc) {
-        this.albumID = doc['_id'];
-        if (doc.cover_attachments) {
-          var cover = doc.cover_attachments[0];
+      refresh: function(docID, values) {
+        this.albumID = docID;
+        if (values) {
+          var cover = values[0];
           if (cover) {
             this.coverUrl = cover.thumbs.small.url;
 
@@ -144,10 +154,106 @@ $.fn.asPhotosInput = function() {
   this.ctl = new PhotosInput(this); 
 };
 
-$.fn.asTagsInput = function() {
-  this.ctl = new TagsInput(this);
-};
 
+//--------------------------------------------------------------
+TagsInput = {
+  create: function() {
+    var self = this;
+    var node = document.createDocumentFragment();
+
+    var ico        = $('<img>', {src: '/images/tags.png'});
+    var tagsCont   = $('<div>', {'class': 'tags'});
+    var inputField = $('<input>', {type: 'text', size: '25'});
+    var addImg     = $('<img>', {'class': 'add-button', src: '/images/add-icon.png'});
+    var linkToAdd  = $('<a>', {href: ''}).append(addImg); 
+  
+    tagsCont.append(ico);
+    node.appendChild(tagsCont[0]);
+    node.appendChild(inputField[0]);
+    node.appendChild(linkToAdd[0]);
+  
+    linkToAdd.click(function() {
+      Tag.addTo(tagsCont, inputField.val());
+      return false;
+    });
+
+    tagsCont.bind('tags.added tags.removed', function() {
+      $(node).trigger('field.changed');
+    });
+
+    var ctl = {
+      refresh: function(docID, values) {
+        tagsCont.html(ico);
+
+        if(values) {
+          Tag.bulkAddTo(tagsCont, values);
+        }
+      },
+
+      getData: function() {
+        var tags = [];
+        tagsCont.find('input').each(function() {
+          tags.push($(this).val());
+        });
+
+        return tags;
+      }
+    };
+
+    node.ctl = ctl;
+    return node;
+  }
+}
+
+
+//--------------------------------------------------------------
+Tag = {
+  bulkAddTo: function(tagsCont, tags) {
+    var self = this;
+    $.each(tags, function() {
+      self.addTo(tagsCont, this, false);
+    });
+  },
+
+  addTo: function(tagsCont, value, genEvent) {
+    if (genEvent == null) {
+      genEvent = true;
+    }
+
+    var self = this;
+    var existsTag = this.getTag(tagsCont, value);
+
+    if (!existsTag) {
+      var label = $('<label>' + value + '</label>');
+      var checkbox = $('<input>', {type: 'checkbox', value: value});
+      checkbox.attr('checked', true);
+
+      label.prepend(checkbox);
+      label.click(function() { 
+        $(this).remove();
+        tagsCont.trigger('tags.removed');
+      });
+
+      tagsCont.append(label);
+      if (genEvent) {
+        tagsCont.trigger('tags.added');
+      }
+    } else {
+      existsTag.effect("highlight", {}, 3000);
+    }
+  },
+
+  getTag: function(tagsCont, value) {
+    var checkbox = tagsCont.find('input[value=' + value + ']');
+
+    if(0 < checkbox.size()) {
+      return checkbox.parent();
+    }
+  }
+}
+
+
+//--------------------------------------------------------------
 AuthorInput = {
   template: "{{#rows}}{{#doc}}<option value={{_id}}>{{display_name}}</option>{{/doc}}{{/rows}}",
   data: null,
@@ -163,16 +269,16 @@ AuthorInput = {
     });
 
     selectList.ctl = {
+      refresh: function(docID, value) {
+        selectList.setSelected(value);
+      },
+
       getData: function() {
         return this.getSelected();
       },
 
       getSelected: function() {
         return selectList.val();
-      },
-
-      refresh: function(doc) {
-        selectList.setSelected(doc['author_id']);
       }
     };
 
@@ -194,25 +300,59 @@ AuthorInput = {
   }
 };
 
-$.fn.asDateInput = function() {
-  this.ctl = new DateSelect(this);
+
+//--------------------------------------------------------------
+DateInput = {
+  create: function() {
+    var input = this.createInput();
+
+    var day   = $(input[0]);
+    var month = $(input[1]);
+    var year  = $(input[2]);
+
+    var funRunEven = function() { input.trigger('field.changed'); };
+    day.change(funRunEven); 
+    month.change(funRunEven)
+    year.change(funRunEven);
+
+    input.ctl = {
+      refresh: function(docID, value) {
+        var date = parseDate(value);
+  
+        this.currentDate = date;
+        day.setSelected(date.getDate());  
+        month.setSelected(date.getMonth());  
+        year.setSelected(date.getFullYear());  
+      },
+
+      getData: function() {
+        return (year.val() + '-' + month.val() + '-' + day.val());
+      }
+    }
+
+    return input;
+  }, 
+
+  createInput: function(input) {
+    var input = $('<select></select><select></select><select></select>');
+    var template = "<option></option>{{#range}}<option value={{.}}>{{.}}</option>{{/range}}";
+    var days   = range(1, 31);
+    var months = range(1, 12);
+    var years  = range(1900, getCurrentYear());
+
+    $.each([days, months, years], function(i) {
+      var html = Mustache.to_html(template, {range: this});
+      $(input[i]).append(html);
+    });
+
+    return input;
+  }
 }
 
-$.fn.asAlbumsInput = function() {
-  var self = this;
-  var template = "{{#rows}}{{#doc}}<li data-id={{_id}}><input type=checkbox>{{title}}<span class='response'></span></li>{{/doc}}{{/rows}}"
 
-  Model.Album.all(function(data) {
-    self.append(Mustache.to_html(template, data));
-    self.ctl = new AlbumsInput(self);
-  });
-}
-
+//--------------------------------------------------------------
 $.fn.asMp3FileInput = function() {
   this.ctl = new Mp3FileInput(this);
 }
 
-$.fn.setSelected = function(value) {
-  var option = this.find('option[value=' + value + ']');
-  option.attr('selected', 'selected');
-}
+

@@ -14,8 +14,6 @@ $(document).ready(function() {
 });
 
 
-View = {};
-
 //--------------------------------------------------------------
 View.LastTracks = {
   current: null,

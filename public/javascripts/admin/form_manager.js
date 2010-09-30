@@ -52,6 +52,6 @@ View.Manager = {
     $(this.albumFormID).hide();
     $(this.trackFormID).show();
 
-    EditForm.editTrack(id);
+    View.TrackForm.editTrack(id);
   }
 }

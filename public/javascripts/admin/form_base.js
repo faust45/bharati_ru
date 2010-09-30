@@ -1,9 +1,23 @@
 
 
 FormBase = {
-  fields: {},
   cont: null,
   buttonSave: null,
+  dataSourceMap: {
+    authorID:   'author_id',
+    recordDate: 'record_date',
+    sortType:   'is_hand_sort',
+    cover: 'cover_attachments'
+  },
+
+  refresh: function() {
+    this.dataSaved();
+    this.refreshFields()
+  },
+
+  html: function() {
+    return this.buildForm();
+  },
 
   append: function(blocks) {
     var cont = this.cont;
@@ -14,9 +28,10 @@ FormBase = {
   },
 
   refreshFields: function() {
-    var album = this.album;
+    var self = this;
+
     $.each(this.fields, function(k, v) {
-      v.ctl.refresh(album);
+      v.ctl.refresh(self.doc['_id'], self.getDocValue(k));
     });
   },
 
@@ -31,14 +46,16 @@ FormBase = {
 
   getData: function() {
     var self = this;
-    var data = {};         
+    var data = {
+      id: this.getID()
+    };         
 
-    data['id'] = this.getID();
     $.each(this.fields, function(k, v) {
       var value = v.ctl.getData();
+
       if (value != null) {
-        var param = self.paramsMap[k] || k;
-        var paramName = 'album[' + param + ']';
+        var param = self.dataSourceMap[k] || k;
+        var paramName = self.paramsSpace + '[' + param + ']';
         data[paramName] = value;
       }
     });
@@ -83,6 +100,14 @@ FormBase = {
     this.buttonSave.attr('src', pathSaved);
   },
 
+  getDocValue: function(attrName) {
+   var docAttrName = this.dataSourceMap[attrName] || attrName;
+   return this.doc[docAttrName];
+  },
+
+  getID: function() {
+    return this.doc['_id'];
+  }
 };
 
 

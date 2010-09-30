@@ -42,8 +42,8 @@ class Admin::AudiosController < AdminController
   end
 
   def update
-    @audio = Audio.get_doc!(params[:track_id])
-    @audio.update_attributes(params)
+    @audio = Audio.get_doc!(params[:id])
+    @audio.update_attributes(params[:track])
 
     render :json => "ok".to_json
   end
