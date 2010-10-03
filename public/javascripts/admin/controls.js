@@ -7,7 +7,7 @@ AlbumsInput = {
 
   create: function() {
     var self = this;
-    var ul = $('<ul>');
+    var ul = $('<ul>', {class: 'albums'});
 
     Model.Album.all(function(data) {
       ul.html('');
