@@ -11,6 +11,13 @@ module ApplicationHelper
      }.join.html_safe
   end
 
+  def author_thumb(photo)
+    url = thumb_url(photo)
+    if url 
+      image_tag(url, :width => "88", :height => "119")
+    end
+  end
+
   def small_thumb(photo)
     url = thumb_url(photo)
     if url 

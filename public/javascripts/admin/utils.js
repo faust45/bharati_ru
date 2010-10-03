@@ -1,5 +1,13 @@
 $.log = console.log;
 
+function typeOf(obj) {
+  if (typeof(obj) == 'object') {
+    return (obj.length != null ? 'array' : 'object');
+  } else {
+    return typeof(obj);
+  }
+}
+
 function range(first, last) {
   var arr = [];
 

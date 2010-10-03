@@ -1,7 +1,7 @@
 <% if is_selected_author?(author_item) %>
   <li>
     <strong>
-      <%= image_tag(author_item.main_photo.thumbs['small']['url'], :width => "88", :height => "119") %>
+      <%= author_thumb(author_item.main_photo) %>
       <span><%= author_item.display_name %></span>
     </strong>
   </li>
