@@ -1,9 +1,4 @@
-<table>
-  <% @authors.each do |author| %>
-    <%= author_tr(author) %>
-  <% end %>
-</table>
+<% include_js('admin/utils', 'admin/controls', 'admin/form_base', 'admin/authors_list') %>
 
-</br>
-</br>
-<%= link_to 'Add new', new_admin_author_path %>
+<div id="authors-list">
+</div>

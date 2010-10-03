@@ -36,8 +36,8 @@ View.TrackForm = {
     fields.tags       = TagsInput.create();
     fields.recordDate = DateInput.create();
     fields.bookmarks  = SimpleInput.create('textarea', {cols: '30', rows: '15'});
+    fields.albums     = AlbumsInput.create();
     //fields.mp3File    = $('<div>', {id: 'mp3_file_upload'});
-    //fields.albums     = $('<ul>', {'class': 'track-albums'});
     //fields.photos     = $('<div>', {id: 'photo_file_upload'});
 
     var basicInfo = new FieldSet(fields, ['title', 'authorID', 'recordDate', 'tags']);
@@ -53,9 +53,9 @@ View.TrackForm = {
     return this.cont;
   },
 
-  editTrack: function(trackId) {
+  editTrack: function(trackID) {
     var self = this;
-    Model.Track.get(trackId, function(doc) {
+    Model.Track.get(trackID, function(doc) {
       self.doc = doc;
       self.refresh();
     });
@@ -65,103 +65,6 @@ View.TrackForm = {
 
 
 $.extend(View.TrackForm, FormBase);
-
-
-//----------------------------------------------------------------------
-AlbumsInput = function(inputUl) {
-  var self = this;
-  this.inputUl = inputUl;
-
-  inputUl.find('li').each(function() {
-    var li = $(this);
-    var box = li.find('input[type=checkbox]');
-    var response = li.find('span.response');
-    var albumId = li.attr('data-id');
-
-    li.albumId = albumId;
-    li.box = box;
-    li.response = response;
-
-    li.click(function() {
-      if (box.is(':checked')) {
-        self.dropFromAlbum(li);
-      } else {
-        self.addToAlbum(li);
-      };
-    });
-  });
-};
-
-AlbumsInput.prototype = {
-  trackId: null,
-  addUrl:  '/admin/albums/add_track',
-  dropUrl: '/admin/albums/drop_track',
-
-  refresh: function() {
-    var self = this;
-    var template = "{{#rows}}{{#doc}}<li data-id={{_id}}><input type=checkbox>{{title}}<span class='response'></span></li>{{/doc}}{{/rows}}"
-
-    Model.Album.all(function(data) {
-      self.inputUl.html('');
-      self.inputUl.append(Mustache.to_html(template, data));
-    });
-  },
-
-  addToAlbum: function(li) {
-    this.request(this.addUrl, li.albumId, function() {
-       li.box.attr('checked', true);
-       li.response.html('added');
-       li.response.show();
-       li.response.css('color', 'green');
-       li.response.fadeOut(3000);
-    });
-  },
-
-  dropFromAlbum: function(li) {
-    this.request(this.dropUrl, li.albumId, function() {
-       li.box.attr('checked', false);
-       li.response.html('removed');
-       li.response.show();
-       li.response.css('color', 'red');
-       li.response.fadeOut(3000);
-    });
-  },
-
-  update: function(trackId) {
-    var self = this;
-    this.trackId = trackId;
-
-    this.cleanUp();
-    Model.Album.trackAlbums(trackId, function(data) {
-      $.each(data.rows, function() {
-        self.checkAlbum(this.doc['_id']);
-      });
-    });
-  },
-
-  request: function(url, albumId, fun) {
-    $.ajax({
-      url: url,
-      data: {album_id: albumId, track_id: this.trackId},
-      cache: false,
-      global: false,
-      ifModified: false,
-      complete: fun 
-    });
-  },
-
-  cleanUp: function() {
-    this.inputUl.find('li input[type=checkbox]').each(function() {
-      $(this).attr('checked', false);
-    });
-  },
-
-  checkAlbum: function(albumId) {
-    this.inputUl.find('li[data-id=' + albumId + '] input[type=checkbox]').each(function() {
-      $(this).attr('checked', true);
-    });
-  }
-};
 
 
 //----------------------------------------------------------------------

@@ -7,7 +7,8 @@ FormBase = {
     authorID:   'author_id',
     recordDate: 'record_date',
     sortType:   'is_hand_sort',
-    cover: 'cover_attachments'
+    cover: 'cover_attachments',
+    bookmarks: 'bookmarks_raw'
   },
 
   refresh: function() {

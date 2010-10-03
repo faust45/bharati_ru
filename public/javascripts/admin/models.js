@@ -29,9 +29,7 @@ Model.Album = {
 
 Model.Track = {
   get: function(id, fun) {
-    db.getDoc(id, function(track) {
-      fun(track);
-    });
+    db.getDoc(id, fun);
   }
 }
 
@@ -59,6 +57,7 @@ db = {
   view: function(url, options, fun) {
     $.getJSON(this.urlPrefix + this.name + '/' + url + encodeOptions(options) + '&callback=?', function(data) {
       data.trim = trim;
+      data.getIDs = getIDs;
       fun(data);
     });
   }
@@ -89,3 +88,13 @@ function trim() {
     return render(this.title.substring(0, 40));
   }
 };
+
+function getIDs() {
+  var ids = [];
+
+  $.each(this.rows, function() {
+    ids.push(this.id);
+  });
+
+  return ids;
+}

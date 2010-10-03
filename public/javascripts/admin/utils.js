@@ -1,3 +1,5 @@
+$.log = console.log;
+
 function range(first, last) {
   var arr = [];
 
@@ -32,6 +34,19 @@ $.fn.setSelected = function(value) {
   option.attr('selected', 'selected');
 }
 
+$.fn.updateUL = function(ids) {
+  var ul = $(this);
+
+  ul.find('li input[type=checkbox]').each(function() {
+    $(this).attr('checked', false);
+  });
+
+  $.each(ids, function(id) {
+    ul.find('li[data-id=' + this + '] input[type=checkbox]').each(function() {
+      $(this).attr('checked', true);
+    });
+  });
+}
 
 // Classes
 UnknownDate = {

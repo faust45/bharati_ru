@@ -115,9 +115,6 @@ MahaMandala::Application.routes.draw do
     end
 
     resources :authors do
-      collection do
-        get 'autocomplete'
-      end
     end
 
     resources :tags do

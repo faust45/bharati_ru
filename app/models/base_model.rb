@@ -1,4 +1,4 @@
-SERVER = CouchRest.new('http://faust45:cool@192.168.1.100:5984')
+SERVER = CouchRest.new('http://192.168.1.100:5984')
 MAIN_DB_NAME = 'rocks'
 DB     = SERVER.database!(MAIN_DB_NAME)
 
@@ -11,7 +11,6 @@ end
 
 class BaseModel < CouchRest::Model::Base
   include ActiveSupport::Memoizable
-  include DirtyBehavior
   include Attachments
   include Slug 
   include Search

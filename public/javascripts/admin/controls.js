@@ -1,6 +1,89 @@
 View = {};
 
+AlbumsInput = {
+  addURL:  '/admin/albums/add_track',
+  dropURL: '/admin/albums/drop_track',
+  template: "{{#rows}}{{#doc}}<li data-id={{_id}}><input type=checkbox>{{title}}<span class='response'></span></li>{{/doc}}{{/rows}}",
 
+  create: function() {
+    var self = this;
+    var ul = $('<ul>');
+
+    Model.Album.all(function(data) {
+      ul.html('');
+      ul.append(Mustache.to_html(self.template, data));
+
+      ul.find('li').each(function() {
+        var li = $(this);
+        var box = li.find('input[type=checkbox]');
+        var response = li.find('span.response');
+        var albumID = li.attr('data-id');
+    
+        li.albumID = albumID;
+        li.box = box;
+        li.response = response;
+    
+        li.click(function() {
+          if (box.is(':checked')) {
+            self.dropFromAlbum(li, ctl.trackID);
+          } else {
+            self.addToAlbum(li, ctl.trackID);
+          };
+        });
+      });
+    });
+
+    var ctl = {
+      refresh: function(docID) {
+        this.trackID = docID;
+
+        Model.Album.trackAlbums(docID, function(data) {
+          ul.updateUL(data.getIDs());
+        });
+      },
+
+      getData: function() {}
+    };
+
+    ul.ctl = ctl;
+    return ul;
+  },
+
+  request: function(url, albumID, trackID, fun) {
+    $.ajax({
+      url: url,
+      data: {album_id: albumID, track_id: trackID},
+      cache: false,
+      global: false,
+      ifModified: false,
+      complete: fun 
+    });
+  },
+
+  addToAlbum: function(li, trackID) {
+    this.request(this.addURL, li.albumID, trackID, function() {
+       li.box.attr('checked', true);
+       li.response.html('added');
+       li.response.show();
+       li.response.css('color', 'green');
+       li.response.fadeOut(3000);
+    });
+  },
+
+  dropFromAlbum: function(li, trackID) {
+    this.request(this.dropURL, li.albumID,trackID, function() {
+       li.box.attr('checked', false);
+       li.response.html('removed');
+       li.response.show();
+       li.response.css('color', 'red');
+       li.response.fadeOut(3000);
+    });
+  }
+  
+}
+
+
+//--------------------------------------------------------------
 SortType = {
   create: function() {
     var sortType = $('<label class="sort-type">Hand sort</label>');

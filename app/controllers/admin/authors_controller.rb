@@ -1,5 +1,4 @@
 class Admin::AuthorsController < AdminController
-  #uses_tiny_mce 
 
   def autocomplete
     authors = Author.search(params[:q])

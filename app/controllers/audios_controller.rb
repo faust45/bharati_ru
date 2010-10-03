@@ -1,9 +1,9 @@
 class AudiosController < ApplicationController
-  free_actions :index, :album
+  free_actions :index, :album, :author
   skip_before_filter :verify_authenticity_token
 
   def index
-    @audios = Audio.order_by_created_at
+    @audios  = Audio.order_by_created_at
     @acharya = Author.get_acharya
     @authors = Author.get_authors
   end

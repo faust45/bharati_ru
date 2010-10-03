@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def d(date)
+    l(date.to_date, :format => :long)
+  end
+
   def collect_options(items, &block)
      items.map {|i|
        ret = yield i

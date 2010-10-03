@@ -6,7 +6,9 @@ module AdminHelper
   end
 
   def render_sidebar
-    prepare_sub_nav
+    content_for space do
+      render :partial => 'sub_nav'
+    end
 
     render :partial => './admin/shared/sidebar'
   end
