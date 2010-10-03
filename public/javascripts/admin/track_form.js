@@ -36,8 +36,8 @@ View.TrackForm = {
     fields.tags       = TagsInput.create();
     fields.recordDate = DateInput.create();
     fields.bookmarks  = SimpleInput.create('textarea', {cols: '30', rows: '15'});
-    fields.albums     = AlbumsInput.create();
-    //fields.mp3File    = $('<div>', {id: 'mp3_file_upload'});
+    fields.mp3File    = Mp3FileInput.create();
+    fields.albums     = AlbumsInput.create();//$('<ul>', {'class': 'track-albums'});
     //fields.photos     = $('<div>', {id: 'photo_file_upload'});
 
     var basicInfo = new FieldSet(fields, ['title', 'authorID', 'recordDate', 'tags']);
@@ -120,38 +120,57 @@ PhotosInput.prototype = {
 
 
 //----------------------------------------------------------------------
-Mp3FileInput = function(input) {
-  var self = this;
-  this.input = input;
-  this.fileCont = $('<div>');
-  this.input.parent().prepend(this.fileCont);
+Mp3FileInput = {
+  create: function() {
+    var node = document.createDocumentFragment();
+    var div = $('<div>', {id: 'mp3_file_upload'});
 
-  var label = $("<label />");
-  this.checkBox = $("<input type='checkbox' />");
-  label.append("зменить теги");
-  label.append(this.checkBox);
-  this.input.parent().append(label);
+    var label = $("<label />");
+    var checkBox = $("<input type='checkbox' />");
+    label.append("зменить теги");
+    label.append(checkBox);
 
-  this.uploader = new qq.FileUploader({
-    element: input[0],
-    action: '/admin/audios/upload/replace_source',
-    multiple: false,
-    allowedExtensions: ['mp3'],
-    onSubmit: function(id, fileName) {
-      self.uploader.setParams({
-        need_update_info: self.isNeedUpdateInfo(),
-        track_id: self.trackId
-      });
-    },
-    onComplete: function(id, fileName, responseJSON) {
-      if (responseJSON.doc) {
-        self.hideFromSuccessList(id);
-        self.update(responseJSON.doc)
+    var isNeedUpdateInfo = function() {
+      return checkBox.is(':checked');
+    };
+
+    ctl = {
+      refresh: function(docID) {
+        this.trackID = docID;
+      },
+
+      getData: function() {
       }
-    }
-  });
+    };
+
+    var uploader = new qq.FileUploader({
+      element: div[0],
+      action: '/admin/audios/upload/replace_source',
+      multiple: false,
+      allowedExtensions: ['mp3'],
+      onSubmit: function(id, fileName) {
+        uploader.setParams({
+          need_update_info: isNeedUpdateInfo(),
+          track_id: ctl.trackID
+        });
+      },
+      onComplete: function(id, fileName, responseJSON) {
+        if (responseJSON.doc) {
+          div.effect("highlight", {}, 3000);
+          //self.hideFromSuccessList(id);
+          //self.update(responseJSON.doc)
+        }
+      }
+    });
+
+    node.ctl = ctl;
+    node.appendChild(div[0]);
+    node.appendChild(label[0]);
+    return node;
+  }
 };
 
+/*
 Mp3FileInput.prototype = {
   isNeedUpdateInfo: function() {
     return this.checkBox.is(':checked');
@@ -176,3 +195,4 @@ Mp3FileInput.prototype = {
     this.fileCont.append(a);
   }
 };
+*/
