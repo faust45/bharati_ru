@@ -7,6 +7,11 @@ $(document).ready(function() {
     View.AuthorForm.editDoc(id);
   });
 
+  $(document).bind('keydown', 'n', function() {
+    View.AuthorForm.addNew();
+  });
+
+
   View.AuthorForm.setSaveButton($('#button-save-author'));
 });
 
@@ -14,6 +19,7 @@ $(document).ready(function() {
 View.AuthorForm = {
   paramsSpace: 'author',
   saveURL: '/admin/authors/save',
+  newURL: '/admin/authors/new',
   fields: {},
 
   buildForm: function() {
@@ -37,6 +43,11 @@ View.AuthorForm = {
       self.doc = doc;
       self.refresh();
     });
+  },
+
+  addNew: function() {
+    this.doc = {};
+    this.refresh();
   }
 };
 

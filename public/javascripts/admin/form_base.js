@@ -33,7 +33,7 @@ FormBase = {
     var self = this;
 
     $.each(this.fields, function(k, v) {
-      v.ctl.refresh(self.doc['_id'], self.getDocValue(k));
+      v.ctl.refresh(self.doc['_id'], self.getDocValue(k) || '');
     });
   },
 
@@ -69,8 +69,9 @@ FormBase = {
   saveData: function() {
     var self = this;
 
+    var url = this.doc._id ? this.saveURL : this.newURL;
     $.ajax({
-      url: this.saveURL,
+      url: url,
       type: 'post',
       data: this.getData(),
       success: function(resp) {

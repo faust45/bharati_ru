@@ -192,12 +192,14 @@ PhotoInput = {
       refresh: function(docID, values) {
         this.docID = docID;
 
-        if (values) {
+        if (values != null) {
           var cover = values[0];
           if (cover) {
             this.coverUrl = Model.Author.thumbURL(cover.thumbs.small);
             var photo = $('<img />', {src: this.coverUrl + '?' + genRand()});
             imgBlock.html(photo);
+          } else {
+            imgBlock.html('');
           }
         }
       },

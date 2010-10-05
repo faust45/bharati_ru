@@ -11,8 +11,17 @@ class Admin::AuthorsController < AdminController
     @authors = Author.all
   end
 
+  def destroy
+    @author = Author.get_doc!(params[:id])
+    @author.destroy
+
+    render :json => "ok".to_json
+  end
+
   def new
-    @author = Author.new
+    @author = Author.create(params[:author])
+
+    render :json => {:doc => @author}
   end
 
   def create
@@ -43,11 +52,6 @@ class Admin::AuthorsController < AdminController
     @author = Author.get_doc!(@author.id)
     logger.debug(@author.inspect)
     render :json => {'success' => true, 'img' => @author.main_photo_attachments} 
-  end
-
-  def destroy 
-    @author = Author.get(params[:id])
-    @author.delete
   end
 
   def delete_file

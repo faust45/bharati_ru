@@ -325,3 +325,26 @@ label.sort-type input {
 #author-form {
   padding-top: 3em;
 }
+
+.files li a {
+  width: 90%;
+  float: left;
+}
+
+.files img.del {
+  display: none;
+}
+
+.files .mouseover img.del {
+  display: block;
+  margin-top: 8px;
+  height: 20px;
+  width: 20px;
+  float: left;
+}
+
+#authors-list li.current {
+  background-color: #51DEE8 !important;
+}
+
+
