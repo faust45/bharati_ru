@@ -13,15 +13,17 @@ class FileStore < BaseModel
   before_save :assign_meta_info
   after_save  :put_attachment_directly
 
-  def self.create(file, options = {})
-    super({:file => file}.merge(options))
-  end
+  class <<self
+    def create(file, options = {})
+      super({:file => file}.merge(options))
+    end
 
-  def self.create!(file, options = {})
-    doc = create(file, options)
-    raise FileSaveIsFail if doc.new?
+    def create!(file, options = {})
+      doc = self.create(file, options)
+      raise FileSaveIsFail if doc.new?
 
-    doc
+      doc
+    end
   end
 
   #replace only attachment

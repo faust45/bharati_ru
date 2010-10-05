@@ -183,7 +183,8 @@ SimpleInput = {
 
 //--------------------------------------------------------------
 PhotoInput = {
-  create: function(uploadPath) {
+  create: function(uploadPath, options) {
+    var imgClass = options.class;
     var node = document.createDocumentFragment();
     var imgBlock = $('<div>');
     var div = $('<div>');
@@ -196,7 +197,7 @@ PhotoInput = {
           var cover = values[0];
           if (cover) {
             this.coverUrl = Model.Author.thumbURL(cover.thumbs.small);
-            var photo = $('<img />', {src: this.coverUrl + '?' + genRand()});
+            var photo = $('<img />', {src: this.coverUrl + '?' + genRand(), 'class': imgClass});
             imgBlock.html(photo);
           } else {
             imgBlock.html('');

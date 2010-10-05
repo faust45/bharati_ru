@@ -347,4 +347,7 @@ label.sort-type input {
   background-color: #51DEE8 !important;
 }
 
-
+img.uthor-main-photo {
+  height: 119;
+  width: 88;
+}

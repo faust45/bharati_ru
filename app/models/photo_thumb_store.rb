@@ -17,15 +17,15 @@ class PhotoThumbStore < FileStore
     end
 
     def resize
-      if tmp_image[:width] < tmp_image[:height]
-        remove = ((tmp_image[:height] - tmp_image[:width])/2).round
-        tmp_image.shave("0x#{remove}")
-      else tmp_image[:height] < tmp_image[:width]
-        remove = ((tmp_image[:width] - tmp_image[:height]) / 2).round
-        tmp_image.shave("#{remove}x0")
-      end
+     # if tmp_image[:width] < tmp_image[:height]
+     #   remove = ((tmp_image[:height] - tmp_image[:width])/2).round
+     #   tmp_image.resize("x#{remove}")
+     # else tmp_image[:height] < tmp_image[:width]
+     #   remove = ((tmp_image[:width] - tmp_image[:height]) / 2).round
+     #   tmp_image.resize("#{remove}x")
+     # end
       
-      tmp_image.resize size
+     tmp_image.resize size
     end
   
     def convert_to_png

@@ -1,6 +1,6 @@
 class Author < BaseModel
 
-  ACHARYA = ['44858338', '5306179', '13023364']
+  ACHARYA = []
 
   property :full_name
   property :display_name
@@ -8,7 +8,7 @@ class Author < BaseModel
 
   use_as_id :display_name
 
-  has_photo_attachment :main_photo
+  has_photo_attachment :main_photo, :thumb => {:size => 'x119'}
   has_attachments :photos, BigPhotoStore
 
   view_by :full_name

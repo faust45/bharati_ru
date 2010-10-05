@@ -27,7 +27,7 @@ View.AuthorForm = {
     var fields = this.fields;
 
     fields.display_name = StringInput.create();
-    fields.mainPhoto = PhotoInput.create('/admin/authors/upload/photo');
+    fields.mainPhoto = PhotoInput.create('/admin/authors/upload/photo', {class: 'author-main-photo'});
 
     var fieldSet = new FieldSet(fields, ['display_name', 'mainPhoto'], {tab: false});
 

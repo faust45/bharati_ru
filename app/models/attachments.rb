@@ -7,14 +7,18 @@ module Attachments
   module ClassMethods
     #Single attachment mount
     def has_attachment(attr_name, store_class, options = {}, item_class = SingleAttachment, &block)
-      options[:owner_type] = self.class.to_s
+      options[:owner_type] = self.to_s
+      options[:thumb] ||= {}
+      options[:thumb][:owner_type] ||= self.to_s
 
       attachment_collection_name = "#{attr_name}_attachments"
-      file_source = "#{attr_name}_file"
+      file_source  = "#{attr_name}_file"
+      file_options = "#{attr_name}_options"
 
       property attachment_collection_name, [item_class], :default => []
       attr_accessor file_source
       attr_accessor "#{attr_name}_doc"
+      attr_accessor file_options
 
       callback_create_method = "create_#{attachment_collection_name.singularize}"
       callback_replace_method = "replace_#{attachment_collection_name.singularize}"
@@ -28,13 +32,14 @@ module Attachments
 
       before_save do
         file = send(file_source)
+        file_opts = send(file_options) || {}
 
         unless file.blank?
           unless send(attr_name).blank?
             #replace attachment
             send("_run_#{callback_replace_method}_callbacks") do
               doc = store_class.get(send(attr_name).doc_id)
-              doc.replace(file, options)
+              doc.replace(file, options.merge(file_opts))
               send("#{attr_name}_doc=", doc)
 
               collection = send(attachment_collection_name)
@@ -44,7 +49,7 @@ module Attachments
           else
             #create new attachment
             send("_run_#{callback_create_method}_callbacks") do
-              doc = store_class.create!(file, options)
+              doc = store_class.create!(file, options.merge(file_opts))
               send("#{attr_name}_doc=", doc)
 
               collection = send(attachment_collection_name)
@@ -56,7 +61,9 @@ module Attachments
     end
 
     def has_attachments(attr_name, store_class, options = {}, item_class = SingleAttachment, &block)
-      options[:owner_type] = self.class.to_s
+      options[:owner_type] = self.to_s
+      options[:thumb] ||= {}
+      options[:thumb][:owner_type] = self.to_s
 
       attachment_collection_name = "#{attr_name}_attachments"
       file_source = "#{attr_name}_file"
@@ -103,12 +110,12 @@ module Attachments
       end
     end
 
-    def has_photo_attachment(attr_name)
-      has_attachment(attr_name, PhotoStore)
+    def has_photo_attachment(attr_name, options = {})
+      has_attachment(attr_name, PhotoStore, options)
     end
 
-    def has_photo_attachments(attr_name)
-      has_attachments(attr_name, PhotoStore)
+    def has_photo_attachments(attr_name, options = {})
+      has_attachments(attr_name, PhotoStore, options)
     end
 
     def has_thumb_attachment(attr_name, size)
