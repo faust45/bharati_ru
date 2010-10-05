@@ -1,5 +1,4 @@
 class Author < BaseModel
-  use_rand_id
 
   ACHARYA = ['44858338', '5306179', '13023364']
 
@@ -7,7 +6,7 @@ class Author < BaseModel
   property :display_name
   property :description
 
-  as_slug :display_name
+  use_as_id :display_name
 
   has_photo_attachment :main_photo
   has_attachments :photos, BigPhotoStore

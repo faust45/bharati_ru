@@ -46,6 +46,16 @@ class BaseModel < CouchRest::Model::Base
       end
     end
 
+    def use_as_id(attr_name)
+      before_create do
+        if self['_id'].blank? 
+          value = Russian::translit(self.send(attr_name))
+          value.gsub!(/[^A-Za-z\d]/, '')
+          self['_id'] = value
+        end
+      end
+    end
+
     def logger
       Rails.logger
     end
