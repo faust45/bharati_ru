@@ -37,7 +37,7 @@ View.TrackForm = {
     fields.recordDate = DateInput.create();
     fields.bookmarks  = SimpleInput.create('textarea', {cols: '30', rows: '15'});
     fields.mp3File    = Mp3FileInput.create();
-    fields.albums     = AlbumsInput.create();//$('<ul>', {'class': 'track-albums'});
+    fields.albums     = AlbumsInput.create();
     //fields.photos     = $('<div>', {id: 'photo_file_upload'});
 
     var basicInfo = new FieldSet(fields, ['title', 'authorID', 'recordDate', 'tags']);

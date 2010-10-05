@@ -114,7 +114,13 @@ MahaMandala::Application.routes.draw do
       end
     end
 
-    resources :authors do
+    controller 'authors' do
+      scope 'authors' do
+        root :to => "authors#index", :as => :authors
+        match 'save', :to => :update, :as => :author_update
+        match 'new',   :to => :new, :as => :author_new
+        match 'upload/photo', :to => :upload_photo, :as => :author_upload_photo
+      end
     end
 
     resources :tags do

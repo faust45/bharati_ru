@@ -36,10 +36,16 @@ Model.Track = {
 Model.Author = {
   viewAllUrl: '_design/Author/_view/all',
 
+  thumbURL: function(doc) {
+    return db.FileStore.attachmentURL(doc);
+  },
+
+  get: function(id, fun) {
+    db.getDoc(id, fun);
+  },
+
   all: function(fun) {
-    db.view(this.viewAllUrl, {include_docs: true}, function(data) {
-      fun(data);
-    });
+    db.view(this.viewAllUrl, {include_docs: true}, fun);
   }
 }
 
@@ -47,7 +53,11 @@ db = {
   urlPrefix: "http://192.168.1.100:5984/",
   name: "rocks",
 
-  getDoc: function(docId, fun) {
+  uri: function() {
+    return this.urlPrefix + this.name + '/';
+  },
+
+   getDoc: function(docId, fun) {
     $.getJSON(this.urlPrefix + this.name + '/' + docId + '?callback=?', function(data) {
       data.trim = trim;
       fun(data);
@@ -60,6 +70,13 @@ db = {
       data.getIDs = getIDs;
       fun(data);
     });
+  }
+}
+
+db.FileStore = {
+  attachmentURL: function(doc) {
+    var id = doc.doc_id, fileName = doc.file_name;
+    return 'http://192.168.1.100:5984/rocks_file_store/' + id + '/' + fileName;
   }
 }
 

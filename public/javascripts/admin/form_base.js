@@ -7,7 +7,8 @@ FormBase = {
     authorID:   'author_id',
     recordDate: 'record_date',
     sortType:   'is_hand_sort',
-    cover: 'cover_attachments',
+    cover:     'cover_attachments',
+    mainPhoto: 'main_photo_attachments',
     bookmarks: 'bookmarks_raw'
   },
 
@@ -42,6 +43,7 @@ FormBase = {
 
     el.click(function() {
       self.saveData();
+      return false;
     });
   },
 
@@ -113,8 +115,9 @@ FormBase = {
 
 
 //----------------------------------------------------------------------
-function FieldSet(fieldsHash, names) {
+function FieldSet(fieldsHash, names, options) {
   var fields = [];
+  this.options = options || {};
 
   $.each(names, function() {
     fields.push(fieldsHash[this]);
@@ -127,7 +130,8 @@ FieldSet.prototype = {
   fields: null,
 
   html: function() {
-    var wrap = $('<div>', {'class': 'tab'});
+    var cssClass = this.options.tab == false ? '' : 'tab';
+    var wrap = $('<div>', {'class': cssClass});
 
     $.each(this.fields, function() {
       var div = $('<div>', {'class': 'input'})

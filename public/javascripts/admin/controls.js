@@ -183,21 +183,20 @@ SimpleInput = {
 
 //--------------------------------------------------------------
 PhotoInput = {
-  create: function() {
+  create: function(uploadPath) {
     var node = document.createDocumentFragment();
     var imgBlock = $('<div>');
     var div = $('<div>');
 
     var ctl = {
       refresh: function(docID, values) {
-        this.albumID = docID;
+        this.docID = docID;
+
         if (values) {
           var cover = values[0];
           if (cover) {
-            this.coverUrl = cover.thumbs.small.url;
-
-            this.coverUrl = cover.thumbs.small.url;
-            var photo = $('<img />', {src: this.coverUrl + '?' + Math.floor(Math.random()*100)});
+            this.coverUrl = Model.Author.thumbURL(cover.thumbs.small);
+            var photo = $('<img />', {src: this.coverUrl + '?' + genRand()});
             imgBlock.html(photo);
           }
         }
@@ -208,17 +207,18 @@ PhotoInput = {
 
     var uploader = new qq.FileUploader({
       element: div[0],
-      action: '/admin/albums/upload/cover',
+      action: uploadPath,
       multiple: false,
       allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
       onSubmit: function(id, fileName) {
         uploader.setParams({
-          album_id: ctl.albumID
+          id: ctl.docID
         });
       },
       onComplete: function(id, fileName, responseJSON) {
-        if (responseJSON.doc) {
-          ctl.refresh(responseJSON.doc)
+        if (responseJSON.img) {
+          var img = responseJSON.img;
+          ctl.refresh(ctl.docID, img);
         }
       }
     });

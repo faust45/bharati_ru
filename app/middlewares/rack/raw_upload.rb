@@ -22,13 +22,29 @@ module Rack
     private
       def convert_and_pass_on(env)
         tempfile = Tempfile.new('raw-upload.')
+        filename = env['HTTP_X_FILE_NAME']
+        content_type = MIME::Types.type_for(filename).last.content_type
+
+        tempfile.instance_eval do
+          @tfilename = filename
+          @tcontent_type = content_type
+
+          def original_filename
+            @tfilename
+          end
+
+          def content_type
+            @tcontent_type
+          end
+        end
+        
         tempfile << env['rack.input'].read
         tempfile.flush
         tempfile.rewind
         fake_file = {
-          :filename => env['HTTP_X_FILE_NAME'],
-          :type => 'application/octet-stream',
-          :tempfile => tempfile,
+          :filename => filename,
+          :type => content_type,
+          :tempfile => tempfile
         }
         env['rack.request.form_input'] = env['rack.input']
         env['rack.request.form_hash'] ||= {}
@@ -38,6 +54,7 @@ module Rack
         if query_params = env['HTTP_X_QUERY_PARAMS']
           require 'json'
           params = JSON.parse(query_params)
+          file_name = params['qqfile']
           env['rack.request.form_hash'].merge!(params)
           env['rack.request.query_hash'].merge!(params)
         end

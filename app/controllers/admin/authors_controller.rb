@@ -27,15 +27,22 @@ class Admin::AuthorsController < AdminController
     end
   end
 
-  def edit
-    @author = Author.get(params[:id])
-  end
-
   def update
-    @author = Author.get(params[:id])
+    @author = Author.get_doc!(params[:id])
 
     @author.update_attributes(params[:author])
-    redirect_to admin_authors_path
+
+    render :json => "ok".to_json
+  end
+
+  def upload_photo
+    @author = Author.get_doc!(params[:id])
+    @author.main_photo_file = params[:file]
+    @author.save
+
+    @author = Author.get_doc!(@author.id)
+    logger.debug(@author.inspect)
+    render :json => {'success' => true, 'img' => @author.main_photo_attachments} 
   end
 
   def destroy 

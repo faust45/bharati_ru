@@ -1,5 +1,9 @@
 $.log = console.log;
 
+function genRand() {
+  return Math.floor(Math.random()*100);
+}
+
 function typeOf(obj) {
   if (typeof(obj) == 'object') {
     return (obj.length != null ? 'array' : 'object');
@@ -54,6 +58,10 @@ $.fn.updateUL = function(ids) {
       $(this).attr('checked', true);
     });
   });
+}
+
+$.fn.mustache = function(template, data) {
+  $(this).html(Mustache.to_html('{{#rows}}{{#doc}}' + template + '{{/doc}}{{/rows}}', data));
 }
 
 // Classes

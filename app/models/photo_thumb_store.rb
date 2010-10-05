@@ -6,13 +6,14 @@ class PhotoThumbStore < FileStore
 
   before_save :setup
   before_save :resize
-  #before_save :convert_to_png
+  before_save :convert_to_png
   before_save :rounded_corners
 
   private
     def setup
       @tmp_image ||= MiniMagick::Image.from_file(file.path)
       self.file = Tempfile.new('temp')
+      @temp_file = Tempfile.new('temp')
     end
 
     def resize
@@ -28,11 +29,11 @@ class PhotoThumbStore < FileStore
     end
   
     def convert_to_png
-      tmp_image.format('png')
+      `./script/convert.sh #{tmp_image.tempfile.path} #{@temp_file.path}.png`
     end
 
     def rounded_corners
-      `./script/rounded_corners.sh #{tmp_image.tempfile.path} #{file.path}`
+      `./script/rounded_corners.sh #{@temp_file.path}.png #{file.path}`
     end
   
     def prepare_file_name

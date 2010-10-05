@@ -2,11 +2,10 @@ class SingleAttachment < HHash
 
   def initialize(params = {})
     super(params)
-    self['url'] = url
   end
 
   def url
-    "http://93.94.152.87:82/#{FileStore.database.name}/#{doc_id}/#{file_name}"
+    "http://192.168.1.100:5984/#{FileStore.database.name}/#{doc_id}/#{file_name}"
   end
 
 end

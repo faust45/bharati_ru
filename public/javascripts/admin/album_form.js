@@ -22,7 +22,7 @@ View.AlbumForm = {
 
     fields.title    = StringInput.create();
     fields.authorID = AuthorInput.create();
-    fields.cover    = PhotoInput.create();
+    fields.cover    = PhotoInput.create('/admin/albums/upload/cover');
     fields.sortType = SortType.create();
     fields.tracks   = SortTracks.create();
 

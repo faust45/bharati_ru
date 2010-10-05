@@ -321,3 +321,7 @@ label.sort-type input {
   margin-right: 1em;
   padding-left: 0;
 }
+
+#author-form {
+  padding-top: 3em;
+}
