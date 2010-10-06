@@ -2,7 +2,7 @@
 //Initialization
 
 $(document).ready(function() {
-  $('.tabs_control').behavior(TabsBehavior);
+  $('.tabs ul').behavior(TabsBehavior);
 });
 
 
@@ -12,7 +12,7 @@ function TabsBehavior(element, config) {
 
   var ref  = element.attr('data-tabsId');
   var tabs = element.find('li');
-  var tabsCont = $('#' + ref + ' .tab');
+  var tabsCont = $('#' + ref + ' .cnt');
 
   new Tab(tabs, tabsCont);
 }

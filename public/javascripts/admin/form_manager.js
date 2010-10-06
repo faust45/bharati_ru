@@ -8,8 +8,8 @@ $(document).ready(function() {
 
 //--------------------------------------------------------------
 View.Manager = {
-  trackFormID: '#track_edit',
-  albumFormID: '#album_edit',
+  trackFormID: '#edit_track_form',
+  albumFormID: '#edit_album_form',
 
   init: function() {
     var self = this;

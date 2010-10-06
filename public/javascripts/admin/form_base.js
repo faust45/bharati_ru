@@ -131,7 +131,7 @@ FieldSet.prototype = {
   fields: null,
 
   html: function() {
-    var cssClass = this.options.tab == false ? '' : 'tab';
+    var cssClass = this.options.tab == false ? '' : 'cnt';
     var wrap = $('<div>', {'class': cssClass});
 
     $.each(this.fields, function() {

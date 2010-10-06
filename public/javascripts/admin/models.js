@@ -1,9 +1,10 @@
 Model = {};
 
 Model.Album = {
+  viewAll: '_design/Album/_view/all',
+
   all: function(fun) {
-    var viewUrl = '_design/Album/_view/all';
-    db.view(viewUrl, {include_docs: true}, function(data) {
+    db.view(this.viewAllUrl, {include_docs: true}, function(data) {
       fun(data);
     });
   },
@@ -28,6 +29,8 @@ Model.Album = {
 }
 
 Model.Track = {
+  viewAll: '_design/Audio/_view/all',
+
   get: function(id, fun) {
     db.getDoc(id, fun);
   }
@@ -69,6 +72,16 @@ db = {
       data.trim = trim;
       data.getIDs = getIDs;
       fun(data);
+    });
+  },
+
+  all: function(model, options, fun) {
+    this.view(model.viewAll, $.extend({include_docs: true}, options), fun);
+  },
+
+  count: function(model, fun) {
+    this.view(model.viewAll, {limit: 0}, function(data) {
+      fun(parseInt(data.total_rows));
     });
   }
 }

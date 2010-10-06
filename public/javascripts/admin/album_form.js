@@ -2,11 +2,11 @@
 //Initialization
 
 $(document).ready(function() {
-  View.AlbumForm.setSaveButton($('#album_form_menu img'));
+  View.AlbumForm.setSaveButton($('#album_form_tabs img'));
   var html = View.AlbumForm.html();
 
-  $('#album_form_tabs').html(html);
-  $('#album_form_menu ul').behavior(TabsBehavior);
+  $('#edit_album_form').append(html);
+  $('#album_form_tabs ul').behavior(TabsBehavior);
 });
 
 

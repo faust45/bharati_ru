@@ -3,7 +3,7 @@
 
 $(document).ready(function() {
   View.Album.init($('#albums_list'));
-  View.Album.Track.init($('#tracks_list'));
+  View.Album.Track.init($('#album_track_list'));
 });
 
 
@@ -26,11 +26,10 @@ View.Album = {
   refresh: function() {
     var self = this;
     this.cont.html('');
-    var template = "<ul> {{#rows}}{{#doc}}<li class='tree' data-id='{{_id}}'><span class='ico'><a>{{#trim}}{{title}}{{/trim}}</a></span></li>{{/doc}}{{/rows}} </ul>";
+    var template = "<li class='dir' data-id='{{_id}}'><span class='ico'><a>{{#trim}}{{title}}{{/trim}}</a></span></li>";
 
-    Model.Album.all(function(data) {
-      var html = Mustache.to_html(template, data);
-      self.cont.html(html);
+    db.all(Model.Album, {}, function(data) {
+      self.cont.mustache(template, data);
       self.bindEvents();
     });
   },
@@ -79,11 +78,10 @@ View.Album.Track = {
   refresh: function(albumID) {
     var self = this;
     this.cont.html('');
-    var template = "<ul> {{#rows}}{{#doc}}<li data-id='{{_id}}'><span class='ico'><a>{{#trim}}{{title}}{{/trim}}</a></span></li>{{/doc}}{{/rows}} </ul>";
+    var template = "<li data-id='{{_id}}'><span class='ico'><a>{{#trim}}{{title}}{{/trim}}</a></span></li>";
 
     Model.Album.tracks(albumID, function(data) {
-      var html = Mustache.to_html(template, data);
-      self.cont.html(html);
+      self.cont.mustache(template, data);
       self.bindEvents();
     });
   },

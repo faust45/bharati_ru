@@ -1,11 +1,9 @@
-<div id="album_form_menu">
-  <ul class="form_edit tabs_control" data-tabsId="album_form_tabs">
-    <li class="active"> <%= link_to 'Basic' %> </li>
-    <li> <%= link_to 'Tracks' %>  </li>
-    <li> <%= link_to 'Photos' %> </li>
-  </ul>
-  <img class="button_save" src='/images/saved.png' />
-</div>
-
-<div id="album_form_tabs">
+<div class="form" id="edit_album_form">
+  <div id="album_form_tabs" class="tabs">
+    <ul data-tabsId="edit_album_form">
+      <li class="active" id="track-tab-1"><a href="#">Basic</a></li>
+      <li id="track-tab-2"><a href="#">Tracks</a></li>
+    </ul>
+    <a class="saved" href="#"><img alt="" src="images/saved.png"></a>
+  </div>
 </div>

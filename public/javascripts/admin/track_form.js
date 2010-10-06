@@ -13,11 +13,11 @@ $(document).ready(function() {
     }
   });
   
-  View.TrackForm.setSaveButton($('#edit_menu img'));
+  View.TrackForm.setSaveButton($('#track_form_tabs img'));
   var html = View.TrackForm.html();
 
-  $('#form_tabs').append(html);
-  $('#edit_menu ul').behavior(TabsBehavior);
+  $('#edit_track_form').append(html);
+  $('#track_form_tabs ul').behavior(TabsBehavior);
 });
 
 
@@ -28,7 +28,7 @@ View.TrackForm = {
   fields: {},
 
   buildForm: function() {
-    this.cont = $('<div>');
+    this.cont = $('<form>');
     var fields = this.fields;
 
     fields.title      = StringInput.create();

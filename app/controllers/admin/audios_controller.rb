@@ -1,7 +1,6 @@
 class Admin::AudiosController < AdminController
 
   def index
-    @audios = Audio.all
   end
 
   def author

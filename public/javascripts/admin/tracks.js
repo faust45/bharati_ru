@@ -6,11 +6,9 @@
 //Initialization
 
 $(document).ready(function() {
-  View.LastTracks.init($('#last_tracks ul'));
+  View.LastTracks.init($('#last_tracks'));
 
-  $(document).focus();
-
-  $('#add_new_track').asAddNewTrack();
+  $('.newTrack').asAddNewTrack();
 });
 
 
@@ -19,31 +17,70 @@ View.LastTracks = {
   current: null,
 
   init: function(ul) {
-    var self = this;
-    this.ul = $(ul);
+    var template = '<li data-id="{{_id}}"><a href="">{{title}}</a></li>';
+    var self = this, ul = $(ul), ol = $('#last_tracks_pages');
+    var current;
 
-    ul.find('li').each(function() {
-      var li = $(this);
+    var goToPage = function(page, perPage) {
+      var options = {limit: 10};
+      options.skip = (page - 1) * perPage;
 
-      li.click(function() {
-        self.setCurrent(li);
-        return false;
+      db.all(Model.Track, options, function(data) {
+        pages.setCurPage(page)
+        refresh(data);
       });
+    },
+
+    getCurrent = function() {
+      return current;
+    },
+
+    setCurrent = function(li) {
+      if (current) {
+        current.removeClass('current');
+      }
+
+      current = li;
+      current.addClass('current');
+
+      var id = current.attr('data-id');
+      $(document).trigger('currentTrackChanged', [id]);
+    },
+
+    refresh = function(data) {
+      ul.mustache(template, data);
+      setCurrent(ul.find('li:first'));
+
+      ul.find('li').each(function() {
+        var li = $(this);
+
+        li.click(function() {
+          setCurrent(li);
+          return false;
+        });
+      });
+    };
+
+    this.setCurrent = setCurrent; 
+    this.getCurrent = getCurrent; 
+
+    //init
+    db.all(Model.Track, {limit: 10}, function(data) {
+      refresh(data);
+      pages = new Paginator(ol, data.total_rows, goToPage);
+      pages.setCurPage(1);
     });
+
 
     $(document).bind('addNewTrack', function(e, track) {
-      self.addNewTrack(track);
+      this.addNewTrack(track);
     });
-
-    this.setCurrent(this.ul.find('li:first'));
   },
 
   addNewTrack: function(track) {
     var self = this;
-    var template = '{{#doc}}<li data-id="{{_id}}"><span class="ico"><a href="">{{title}}</a></span></li>{{/doc}}';
        
-    var html = Mustache.to_html(template, {doc: track});
-    this.ul.prepend(html);
+    this.ul.Mustache(template, track, 'prepend');
     var newLi = this.ul.find('li:first');
     newLi.effect("highlight", {}, 5000);
     newLi.click(function() {
@@ -53,29 +90,17 @@ View.LastTracks = {
   },
 
   goNext: function() {
-    var next = this.current.next();
+    var next = this.getCurrent().next();
     if(next[0]) {
       this.setCurrent(next);
     }
   },
 
   goPrev: function() {
-    var prev = this.current.prev();
+    var prev = this.getCurrent().prev();
     if(prev[0]) {
       this.setCurrent(prev);
     }
-  },
-
-  setCurrent: function(li) {
-    if (this.current) {
-      this.current.removeClass('current');
-    }
-
-    this.current = li;
-    this.current.addClass('current');
-
-    var id = this.current.attr('data-id');
-    $(document).trigger('currentTrackChanged', [id]);
   }
 }
 
@@ -92,4 +117,29 @@ $.fn.asAddNewTrack = function() {
       }
     }
   });
+};
+
+Paginator = function(ol, total, funNewPage) {
+  var perPage = 10;
+  var template = '<li> <a data-num={{.}} href="#">{{.}}</a></li>';
+  var pagesMax = total / perPage;
+
+  ol.mustache(template, range(1, pagesMax), 'append');
+  ol.find('a').each(function() {
+    var a  = $(this);
+    var page = a.attr('data-num');
+
+    a.click(function() { 
+      funNewPage(page, perPage);
+      return false; 
+    });
+  });
+
+
+  return {
+    setCurPage: function(page) {
+      ol.find('a.active').removeClass('active');
+      ol.find('a[data-num=' + page + ']').addClass('active');
+    }
+  };
 }

@@ -1,4 +1,4 @@
-$.log = console.log;
+$.log = function () { console.log(arguments) };
 
 function genRand() {
   return Math.floor(Math.random()*100);
@@ -60,8 +60,28 @@ $.fn.updateUL = function(ids) {
   });
 }
 
-$.fn.mustache = function(template, data) {
-  $(this).html(Mustache.to_html('{{#rows}}{{#doc}}' + template + '{{/doc}}{{/rows}}', data));
+$.fn.mustache = function(template, data, type) {
+  if (typeOf(data.rows) == 'array') {
+    template = '{{#rows}}{{#doc}}' + template + '{{/doc}}{{/rows}}';
+  } else {
+    template = '{{#doc}}' + template + '{{/doc}}';
+    data = {doc: data};
+  }
+
+  var html = Mustache.to_html(template, data);
+  switch (type) {
+    case 'append':
+      $(this).append(html);
+      break;
+    case 'prepend':
+      $(this).prepend(html);
+      break;
+    case 'replace':
+      $(this).html(html);
+      break;
+    default:
+      $(this).html(html);
+  };
 }
 
 // Classes

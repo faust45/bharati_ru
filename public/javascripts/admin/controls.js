@@ -185,7 +185,7 @@ SimpleInput = {
 PhotoInput = {
   create: function(uploadPath, options) {
     options = options || {};
-    var imgClass = options.class;
+    var imgClass = options['class'];
     var node = document.createDocumentFragment();
     var imgBlock = $('<div>');
     var div = $('<div>');
