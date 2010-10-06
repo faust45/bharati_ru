@@ -49,11 +49,14 @@ module AudiosHelper
     @audio.attachment_url(@audio.source_attachments.first)
   end
 
-  def attachment_size
-    if @audio['_attachments']
-      attach = @audio.source_attachments.first
-      size = (@audio['_attachments'][attach]['length'].to_i / 1024 / 1024)
-      "#{size} Mb"
+  def source_size(doc)
+    attachment_size(doc, doc.source.file_name)
+  end
+
+  def attachment_size(doc, file_name)
+    if doc['_attachments']
+      size = (doc['_attachments'][file_name]['length'].to_i / 1024 / 1024)
+      "#{size}"
     end
   end
 
@@ -70,17 +73,22 @@ module AudiosHelper
   #  author_name, album_name, track_name, track_url, user_bookmarks, author_bookmarks 
   #  track_duration (required)
   def js_track_params
+    Rails.logger.debug(file_url(@current_track.source))
     options = {
-      :album_name  => @album.title,
+      :album_name  => escape(@album.title),
       :author_name => @current_track.author.display_name,
       :track_name  => @current_track.title,
-      :track_url   => @current_track.source.url,
+      :track_url   => file_url(@current_track.source),
       :track_duration => @current_track.duration,
     }
 
     options.map do |key, value|
       "#{key}=#{value}" 
     end.join('&')
+  end
+
+  def escape(str)
+    str.gsub(/\"/, ' ')
   end
 
 end

@@ -112,7 +112,7 @@ class Audio < MediaContent
         self.set_author(author)
       end
     end
-  
+
     def add_to_album(album_name)
       unless album_name.blank?
         album = Album.get_by_title_or_create(album_name)

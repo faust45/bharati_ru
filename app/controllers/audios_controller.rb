@@ -1,6 +1,5 @@
 class AudiosController < ApplicationController
   free_actions :index, :album, :author
-  skip_before_filter :verify_authenticity_token
 
   def index
     @audios  = Audio.order_by_created_at
@@ -22,7 +21,7 @@ class AudiosController < ApplicationController
   def author
     @acharya = Author.get_acharya
     @authors = Author.get_authors
-    @current_author = Author.get(params[:author_id])
+    @current_author = Author.get_doc!(params[:author_id])
     @albums = @current_author.albums
     #@last = Audio.get_by_author(self.id)
   end

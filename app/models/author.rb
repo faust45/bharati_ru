@@ -1,6 +1,6 @@
 class Author < BaseModel
 
-  ACHARYA = []
+  ACHARYA = ['BNAcharyaMaharadzh', 'BSGovindaMaharadzh', '94263868']
 
   property :full_name
   property :display_name
@@ -26,7 +26,7 @@ class Author < BaseModel
   class <<self
     def get_acharya
       ACHARYA.map do |id|
-        self.get(id)
+        self.get_doc!(id)
       end
     end
 

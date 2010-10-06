@@ -1,5 +1,17 @@
 module ApplicationHelper
 
+  def author_main_photo(author)
+    if author.main_photo
+      image_tag(file_url(author.main_photo.thumbs['small']), :width => "88", :height => "119")
+    else
+      ''
+    end
+  end
+
+  def file_url(doc)
+    "http://192.168.1.100:5984/rocks_file_store/#{doc['doc_id']}/#{doc['file_name']}"
+  end
+
   def d(date)
     l(date.to_date, :format => :long)
   end

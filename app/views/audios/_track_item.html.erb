@@ -4,5 +4,5 @@
   <% else %>
     <%= link_to "#{track_item_counter + 1}. “#{track_item.title}”",  album_track_path(@album.id, track_item.id) %>
   <% end %>
-  <div><span>Лекция от <%= track_item.record_date %></span><br />18 апреля 2010</div>
+  <div><span>Лекция от <%= d track_item.record_date %></span><br /><%= d track_item.created_at %></div>
 </li>
