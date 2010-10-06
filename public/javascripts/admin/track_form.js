@@ -53,7 +53,7 @@ View.TrackForm = {
     return this.cont;
   },
 
-  editTrack: function(trackID) {
+  editDoc: function(trackID) {
     var self = this;
     Model.Track.get(trackID, function(doc) {
       self.doc = doc;

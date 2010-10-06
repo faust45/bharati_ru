@@ -18,13 +18,14 @@ View.Manager = {
     $(this.albumFormID).hide();
 
     $(document).bind('keydown', 'e', function() {
-      if (View.Album.current) {
-        self.editAlbum(View.Album.currentDocID);
+      var id = View.Album.currentDocID;
+      if (id) {
+        self.editAlbum(id);
       }
     });
 
-    $(document).bind('currentTrackChanged', function(e, trackID) {
-      self.editTrack(trackID);
+    $(document).bind('currentTrackChanged', function(e, id) {
+      self.editTrack(id);
     });
 
     $(document).bind('keydown', 'j', function() {
@@ -45,13 +46,13 @@ View.Manager = {
     $(this.trackFormID).hide();
     $(this.albumFormID).show();
 
-    View.AlbumForm.editAlbum(id);
+    View.AlbumForm.editDoc(id);
   },
 
   editTrack: function(id) {
     $(this.albumFormID).hide();
     $(this.trackFormID).show();
 
-    View.TrackForm.editTrack(id);
+    View.TrackForm.editDoc(id);
   }
 }

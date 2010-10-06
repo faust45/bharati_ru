@@ -50,7 +50,6 @@ class Admin::AuthorsController < AdminController
     @author.save
 
     @author = Author.get_doc!(@author.id)
-    logger.debug(@author.inspect)
     render :json => {'success' => true, 'img' => @author.main_photo_attachments} 
   end
 

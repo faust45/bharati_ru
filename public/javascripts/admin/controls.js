@@ -197,7 +197,7 @@ PhotoInput = {
         if (values != null) {
           var cover = values[0];
           if (cover) {
-            this.coverUrl = Model.Author.thumbURL(cover.thumbs.small);
+            this.coverUrl = db.FileStore.attachmentURL(cover.thumbs.small);
             var photo = $('<img />', {src: this.coverUrl + '?' + genRand(), 'class': imgClass});
             imgBlock.html(photo);
           } else {

@@ -36,7 +36,7 @@ View.AlbumForm = {
     return this.cont;
   },
 
-  editAlbum: function(albumID) {
+  editDoc: function(albumID) {
     var self = this;
     Model.Album.get(albumID, function(doc) {
       self.doc = doc;

@@ -11,13 +11,15 @@ class Admin::AlbumsController < Admin::ContentsController
   end
 
   def upload_cover
-    album = Album.get_doc!(params[:album_id])
+    album = Album.get_doc!(params[:id])
 
     album.cover_file = params[:file]
     album.save
     album = Album.get_doc!(album.id)
 
-    render :json => {'success' => true, 'doc' => album} 
+    logger.debug('album.inspect')
+    logger.debug(album.inspect)
+    render :json => {'success' => true, 'img' => album.cover_attachments} 
   end
 
   def create
