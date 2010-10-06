@@ -3,15 +3,14 @@ View = {};
 AlbumsInput = {
   addURL:  '/admin/albums/add_track',
   dropURL: '/admin/albums/drop_track',
-  template: "{{#rows}}{{#doc}}<li data-id={{_id}}><input type=checkbox>{{title}}<span class='response'></span></li>{{/doc}}{{/rows}}",
+  template: "<li data-id={{_id}}><input type=checkbox>{{title}}<span class='response'></span></li>",
 
   create: function() {
     var self = this;
     var ul = $('<ul>', {'class': 'track-albums'});
 
-    Model.Album.all(function(data) {
-      ul.html('');
-      ul.append(Mustache.to_html(self.template, data));
+    db.all(Model.Album, {}, function(data) {
+      ul.mustache(self.template, data));
 
       ul.find('li').each(function() {
         var li = $(this);
