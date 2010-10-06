@@ -1,9 +1,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <%= stylesheet_link_tag 'jquery.autocomplete' %>
-    <%= stylesheet_link_tag 'admin' %>
-    <%= stylesheet_link_tag 'fileuploader' %>
+    <%#= stylesheet_link_tag 'jquery.autocomplete' %>
+    <%= stylesheet_link_tag 'admin_main' %>
+    <%#= stylesheet_link_tag 'fileuploader' %>
 
     <%= javascript_include_tag "jquery.min.js" %>
     <%= javascript_include_tag "jquery-ui.min.js" %>
@@ -20,17 +20,12 @@
   <body>
     <%= flash[:notice] %>
 
-    <div id="main">
-      <div id="content">
-        <div id="context_nav">
-          <%= yield :context_nav %>
-        </div>
-
-        <%= yield %>
-      </div>
-
+    <div id="wrap">
       <div id="sidebar">
         <%= render_sidebar %>
+      </div>
+      <div id="content">
+        <%= yield %>
       </div>
     </div>
   </body>

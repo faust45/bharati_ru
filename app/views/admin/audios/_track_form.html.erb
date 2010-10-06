@@ -1,13 +1,13 @@
-<div id="edit_menu">
-  <ul class="form_edit tabs_control" data-tabsId="form_tabs">
-    <li class="active"> <%= link_to 'Basic' %> </li>
-    <li> <%= link_to 'Bookmarks' %> </li>
-    <li> <%= link_to 'Albums' %> </li>
-    <li> <%= link_to 'Photos' %> </li>
-    <li> <%= link_to 'Mp3' %>    </li>
+<div class="tabs">
+  <ul data-tabsId="edit_track_form">
+    <li class="active" id="track-tab-1"><a href="#">Basic</a></li>
+    <li id="track-tab-2"><a href="#">Bookmarks</a></li>
+    <li id="track-tab-3"><a href="#">Albums</a></li>
+    <li id="track-tab-4"><a href="#">Photos</a></li>
+    <li id="track-tab-5"><a href="#">Mp3</a></li>
   </ul>
-  <img id="button_save" src='/images/saved.png' />
+  <a class="saved" href="#"><img alt="" src="images/saved.png"></a>
 </div>
 
-<div id="form_tabs">
+<div class="form" id="edit_track_form">
 </div>

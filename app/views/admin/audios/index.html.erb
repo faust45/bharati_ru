@@ -1,32 +1,25 @@
-<% include_js('admin/utils', 'admin/controls', 'admin/form_base', 'admin/track_form', 'admin/tracks', 'admin/albums', 'admin/album_form', 'admin/form_manager') %>
+<%# include_js('admin/utils', 'admin/controls', 'admin/form_base', 'admin/track_form', 'admin/tracks', 'admin/albums', 'admin/album_form', 'admin/form_manager') %>
 
-<% context_nav do %>
-  <%= render :partial => 'list_nav' %>
-<% end %>
 
-<div id="main_tabs">
-  <div id="last_tracks" class="tab files">
-    <ul class="tracks">
+<div class="tabs">
+  <%= render :partial => 'tabs' %>
+</div>
+
+<div class="cnt active" id="cnt-1">
+  <div class="newTrack">место для кнопочки добавления файла</div>
+
+  <div class="list">
+    <ul>
       <%= render :partial => 'audio_item', :collection => @audios %>
     </ul>
+    <ol>
+      <li><span>Страницы:</span></li>
+      <li><a class="active" href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+    </ol>
   </div>
 
-  <div class="tab cont files">
-    <div id="albums_list" class="sub_cont">
-    </div>
-
-    <div id="tracks_list" class="sub_cont">
-    </div>
-  </div>
-
-  <div class="tab">
-  </div>
-</div>
-
-<div id="track_edit">
   <%= render :partial => 'track_form' %>
-</div>
-
-<div id="album_edit">
-  <%= render :partial => 'album_form' %>
 </div>
