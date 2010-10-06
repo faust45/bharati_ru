@@ -10,7 +10,7 @@ AlbumsInput = {
     var ul = $('<ul>', {'class': 'track-albums'});
 
     db.all(Model.Album, {}, function(data) {
-      ul.mustache(self.template, data));
+      ul.mustache(self.template, data);
 
       ul.find('li').each(function() {
         var li = $(this);
