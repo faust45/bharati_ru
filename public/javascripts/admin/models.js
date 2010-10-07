@@ -53,7 +53,7 @@ Model.Author = {
 }
 
 db = {
-  urlPrefix: "http://192.168.1.100:5984/",
+  urlPrefix: "http://93.94.152.87:3000/",
   name: "rocks",
 
   uri: function() {
@@ -89,7 +89,7 @@ db = {
 db.FileStore = {
   attachmentURL: function(doc) {
     var id = doc.doc_id, fileName = doc.file_name;
-    return 'http://192.168.1.100:5984/rocks_file_store/' + id + '/' + fileName;
+    return 'http://93.94.152.87:3000/rocks_file_store/' + id + '/' + fileName;
   }
 }
 
