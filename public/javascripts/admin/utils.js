@@ -84,6 +84,13 @@ $.fn.mustache = function(template, data, type) {
   };
 }
 
+$.fn.blindToggle = function(speed, easing, callback) {
+  var v = parseInt(this.css('marginLeft'));
+  var left = (v == 0 ? 300 : 0);
+  return this.animate({marginLeft: left}, speed, easing, callback);  
+};
+
+
 // Classes
 UnknownDate = {
   getDate: function() {

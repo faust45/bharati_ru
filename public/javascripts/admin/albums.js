@@ -26,7 +26,7 @@ View.Album = {
   refresh: function() {
     var self = this;
     this.cont.html('');
-    var template = "<li class='dir' data-id='{{_id}}'><span class='ico'><a>{{#trim}}{{title}}{{/trim}}</a></span></li>";
+    var template = "<li data-id='{{_id}}'><span class='ico'><a>{{#trim}}{{title}}{{/trim}}</a></span></li>";
 
     db.all(Model.Album, {}, function(data) {
       self.cont.mustache(template, data);

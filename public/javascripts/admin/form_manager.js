@@ -24,6 +24,10 @@ View.Manager = {
       }
     });
 
+    $(document).bind('keydown', 'f', function(e) {
+      $('#content').blindToggle('slow');
+    });
+
     $(document).bind('currentTrackChanged', function(e, id) {
       self.editTrack(id);
     });
