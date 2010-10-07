@@ -11,7 +11,7 @@ class Album < BaseModel
 
   timestamps!
 
-  has_photo_attachment :cover
+  has_photo_attachment :cover, :thumb => {:size => 'x88'}
 
 
   view_by :title
