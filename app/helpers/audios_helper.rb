@@ -1,6 +1,14 @@
 module AudiosHelper
   include AudioBookmarksHelper
 
+  def track_path(track)
+    if @year
+      year_audios_path(@year, track.id)
+    else
+      album_track_path(@album.id, track.id)
+    end
+  end
+
   def random_author_photo(author)
     photo = author.photos.first
     image_tag photo.thumbs['small']['url'] if photo
@@ -72,7 +80,6 @@ module AudiosHelper
   #  author_name, album_name, track_name, track_url, user_bookmarks, author_bookmarks 
   #  track_duration (required)
   def js_track_params
-    Rails.logger.debug(file_url(@current_track.source))
     options = {
       :album_name  => escape(@album.title),
       :author_name => @current_track.author.display_name,

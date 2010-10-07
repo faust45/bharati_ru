@@ -12,6 +12,17 @@ class Audio < MediaContent
 
   after_destroy :drop_from_albums
 
+  view_by :date, :map => <<-MAP
+    function(doc) {
+      if(doc['couchrest-type'] == 'Audio') {
+        emit([doc.record_date.slice(0, 4), doc.record_date.slice(5, 7), doc.record_date.slice(8, 10)], null);
+        log('debug index record_date');
+        log(doc.record_date.slice(0, 4));
+        log(doc.record_date.slice(5, 7));
+      }
+    }
+  MAP
+
   view_by :album, :map => <<-MAP
     function(doc) {
       if(doc['couchrest-type'] == 'Album') {
@@ -53,6 +64,10 @@ class Audio < MediaContent
     def clean_up
       all.map{|e| database.delete_doc({'_id' => e['_id'], '_rev' => e['_rev']}) if e.title.blank? && e['_id']}
     end
+
+    def by_year(year)
+      by_date(:startkey => [year], :endkey => [{}, {}, {}])
+    end
   end
 
   def albums
@@ -76,7 +91,8 @@ class Audio < MediaContent
 
       self.bookmarks = []
       a.each do |str|
-        m = str.match(/(\d{2}:\d{2})(.*)$/)
+        m = str.match(/(\d{2}:\d{2}:\d{2})(.*)$/)
+        m ||= str.match(/(\d{2}:\d{2})(.*)$/)
         if m
           self.bookmarks << {:str_time => m[1], :name => m[2].strip, :time => bm_time_ms(m[1])}
         end
@@ -121,13 +137,20 @@ class Audio < MediaContent
     end
 
     def bm_time_ms(str_time)
-      m = str_time.match(/(\d+):(\d+)/)
+      if m = str_time.match(/(\d+):(\d+):(\d+)/)
+        hour = m[1].to_i
+        min  = m[2].to_i
+        sec  = m[3].to_i
+      else 
+        m = str_time.match(/(\d+):(\d+)/)
+        hour = 0
+        min  = m[1].to_i
+        sec  = m[2].to_i
+      end
+
   
       if m
-        min = m[1].to_i
-        sec = m[2].to_i
-  
-        msec = (min * 60 + sec) * 1000
+        msec = ((hour * 60 * 60) + min * 60 + sec) * 1000
       end
     end
 

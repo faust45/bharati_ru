@@ -1,9 +1,9 @@
 <div class="item">
-  <a href="#">
-    <%= small_thumb(last_item.author.main_photo) %>
-  </a>
+  <% if last_item.author %>
+    <%= link_to small_thumb(last_item.author.main_photo), show_audio_path(last_item.id) %>
+  <% end %>
 
-  <div class="name"><%= link_to "“#{last_item.title}”" %></div>
+  <div class="name"><%= link_to "“#{last_item.title}”", show_audio_path(last_item.id) %></div>
   <p>Лекция от <%= d last_item.record_date %> <br> <%= last_item.author.display_name %></p>
   <div class="date"><%= d last_item.created_at %></div>
 </div>

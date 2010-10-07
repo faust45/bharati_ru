@@ -8,7 +8,7 @@ class AudiosController < ApplicationController
   end
 
   def album
-    @album  = Album.get(params[:album_id])
+    @album  = Album.get_doc!(params[:album_id])
     @tracks = @album.get_tracks
     if params[:id]
       @current_track = @tracks.find{|el| el.id == params[:id]} 
@@ -24,6 +24,34 @@ class AudiosController < ApplicationController
     @current_author = Author.get_doc!(params[:author_id])
     @albums = @current_author.albums
     #@last = Audio.get_by_author(self.id)
+  end
+
+  def year
+    @year = params[:year]
+    unless @year.blank?
+      @tracks = Audio.by_year(params[:year])
+      if params[:id]
+        @current_track = Audio.get_doc!(params[:id])
+      else
+        @current_track = @tracks.first
+      end
+    end
+
+    render :album
+  end
+
+  def show
+    track = Audio.get_doc!(params[:id])
+    albums = track.albums
+    path =
+    if albums.any?
+      album_track_path(albums.first.id, track.id)
+    else
+      year = track.record_date.year
+      year_audios_path(year, track.id)
+    end
+
+    redirect_to(path)
   end
 
 end

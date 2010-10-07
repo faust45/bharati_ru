@@ -1,10 +1,28 @@
 $.log = function () { console.log(arguments) };
 
+function isBlank(value) {
+  switch (typeOf(value)) {
+    case 'string':
+      return value == '';
+      break;
+    case 'array':
+      return value.length == 0;
+      break;
+    case 'null':
+      return true;
+      break;
+  }
+}
+
 function genRand() {
   return Math.floor(Math.random()*10000);
 }
 
 function typeOf(obj) {
+  if (obj == null) {
+    return 'null';
+  }
+
   if (typeof(obj) == 'object') {
     return (obj.length != null ? 'array' : 'object');
   } else {
@@ -42,7 +60,16 @@ function parseDate(input, format) {
 }
 
 $.fn.setSelected = function(value) {
-  var option = this.find('option[value=' + value + ']');
+  var option;
+
+  if (value != '') {
+    option = this.find('option[value=' + value + ']');
+  }
+
+  if (isBlank(option)) {
+    option = this.find('option:first');
+  }
+
   option.attr('selected', 'selected');
 }
 

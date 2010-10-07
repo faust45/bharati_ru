@@ -2,7 +2,7 @@
   <% if @current_track.id == track_item.id %>
     <strong><%= track_item_counter + 1 %>. “<%= track_item.title %>”</strong>
   <% else %>
-    <%= link_to "#{track_item_counter + 1}. “#{track_item.title}”",  album_track_path(@album.id, track_item.id) %>
+    <%= link_to "#{track_item_counter + 1}. “#{track_item.title}”",  track_path(track_item) %>
   <% end %>
   <div><span>Лекция от <%= d track_item.record_date %></span><br /><%= d track_item.created_at %></div>
 </li>

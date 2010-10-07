@@ -341,7 +341,7 @@ Tag = {
 
 //--------------------------------------------------------------
 AuthorInput = {
-  template: "{{#rows}}{{#doc}}<option value={{_id}}>{{display_name}}</option>{{/doc}}{{/rows}}",
+  template: "<option value={{_id}}>{{display_name}}</option>",
   data: null,
 
   create: function() {
@@ -378,10 +378,10 @@ AuthorInput = {
     if (!this.data) {
       Model.Author.all(function(data) {
         self.data = data;
-        selectList.append(Mustache.to_html(self.template, data));
+        selectList.mustache(self.template, data, 'append');
       });
     } else {
-      selectList.append(Mustache.to_html(this.template, this.data));
+      selectList.mustache(this.template, this.data, 'append');
     }
   }
 };

@@ -61,15 +61,17 @@ MahaMandala::Application.routes.draw do
   match 'users/logout' => 'users#logout', :as => 'logout'
   match 'users/change_css_style/:css_style' => 'users#change_css_style', :as => 'user_change_css_style'
 
+  match 'audios' => 'audios#index', :as => 'audios'
   match 'audios/album/:album_id/' => 'audios#album', :as => 'album'
   match 'audios/album/:album_id/track/:id' => 'audios#album', :as => 'album_track'
   match 'audios/author/:author_id' => 'audios#author', :as => 'author_audios'
+  match 'audios/show/:id' => 'audios#show', :as => 'show_audio'
+  match 'audios/year/:year' => 'audios#year', :as => 'year_audios'
+  match 'audios/year/:year/:id' => 'audios#year', :as => 'year_audios'
 
   resources :users do
   end
 
-  resources :audios do
-  end
 
   namespace :admin do
     root :to => "audios#index"
