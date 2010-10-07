@@ -1,5 +1,5 @@
 class AudiosController < ApplicationController
-  free_actions :index, :album, :author
+  free_actions :index, :album, :author, :year, :show
 
   def index
     @audios  = Audio.order_by_created_at
