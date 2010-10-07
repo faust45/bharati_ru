@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('div.playList li').behavior(BookmarkBehavior);
+  $('div.bookmarks li').behavior(BookmarkBehavior);
 });
 
 

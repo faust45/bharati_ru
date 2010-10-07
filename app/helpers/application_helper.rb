@@ -46,7 +46,7 @@ module ApplicationHelper
 
   def thumb_url(photo)
     unless photo.blank?
-      photo.thumbs['small']['url']
+      file_url(photo.thumbs['small'])
     end
   end
 
@@ -78,15 +78,6 @@ module ApplicationHelper
 
   def title(text)
     content_tag(:p, text)
-  end
-
-  def link_to_del(url, options = {})
-    options[:method] ||= :delete
-    link_to(image_tag('del.png', :width => '25', :height => '25'), url, options)
-  end
-
-  def link_to_edit(url, options = {})
-    link_to(image_tag('edit.png', :width => '25', :height => '25'), url, options)
   end
 
 end

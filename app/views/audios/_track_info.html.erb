@@ -4,6 +4,6 @@
     <div class="author"><span>Автор:</span> <%= @album.author.display_name %></div>
     <div class="tags"><%= tags %></div>
 
-    <div class="download"><%= link_to "<b>&#160;</b><i>&#160;</i>скачать этот трек (#{source_size(@current_track)})".html_safe, @current_track.source.url %></div>
+    <div class="download"><%= link_to "<b>&#160;</b><i>&#160;</i>скачать этот трек (#{source_size(@current_track)})".html_safe, file_url(@current_track.source) %></div>
   </div>
 </div>

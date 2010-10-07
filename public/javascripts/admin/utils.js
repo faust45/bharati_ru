@@ -1,7 +1,7 @@
 $.log = function () { console.log(arguments) };
 
 function genRand() {
-  return Math.floor(Math.random()*100);
+  return Math.floor(Math.random()*10000);
 }
 
 function typeOf(obj) {

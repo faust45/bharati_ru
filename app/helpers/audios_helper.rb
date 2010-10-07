@@ -45,18 +45,17 @@ module AudiosHelper
     end
   end
 
-  def attachment_url
-    @audio.attachment_url(@audio.source_attachments.first)
-  end
-
   def source_size(doc)
-    attachment_size(doc, doc.source.file_name)
+    attach = FileStore.get(doc.source.doc_id)
+    attachment_size(attach, doc.source.file_name)
   end
 
   def attachment_size(doc, file_name)
     if doc['_attachments']
       size = (doc['_attachments'][file_name]['length'].to_i / 1024 / 1024)
-      "#{size}"
+      "#{size} Мб"
+    else
+      "Blank"
     end
   end
 
