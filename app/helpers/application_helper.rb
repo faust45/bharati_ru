@@ -13,7 +13,10 @@ module ApplicationHelper
   end
 
   def d(date)
-    l(date.to_date, :format => :long)
+    date = Date.parse(date)
+    l(date, :format => :long)
+
+  rescue ArgumentError => ex
   end
 
   def collect_options(items, &block)
