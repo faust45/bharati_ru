@@ -51,7 +51,7 @@ class Author < BaseModel
 
   def last_tracks
     id = self.id
-    Audio.by_author_last(:startkey => [id], :endkey => [id, {}], :limit => 10)
+    Audio.by_author_last(:startkey => [id, {}], :endkey => [id], :limit => 10, :descending => true)
   end
 
 end
