@@ -69,6 +69,7 @@ db = {
   },
 
   view: function(url, options, fun) {
+    options =  $.extend({include_docs: true}, options); 
     $.getJSON(this.urlPrefix + this.name + '/' + url + encodeOptions(options) + '&callback=?', function(data) {
       data.trim = trim;
       data.getIDs = getIDs;
@@ -77,7 +78,7 @@ db = {
   },
 
   all: function(model, options, fun) {
-    this.view(model.viewAll, $.extend({include_docs: true}, options), fun);
+    this.view(model.viewAll, options, fun);
   },
 
   count: function(model, fun) {

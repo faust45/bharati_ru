@@ -50,13 +50,16 @@ function parseDate(input, format) {
   if (input) {
     var parts = input.match(/(\d+)/g), 
         i = 0, fmt = {};
-    // extract date-part indexes from the format
-    format.replace(/(yyyy|dd|mm)/g, function(part) { fmt[part] = i++; });
 
-    return new Date(parts[fmt['yyyy']], parts[fmt['mm']], parts[fmt['dd']]);
-  } else {
-    return UnknownDate; 
+    if (parts) {
+      // extract date-part indexes from the format
+      format.replace(/(yyyy|dd|mm)/g, function(part) { fmt[part] = i++; });
+
+      return new Date(parts[fmt['yyyy']], parts[fmt['mm']], parts[fmt['dd']]);
+    }
   }
+
+  return UnknownDate; 
 }
 
 $.fn.setSelected = function(value) {
@@ -69,7 +72,7 @@ $.fn.setSelected = function(value) {
   if (isBlank(option)) {
     option = this.find('option:first');
   }
-
+ 
   option.attr('selected', 'selected');
 }
 

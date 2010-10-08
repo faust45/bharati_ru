@@ -22,7 +22,7 @@ View.LastTracks = {
     var current;
 
     var goToPage = function(page, perPage) {
-      var options = {limit: 10};
+      var options = {limit: 10, descending: true};
       options.skip = (page - 1) * perPage;
 
       db.view(Model.Track.last, options, function(data) {
@@ -65,10 +65,7 @@ View.LastTracks = {
     this.getCurrent = getCurrent; 
 
     //init
-      $.log('befire');
-    db.view(Model.Track.last, {limit: 10}, function(data) {
-      $.log('data come');
-      $.log(data);
+    db.view(Model.Track.last, {limit: 10, descending: true}, function(data) {
       refresh(data);
       pages = new Paginator(ol, data.total_rows, goToPage);
       pages.setCurPage(1);
