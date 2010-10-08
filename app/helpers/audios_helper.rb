@@ -3,7 +3,7 @@ module AudiosHelper
 
   def track_path(track)
     if @year
-      year_audios_path(@year, track.id)
+      year_audio_path(@year, track.id)
     else
       album_track_path(@album.id, track.id)
     end
@@ -19,7 +19,19 @@ module AudiosHelper
   end
 
   def site_path_items
-    ['Аудио', @author.display_name]
+    path = [link_to('Аудио', audios_path)]
+
+    if @author
+      path << link_to(@author.display_name, author_audios_path(@author.id))
+    elsif @year
+      path << link_to(@year, year_audios_path(@year))
+    end
+
+    if @album
+      path << link_to(@album.title, album_path(@album.id))
+    end
+
+    path
   end
 
   def track_img

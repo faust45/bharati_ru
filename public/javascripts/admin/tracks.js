@@ -17,7 +17,7 @@ View.LastTracks = {
   current: null,
 
   init: function(ul) {
-    var template = '<li data-id="{{_id}}"><a href="">{{title}}</a></li>';
+    var template = '<li data-id="{{_id}}"><a href="">{{record_date}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{title}}</a></li>';
     var self = this, ul = $(ul), ol = $('#last_tracks_pages');
     var current;
 
@@ -25,7 +25,7 @@ View.LastTracks = {
       var options = {limit: 10};
       options.skip = (page - 1) * perPage;
 
-      db.all(Model.Track, options, function(data) {
+      db.view(Model.Track.last, options, function(data) {
         pages.setCurPage(page)
         refresh(data);
       });
@@ -65,7 +65,10 @@ View.LastTracks = {
     this.getCurrent = getCurrent; 
 
     //init
-    db.all(Model.Track, {limit: 10}, function(data) {
+      $.log('befire');
+    db.view(Model.Track.last, {limit: 10}, function(data) {
+      $.log('data come');
+      $.log(data);
       refresh(data);
       pages = new Paginator(ol, data.total_rows, goToPage);
       pages.setCurPage(1);

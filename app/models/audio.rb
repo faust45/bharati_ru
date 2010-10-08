@@ -12,6 +12,14 @@ class Audio < MediaContent
 
   after_destroy :drop_from_albums
 
+  view_by :last, :map => <<-MAP
+    function(doc) {
+      if(doc['couchrest-type'] == 'Audio') {
+        emit(doc.created_at, null);
+      }
+    }
+  MAP
+
   view_by :date, :map => <<-MAP
     function(doc) {
       if(doc['couchrest-type'] == 'Audio') {

@@ -22,6 +22,7 @@ class AudiosController < ApplicationController
     @acharya = Author.get_acharya
     @authors = Author.get_authors
     @current_author = Author.get_doc!(params[:author_id])
+    @author = @current_author
     @albums = @current_author.albums
     #@last = Audio.get_by_author(self.id)
   end
@@ -48,7 +49,7 @@ class AudiosController < ApplicationController
       album_track_path(albums.first.id, track.id)
     else
       year = track.record_date.year
-      year_audios_path(year, track.id)
+      year_audio_path(year, track.id)
     end
 
     redirect_to(path)

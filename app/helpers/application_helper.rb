@@ -50,10 +50,15 @@ module ApplicationHelper
     end
   end
 
-  def site_path
-    site_path_items.map do |item|
-      content_tag(:strong, "> #{item}")
-    end.join
+  def site_p
+    path = site_path_items
+    main_item = path.shift
+    main_item = content_tag(:strong, "> #{main_item.html_safe}".html_safe)
+
+    main_item +
+    path.map do |item|
+      content_tag(:i, "> #{item.html_safe}".html_safe)
+    end.join.html_safe
   end
 
   def content(&block)

@@ -30,6 +30,7 @@ Model.Album = {
 
 Model.Track = {
   viewAll: '_design/Audio/_view/all',
+  last: '_design/Audio/_view/by_last',
 
   get: function(id, fun) {
     db.getDoc(id, fun);
