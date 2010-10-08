@@ -1,0 +1,9 @@
+<% el = author_last_item %>
+<div class="new">
+  <div class="cnt">
+    <div class="name"><%= link_to(el.title, show_audio_path(el.id)) %></div>
+    <div class="txt">Лекция от <%= d el.record_date %> года</div>
+
+    <div class="date"><%= d el.created_at %></div>
+  </div>
+</div>

@@ -24,6 +24,7 @@ class AudiosController < ApplicationController
     @current_author = Author.get_doc!(params[:author_id])
     @author = @current_author
     @albums = @current_author.albums
+    @last_tracks = @author.last_tracks 
     #@last = Audio.get_by_author(self.id)
   end
 

@@ -49,4 +49,9 @@ class Author < BaseModel
     Album.get_by_author(self.id)
   end
 
+  def last_tracks
+    id = self.id
+    Audio.by_author_last(:startkey => [id], :endkey => [id, {}], :limit => 10)
+  end
+
 end

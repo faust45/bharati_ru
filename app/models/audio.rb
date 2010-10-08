@@ -20,6 +20,14 @@ class Audio < MediaContent
     }
   MAP
 
+  view_by :author_last, :map => <<-MAP
+    function(doc) {
+      if(doc['couchrest-type'] == 'Audio') {
+        emit([doc.author_id, doc.created_at], null);
+      }
+    }
+  MAP
+
   view_by :date, :map => <<-MAP
     function(doc) {
       if(doc['couchrest-type'] == 'Audio') {

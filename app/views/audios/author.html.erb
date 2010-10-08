@@ -19,28 +19,12 @@
     </ul>
   </div>
   <div class="tab-container lastTab active" id="tab-1">
-    <div class="new">
-      <div class="cnt">
-        <div class="name"><a href="#">“Ложное эго – препятствие или помощь?”</a></div>
-        <div class="txt">Лекция от 12 октября 1987 года</div>
-
-        <div class="date">18 апреля 2010</div>
-      </div>
-    </div>
-    <div class="new">
-      <div class="cnt">
-        <div class="name"><a href="#">“Высшая планка религиозности”</a></div>
-        <div class="txt">Лекция от 12 октября 1987 года</div>
-
-        <div class="date">из альбома “ Мгновения Прекрасной Реальности”<br />18 апреля 2010</div>
-      </div>
-    </div>
+    <%= render :partial => 'author_last_item', :collection => @last_tracks %>
   </div>
   <div class="tab-container audioTab" id="tab-2">
     <%= render :partial => 'album_item', :collection => @albums %>
   </div>
   <div class="tab-container" id="tab-3">
-    3
   </div>
 
   <div class="bottom"></div>
