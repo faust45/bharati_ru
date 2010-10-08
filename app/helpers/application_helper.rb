@@ -13,10 +13,9 @@ module ApplicationHelper
   end
 
   def d(date)
-    date = Date.parse(date)
-    l(date, :format => :long)
+    l(date.to_date, :format => :long)
 
-  rescue ArgumentError => ex
+  rescue TypeError => ex
   end
 
   def collect_options(items, &block)
