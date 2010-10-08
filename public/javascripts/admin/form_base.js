@@ -12,6 +12,17 @@ FormBase = {
     bookmarks: 'bookmarks_raw'
   },
 
+  dataSourceMapFun: {
+    bookmarks: function(doc) {
+      var text = '';
+      $.each(doc.bookmarks, function() {
+        text = text + this.str_time + '  ' + this.name + '\n';
+      });
+
+      return text;
+    }
+  },
+
   refresh: function() {
     this.dataSaved();
     this.refreshFields()
@@ -105,8 +116,14 @@ FormBase = {
   },
 
   getDocValue: function(attrName) {
+   var fun = this.dataSourceMapFun[attrName];
    var docAttrName = this.dataSourceMap[attrName] || attrName;
-   return this.doc[docAttrName];
+
+   if (fun) {
+     return fun(this.doc);
+   } else {
+     return this.doc[docAttrName];
+   }
   },
 
   getID: function() {

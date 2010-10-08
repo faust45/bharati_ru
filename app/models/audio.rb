@@ -91,10 +91,13 @@ class Audio < MediaContent
 
       self.bookmarks = []
       a.each do |str|
-        m = str.match(/(\d{2}:\d{2}:\d{2})(.*)$/)
-        m ||= str.match(/(\d{2}:\d{2})(.*)$/)
+        m = str.match(/(\d{2}[.:]\d{2}[.:]\d{2})(.*)$/)
+        m ||= str.match(/(\d{2}[.:]\d{2})(.*)$/)
         if m
-          self.bookmarks << {:str_time => m[1], :name => m[2].strip, :time => bm_time_ms(m[1])}
+          str_time = m[1].gsub('.', ':')
+          self.bookmarks << {:str_time => str_time, :name => m[2].strip, :time => bm_time_ms(m[1])}
+        else
+          self.bookmarks << {:str_time => '', :name => str, :time => ''}
         end
       end
     end
@@ -137,12 +140,12 @@ class Audio < MediaContent
     end
 
     def bm_time_ms(str_time)
-      if m = str_time.match(/(\d+):(\d+):(\d+)/)
+      if m = str_time.match(/(\d+)[.:](\d+)[.:](\d+)/)
         hour = m[1].to_i
         min  = m[2].to_i
         sec  = m[3].to_i
       else 
-        m = str_time.match(/(\d+):(\d+)/)
+        m = str_time.match(/(\d+)[.:](\d+)/)
         hour = 0
         min  = m[1].to_i
         sec  = m[2].to_i
