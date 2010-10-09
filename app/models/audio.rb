@@ -28,13 +28,25 @@ class Audio < MediaContent
     }
   MAP
 
+  view_by :author_last_pages, :map => <<-MAP,
+    function(doc) {
+      if(doc['couchrest-type'] == 'Audio') {
+        emit(doc.author_id, doc._id);
+      }
+    }
+  MAP
+  :reduce => <<-REDUCE
+    function(key, values, rereduce) {
+      if (rereduce == false) {
+        return values.length;
+      }
+    }
+  REDUCE
+
   view_by :date, :map => <<-MAP
     function(doc) {
       if(doc['couchrest-type'] == 'Audio') {
         emit([doc.record_date.slice(0, 4), doc.record_date.slice(5, 7), doc.record_date.slice(8, 10)], null);
-        log('debug index record_date');
-        log(doc.record_date.slice(0, 4));
-        log(doc.record_date.slice(5, 7));
       }
     }
   MAP

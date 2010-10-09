@@ -19,13 +19,13 @@ View.LastTracks = {
   init: function(ul) {
     var template = '<li data-id="{{_id}}"><a href="">{{record_date}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{title}}</a></li>';
     var self = this, ul = $(ul), ol = $('#last_tracks_pages');
-    var current;
+    var pages, current;
 
     var goToPage = function(page, perPage) {
-      var options = {limit: 10, descending: true};
+      var options = {limit: 10};
       options.skip = (page - 1) * perPage;
 
-      db.view(Model.Track.last, options, function(data) {
+      Model.Track.last(options, function(data) {
         pages.setCurPage(page)
         refresh(data);
       });
@@ -64,16 +64,27 @@ View.LastTracks = {
     this.setCurrent = setCurrent; 
     this.getCurrent = getCurrent; 
 
-    //init
-    db.view(Model.Track.last, {limit: 10, descending: true}, function(data) {
-      refresh(data);
-      pages = new Paginator(ol, data.total_rows, goToPage);
-      pages.setCurPage(1);
-    });
+    var init = function() {
+      Model.Track.last({limit: 10}, function(data) {
+        refresh(data);
+      });
 
+      if (pages) { pages.destroy(); }
+
+      Model.Track.lastPages(function(total) {
+        pages = new Paginator(ol, total, goToPage);
+        pages.setCurPage(1);
+      });
+    };
+
+    init();
 
     $(document).bind('addNewTrack', function(e, track) {
       this.addNewTrack(track);
+    });
+
+    $(document).bind('currentAuthorChanged', function(id) {
+      init();
     });
   },
 
@@ -120,6 +131,7 @@ $.fn.asAddNewTrack = function() {
 };
 
 Paginator = function(ol, total, funNewPage) {
+  $.log('total', total);
   var perPage = 10;
   var template = '<li> <a data-num={{.}} href="#">{{.}}</a></li>';
   var pagesMax = total / perPage;
@@ -140,6 +152,12 @@ Paginator = function(ol, total, funNewPage) {
     setCurPage: function(page) {
       ol.find('a.active').removeClass('active');
       ol.find('a[data-num=' + page + ']').addClass('active');
+    },
+
+    destroy: function() {
+      ol.find('a').each(function() {
+        $(this).parent().remove();
+      });
     }
   };
 }

@@ -17,7 +17,7 @@ module AdminHelper
     css_class = []
     css_class << 'active' if author == @author
 
-    content_tag(:li) do
+    content_tag(:li, 'data-id' => author.id) do
       link_to author.display_name, admin_author_audios_path(author)
     end
   end
