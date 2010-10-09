@@ -1,9 +1,16 @@
 module AudiosHelper
   include AudioBookmarksHelper
 
+  def link_to_author_year(year_data)
+    year = year_data[:year]
+    count = year_data[:count]
+
+    link_to "#{year}&nbsp;&nbsp;(#{count})".html_safe, author_year_audios_path(@author.id, year)
+  end
+
   def track_path(track)
     if @year
-      year_audio_path(@year, track.id)
+      author_year_audio_path(@author.id, @year, track.id)
     else
       album_track_path(@album.id, track.id)
     end
@@ -23,11 +30,11 @@ module AudiosHelper
 
     if @author
       path << link_to(@author.display_name, author_audios_path(@author.id))
-    elsif @year
-      path << link_to(@year, year_audios_path(@year))
     end
 
-    if @album
+    if @year
+      path << link_to(@year, author_year_audios_path(@author.id, @year))
+    elsif @album
       path << link_to(@album.title, album_path(@album.id))
     end
 

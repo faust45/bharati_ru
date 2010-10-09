@@ -43,10 +43,24 @@ class Audio < MediaContent
     }
   REDUCE
 
-  view_by :date, :map => <<-MAP
+  view_by :author_years, :map => <<-MAP,
+    function(doc) {
+      if(doc['couchrest-type'] == 'Audio' && doc.record_date) {
+        emit([doc.author_id, doc.record_date.slice(0, 4)], 1);
+      }
+    }
+  MAP
+  :reduce => <<-REDUCE
+    function(key, values, rereduce) {
+      return sum(values);
+    }
+  REDUCE
+
+  view_by :author_and_year , :map => <<-MAP
     function(doc) {
       if(doc['couchrest-type'] == 'Audio') {
-        emit([doc.record_date.slice(0, 4), doc.record_date.slice(5, 7), doc.record_date.slice(8, 10)], null);
+        var year = doc.record_date.slice(0, 4);
+        emit([doc.author_id, year, doc.record_date], null);
       }
     }
   MAP

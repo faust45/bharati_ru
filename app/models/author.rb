@@ -54,4 +54,19 @@ class Author < BaseModel
     Audio.by_author_last(:startkey => [id, {}], :endkey => [id], :limit => 10, :descending => true)
   end
 
+  def years_with_tracks
+    years = []
+    resp = Audio.by_author_years(:reduce => true, :startkey => [self.id], :endkey => [self.id, {}], :group => true)
+    resp['rows'].each do |row|
+      year = row['key'][1]
+      years << {:year => year, :count => row['value']} 
+    end
+
+    years
+  end
+
+  def tracks_by_year(year)
+    Audio.by_author_and_year(:startkey => [self.id, year], :endkey => [self.id, year, {}])
+  end
+
 end

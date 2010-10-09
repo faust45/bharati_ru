@@ -66,8 +66,8 @@ MahaMandala::Application.routes.draw do
   match 'audios/album/:album_id/track/:id' => 'audios#album', :as => 'album_track'
   match 'audios/author/:author_id' => 'audios#author', :as => 'author_audios'
   match 'audios/show/:id' => 'audios#show', :as => 'show_audio'
-  match 'audios/year/:year' => 'audios#year', :as => 'year_audios'
-  match 'audios/year/:year/:id' => 'audios#year', :as => 'year_audio'
+  match 'audios/author/:author_id/year/:year' => 'audios#year', :as => 'author_year_audios'
+  match 'audios/author/:author_id/year/:year/:id' => 'audios#year', :as => 'author_year_audio'
 
   resources :users do
   end

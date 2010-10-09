@@ -25,13 +25,18 @@ class AudiosController < ApplicationController
     @author = @current_author
     @albums = @current_author.albums
     @last_tracks = @author.last_tracks 
+
+    @years = @author.years_with_tracks
+    
     #@last = Audio.get_by_author(self.id)
   end
 
   def year
     @year = params[:year]
+    @author = Author.get_doc!(params[:author_id])
+
     unless @year.blank?
-      @tracks = Audio.by_year(params[:year])
+      @tracks = @author.tracks_by_year(@year)
       if params[:id]
         @current_track = Audio.get_doc!(params[:id])
       else
