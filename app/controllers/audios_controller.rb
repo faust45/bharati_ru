@@ -55,7 +55,7 @@ class AudiosController < ApplicationController
       album_track_path(albums.first.id, track.id)
     else
       year = track.record_date.year
-      year_audio_path(year, track.id)
+      author_year_audio_path(track.author.id, year, track.id)
     end
 
     redirect_to(path)
