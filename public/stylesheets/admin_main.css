@@ -43,9 +43,11 @@ a:hover{color:#70B8F8;}
 .subList{float:right; width:350px; height:330px; overflow:auto; margin:0 0 20px 30px;}
 	.list ul{margin:0; padding:0;}
 		.list ul li{list-style:none; border-bottom:1px solid #CCC;}
-			.list ul li a{display:block; height:32px; line-height:32px; padding:0 0 0 45px; color:#3D6CA8; background:#F8F8F8 url(../images/mp31.png) no-repeat 4px 2px;}
+			.list ul li a{display:block; height:32px; line-height:32px; padding:0 0 0 45px; color:#3D6CA8; background:#F8F8F8 url(../images/mp31.png) no-repeat 4px 2px; cursor:pointer;}
 			.list ul li a:hover{color:#EF5846;}
 			.list ul li.current a{background-color:#51DEE8;}
+			.list ul li.current b{display:none; position:absolute; top:0; right:0; width:32px; height:32px; background:#FCC url(../images/settings.png) no-repeat 0 0; cursor:pointer;}
+			.list ul li.current:hover b{display:block;}
 			.list.dir ul li a{background:#F8F8F8 url(../images/dir1.png) no-repeat 1px -1px;}
 			.list.dir ul li.current a{background:#F8F8F8 url(../images/open_dir1.png) no-repeat 1px -1px;}
 	.list ol{height:20px; margin:0; padding:10px 0;}
@@ -56,6 +58,10 @@ a:hover{color:#70B8F8;}
 .form{min-height:200px;}
 	.form div{margin:0 0 10px 0;}
 		.form div select{margin:0 5px 0 0;}
+	.form ul{margin:0; padding:0;}
+	.form li{list-style:none;}
+	.form label{cursor:pointer;}
+	.form .response{padding-left:10px;}
 
 .photos{position:relative; overflow:hidden; width:500px;}
 	.photos a{float:left; margin:0 10px 10px 0;}
