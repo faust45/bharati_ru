@@ -28,6 +28,8 @@ AlbumsInput = {
           } else {
             self.addToAlbum(li, ctl.trackID);
           };
+
+          return false;
         });
       });
     });
