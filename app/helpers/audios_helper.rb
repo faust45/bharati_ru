@@ -27,19 +27,25 @@ module AudiosHelper
     @current_author == author_item
   end
 
+  def current_path_item 
+    if @year
+      item = @year
+    elsif @album
+      item = @album.title
+    end
+
+    if item
+      content_tag(:div, item, :class => 'track')
+    end
+  end
+
   def site_path_items
     path = {:part => link_to('Аудио', audios_path)}
 
     if @author
       path[:author] = link_to(@author.display_name, author_audios_path(@author.id))
     end
-
-    if @year
-      path[:album] = link_to(@year, author_year_audios_path(@author.id, @year))
-    elsif @album
-      path[:album] = @album.title
-    end
-
+    
     path
   end
 
