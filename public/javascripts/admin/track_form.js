@@ -25,11 +25,14 @@ $(document).ready(function() {
 View.TrackForm = { 
   paramsSpace: 'track',
   saveURL: '/admin/audios/save',
+  deleteURL: '/admin/audios/destroy',
   fields: {},
 
   buildForm: function() {
+    var self = this;
     this.cont = $('<form>');
     var fields = this.fields;
+    var deleteTrack = function() { self.deleteTrack() };
 
     fields.title      = StringInput.create();
     fields.authorID   = AuthorInput.create();
@@ -38,11 +41,12 @@ View.TrackForm = {
     fields.bookmarks  = SimpleInput.create('textarea', {cols: '60', rows: '15'});
     fields.mp3File    = Mp3FileInput.create();
     fields.albums     = AlbumsInput.create();
+    fields.deleteButton = Button.create('/images/delete.png', deleteTrack);
     //fields.photos     = $('<div>', {id: 'photo_file_upload'});
 
     var basicInfo = new FieldSet(fields, ['title', 'authorID', 'recordDate', 'tags']);
     var bookmarks = new FieldSet(fields, ['bookmarks']);
-    var mp3File   = new FieldSet(fields, ['mp3File']);
+    var mp3File   = new FieldSet(fields, ['mp3File', 'deleteButton']);
     var albums    = new FieldSet(fields, ['albums']);
     var photos    = new FieldSet(fields, ['photos']);
 
@@ -58,6 +62,17 @@ View.TrackForm = {
     Model.Track.get(trackID, function(doc) {
       self.doc = doc;
       self.refresh();
+    });
+  },
+
+  deleteTrack: function() {
+    var id = this.doc._id;
+    $.ajax({
+      url: this.deleteURL,
+      data: {id: id},
+      success: function(resp) {
+        $(document).trigger('trackDestroy', [id]);
+      }
     });
   }
 

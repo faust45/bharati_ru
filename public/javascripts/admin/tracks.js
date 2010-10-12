@@ -75,16 +75,33 @@ View.LastTracks = {
         pages = new Paginator(ol, total, goToPage);
         pages.setCurPage(1);
       });
+    },
+
+    removeTrack = function(id) {
+      li = ul.find('li[data-id=' + id + ']');
+      $.log(li);
+      $.log(ul);
+
+      if (li) {
+        li.removeClass("current");
+        //Не понятно как почему нечочет работать li.effect("highlight", {}, 3000);?
+        ul.effect("highlight", {}, 3000);
+        li.fadeOut(3000);
+      };
     };
 
     init();
 
     $(document).bind('addNewTrack', function(e, track) {
-      this.addNewTrack(track);
+      self.addNewTrack(track);
     });
 
-    $(document).bind('currentAuthorChanged', function(id) {
+    $(document).bind('currentAuthorChanged', function(e, id) {
       init();
+    });
+
+    $(document).bind('trackDestroy', function(e, id) {
+      removeTrack(id);
     });
   },
 

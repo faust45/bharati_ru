@@ -88,6 +88,7 @@ MahaMandala::Application.routes.draw do
       scope 'audios' do
         root :to => "audios#index", :as => :audios
         match 'save', :to => :update, :as => :audio_update
+        match 'destroy', :to => :destroy, :as => :audio_destroy
         match 'upload/new',   :to => :new, :as => :audio_new
         match 'upload/photo', :to => :upload_photo, :as => :audio_upload_photo
         match 'upload/replace_source', :to => :replace_source, :as => :audio_replace_source

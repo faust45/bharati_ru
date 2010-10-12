@@ -48,4 +48,11 @@ class Admin::AudiosController < AdminController
     render :json => "ok".to_json
   end
 
+  def destroy
+    @audio = Audio.get_doc!(params[:id])
+    @audio.destroy
+
+    render :json => "ok".to_json
+  end
+
 end

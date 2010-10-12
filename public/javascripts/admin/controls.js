@@ -1,5 +1,20 @@
 View = {};
 
+Button = {
+  create: function(path, action) {
+    var img = $('<img>', {src: path, 'class': 'button'});
+    img.click(action);
+
+    var ctl = {
+      refresh: function() {},
+      getData: function() {}
+    };
+
+    img.ctl = ctl;
+    return img;
+  }
+}
+
 AlbumsInput = {
   addURL:  '/admin/albums/add_track',
   dropURL: '/admin/albums/drop_track',
