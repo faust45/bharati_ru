@@ -37,11 +37,18 @@ View.Album = {
   bindEvents: function() {
     var self = this;
     this.cont.find('li').each(function() {
-      var li = $(this);
-      var id = li.attr('data-id');
+      var li   = $(this);
+      var id   = li.attr('data-id');
+      var edit = li.find('b');
+      var a = li.find('a');
 
-      li.click(function() {
+      a.click(function() {
         self.setCurrent(li, id);
+      });
+
+      edit.click(function() {
+        self.setCurrent(li, id);
+        $(document).trigger('editAlbum', id);
       });
     });
   },

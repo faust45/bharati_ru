@@ -24,6 +24,13 @@ View.Manager = {
       }
     });
 
+    $(document).bind('editAlbum', function() {
+      var id = View.Album.currentDocID;
+      if (id) {
+        self.editAlbum(id);
+      }
+    });
+
     $(document).bind('keydown', 'f', function(e) {
       $('#content').blindToggle('slow');
     });
