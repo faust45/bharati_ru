@@ -37,7 +37,7 @@ module AudiosHelper
     if @year
       path[:album] = link_to(@year, author_year_audios_path(@author.id, @year))
     elsif @album
-      path[:album] = link_to(@album.title, album_path(@album.id))
+      path[:album] = album.title
     end
 
     path
