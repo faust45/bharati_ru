@@ -65,9 +65,7 @@ View.LastTracks = {
     this.getCurrent = getCurrent; 
 
     var init = function() {
-      Model.Track.last({limit: 10}, function(data) {
-        refresh(data);
-      });
+      Model.Track.last({limit: 10}, refresh);
 
       if (pages) { pages.destroy(); }
 
@@ -132,7 +130,6 @@ View.LastTracks = {
 //--------------------------------------------------------------
 $.fn.asAddNewTrack = function() {
   var el = $('#upload_tracks_list')[0];
-  $.log(el);
 
   $(this).uploader = new qq.FileUploader({
     element: this[0],
@@ -148,7 +145,6 @@ $.fn.asAddNewTrack = function() {
 };
 
 Paginator = function(ol, total, funNewPage) {
-  $.log('total', total);
   var perPage = 10;
   var template = '<li> <a data-num={{.}} href="#">{{.}}</a></li>';
   var pagesMax = total / perPage;

@@ -15,7 +15,7 @@ class Audio < MediaContent
   view_by :last, :map => <<-MAP
     function(doc) {
       if(doc['couchrest-type'] == 'Audio') {
-        emit(doc.created_at, null);
+        emit(null, null);
       }
     }
   MAP
@@ -23,7 +23,7 @@ class Audio < MediaContent
   view_by :author_last, :map => <<-MAP
     function(doc) {
       if(doc['couchrest-type'] == 'Audio') {
-        emit([doc.author_id, doc.created_at], null);
+        emit(doc.author_id, null);
       }
     }
   MAP
@@ -35,13 +35,7 @@ class Audio < MediaContent
       }
     }
   MAP
-  :reduce => <<-REDUCE
-    function(key, values, rereduce) {
-      if (rereduce == false) {
-        return values.length;
-      }
-    }
-  REDUCE
+  :reduce => "_count"
 
   view_by :author_years, :map => <<-MAP,
     function(doc) {

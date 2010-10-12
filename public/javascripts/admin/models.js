@@ -42,7 +42,7 @@ Model.Track = {
   last: function(options, fun) {
     var authorID = Model.Author.current;
     if (authorID) {
-      options = $.extend(options, {startkey: [authorID, {}], endkey: [authorID], descending: true});
+      options = $.extend(options, {key: authorID});
       db.view(this.ddoc + this.viewAuthorLast, options, fun);
     } else {
       db.view(this.ddoc + this.viewLast, options, fun);
@@ -53,8 +53,6 @@ Model.Track = {
     var authorID = Model.Author.current;
     var options;
     var callback = function(data){
-      $.log('in reduce');
-      $.log(data);
       fun(data.rows[0].value);
     };
 
@@ -103,7 +101,6 @@ db = {
   },
 
   view: function(url, options, fun) {
-    $.log(url);
     if (options.reduce != true) {
       options =  $.extend({include_docs: true}, options); 
     }

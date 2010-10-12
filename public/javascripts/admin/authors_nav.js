@@ -1,5 +1,10 @@
 $(document).ready(function() {
   $('#authors_nav li').behavior(AuthorsNavBehavior);
+  $('#audios_all_authors').click(function() {
+    Model.Author.current = null;
+    $(document).trigger('currentAuthorChanged', [null]);
+    return false;
+  });
 });
 
 function AuthorsNavBehavior(el) {

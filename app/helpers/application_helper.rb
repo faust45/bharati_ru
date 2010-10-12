@@ -56,13 +56,23 @@ module ApplicationHelper
 
   def site_p
     path = site_path_items
-    main_item = path.shift
-    main_item = content_tag(:strong, "> #{main_item.html_safe}".html_safe)
+    html = ''
 
-    main_item +
-    path.map do |item|
-      content_tag(:i, "> #{item.html_safe}".html_safe)
-    end.join.html_safe
+    if path[:part]
+      cont = path[:part]
+      cont << ' > ' if path[:author]
+      html << content_tag(:strong, "> #{cont}".html_safe)
+    end
+
+    if path[:author]
+      html << content_tag(:i, "#{path[:author]}".html_safe)
+    end
+
+    if path[:album]
+      html << content_tag(:div, path[:album], :class => 'track')
+    end
+
+    html.html_safe
   end
 
   def content(&block)

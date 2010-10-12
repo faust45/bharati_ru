@@ -28,16 +28,16 @@ module AudiosHelper
   end
 
   def site_path_items
-    path = [link_to('Аудио', audios_path)]
+    path = {:part => link_to('Аудио', audios_path)}
 
     if @author
-      path << link_to(@author.display_name, author_audios_path(@author.id))
+      path[:author] = link_to(@author.display_name, author_audios_path(@author.id))
     end
 
     if @year
-      path << link_to(@year, author_year_audios_path(@author.id, @year))
+      path[:album] = link_to(@year, author_year_audios_path(@author.id, @year))
     elsif @album
-      path << link_to(@album.title, album_path(@album.id))
+      path[:album] = link_to(@album.title, album_path(@album.id))
     end
 
     path

@@ -67,13 +67,15 @@ View.TrackForm = {
 
   deleteTrack: function() {
     var id = this.doc._id;
-    $.ajax({
-      url: this.deleteURL,
-      data: {id: id},
-      success: function(resp) {
-        $(document).trigger('trackDestroy', [id]);
-      }
-    });
+    if (confirm('Ты реально хочеш удалить?')) {
+      $.ajax({
+        url: this.deleteURL,
+        data: {id: id},
+        success: function(resp) {
+          $(document).trigger('trackDestroy', [id]);
+        }
+      });
+    }
   }
 
 };
