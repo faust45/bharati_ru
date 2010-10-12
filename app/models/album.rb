@@ -71,8 +71,16 @@ class Album < BaseModel
     self.save
   end
 
-  def >>(content)
-    self.tracks.delete(content.id)
+  def >>(content_or_id)
+    id =
+      case content_or_id
+      when String, Fixnum
+        content_or_id.to_s
+      else
+        content_or_id
+      end
+
+    self.tracks.delete(id)
     self.save
   end
 
