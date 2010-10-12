@@ -13,7 +13,9 @@ module ApplicationHelper
   end
 
   def d(date)
-    l(date.to_date, :format => :long)
+    if date
+      l(date.to_date, :format => :long)
+    end
 
   rescue TypeError => ex
   end
