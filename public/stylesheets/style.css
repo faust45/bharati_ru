@@ -52,9 +52,9 @@ h2{font-size:15px; font-weight:300;}
 			#header .logo strong{font-size:60px; font-weight:300; cursor:default;}
 				#header .logo span span{font-size:100%; color:#00AEEF; padding:0 12px 0 0;}
 			#header .logo i{padding:0 0 0 8px; font-size:170%; font-style:normal;}
-			#header .logo strong i{font-size:50%;;}
 	#header .quote{position:absolute; left:372px; top:0; width:410px; padding:32px 0 0 0; font-size:114%; line-height:1.2;}
-	#header .track, #header .searchText, #header .lastSteep{position:absolute; left:0; top:100px; width:100%;font-size:210%; color:#FFF; text-align:center;}
+	#header .track{position:absolute; left:0; top:100px; width:100%;font-size:210%; color:#FFF; text-align:center;}
+	#header .searchText{position:absolute; left:0; top:100px; width:100%; font-size:210%; color:#FFF; text-align:center;}
 
 #main{position:relative; width:962px; margin:0 auto; padding:0 0 40px 0; text-align:left; z-index:6; overflow:hidden;}
 	#content{float:right; position:relative; width:590px; _margin:0 -40px 0 0;}
@@ -119,17 +119,14 @@ h2{font-size:15px; font-weight:300;}
 		.tags .type a.active{color:#FFF; background:url(../images/bg_tags.png) no-repeat 0 0;}
 		.tags .type a.active.hTwo{background-position:0 -36px;}
 
-.last-audio, .last-publ, .search{font-size:114%;}
-	.last-audio .text, .last-publ .text, .search .text{padding-top:25px!important;}
-	.last-audio .item, .last-publ .item, .search .item{position:relative; margin:0 0 10px 0; padding:0 0 10px 0; border-bottom:1px solid #1F3247; overflow:hidden;}
-	.last-audio img, .last-publ img, .search img{float:left; width:77px; height:88px; margin:3px 15px 2px 0;}
+.last-audio, .search{font-size:114%;}
+	.last-audio .text, .search .text{padding-top:25px!important;}
+	.last-audio .item, .search .item{position:relative; margin:0 0 10px 0; border-bottom:1px solid #1F3247; overflow:hidden;}
+	.last-audio img, .search img{float:left; width:77px; height:88px; margin:3px 15px 12px 0;}
 	.last-video img{width:120px; height:89px;}
-	.last-publ img{width:91px; height:119px;}
-	.last-audio .name, .last-publ .name, .search .name{font-size:114%;}
-	.last-audio p, .last-publ p, .search p{margin:0;}
-	.last-audio .date, .last-audio .date a, .last-publ .date, .last-publ .date a, .search .date, .search .date a{font-size:100%; color:#989FA5;}
-	.about{margin:0 0 5px 0;}
-		.about span{color:#989FA5;}
+	.last-audio .name, .search .name{font-size:114%;}
+	.last-audio p, .search p{margin:0;}
+	.last-audio .date, .last-audio .date a, .search .date, .search .date a{font-size:100%; color:#989FA5;}
 
 .bookmarks li{margin:0 0 0 10px; list-style:none; color:#00AEEF; font-size:116%;}
 .quotes li{margin:0 0 10px 10px; list-style:none; font-size:116%;}
@@ -139,8 +136,7 @@ h2{font-size:15px; font-weight:300;}
 	.lecture h1{font-size:100%; font-weight:300;}
 
 .trackAuthor{position:relative; margin:0 0 25px 0; padding:0; color:#00AEEF; font-size:116%; overflow:hidden;}
-	.trackAuthor .trackPhoto{float:left; width:281px; margin:0 30px 0 0;}
-		.trackAuthor .trackPhoto img{float:right;}
+	.trackAuthor .trackPhoto{float:left; margin:0 30px 0 0;}
 	.trackAuthor .trackInfo{position:relative; overflow:hidden;}
 	.trackAuthor .trackInfo.center{text-align:center;}
 		.trackAuthor .author{margin:0 0 15px 0;}
@@ -175,19 +171,6 @@ h2{font-size:15px; font-weight:300;}
 	.new .name{margin:0 0 15px 0; font-size:128%;}
 	.new p{margin:0 0 10px 0;}
 	.new .date{font-size:100%; color:#989FA5;}
-
-.book{font-size:114%;}
-	#sidebar .book .text{padding-top:25px;}
-	.book img{float:left; width:91px; height:119px; margin:3px 15px 0 0; }
-	.book .name{margin:0 0 15px 0; font-size:128%;}
-	.book p{margin:0 0 10px 0;}
-	.book .date{font-size:100%; color:#989FA5;}
-	.book table{color:#058DC2;}
-		.book th{padding:0 5px 10px 0; color:#FFF; font-weight:300; vertical-align:top;}
-			.book th img{float:none; width:auto; height:auto; margin:0;}
-		.book td{padding:0 0 10px 0; vertical-align:top;}
-	.book .download{font-size:116%;}
-		.book .download img{float:none; width:auto; height:auto; margin:5px 10px 0 0;}
 
 .expert{font-size:100%;}
 	.expert img{float:left; width:80px; height:97px; margin:3px 15px 10px 0;}
@@ -269,7 +252,6 @@ h2{font-size:15px; font-weight:300;}
 			.update .txt{margin-bottom:5px; font-size:90%;}
 			.audioTab img{width:77px; height:88px;}
 			.videoTab img{width:99px; height:74px;}
-			.videoTab img{width:91px; height:119px;}
 			.update .date{font-size:90%; color:#989FA5;}
 	.update .rss{padding:0 15px 20px 15px; text-align:right; background:url(../images/bg_block_tab-container.png) repeat 0 0;}
 		.update .rss img{margin:-40px 0 0 0;}
@@ -290,15 +272,14 @@ h2{font-size:15px; font-weight:300;}
 			.lect li span{display:block; width:87px; padding:0 0 0 1px;}
 			.lect li a:hover span{text-decoration:none;}
 
-.audios .item, .authorBooks .item{position:relative; margin:0 0 0 -8px; padding:8px; border-bottom:1px solid #244357; overflow:hidden;}
-.audios .item.active, .authorBooks .item.active{padding:0; border:8px solid #00AEEF;}
-	.audios .text, .authorBooks .text{padding-top:15px !important;}
-	.audios img, .authorBooks img{float:left; width:96px; height:98px; margin:3px 15px 0 0;}
-	.authorBooks img{width:91px; height:119px;}
-	.audios.videos img, .authorBooks.videos img{width:118px; height:88px; margin-right:25px;}
-	.audios .name, .authorBooks .name{margin:0 0 5px 0; font-size:114%;}
-		.audios.videos b, .authorBooks.videos b{float:left; margin-left:-15px; font-weight:300;}
-	.audios p, .authorBooks p{margin:0 0 10px 0; font-size:100%;}
+.audios .item{position:relative; margin:0 0 0 -8px; padding:8px; border-bottom:1px solid #244357; overflow:hidden;}
+.audios .item.active{padding:0; border:8px solid #00AEEF;}
+	.audios .text{padding-top:15px !important;}
+	.audios img{float:left; width:96px; height:98px; margin:3px 15px 0 0;}
+	.audios.videos img{width:118px; height:88px; margin-right:25px;}
+	.audios .name{margin:0 0 5px 0; font-size:114%;}
+		.audios.videos b{float:left; margin-left:-15px; font-weight:300;}
+	.audios p{margin:0 0 10px 0; font-size:100%;}
 
 .playList li{padding:15px 0 5px 0; border-bottom:1px solid #244357; list-style:none;}
 	.playList li strong, .playList li a{font-size:116%; font-weight:300;}
