@@ -8,3 +8,7 @@
   padding: 0 0 0 0;
   border: none;
 }
+
+#upload_tracks_list {
+  padding-top: 4em !important;
+}

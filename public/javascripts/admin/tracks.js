@@ -77,10 +77,18 @@ View.LastTracks = {
       });
     },
 
+    addNewTrack = function(track) {
+      ul.mustache(template, track, 'prepend');
+      var newLi = ul.find('li:first');
+      newLi.effect("highlight", {}, 5000);
+      newLi.click(function() {
+        setCurrent(newLi);
+        return false;
+      });
+    },
+
     removeTrack = function(id) {
       li = ul.find('li[data-id=' + id + ']');
-      $.log(li);
-      $.log(ul);
 
       if (li) {
         li.removeClass("current");
@@ -93,7 +101,7 @@ View.LastTracks = {
     init();
 
     $(document).bind('addNewTrack', function(e, track) {
-      self.addNewTrack(track);
+      addNewTrack(track);
     });
 
     $(document).bind('currentAuthorChanged', function(e, id) {
@@ -102,18 +110,6 @@ View.LastTracks = {
 
     $(document).bind('trackDestroy', function(e, id) {
       removeTrack(id);
-    });
-  },
-
-  addNewTrack: function(track) {
-    var self = this;
-       
-    this.ul.Mustache(template, track, 'prepend');
-    var newLi = this.ul.find('li:first');
-    newLi.effect("highlight", {}, 5000);
-    newLi.click(function() {
-      self.setCurrent(newLi);
-      return false;
     });
   },
 
@@ -135,8 +131,12 @@ View.LastTracks = {
 
 //--------------------------------------------------------------
 $.fn.asAddNewTrack = function() {
+  var el = $('#upload_tracks_list')[0];
+  $.log(el);
+
   $(this).uploader = new qq.FileUploader({
     element: this[0],
+    _listElement: el, 
     action: '/admin/audios/upload/new',
     allowedExtensions: ['mp3'],
     onComplete: function(id, fileName, responseJSON) {
