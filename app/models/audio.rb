@@ -1,5 +1,5 @@
 class Audio < MediaContent
-  use_rand_id
+  use_time_id
 
   property :duration
   property :bookmarks, [HHash],:default => [] #:time :str_time :name

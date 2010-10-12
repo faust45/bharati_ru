@@ -38,6 +38,14 @@ class BaseModel < CouchRest::Model::Base
       end
     end
 
+    def use_time_id
+      before_save do
+        if new?
+          self[:_id] = Time.now.to_id
+        end
+      end
+    end
+
     def use_rand_id
       before_save do
         if new?
@@ -63,6 +71,19 @@ class BaseModel < CouchRest::Model::Base
     def use_db(db_name)
       db = SERVER.database!("#{MAIN_DB_NAME}_#{db_name}")
       use_database db
+    end
+
+    def test(arr)
+      arr.inject('0') do |prev, cur|
+        #cur always must be > prev
+        if prev <= cur
+        else
+          puts "test fail #{prev} < #{cur}"
+          raise
+        end
+
+        cur 
+      end
     end
   end
 
