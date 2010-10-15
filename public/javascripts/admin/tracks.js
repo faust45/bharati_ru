@@ -36,15 +36,18 @@ View.LastTracks = {
     },
 
     setCurrent = function(li) {
-      if (current) {
-        current.removeClass('current');
+      if (!isBlank(li)) {
+         if (current) {
+          current.removeClass('current');
+        }
+
+
+        current = li;
+        current.addClass('current');
+
+        var id = current.attr('data-id');
+        $(document).trigger('currentTrackChanged', [id]);
       }
-
-      current = li;
-      current.addClass('current');
-
-      var id = current.attr('data-id');
-      $(document).trigger('currentTrackChanged', [id]);
     },
 
     refresh = function(data) {
