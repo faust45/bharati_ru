@@ -14,52 +14,32 @@ class Album < BaseModel
   has_photo_attachment :cover, :thumb => {:size => 'x77'}
 
 
-  view_by :title
-  view_by :author_id
-
-  view_by :track, :map => <<-MAP
-    function(doc) {
-      if(doc['couchrest-type'] == 'Album') {
-        if(doc.tracks) {
-          for(i in doc.tracks) {
-            emit(doc.tracks[i], null);
-          };
-        }
-      }
-    }
-  MAP
-
-  search_index <<-JS 
-    if(doc['couchrest-type'] && doc['couchrest-type'] == 'Album') {
-      var ret = new Document();
-      ret.add(doc.title, {"store": "yes"});
-      return ret;
-    }
-  JS
-
-
   class <<self
-    def get_by_title_or_create(album_name)
-      album = by_title(:key => album_name)
+    def get_all
+      view_docs('albums_by_author')
+    end
+
+    def get_by_author(author_id)
+      view_docs('albums_by_author', :key => author_id)
+    end
+
+    def get_by_track(track_id)
+      view_docs('albums_by_track', :key => track_id)
+    end
+
+    def get_by_title_or_create(title)
+      album = view_docs('albums_by_title', :key => title)
 
       unless album.blank?
         album.first
       else
-        create(:title => album_name)
+        create(:title => title)
       end
-    end
-
-    def get_by_author(author_id)
-      by_author_id(:key => author_id)
-    end
-
-    def get_albums_by_track(track_id)
-      self.by_albums_by_track(:key => track_id)
     end
   end
 
   def get_tracks
-    Audio.by_album(:startkey => [self.id], :endkey => [self.id, {}])
+    view_docs('album_tracks', :startkey => [self.id], :endkey => [self.id, {}])
   end
 
   def author

@@ -1,24 +1,20 @@
 Model = {};
 
 Model.Album = {
-  viewAll: '_design/Album/_view/all',
+  viewAll: 'albums_by_author',
+  viewTracks: 'album_tracks',
+  viewAlbumsByTrack: 'albums_by_track',
 
   all: function(fun) {
-    db.view(this.viewAllUrl, {include_docs: true}, function(data) {
-      fun(data);
-    });
+    db.viewDocs(this.viewAll, fun);
   },
 
   tracks: function(albumID, fun) {
-    var viewUrl = '_design/Audio/_view/by_album';
-
-    db.view(viewUrl, {include_docs: true, startkey: [albumID], endkey: [albumID, {}]}, fun);
+    db.viewDocs(this.viewTracks, {startkey: [albumID], endkey: [albumID, {}]}, fun);
   },
 
-  trackAlbums: function(trackId, fun) {
-    var viewUrl = '_design/Album/_view/by_track';
-
-    db.view(viewUrl, {include_docs: true, key: trackId}, function(data) {
+  trackAlbums: function(trackID, fun) {
+    db.viewDocs(this.viewAlbumsByTrack, {key: trackID}, function(data) {
       fun(data);
     });
   },
@@ -29,11 +25,9 @@ Model.Album = {
 }
 
 Model.Track = {
-  ddoc: '_design/Audio/_view/',
   viewAll: 'all',
-  viewLast: 'by_last',
-  viewAuthorLast: 'by_author_last',
-  viewAuthorLastPages: 'by_author_last_pages',
+  viewLast: 'audios_all',
+  viewAuthorLast: 'audios_by_author',
 
   get: function(id, fun) {
     db.getDoc(id, fun);
@@ -43,32 +37,30 @@ Model.Track = {
     var authorID = Model.Author.current;
     if (authorID) {
       options = $.extend(options, {key: authorID});
-      db.view(this.ddoc + this.viewAuthorLast, options, fun);
+      db.viewDocs(this.viewAuthorLast, options, fun);
     } else {
-      db.view(this.ddoc + this.viewLast, options, fun);
+      db.viewDocs(this.viewLast, options, fun);
     }
   },
 
   lastPages: function(fun) {
     var authorID = Model.Author.current;
-    var options;
+    var options  = {reduce: true};
     var callback = function(data){
       fun(data.rows[0].value);
     };
 
     if (authorID) {
-      //options = {startkey: [authorID, {}], endkey: [authorID], descending: true};
-      options = {reduce: true, key: authorID};
-      db.view(this.ddoc + this.viewAuthorLastPages, options, callback);
+      options.key = authorID;
+      db.view(this.viewAuthorLast, options, callback);
     } else {
-      options = {reduce: true};
-      db.view(this.ddoc + this.viewAuthorLastPages, options, callback);
+      db.view(this.viewAuthorLast, options, callback);
     }
   }
 }
 
 Model.Author = {
-  viewAllUrl: '_design/Author/_view/all',
+  viewAll: 'authors_all',
   current: null,
 
   thumbURL: function(doc) {
@@ -80,7 +72,7 @@ Model.Author = {
   },
 
   all: function(fun) {
-    db.view(this.viewAllUrl, {include_docs: true}, fun);
+    db.viewDocs(this.viewAll, {}, fun);
   },
 
 }
@@ -88,28 +80,38 @@ Model.Author = {
 db = {
   urlPrefix: "http://93.94.152.87:3000/",
   name: "rocks",
+  ddoc: null,
+  ddocID: "_design/global/",
+
 
   uri: function() {
     return this.urlPrefix + this.name + '/';
   },
 
-   getDoc: function(docId, fun) {
-    $.getJSON(this.urlPrefix + this.name + '/' + docId + '?callback=?', function(data) {
+  getDoc: function(docId, fun) {
+    $.getJSON(this.uri() + docId + '?callback=?', function(data) {
       data.trim = trim;
       fun(data);
     });
   },
 
-  view: function(url, options, fun) {
-    if (options.reduce != true) {
+  view: function(viewName, options, fun) {
+    options.reduce = options.reduce || false;
+
+    if (!options.reduce) {
       options =  $.extend({include_docs: true}, options); 
     }
 
-    $.getJSON(this.urlPrefix + this.name + '/' + url + encodeOptions(options) + '&callback=?', function(data) {
+    $.getJSON(this.uri() + this.ddocID + '_view/' + viewName + encodeOptions(options) + '&callback=?', function(data) {
       data.trim = trim;
       data.getIDs = getIDs;
       fun(data);
     });
+  },
+
+  viewDocs: function(viewName, options, fun) {
+    options = $.extend(options, {include_docs: true});
+    this.view(viewName, options, fun);
   },
 
   all: function(model, options, fun) {
@@ -120,6 +122,10 @@ db = {
     this.view(model.viewAll, {limit: 0}, function(data) {
       fun(parseInt(data.total_rows));
     });
+  },
+
+  isViewHaveReduce: function(viewName) {
+    return this.ddoc['views'][viewName]['reduce']
   }
 }
 

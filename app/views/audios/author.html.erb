@@ -25,9 +25,9 @@
     <%= render :partial => 'album_item', :collection => @albums %>
   </div>
   <div class="tab-container" id="tab-3">
-    <% @years.each do |year| %>
+    <% @years.each do |year, count| %>
       <div>
-        <%= link_to_author_year(year) %>
+        <%= link_to_author_year(year, count) %>
       </div>
     <% end %>
   </div>

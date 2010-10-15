@@ -22,6 +22,24 @@ class BaseModel < CouchRest::Model::Base
 
 
   class <<self
+    def design_doc
+      @@ddoc ||= database.get('_design/global')
+    end
+
+    def view(name, options = {})
+      if viewFun = design_doc['views'][name]
+        if viewFun['reduce']
+          options[:reduce] ||= false
+        end
+      end
+
+      super(name, options)
+    end
+    
+    def view_docs(name, options = {})
+      view(name, options.merge(:include_docs => true))
+    end
+
     def get_doc(id)
       raise BlankDocId if id.blank?
       get(id)
@@ -41,7 +59,7 @@ class BaseModel < CouchRest::Model::Base
     def use_time_id
       before_save do
         if new?
-          self[:_id] = Time.now.to_id
+          self[:_id] = Time.now.to_couch_id
         end
       end
     end
@@ -57,9 +75,8 @@ class BaseModel < CouchRest::Model::Base
     def use_as_id(attr_name)
       before_create do
         if self['_id'].blank? 
-          value = Russian::translit(self.send(attr_name))
-          value.gsub!(/[^A-Za-z\d]/, '')
-          self['_id'] = value
+          value = self.send(attr_name)
+          self['_id'] = value.to_couch_id
         end
       end
     end
@@ -87,6 +104,13 @@ class BaseModel < CouchRest::Model::Base
     end
   end
 
+  def view_docs(*args)
+    self.class.view_docs(*args)
+  end
+
+  def view(*args)
+    self.class.view(*args)
+  end
 
   def make_copy 
     attributes = self.to_hash.dup
@@ -107,4 +131,4 @@ class BaseModel < CouchRest::Model::Base
     end
   end
 
- end
+end

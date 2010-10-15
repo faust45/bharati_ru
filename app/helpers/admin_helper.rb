@@ -23,6 +23,6 @@ module AdminHelper
   end
 
   def authors
-    Author.all
+    Author.get_all
   end
 end

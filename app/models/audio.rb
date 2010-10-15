@@ -11,103 +11,38 @@ class Audio < MediaContent
   after_replace_source_attachment :assign_meta_info, :if => :is_source_need_update_meta_info?
 
   after_destroy :drop_from_albums
+  after_destroy :source_destroy
 
-  view_by :last, :map => <<-MAP
-    function(doc) {
-      if(doc['couchrest-type'] == 'Audio') {
-        emit(null, null);
-      }
-    }
-  MAP
-
-  view_by :author_last, :map => <<-MAP
-    function(doc) {
-      if(doc['couchrest-type'] == 'Audio') {
-        emit(doc.author_id, null);
-      }
-    }
-  MAP
-
-  view_by :author_last_pages, :map => <<-MAP,
-    function(doc) {
-      if(doc['couchrest-type'] == 'Audio') {
-        emit(doc.author_id, doc._id);
-      }
-    }
-  MAP
-  :reduce => "_count"
-
-  view_by :author_years, :map => <<-MAP,
-    function(doc) {
-      if(doc['couchrest-type'] == 'Audio' && doc.record_date) {
-        emit([doc.author_id, doc.record_date.slice(0, 4)], 1);
-      }
-    }
-  MAP
-  :reduce => <<-REDUCE
-    function(key, values, rereduce) {
-      return sum(values);
-    }
-  REDUCE
-
-  view_by :author_and_year , :map => <<-MAP
-    function(doc) {
-      if(doc['couchrest-type'] == 'Audio') {
-        var year = doc.record_date.slice(0, 4);
-        emit([doc.author_id, year, doc.record_date], null);
-      }
-    }
-  MAP
-
-  view_by :album, :map => <<-MAP
-    function(doc) {
-      if(doc['couchrest-type'] == 'Album') {
-        if(doc.tracks) {
-          for(i in doc.tracks) {
-            emit([doc['_id'], i], {'_id': doc.tracks[i]});
-          };
-        }
-      }
-    }
-  MAP
-
-  view_by :order_by_created_at, :map => <<-MAP
-    function(doc) {
-      if(doc['couchrest-type'] == 'Audio') {
-        emit(doc['created_at'], null);
-      }
-    }
-  MAP
-
-  view_by :author, :map => <<-MAP
-    function(doc) {
-      if(doc['couchrest-type'] == 'Audio') {
-        emit([doc['author_id'], doc['created_at']], null);
-      }
-    }
-  MAP
-
-
+  
   class <<self
-    def get_by_author(author_id)
-      by_author(:startkey => [author_id], :endkey => [author_id, {}])
+    def get_all
+      view_docs('audios_all')
     end
 
-    def order_by_created_at(limit = 10)
-      by_order_by_created_at(:startkey => '', :endkey => {})
+    def get_by_author(author_id)
+      view_docs('audios_by_author', :key => author_id)
+    end
+
+    def get_by_author_and_year(author_id, year)
+      options = {
+        :startkey => [author_id, year], 
+        :endkey   => [author_id, year, {}, {}]
+      }
+      view_docs('audios_by_author_and_record_date', options)
+    end
+
+    def get_by_tag(tag)
+      view_docs('audios_by_tag', :key => tag)
     end
 
     def clean_up
       all.map{|e| database.delete_doc({'_id' => e['_id'], '_rev' => e['_rev']}) if e.title.blank? && e['_id']}
     end
-
-    def by_year(year)
-      by_date(:startkey => [year], :endkey => [{}, {}, {}])
-    end
   end
 
-  def albums
-    @albums ||= Album.by_track(:key => self.id)
+
+  def get_albums
+    @albums ||= Album.get_by_track(self.id)
   end
 
   def source_replace(new_file, is_need_update_info = false)

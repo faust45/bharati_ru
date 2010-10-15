@@ -13,6 +13,7 @@ class FileStore < BaseModel
   before_save :assign_meta_info
   after_save  :put_attachment_directly
 
+
   class <<self
     def create(file, options = {})
       super({:file => file}.merge(options))
@@ -24,7 +25,13 @@ class FileStore < BaseModel
 
       doc
     end
+
+    def destroy(id)
+      doc = self.get(id)
+      doc.destroy
+    end
   end
+
 
   #replace only attachment
   def replace(new_file, options = {})

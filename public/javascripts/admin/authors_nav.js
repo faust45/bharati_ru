@@ -1,19 +1,29 @@
 $(document).ready(function() {
-  $('#authors_nav li').behavior(AuthorsNavBehavior);
+  $('#authors_nav').asAuthorsNav();
   $('#audios_all_authors').click(function() {
     Model.Author.current = null;
+    $('#authors_nav').find('li.current').removeClass('current');
     $(document).trigger('currentAuthorChanged', [null]);
     return false;
   });
 });
 
-function AuthorsNavBehavior(el) {
-  el = $(el);
-  var id = el.attr('data-id');
+$.fn.asAuthorsNav = function () {
+  var ul = $(this);
+  ul.find('li').each(function() {
+    var li = $(this);
+    var id = li.attr('data-id');
 
-  el.click(function() {
-    Model.Author.current = id;
-    $(document).trigger('currentAuthorChanged', [id]);
-    return false;
+    var setCurrent = function() {
+      Model.Author.current = id;
+      ul.find('li.current').removeClass('current');
+      li.addClass('current');
+      $(document).trigger('currentAuthorChanged', [id]);
+    };
+
+    li.click(function() {
+      setCurrent();
+      return false;
+    });
   });
 }

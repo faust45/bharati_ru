@@ -11,19 +11,12 @@ class Author < BaseModel
   has_photo_attachment :main_photo, :thumb => {:size => 'x119'}
   has_attachments :photos, BigPhotoStore
 
-  view_by :full_name
-  view_by :display_name
-
-  search_index <<-JS
-    if(doc['couchrest-type'] && doc['couchrest-type'] == 'Author') {
-      var ret = new Document();
-      ret.add(doc.display_name, {"store": "yes"});
-      return ret;
-    }
-  JS
-
-
+  
   class <<self
+    def get_all
+      view_docs('authors_all')
+    end
+
     def get_acharya
       ACHARYA.map do |id|
         self.get_doc!(id)
@@ -31,42 +24,50 @@ class Author < BaseModel
     end
 
     def get_authors
-      all - get_acharya
+      get_all - get_acharya
     end
 
     def get_by_name_or_create(display_name)
-      authors = by_display_name(:key => display_name)
+      author = get(display_name.to_couch_id)
 
-      unless authors.blank?
-        authors.first
-      else
+      unless author.blank?
         create(:display_name => display_name)
       end
     end
   end
 
-  def albums
+
+  def get_albums
     Album.get_by_author(self.id)
   end
 
-  def last_tracks
-    id = self.id
-    Audio.by_author_last(:startkey => [id, {}], :endkey => [id], :limit => 10, :descending => true)
+  def get_tracks 
+    Audio.get_by_author(self.id)
   end
 
-  def years_with_tracks
-    years = []
-    resp = Audio.by_author_years(:reduce => true, :startkey => [self.id], :endkey => [self.id, {}], :group => true)
+  def get_tracks_by_year(year)
+    Audio.get_by_author_and_year(self.id, year)
+  end
+
+  def get_years_with_tracks_count
+    map = {}
+    options = {
+      :startkey => [self.id], 
+      :endkey   => [self.id, {}, {}, {}], 
+      :reduce   => true, 
+      :group    => true
+    }
+
+    resp = view('audios_by_author_and_record_date', options)
+
     resp['rows'].each do |row|
-      year = row['key'][1]
-      years << {:year => year, :count => row['value']} 
+      count = row['value']
+      year  = row['key'][1]
+
+      map[year] = count
     end
 
-    years
-  end
-
-  def tracks_by_year(year)
-    Audio.by_author_and_year(:startkey => [self.id, year], :endkey => [self.id, year, {}])
+    map
   end
 
 end

@@ -2,7 +2,7 @@ class AudiosController < ApplicationController
   free_actions :index, :album, :author, :year, :show
 
   def index
-    @audios  = Audio.order_by_created_at
+    @audios  = Audio.get_all
     @acharya = Author.get_acharya
     @authors = Author.get_authors
   end
@@ -23,10 +23,10 @@ class AudiosController < ApplicationController
     @authors = Author.get_authors
     @current_author = Author.get_doc!(params[:author_id])
     @author = @current_author
-    @albums = @current_author.albums
-    @last_tracks = @author.last_tracks 
+    @albums = @current_author.get_albums
+    @last_tracks = @author.get_tracks 
 
-    @years = @author.years_with_tracks
+    @years = @author.get_years_with_tracks_count
     
     #@last = Audio.get_by_author(self.id)
   end
@@ -36,7 +36,7 @@ class AudiosController < ApplicationController
     @author = Author.get_doc!(params[:author_id])
 
     unless @year.blank?
-      @tracks = @author.tracks_by_year(@year)
+      @tracks = @author.get_tracks_by_year(@year)
       if params[:id]
         @current_track = Audio.get_doc!(params[:id])
       else
@@ -49,7 +49,7 @@ class AudiosController < ApplicationController
 
   def show
     track = Audio.get_doc!(params[:id])
-    albums = track.albums
+    albums = track.get_albums
     path =
     if albums.any?
       album_track_path(albums.first.id, track.id)

@@ -30,6 +30,12 @@ module Attachments
         collection.first
       end
 
+      define_method "#{attr_name}_destroy" do
+        attach = send(attr_name)
+        store_class.destroy(attach.doc_id)
+      end
+
+
       before_save do
         file = send(file_source)
         file_opts = send(file_options) || {}

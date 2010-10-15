@@ -12,3 +12,7 @@
 #upload_tracks_list {
   padding-top: 4em !important;
 }
+
+#authors_nav li.current a {
+  color: #1CADB0; 
+}
