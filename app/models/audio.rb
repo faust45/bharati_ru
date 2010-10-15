@@ -15,8 +15,8 @@ class Audio < MediaContent
 
   
   class <<self
-    def get_all
-      view_docs('audios_all')
+    def get_all(options = {})
+      view_docs('audios_all', options)
     end
 
     def get_by_author(author_id)
@@ -33,6 +33,11 @@ class Audio < MediaContent
 
     def get_by_tag(tag)
       view_docs('audios_by_tag', :key => tag)
+    end
+
+    def count
+      resp = view('audios_all', :reduce => true)
+      resp['rows'][0]['value']
     end
 
     def clean_up

@@ -2,9 +2,13 @@ class AudiosController < ApplicationController
   free_actions :index, :album, :author, :year, :show
 
   def index
-    @audios  = Audio.get_all
+    @per_page = 10
+    @page = (params[:page] || 1).to_i
+
+    @audios  = Audio.get_all(:limit => 10, :skip => @page * @per_page)
     @acharya = Author.get_acharya
     @authors = Author.get_authors
+    @total_pages = Audio.count
   end
 
   def album

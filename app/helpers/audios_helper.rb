@@ -1,6 +1,13 @@
 module AudiosHelper
   include AudioBookmarksHelper
 
+  def pages(total)
+    per_page = 10
+    max = total / per_page 
+
+    (1..max)
+  end
+
   def link_to_author_year(year, count)
     img = image_tag('/images/year_folder.png', :class => 'year-folder')
     link = img + "&nbsp;&nbsp;#{year}&nbsp;&nbsp;(#{count})".html_safe
