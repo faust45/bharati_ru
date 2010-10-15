@@ -23,7 +23,14 @@ class BaseModel < CouchRest::Model::Base
 
   class <<self
     def design_doc
-      @@ddoc ||= database.get('_design/global')
+      unless @ddoc
+        @ddoc = database.get('_design/global')
+        def @ddoc.save
+
+        end
+      end
+
+      @ddoc
     end
 
     def view(name, options = {})
