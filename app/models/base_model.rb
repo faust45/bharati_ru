@@ -58,7 +58,7 @@ class BaseModel < CouchRest::Model::Base
     end
 
     def delete_all
-      all.each do |doc|
+      get_all.each do |doc|
         doc.destroy
       end
     end

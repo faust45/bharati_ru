@@ -42,7 +42,7 @@ View.TrackForm = {
     fields.mp3File    = Mp3FileInput.create();
     fields.albums     = AlbumsInput.create();
     fields.deleteButton = Button.create('/images/delete.png', deleteTrack);
-    //fields.photos     = $('<div>', {id: 'photo_file_upload'});
+    fields.photos     = $('<div>', {id: 'photo_file_upload'});
 
     var basicInfo = new FieldSet(fields, ['title', 'authorID', 'recordDate', 'tags']);
     var bookmarks = new FieldSet(fields, ['bookmarks']);

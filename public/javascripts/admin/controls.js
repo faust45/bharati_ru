@@ -257,6 +257,40 @@ $.fn.asPhotosInput = function() {
   this.ctl = new PhotosInput(this); 
 };
 
+PhotosInput = {
+  create: function() {
+    var node = document.createDocumentFragment();
+    var input = $('<div>');
+    var imgBlock = $('<div>', { 'class': 'track_photos'});
+  
+    var uploader = new qq.FileUploader({
+      element: input[0],
+      action: '/admin/audios/upload/photo',
+      allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+      onSubmit: function(id, fileName) {
+        self.uploader.setParams({
+          track_id: self.trackId
+        });
+      },
+      onComplete: function(id, fileName, responseJSON) {
+        if (responseJSON.doc) {
+          self.update(responseJSON.doc)
+        }
+      }
+    });
+
+    node.ctl = {
+      refresh: function(docID, values) {
+      },
+
+      getData: function() {}
+    };
+
+    return node;
+  }
+}
+
+
 
 //--------------------------------------------------------------
 TagsInput = {

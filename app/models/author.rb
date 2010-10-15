@@ -1,11 +1,11 @@
 class Author < BaseModel
 
-  ACHARYA = ['BNAcharyaMaharadzh', 'BSGovindaMaharadzh', '94263868']
+  ACHARYA = ['AcharyaMj', 'GovindaMj', 'SridharMj']
   NAMES_IDS = {
-    'Б.С. Госвами Махарадж' => 'GoswamiMj',
+    'Б.Н. Ачарья Махарадж'  => 'AcharyaMj',
     'Б.С. Говинда Махарадж' => 'GovindaMj',
     'Б.Р. Шридхар Махарадж' => 'SridharMj',
-    'Б.Н. Ачарья Махарадж'  => 'AcharyaMj',
+    'Б.С. Госвами Махарадж' => 'GoswamiMj',
     'Б.П. Сиддханти Махарадж' => 'SiddhantiMj',
     'Б.Л. Акинчан Махарадж'   => 'AkinchanMj',
     'Шруташрава Прабху'       => 'SrutasravaPr',
