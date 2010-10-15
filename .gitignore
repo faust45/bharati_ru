@@ -1,3 +1,4 @@
+.couchapprc
 *.swm
 Gemfile.lock
 .swm
