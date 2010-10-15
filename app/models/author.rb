@@ -16,7 +16,7 @@ class Author < BaseModel
   property :display_name
   property :description
 
-  use_as_id :display_name
+  use_as_id :id_by_display_name
 
   has_photo_attachment :main_photo, :thumb => {:size => 'x119'}
   has_attachments :photos, BigPhotoStore
@@ -84,6 +84,10 @@ class Author < BaseModel
     end
 
     map
+  end
+
+  def id_by_display_name
+    self.class.id_by_name(self.display_name)
   end
 
 end
