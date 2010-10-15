@@ -30,8 +30,10 @@ class Author < BaseModel
     def get_by_name_or_create(display_name)
       author = get(display_name.to_couch_id)
 
-      unless author.blank?
+      if author.blank?
         create(:display_name => display_name)
+      else
+        author
       end
     end
   end
