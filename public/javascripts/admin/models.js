@@ -34,6 +34,8 @@ Model.Track = {
   },
 
   last: function(options, fun) {
+    options = $.extend(options, {descending: true});
+
     var authorID = Model.Author.current;
     if (authorID) {
       options = $.extend(options, {key: authorID});
