@@ -55,7 +55,9 @@ module AudiosHelper
 
   def track_img
     unless @current_track.photos.blank?
-      image_tag(@current_track.photos.first.thumbs['small']['url']) 
+      i = rand(@current_track.photos.size)
+      url = file_url(@current_track.photos[i].thumbs['small'])
+      image_tag(url)
     end
   end
 

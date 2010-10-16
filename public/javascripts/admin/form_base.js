@@ -9,6 +9,7 @@ FormBase = {
     sortType:   'is_hand_sort',
     cover:     'cover_attachments',
     mainPhoto: 'main_photo_attachments',
+    photos:    'photos_attachments',
     bookmarks: 'bookmarks_raw'
   },
 

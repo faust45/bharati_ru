@@ -20,13 +20,13 @@ class Admin::AudiosController < AdminController
 
   def upload_photo
     logger.debug(params.inspect)
-    audio = Audio.get_doc!(params['track_id'])
+    audio = Audio.get_doc!(params['id'])
     audio.photos_file = params['file']
     audio.save
 
     audio = Audio.get_doc!(audio.id)
 
-    render :json => {'success' => true, 'doc' => audio} 
+    render :json => {'success' => true, 'img' => audio.photos} 
   end
 
   def replace_source

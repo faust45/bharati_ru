@@ -195,8 +195,6 @@ SimpleInput = {
 }
 
 
-
-
 //--------------------------------------------------------------
 PhotoInput = {
   create: function(uploadPath, options) {
@@ -258,38 +256,55 @@ $.fn.asPhotosInput = function() {
 };
 
 PhotosInput = {
-  create: function() {
+  create: function(uploadURL) {
     var node = document.createDocumentFragment();
     var input = $('<div>');
-    var imgBlock = $('<div>', { 'class': 'track_photos'});
+    var imgBlock = $('<div>', { 'class': 'photos'});
+    node.appendChild(input[0]);
+    node.appendChild(imgBlock[0]);
+
+    var addImg = function(imgDoc) {
+      var url = db.FileStore.attachmentURL(imgDoc.thumbs.small);
+      var photo = $('<img />', {src: url + '?' + genRand()});
+      imgBlock.append(photo);
+    },
+
+    ctl = {
+      refresh: function(docID, values) {
+        this.docID = docID;
+        imgBlock.html('');
+
+        $.log(values);
+        if (!isBlank(values)) {
+          values.map(addImg);
+        }
+      },
+
+      getData: function() {}
+    },
   
-    var uploader = new qq.FileUploader({
+    uploader = new qq.FileUploader({
       element: input[0],
-      action: '/admin/audios/upload/photo',
+      action: uploadURL,
       allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
       onSubmit: function(id, fileName) {
-        self.uploader.setParams({
-          track_id: self.trackId
+        uploader.setParams({
+          id: ctl.docID
         });
       },
       onComplete: function(id, fileName, responseJSON) {
-        if (responseJSON.doc) {
-          self.update(responseJSON.doc)
+        if (responseJSON.img) {
+          var img = responseJSON.img;
+          ctl.refresh(ctl.docID, img);
         }
       }
     });
 
-    node.ctl = {
-      refresh: function(docID, values) {
-      },
-
-      getData: function() {}
-    };
-
+    
+    node.ctl = ctl;
     return node;
   }
-}
-
+};
 
 
 //--------------------------------------------------------------
