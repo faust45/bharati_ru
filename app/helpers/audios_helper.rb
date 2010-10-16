@@ -53,6 +53,10 @@ module AudiosHelper
     if @author
       path[:author] = link_to(@author.display_name, author_audios_path(@author.id))
     end
+
+    if @year || @album
+      path[:album] = true
+    end
     
     path
   end

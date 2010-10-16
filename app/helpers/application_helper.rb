@@ -62,15 +62,13 @@ module ApplicationHelper
     if path[:part]
       cont = path[:part]
       cont << ' > ' if path[:author]
-      html << content_tag(:strong, "> #{cont}".html_safe)
+      html << content_tag(:i, "> #{cont}".html_safe)
     end
 
     if path[:author]
-      html << content_tag(:i, "#{path[:author]}".html_safe)
-    end
-
-    if path[:album]
-      html << content_tag(:div, path[:album], :class => 'track')
+      cont = path[:author]
+      cont << ' > ' if  path[:album]
+      html << content_tag(:i, "#{cont}".html_safe)
     end
 
     html.html_safe
