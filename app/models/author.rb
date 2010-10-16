@@ -69,12 +69,12 @@ class Author < BaseModel
     map = {}
     options = {
       :startkey => [self.id], 
-      :endkey   => [self.id, {}, {}, {}], 
+      :endkey   => [self.id, {}], 
       :reduce   => true, 
       :group    => true
     }
 
-    resp = view('audios_by_author_and_record_date', options)
+    resp = view('audios_by_author_and_year', options)
 
     resp['rows'].each do |row|
       count = row['value']

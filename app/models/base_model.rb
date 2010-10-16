@@ -22,9 +22,7 @@ class BaseModel < CouchRest::Model::Base
     def design_doc
       unless @ddoc
         @ddoc = database.get('_design/global')
-        def @ddoc.save
-
-        end
+        def @ddoc.save; end
       end
 
       @ddoc

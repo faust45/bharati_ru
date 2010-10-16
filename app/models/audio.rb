@@ -2,7 +2,8 @@ class Audio < MediaContent
   use_time_id
 
   property :duration
-  property :bookmarks, [HHash],:default => [] #:time :str_time :name
+  property :bookmarks, [HHash], :default => [] #:time :str_time :name
+  property :extracts, [], :default => []
 
   has_attachment  :source, SourceAudioAttachmentStore
   has_attachments :photos, BigPhotoStore
@@ -76,6 +77,25 @@ class Audio < MediaContent
           self.bookmarks << {:str_time => '', :name => str, :time => ''}
         end
       end
+    end
+  end
+
+  def extracts_raw
+    self.extracts
+  end
+
+  def extracts_raw=(value)
+    unless value.blank?
+      result = []
+      a = value.split("\n")
+      a.each do |item|
+        item.strip!
+        item.sub!(/^"/, '')
+        item.sub!(/"$/, '')
+        result << item unless item.blank?
+      end
+
+      self.extracts = result 
     end
   end
 

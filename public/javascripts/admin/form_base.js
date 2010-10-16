@@ -10,7 +10,8 @@ FormBase = {
     cover:     'cover_attachments',
     mainPhoto: 'main_photo_attachments',
     photos:    'photos_attachments',
-    bookmarks: 'bookmarks_raw'
+    bookmarks: 'bookmarks_raw',
+    extracts: 'extracts_raw'
   },
 
   dataSourceMapFun: {
@@ -21,6 +22,12 @@ FormBase = {
       });
 
       return text;
+    },
+
+    extracts: function(doc) {
+      if (doc.extracts) {
+        return doc.extracts.join('\n\n');
+      }
     }
   },
 
