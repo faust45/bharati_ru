@@ -1,6 +1,6 @@
 <div class="new">
   <%= link_to year_folder, author_year_audios_path(@author.id, year) %>
   <div class="item">
-    <div class="name"><%= link_to "#{year}&nbsp;&nbsp;&nbsp;(#{count})".html_safe, author_year_audios_path(@author.id, year) %></div>
+    <div class="name"><%= link_to "&nbsp;&nbsp;&nbsp;#{year}&nbsp;&nbsp;&nbsp;(#{count})".html_safe, author_year_audios_path(@author.id, year) %></div>
   </div>
 </div>

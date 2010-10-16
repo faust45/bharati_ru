@@ -25,7 +25,7 @@
     <%= render :partial => 'album_item', :collection => @albums %>
   </div>
   <div class="tab-container yearsTab" id="tab-3">
-    <% @years.each do |year, count| %>
+    <% @years.reverse_each do |year, count| %>
       <%= render :partial => 'year_item', :locals => {:year => year, :count => count} %>
     <% end %>
   </div>

@@ -66,7 +66,7 @@ class Author < BaseModel
   end
 
   def get_years_with_tracks_count
-    map = {}
+    map = ActiveSupport::OrderedHash.new 
     options = {
       :startkey => [self.id], 
       :endkey   => [self.id, {}], 
