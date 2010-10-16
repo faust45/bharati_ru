@@ -1,5 +1,4 @@
 class VideoAlbum < BaseModel
-  use_db 'videos'
 
   property :title
   property :description

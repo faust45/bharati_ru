@@ -9,7 +9,8 @@ module ApplicationHelper
   end
 
   def file_url(doc)
-    "http://93.94.152.87:3000/rocks_file_store/#{doc['doc_id']}/#{doc['file_name']}"
+    db = FileStore.database.name
+    "http://93.94.152.87:3000/#{db}/#{doc['doc_id']}/#{doc['file_name']}"
   end
 
   def d(date)

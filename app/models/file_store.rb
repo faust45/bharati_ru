@@ -1,5 +1,5 @@
 class FileStore < BaseModel
-  use_db 'file_store'
+  as_file_store
 
   attr_accessor :file
 

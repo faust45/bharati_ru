@@ -1,4 +1,5 @@
 module Uniq
+=begin
   extend ActiveSupport::Concern
 
   class DublicateValue < Exception
@@ -58,5 +59,5 @@ module Uniq
       end
     end
   end
-
+=end
 end
