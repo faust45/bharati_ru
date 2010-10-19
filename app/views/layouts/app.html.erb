@@ -16,9 +16,6 @@
     <%= javascript_include_tag 'jquery.form' %>
     <%= javascript_include_tag 'rails', 'mustache', 'jquery.behavior' %>
     <%= javascript_include_tag 'application', 'common' %>
-    <% unless current_user.logged_in? %>
-      <%= javascript_include_tag 'login_dialog' %>
-    <% end %>
     <%= yield :include_js %>
 
     <script>
