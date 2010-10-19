@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def ico_beta
+    image_tag('/images/beta.png', :class => 'beta')
+  end
+
   def author_main_photo(author)
     if author.main_photo
       image_tag(file_url(author.main_photo.thumbs['small']), :width => "88", :height => "119")

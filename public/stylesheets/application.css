@@ -10,3 +10,9 @@ img.year-folder {
   width: 48px;
   margin-top: 0;
 }
+
+img.beta {
+  position:absolute;
+  left:280px;
+  top:7px;
+}
