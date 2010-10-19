@@ -112,11 +112,9 @@ module AudiosHelper
   #  track_duration (required)
   def js_track_params
     options = {
-      :album_name  => escape(@album.title),
-      :author_name => @current_track.author.display_name,
-      :track_name  => @current_track.title,
-      :track_url   => file_url(@current_track.source),
-      :track_duration => @current_track.duration,
+      :title => @current_track.title,
+      :file  => file_url(@current_track.source),
+      :duration => @current_track.duration,
     }
 
     options.map do |key, value|

@@ -61,9 +61,9 @@ function removeUserBookmark() {
 
 function initPlayer(id, trackParams) {
    var code =
-   AC_FL_RunContent("src", "/PlayerLight",
+   AC_FL_RunContent("src", "/player",
      "width", "950",
-     "height", "85",
+     "height", "119",
      "align", "middle",
      "id", id,
      "quality", "high",
