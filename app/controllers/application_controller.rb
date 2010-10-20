@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   layout 'app'
+  free_action :page_404
 
   #include NoficationSystem 
 
