@@ -1,10 +1,3 @@
-module Doc
-  class CannotDestroy < Exception
-  end
-
-  NotFound = RestClient::ResourceNotFound
-end
-
 class BaseModel < CouchRest::Model::Base
   include DB
   include ActiveSupport::Memoizable
