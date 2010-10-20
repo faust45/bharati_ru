@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def ico_beta
+    image_tag('/images/beta.png', :class => 'beta')
+  end
+
   def author_main_photo(author)
     if author.main_photo
       image_tag(file_url(author.main_photo.thumbs['small']), :width => "88", :height => "119")
@@ -9,7 +13,8 @@ module ApplicationHelper
   end
 
   def file_url(doc)
-    "http://93.94.152.87:3000/rocks_file_store/#{doc['doc_id']}/#{doc['file_name']}"
+    db = FileStore.database.name
+    "http://93.94.152.87:3000/#{db}/#{doc['doc_id']}/#{doc['file_name']}"
   end
 
   def d(date)
@@ -61,15 +66,13 @@ module ApplicationHelper
     if path[:part]
       cont = path[:part]
       cont << ' > ' if path[:author]
-      html << content_tag(:strong, "> #{cont}".html_safe)
+      html << content_tag(:i, "> #{cont}".html_safe)
     end
 
     if path[:author]
-      html << content_tag(:i, "#{path[:author]}".html_safe)
-    end
-
-    if path[:album]
-      html << content_tag(:div, path[:album], :class => 'track')
+      cont = path[:author]
+      cont << ' > ' if  path[:album]
+      html << content_tag(:i, "#{cont}".html_safe)
     end
 
     html.html_safe

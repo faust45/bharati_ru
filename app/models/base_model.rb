@@ -1,7 +1,3 @@
-SERVER = CouchRest.new('http://192.168.1.100:5984')
-MAIN_DB_NAME = 'rocks'
-DB     = SERVER.database!(MAIN_DB_NAME)
-
 module Doc
   class CannotDestroy < Exception
   end
@@ -10,12 +6,13 @@ module Doc
 end
 
 class BaseModel < CouchRest::Model::Base
+  include DB
   include ActiveSupport::Memoizable
   include Attachments
   include Slug 
   include Search
 
-  use_database DB
+  as_main_db
 
   class BlankDocId < Exception
   end
@@ -23,7 +20,12 @@ class BaseModel < CouchRest::Model::Base
 
   class <<self
     def design_doc
-      @@ddoc ||= database.get('_design/global')
+      unless @ddoc
+        @ddoc = database.get('_design/global')
+        def @ddoc.save; end
+      end
+
+      @ddoc
     end
 
     def view(name, options = {})
@@ -51,7 +53,7 @@ class BaseModel < CouchRest::Model::Base
     end
 
     def delete_all
-      all.each do |doc|
+      get_all.each do |doc|
         doc.destroy
       end
     end
@@ -83,11 +85,6 @@ class BaseModel < CouchRest::Model::Base
 
     def logger
       Rails.logger
-    end
-
-    def use_db(db_name)
-      db = SERVER.database!("#{MAIN_DB_NAME}_#{db_name}")
-      use_database db
     end
 
     def test(arr)

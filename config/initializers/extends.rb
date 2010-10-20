@@ -32,3 +32,23 @@ class String
     value.gsub(/[^A-Za-z\d]/, '')
   end
 end
+
+
+module CouchRest
+  module Model
+    module DesignDoc
+      
+      def self.included(base)
+        base.extend(ClassMethods)
+      end
+      
+      module ClassMethods
+        
+        def save_design_doc(*args); end
+        def design_doc
+        end
+
+      end
+    end
+  end
+end

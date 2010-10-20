@@ -42,10 +42,11 @@ View.TrackForm = {
     fields.mp3File    = Mp3FileInput.create();
     fields.albums     = AlbumsInput.create();
     fields.deleteButton = Button.create('/images/delete.png', deleteTrack);
-    //fields.photos     = $('<div>', {id: 'photo_file_upload'});
+    fields.photos       = PhotosInput.create('/admin/audios/upload/photo');
+    fields.extracts     = SimpleInput.create('textarea', {cols: '60', rows: '15'});
 
     var basicInfo = new FieldSet(fields, ['title', 'authorID', 'recordDate', 'tags']);
-    var bookmarks = new FieldSet(fields, ['bookmarks']);
+    var bookmarks = new FieldSet(fields, ['bookmarks', 'extracts']);
     var mp3File   = new FieldSet(fields, ['mp3File', 'deleteButton']);
     var albums    = new FieldSet(fields, ['albums']);
     var photos    = new FieldSet(fields, ['photos']);
@@ -85,31 +86,8 @@ $.extend(View.TrackForm, FormBase);
 
 
 //----------------------------------------------------------------------
-PhotosInput = function(input) {
-  var self = this;
-  this.input = $(input);
 
-  this.imgBlock = $('<div>', { 'class': 'track_photos'});
-  this.input.parent().append(this.imgBlock);
-
-  this.uploader = new qq.FileUploader({
-    element: input[0],
-    action: '/admin/audios/upload/photo',
-    allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
-    onSubmit: function(id, fileName) {
-      self.uploader.setParams({
-        track_id: self.trackId
-      });
-    },
-    onComplete: function(id, fileName, responseJSON) {
-      if (responseJSON.doc) {
-        self.hideFromSuccessList(id);
-        self.update(responseJSON.doc)
-      }
-    }
-  });
-}
-
+/*
 PhotosInput.prototype = {
   hideFromSuccessList: function(num) {
     var list = this.input.find('ul.qq-upload-list li');
@@ -134,6 +112,7 @@ PhotosInput.prototype = {
     }
   }
 }
+*/
 
 
 //----------------------------------------------------------------------

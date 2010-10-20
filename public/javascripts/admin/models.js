@@ -34,6 +34,8 @@ Model.Track = {
   },
 
   last: function(options, fun) {
+    options = $.extend(options, {descending: true});
+
     var authorID = Model.Author.current;
     if (authorID) {
       options = $.extend(options, {key: authorID});
@@ -47,7 +49,9 @@ Model.Track = {
     var authorID = Model.Author.current;
     var options  = {reduce: true};
     var callback = function(data){
-      fun(data.rows[0].value);
+      if (data.rows[0]) {
+        fun(data.rows[0].value);
+      }
     };
 
     if (authorID) {
@@ -88,8 +92,8 @@ db = {
     return this.urlPrefix + this.name + '/';
   },
 
-  getDoc: function(docId, fun) {
-    $.getJSON(this.uri() + docId + '?callback=?', function(data) {
+  getDoc: function(docID, fun) {
+    $.getJSON(this.uri() + docID + '?callback=?', function(data) {
       data.trim = trim;
       fun(data);
     });

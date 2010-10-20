@@ -1,12 +1,22 @@
 class Author < BaseModel
 
-  ACHARYA = ['BNAcharyaMaharadzh', 'BSGovindaMaharadzh', '94263868']
+  ACHARYA = ['AcharyaMj', 'GovindaMj', 'SridharMj']
+  NAMES_IDS = {
+    'Б.Н. Ачарья Махарадж'  => 'AcharyaMj',
+    'Б.С. Говинда Махарадж' => 'GovindaMj',
+    'Б.Р. Шридхар Махарадж' => 'SridharMj',
+    'Б.С. Госвами Махарадж' => 'GoswamiMj',
+    'Б.П. Сиддханти Махарадж' => 'SiddhantiMj',
+    'Б.Л. Акинчан Махарадж'   => 'AkinchanMj',
+    'Шруташрава Прабху'       => 'SrutasravaPr',
+    'Б.Ч. Бхарати Махарадж'   => 'BharatiMj'
+  }.inject({}) {|h, (k, v)| h[k.to_couch_id] = v; h }
 
   property :full_name
   property :display_name
   property :description
 
-  use_as_id :display_name
+  use_as_id :id_by_display_name
 
   has_photo_attachment :main_photo, :thumb => {:size => 'x119'}
   has_attachments :photos, BigPhotoStore
@@ -28,11 +38,17 @@ class Author < BaseModel
     end
 
     def get_by_name_or_create(display_name)
-      author = get(display_name.to_couch_id)
+      author = get(id_by_name(display_name))
 
-      unless author.blank?
+      if author.blank?
         create(:display_name => display_name)
+      else
+        author
       end
+    end
+
+    def id_by_name(name)
+      NAMES_IDS[name.to_couch_id]
     end
   end
 
@@ -50,15 +66,15 @@ class Author < BaseModel
   end
 
   def get_years_with_tracks_count
-    map = {}
+    map = ActiveSupport::OrderedHash.new 
     options = {
       :startkey => [self.id], 
-      :endkey   => [self.id, {}, {}, {}], 
+      :endkey   => [self.id, {}], 
       :reduce   => true, 
       :group    => true
     }
 
-    resp = view('audios_by_author_and_record_date', options)
+    resp = view('audios_by_author_and_year', options)
 
     resp['rows'].each do |row|
       count = row['value']
@@ -68,6 +84,10 @@ class Author < BaseModel
     end
 
     map
+  end
+
+  def id_by_display_name
+    self.class.id_by_name(self.display_name)
   end
 
 end

@@ -9,7 +9,9 @@ FormBase = {
     sortType:   'is_hand_sort',
     cover:     'cover_attachments',
     mainPhoto: 'main_photo_attachments',
-    bookmarks: 'bookmarks_raw'
+    photos:    'photos_attachments',
+    bookmarks: 'bookmarks_raw',
+    extracts: 'extracts_raw'
   },
 
   dataSourceMapFun: {
@@ -20,6 +22,12 @@ FormBase = {
       });
 
       return text;
+    },
+
+    extracts: function(doc) {
+      if (doc.extracts) {
+        return doc.extracts.join('\n\n');
+      }
     }
   },
 

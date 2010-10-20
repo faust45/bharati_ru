@@ -43,7 +43,9 @@ class Album < BaseModel
   end
 
   def author
-    @author ||= Author.get(author_id)
+    if self.author_id
+      @author ||= Author.get_doc(author_id)
+    end
   end
 
   def <<(content)

@@ -8,7 +8,11 @@ module AudiosHelper
     (1..max)
   end
 
-  def link_to_author_year(year, count)
+  def year_folder
+    image_tag('/images/year_folder.png', :class => 'year-folder')
+  end
+
+  def link_to_author_year(year)
     img = image_tag('/images/year_folder.png', :class => 'year-folder')
     link = img + "&nbsp;&nbsp;#{year}&nbsp;&nbsp;(#{count})".html_safe
     link_to(link.html_safe, author_year_audios_path(@author.id, year))
@@ -49,13 +53,19 @@ module AudiosHelper
     if @author
       path[:author] = link_to(@author.display_name, author_audios_path(@author.id))
     end
+
+    if @year || @album
+      path[:album] = true
+    end
     
     path
   end
 
   def track_img
     unless @current_track.photos.blank?
-      image_tag(@current_track.photos.first.thumbs['small']['url']) 
+      i = rand(@current_track.photos.size)
+      url = file_url(@current_track.photos[i].thumbs['small'])
+      image_tag(url)
     end
   end
 

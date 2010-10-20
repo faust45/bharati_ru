@@ -1,5 +1,4 @@
 class Video < MediaContent
-  use_db 'videos'
 
   property :title
   property :duration

@@ -24,11 +24,9 @@
   <div class="tab-container audioTab" id="tab-2">
     <%= render :partial => 'album_item', :collection => @albums %>
   </div>
-  <div class="tab-container" id="tab-3">
-    <% @years.each do |year, count| %>
-      <div>
-        <%= link_to_author_year(year, count) %>
-      </div>
+  <div class="tab-container yearsTab" id="tab-3">
+    <% @years.reverse_each do |year, count| %>
+      <%= render :partial => 'year_item', :locals => {:year => year, :count => count} %>
     <% end %>
   </div>
 

@@ -1,3 +1,11 @@
-development: rocks 
-test: rocks 
-production: rocks 
+production: 
+  main_db: rocks 
+  file_store_db: rocks_file_store
+
+development: 
+  main_db: rocks_dev
+  file_store_db: rocks_file_store_dev
+
+test: 
+  main_db: rocks_test
+  file_store_db: rocks_file_store_test

@@ -69,7 +69,7 @@ module Attachments
     def has_attachments(attr_name, store_class, options = {}, item_class = SingleAttachment, &block)
       options[:owner_type] = self.to_s
       options[:thumb] ||= {}
-      options[:thumb][:owner_type] = self.to_s
+      options[:thumb][:owner_type] ||= self.to_s
 
       attachment_collection_name = "#{attr_name}_attachments"
       file_source = "#{attr_name}_file"
@@ -87,7 +87,7 @@ module Attachments
         send(attachment_collection_name)
       end
 
-      define_method "#{attr_name}_delete" do |attach_id|
+      define_method "#{attr_name}_destroy" do |attach_id|
         collection = send(attachment_collection_name)
         el = collection.find{|a| a.doc_id == attach_id}
 
@@ -95,7 +95,7 @@ module Attachments
           send("_run_#{callback_delete_method}_callbacks") do
             attach = store_class.get(el.doc_id)
             attach.destroy
-            collection.reject!{|a| a.doc_id == attach_id}
+            collection.delete(el.doc_id)
           end
         end
       end

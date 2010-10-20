@@ -2,3 +2,17 @@ img.year-folder {
   padding: 0 0 0 0;
   margin: 0 0 0 0;
 }
+
+
+
+.yearsTab .new img {
+  height: 48px;
+  width: 48px;
+  margin-top: 0;
+}
+
+img.beta {
+  position:absolute;
+  left:280px;
+  top:7px;
+}
