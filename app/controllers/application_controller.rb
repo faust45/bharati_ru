@@ -7,8 +7,11 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  #rescue_from User::AccessDenied, :with => :page_404
-  #rescue_from ActionView::MissingTemplate, :with => :page_404
+  if Rails.env.production?
+    rescue_from User::AccessDenied, :with => :page_404
+    rescue_from ActionView::MissingTemplate, :with => :page_404
+    rescue_from ActionView::Template::Error, :with => :page_404
+  end
 
   class <<self
   end
@@ -18,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def page_404
-    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404
+    render :template => "shared/404.html.erb", :status => 404
   end
 
 end
