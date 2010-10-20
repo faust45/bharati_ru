@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   layout 'app'
-  free_action :page_404
 
   #include NoficationSystem 
 
@@ -13,6 +12,8 @@ class ApplicationController < ActionController::Base
     rescue_from ActionView::MissingTemplate, :with => :page_404
     rescue_from ActionView::Template::Error, :with => :page_404
   end
+
+  free_action :page_404
 
   class <<self
   end
