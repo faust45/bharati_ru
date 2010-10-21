@@ -124,7 +124,7 @@ module AudiosHelper
     options = {
       :album_name  => escape(@album.title),
       :author_name => @current_track.author.display_name,
-      :track_name  => @current_track.title,
+      :track_name  => escape(@current_track.title),
       :track_url   => file_url(@current_track.source),
       :track_duration => @current_track.duration,
     }
