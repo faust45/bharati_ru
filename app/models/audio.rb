@@ -11,8 +11,8 @@ class Audio < MediaContent
   after_create_source_attachment  :assign_meta_info
   after_replace_source_attachment :assign_meta_info, :if => :is_source_need_update_meta_info?
 
-  after_destroy :drop_from_albums
-  after_destroy :source_destroy
+  before_destroy :drop_from_albums
+  before_destroy :source_destroy
 
   
   class <<self

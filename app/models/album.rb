@@ -59,7 +59,7 @@ class Album < BaseModel
       when String, Fixnum
         content_or_id.to_s
       else
-        content_or_id
+        content_or_id.id
       end
 
     self.tracks.delete(id)
