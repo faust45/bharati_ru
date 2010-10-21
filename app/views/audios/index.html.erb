@@ -8,7 +8,7 @@
   <div class="title">Последнее аудио</div>
   <div class="text">
     <%= render :partial => 'last_item', :collection => @audios %>
-    <%= render :partial => 'pages' %>
+    <%= pages(@total_pages) %>
   </div>
   <div class="bottom"></div>
 </div>

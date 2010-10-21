@@ -41,6 +41,33 @@ class Audio < MediaContent
       resp['rows'][0]['value']
     end
 
+    def search(q, params = {})
+      per_page = 10
+      options = {}
+      options[:include_docs] = true
+
+      page = (params[:page] || 1).to_i
+      options[:limit] = per_page
+      options[:skip] = (page - 1) * per_page
+
+      query = "(title:#{q} OR tags:#{q} OR bookmarks:#{q})"
+      if !params[:author_id].blank?
+        query = "author_id:#{params[:author_id]} AND " + query
+      elsif !params[:album_id].blank?
+        album = Album.get_doc!(params[:album_id])
+        tracks = album.tracks.join(' ')
+        query = "(#{tracks}) AND " + query
+      elsif !params[:year].blank?
+        query = "year:#{params[:year]} AND " + query
+      end
+
+      options[:q] = query
+      Rails.logger.debug('query inspect')
+      Rails.logger.debug(query)
+      resp = database.search(design_doc.id + '/audios', options)
+      Collection.new(resp)
+    end
+
     def clean_up
       all.map{|e| database.delete_doc({'_id' => e['_id'], '_rev' => e['_rev']}) if e.title.blank? && e['_id']}
     end

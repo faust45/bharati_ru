@@ -1,6 +1,6 @@
 function(keys, values, rereduce) {
   if (!rereduce) {
-    log(values);
+//    log(values);
     var pages = [];
     var perPage = 10;
     var counter = 0;
@@ -16,8 +16,8 @@ function(keys, values, rereduce) {
       }
     }
 
-    log('in !re pages');
-    log(pages);
+//    log('in !re pages');
+//    log(pages);
     return pages;
   } else {
     return values;

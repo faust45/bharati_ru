@@ -1,5 +1,5 @@
 class AudiosController < ApplicationController
-  free_actions :index, :album, :author, :year, :show
+  free_actions :index, :search, :album, :author, :year, :show
 
   def index
     @per_page = 10

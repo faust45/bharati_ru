@@ -32,6 +32,7 @@ class Admin::AlbumsController < Admin::ContentsController
 
   def update
     album = Album.get_doc!(params['id'])
+    Rails.logger.debug(params['album'])
     album.update_attributes(params['album'])
 
     render :json => {:doc => album}

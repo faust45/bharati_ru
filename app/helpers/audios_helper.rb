@@ -1,11 +1,14 @@
 module AudiosHelper
   include AudioBookmarksHelper
 
-  def pages(total)
-    per_page = 10
-    max = total / per_page 
-
-    (1..max)
+  def search_path
+    if params[:author_id]
+      audios_search_in_author_path(params[:author_id])
+    elsif params[:album_id]
+      audios_search_in_album_path(params[:album_id])
+    elsif params[:year]
+      audios_search_in_author_year_path(params[:author], params[:year])
+    end
   end
 
   def year_folder
@@ -36,7 +39,7 @@ module AudiosHelper
   end
 
   def current_path_item 
-    if @year
+    if !params[:year].blank?
       item = @year
     elsif @album
       item = @album.title
@@ -50,11 +53,11 @@ module AudiosHelper
   def site_path_items
     path = {:part => link_to('Аудио', audios_path)}
 
-    if @author
+    if params[:auhtor_id]
       path[:author] = link_to(@author.display_name, author_audios_path(@author.id))
     end
 
-    if @year || @album
+    if !params[:year].blank? || !params[:album_id].blank?
       path[:album] = true
     end
     

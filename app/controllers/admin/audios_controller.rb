@@ -19,7 +19,6 @@ class Admin::AudiosController < AdminController
   end
 
   def upload_photo
-    logger.debug(params.inspect)
     audio = Audio.get_doc!(params['id'])
     audio.photos_file = params['file']
     audio.save

@@ -4,6 +4,30 @@ module ApplicationHelper
     image_tag('/images/beta.png', :class => 'beta')
   end
 
+  def current_page
+    @page ||= (params[:page] || 1).to_i
+  end
+
+  def pages(total)
+    if total.respond_to?(:total_rows)
+      total = total.total_rows
+    end
+
+    range = range_pages(total).to_a
+    if range.size > 1
+      render(:partial => 'shared/pages', :locals => {:pages => range})
+    end
+  end
+
+  def range_pages(total)
+    per_page = 10
+    max = total / per_page 
+    ost = total % per_page 
+    max += 1 if ost >= 0
+
+    (1..max)
+  end
+
   def author_main_photo(author)
     if author.main_photo
       image_tag(file_url(author.main_photo.thumbs['small']), :width => "88", :height => "119")

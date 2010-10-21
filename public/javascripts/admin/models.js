@@ -10,7 +10,8 @@ Model.Album = {
   },
 
   tracks: function(albumID, fun) {
-    db.viewDocs(this.viewTracks, {startkey: [albumID], endkey: [albumID, {}]}, fun);
+    var options = {startkey: [albumID], endkey: [albumID, {}], 'descending': true};
+    db.viewDocs(this.viewTracks, options, fun);
   },
 
   trackAlbums: function(trackID, fun) {
@@ -102,10 +103,6 @@ db = {
   view: function(viewName, options, fun) {
     options.reduce = options.reduce || false;
 
-    if (!options.reduce) {
-      options =  $.extend({include_docs: true}, options); 
-    }
-
     $.getJSON(this.uri() + this.ddocID + '_view/' + viewName + encodeOptions(options) + '&callback=?', function(data) {
       data.trim = trim;
       data.getIDs = getIDs;
@@ -119,7 +116,7 @@ db = {
   },
 
   all: function(model, options, fun) {
-    this.view(model.viewAll, options, fun);
+    this.viewDocs(model.viewAll, options, fun);
   },
 
   count: function(model, fun) {

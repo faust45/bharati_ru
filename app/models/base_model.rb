@@ -3,7 +3,6 @@ class BaseModel < CouchRest::Model::Base
   include ActiveSupport::Memoizable
   include Attachments
   include Slug 
-  include Search
 
   as_main_db
 
