@@ -14,7 +14,7 @@ module ApplicationHelper
 
   def file_url(doc)
     db = FileStore.database.name
-    "http://93.94.152.87:3000/#{db}/#{doc['doc_id']}/#{doc['file_name']}"
+    "http://93.94.152.87/#{db}/#{doc['doc_id']}/#{doc['file_name']}"
   end
 
   def d(date)

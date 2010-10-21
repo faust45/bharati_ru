@@ -17,8 +17,19 @@ Player = {
     }
   },
 
+  addBookmark: function() {
+    $.log('addBookmark');
+  },
+
+  addToFavorite: function() {
+    $.log('addToFavorite');
+  },
+
+  getCurrentSec: function() {
+  },
+
   gotoTime: function(time) {
-    this.player().gotoTime(time);
+    this.player().playerGoTo(time);
   },
 
   player: function() {
