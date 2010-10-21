@@ -85,7 +85,7 @@ View.Album.Track = {
   refresh: function(albumID) {
     var self = this;
     this.cont.html('');
-    var template = "<li data-id='{{_id}}'><a>{{#trim}}{{title}}{{/trim}}</a></li>";
+    var template = "<li data-id='{{_id}}'><a>{{record_date}}&nbsp;&nbsp;&nbsp;{{#trim}}{{title}}{{/trim}}</a></li>";
 
     Model.Album.tracks(albumID, function(data) {
       self.cont.mustache(template, data);

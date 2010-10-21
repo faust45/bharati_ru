@@ -133,4 +133,6 @@ MahaMandala::Application.routes.draw do
 
   match 'autocomplete/tags', :to => 'admin/tags#autocomplete', :as => :autocomplete_tags
   match 'autocomplete/albums', :to => 'admin/albums#autocomplete', :as => :autocomplete_albums
+
+  match '/:any', :to => 'application#page_404', :constraints => { :any => /.*/ }
 end
