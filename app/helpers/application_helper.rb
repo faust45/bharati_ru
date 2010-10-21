@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def site_ppath
+    SitePath.new(params, self)
+  end
+
   def ico_beta
     image_tag('/images/beta.png', :class => 'beta')
   end
@@ -81,25 +85,6 @@ module ApplicationHelper
     unless photo.blank?
       file_url(photo.thumbs['small'])
     end
-  end
-
-  def site_p
-    path = site_path_items
-    html = ''
-
-    if path[:part]
-      cont = path[:part]
-      cont << ' > ' if path[:author]
-      html << content_tag(:i, "> #{cont}".html_safe)
-    end
-
-    if path[:author]
-      cont = path[:author]
-      cont << ' > ' if  path[:album]
-      html << content_tag(:i, "#{cont}".html_safe)
-    end
-
-    html.html_safe
   end
 
   def content(&block)

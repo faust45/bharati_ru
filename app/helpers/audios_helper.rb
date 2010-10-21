@@ -38,32 +38,6 @@ module AudiosHelper
     @current_author == author_item
   end
 
-  def current_path_item 
-    if !params[:year].blank?
-      item = @year
-    elsif @album
-      item = @album.title
-    end
-
-    if item
-      content_tag(:div, item, :class => 'track')
-    end
-  end
-
-  def site_path_items
-    path = {:part => link_to('Аудио', audios_path)}
-
-    if params[:auhtor_id]
-      path[:author] = link_to(@author.display_name, author_audios_path(@author.id))
-    end
-
-    if !params[:year].blank? || !params[:album_id].blank?
-      path[:album] = true
-    end
-    
-    path
-  end
-
   def track_img
     unless @current_track.photos.blank?
       i = rand(@current_track.photos.size)
