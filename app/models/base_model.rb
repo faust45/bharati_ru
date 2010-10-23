@@ -27,11 +27,21 @@ class BaseModel < CouchRest::Model::Base
         end
       end
 
-      super(name, options)
+      name = "global/#{name}"
+      database.view(name, options)
     end
     
     def view_docs(name, options = {})
-      view(name, options.merge(:include_docs => true))
+      resp = view(name, options.merge(:include_docs => true))
+
+      Collection.new(resp, self, {:view => name, :view_options => options})
+    end
+
+    def paginate(method, params = {})
+      per_page = 10
+      page = (params[:page] || 1).to_i
+
+      self.send(method, :skip => per_page * page, :limit => per_page)
     end
 
     def get_doc(id)
@@ -78,20 +88,8 @@ class BaseModel < CouchRest::Model::Base
     def logger
       Rails.logger
     end
-
-    def test(arr)
-      arr.inject('0') do |prev, cur|
-        #cur always must be > prev
-        if prev <= cur
-        else
-          puts "test fail #{prev} < #{cur}"
-          raise
-        end
-
-        cur 
-      end
-    end
   end
+
 
   def view_docs(*args)
     self.class.view_docs(*args)
@@ -99,6 +97,13 @@ class BaseModel < CouchRest::Model::Base
 
   def view(*args)
     self.class.view(*args)
+  end
+
+  def paginate(method, params = {})
+    per_page = 10
+    page = (params[:page] || 1).to_i
+
+    self.send(method, :skip => per_page * page, :limit => per_page)
   end
 
   def make_copy 
