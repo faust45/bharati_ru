@@ -107,15 +107,6 @@ class BaseModel < CouchRest::Model::Base
     self.send(method, self.class.get_paginate_options(params))
   end
 
-  def make_copy 
-    attributes = self.to_hash.dup
-    attributes.delete('_id')
-    attributes.delete('_rev')
-
-    a = self.class.new(attributes)
-    a
-  end
-
   def attributes
     self
   end
