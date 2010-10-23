@@ -16,3 +16,12 @@ img.beta {
   left:280px;
   top:7px;
 }
+
+div.custom-alert {
+  font-size: 113% !important;
+  margin-bottom: 1em;
+}
+
+div.custom-alert a {
+  text-decoration: underline;
+}

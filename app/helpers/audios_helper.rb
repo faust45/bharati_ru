@@ -1,11 +1,16 @@
 module AudiosHelper
   include AudioBookmarksHelper
 
-  def pages(total)
-    per_page = 10
-    max = total / per_page 
-
-    (1..max)
+  def search_path
+    if params[:author_id] && params[:year]
+      audios_search_in_author_year_path(params[:author_id], params[:year])
+    elsif params[:author_id]
+      audios_search_in_author_path(params[:author_id])
+    elsif params[:album_id]
+      audios_search_in_album_path(params[:album_id])
+    else
+      audios_search_path
+    end
   end
 
   def year_folder
@@ -33,32 +38,6 @@ module AudiosHelper
 
   def is_selected_author?(author_item)
     @current_author == author_item
-  end
-
-  def current_path_item 
-    if @year
-      item = @year
-    elsif @album
-      item = @album.title
-    end
-
-    if item
-      content_tag(:div, item, :class => 'track')
-    end
-  end
-
-  def site_path_items
-    path = {:part => link_to('Аудио', audios_path)}
-
-    if @author
-      path[:author] = link_to(@author.display_name, author_audios_path(@author.id))
-    end
-
-    if @year || @album
-      path[:album] = true
-    end
-    
-    path
   end
 
   def track_img

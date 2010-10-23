@@ -1,0 +1,11 @@
+<div class="item">
+  <div class="name">
+    <a href="#">
+      <%= link_to h(item.title), show_audio_path(item.id) %>
+    </a>
+  </div>
+  <%= hit_tags(item) %>
+  <%= hit_bookmarks(item) %>
+  <p>Лекция от <%= d item.record_date %> года<br><%= item.author.display_name %></p>
+  <div class="date"><%= d item.created_at %></div>
+</div>

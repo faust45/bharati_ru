@@ -1,0 +1,11 @@
+<% render :partial => 'sidebar' %>
+
+<div class="block search">
+  <div class="title"><small>Всего найдено <%= @audios.total_rows %> лекции</small></div>
+  <div class="text">
+    <%= render :partial => 'item', :collection => @audios %>
+
+    <%= pages(@audios) %>
+  </div>
+  <div class="bottom"></div>
+</div>

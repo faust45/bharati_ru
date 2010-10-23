@@ -69,6 +69,12 @@ MahaMandala::Application.routes.draw do
   match 'audios/author/:author_id/year/:year' => 'audios#year', :as => 'author_year_audios'
   match 'audios/author/:author_id/year/:year/:id' => 'audios#year', :as => 'author_year_audio'
 
+
+  match 'audios/search' => 'search#audios', :as => 'audios_search'
+  match 'audios/album/:album_id/search' => 'search#audios', :as => 'audios_search_in_album'
+  match 'audios/author/:author_id/search' => 'search#audios', :as => 'audios_search_in_author'
+  match 'audios/author/:author_id/:year/search' => 'search#audios', :as => 'audios_search_in_author_year'
+
   resources :users do
   end
 
@@ -134,5 +140,5 @@ MahaMandala::Application.routes.draw do
   match 'autocomplete/tags', :to => 'admin/tags#autocomplete', :as => :autocomplete_tags
   match 'autocomplete/albums', :to => 'admin/albums#autocomplete', :as => :autocomplete_albums
 
-  match '/:any', :to => 'application#page_404'
+  match '/:any', :to => 'application#page_404', :constraints => { :any => /.*/ }
 end

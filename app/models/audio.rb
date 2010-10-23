@@ -11,8 +11,8 @@ class Audio < MediaContent
   after_create_source_attachment  :assign_meta_info
   after_replace_source_attachment :assign_meta_info, :if => :is_source_need_update_meta_info?
 
-  after_destroy :drop_from_albums
-  after_destroy :source_destroy
+  before_destroy :drop_from_albums
+  before_destroy :source_destroy
 
   
   class <<self
@@ -39,6 +39,33 @@ class Audio < MediaContent
     def count
       resp = view('audios_all', :reduce => true)
       resp['rows'][0]['value']
+    end
+
+    def search(q, params = {})
+      per_page = 10
+      options = {}
+      options[:include_docs] = true
+
+      page = (params[:page] || 1).to_i
+      options[:limit] = per_page
+      options[:skip] = (page - 1) * per_page
+
+      query = "(title:#{q} OR tags:#{q} OR bookmarks:#{q})"
+      if !params[:author_id].blank? && !params[:year].blank?
+        query = "author_id: #{params[:author_id]} AND year:#{params[:year]} AND " + query
+      elsif !params[:author_id].blank?
+        query = "author_id:#{params[:author_id]} AND " + query
+      elsif !params[:album_id].blank?
+        album = Album.get_doc!(params[:album_id])
+        tracks = album.tracks.join(' ')
+        query = "(#{tracks}) AND " + query
+      end
+
+      options[:q] = query
+      Rails.logger.debug('query inspect')
+      Rails.logger.debug(query)
+      resp = database.search(design_doc.id + '/audios', options)
+      Collection.new(resp)
     end
 
     def clean_up

@@ -28,13 +28,13 @@ class Author < BaseModel
     end
 
     def get_acharya
-      ACHARYA.map do |id|
+      @acharya ||= ACHARYA.map do |id|
         self.get_doc!(id)
       end
     end
 
     def get_authors
-      get_all - get_acharya
+      @authors ||= get_all - get_acharya
     end
 
     def get_by_name_or_create(display_name)
@@ -88,6 +88,14 @@ class Author < BaseModel
 
   def id_by_display_name
     self.class.id_by_name(self.display_name)
+  end
+
+  def to_link
+    display_name
+  end
+
+  def to_url_params
+    {:author_id => self.id}
   end
 
 end

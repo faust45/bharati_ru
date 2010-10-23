@@ -9,8 +9,9 @@ class ApplicationController < ActionController::Base
 
   if Rails.env.production?
     #rescue_from User::AccessDenied, :with => :page_404
-    rescue_from ActionView::MissingTemplate, :with => :page_404
-    rescue_from ActionView::Template::Error, :with => :page_404
+    rescue_from ActionView::MissingTemplate, ActionView::Template::Error,
+        RestClient::ResourceNotFound, Doc::NotFound,
+        :with => :page_404
   end
 
   free_actions :page_404

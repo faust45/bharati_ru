@@ -15,7 +15,7 @@
       <li><a href="#">Контакты</a></li>
     </ul>
 
-    <form method="post" action="">
+    <form method="put" action=<%= search_path %>>
       <div class="selector">
         <div class="top"></div>
         <div class="searchType">
@@ -29,7 +29,7 @@
         <div class="bottom"></div>
       </div>
       <fieldset>
-        <input type="text" class="field" />
+        <input type="text" name="q" class="field" />
         <input type="submit" value="OK" class="button" /><!-- кнопка скрыта, т.к. подобная форма поиска подразумевает отправку запроса по enter -->
 
       </fieldset>

@@ -1,7 +1,63 @@
 module ApplicationHelper
 
+  def hit_tags(item)
+    cont = h(item.tags)
+    unless cont.blank?
+      "<p>Теги:&nbsp;&nbsp;#{cont}</p>".html_safe
+    end
+  end
+
+  def hit_bookmarks(item)
+    cont = h(item.bookmarks.map{|a| a['name']}, 0)
+    unless cont.blank?
+      "<p>Закладки:&nbsp;&nbsp;#{cont}</p>".html_safe
+    end
+  end
+
+  def h(obj, max_out = 2)
+    obj = obj.highlight(params[:q])
+
+    if obj.is_a?(Array)
+      if i = obj.index{|item| item.is_highlight?}
+        left = i - max_out
+        right = i + max_out
+        obj[left..right].join(',&nbsp;').html_safe
+      end
+    else
+      obj.html_safe
+    end
+  end
+
+  def site_ppath
+    SitePath.new(params, self)
+  end
+
   def ico_beta
     image_tag('/images/beta.png', :class => 'beta')
+  end
+
+  def current_page
+    @page ||= (params[:page] || 1).to_i
+  end
+
+  def pages(total)
+    if total.respond_to?(:total_rows)
+      total = total.total_rows
+    end
+
+    range = range_pages(total).to_a
+    if range.size > 1
+      render(:partial => 'shared/pages', :locals => {:pages => range})
+    end
+  end
+
+  def range_pages(total)
+    per_page = 10
+    max = total / per_page 
+    ost = total % per_page 
+    max += 1 if ost >= 0
+
+    (1..max)
   end
 
   def author_main_photo(author)
@@ -57,25 +113,6 @@ module ApplicationHelper
     unless photo.blank?
       file_url(photo.thumbs['small'])
     end
-  end
-
-  def site_p
-    path = site_path_items
-    html = ''
-
-    if path[:part]
-      cont = path[:part]
-      cont << ' > ' if path[:author]
-      html << content_tag(:i, "> #{cont}".html_safe)
-    end
-
-    if path[:author]
-      cont = path[:author]
-      cont << ' > ' if  path[:album]
-      html << content_tag(:i, "#{cont}".html_safe)
-    end
-
-    html.html_safe
   end
 
   def content(&block)
