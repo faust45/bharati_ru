@@ -39,7 +39,7 @@ class Album < BaseModel
   end
 
   def get_tracks
-    view_docs('album_tracks', :startkey => [self.id], :endkey => [self.id, {}])
+    Audio.get_by_album(self.id)
   end
 
   def author
