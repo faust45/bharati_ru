@@ -25,3 +25,15 @@ div.custom-alert {
 div.custom-alert a {
   text-decoration: underline;
 }
+
+div.temp-info {
+  margin-bottom: 1em;
+}
+
+div.temp-info ul li {
+  list-style:none; 
+}
+
+div.temp-info a {
+  text-decoration: underline;
+}

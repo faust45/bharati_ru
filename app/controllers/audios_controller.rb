@@ -2,13 +2,9 @@ class AudiosController < ApplicationController
   free_actions :index, :search, :album, :author, :year, :show
 
   def index
-    @per_page = 10
-    @page = (params[:page] || 1).to_i
-
-    @audios  = Audio.get_all(:limit => 10, :skip => @page * @per_page)
+    @audios  = Audio.paginate(:get_all, :page => params[:page])
     @acharya = Author.get_acharya
     @authors = Author.get_authors
-    @total_pages = Audio.count
   end
 
   def album
@@ -25,14 +21,11 @@ class AudiosController < ApplicationController
   def author
     @acharya = Author.get_acharya
     @authors = Author.get_authors
-    @current_author = Author.get_doc!(params[:author_id])
-    @author = @current_author
-    @albums = @current_author.get_albums
-    @last_tracks = @author.get_tracks 
+    @author = Author.get_doc!(params[:author_id])
+    @albums = @author.get_albums
+    @last_tracks = @author.paginate(:get_tracks, :page => params[:page])
 
     @years = @author.get_years_with_tracks_count
-    
-    #@last = Audio.get_by_author(self.id)
   end
 
   def year
