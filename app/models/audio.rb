@@ -17,11 +17,14 @@ class Audio < MediaContent
   
   class <<self
     def get_all(options = {})
+      options[:descending] ||= true
       view_docs('audios_all', options)
     end
 
-    def get_by_author(author_id)
-      view_docs('audios_by_author', :key => author_id)
+    def get_by_author(author_id, options = {})
+      options[:key] = author_id
+      options[:descending] ||= true 
+      view_docs('audios_by_author', options)
     end
 
     def get_by_author_and_year(author_id, year)
@@ -34,6 +37,10 @@ class Audio < MediaContent
 
     def get_by_tag(tag)
       view_docs('audios_by_tag', :key => tag)
+    end
+
+    def get_by_album(album_id)
+      view_docs('album_tracks', :startkey => [album_id], :endkey => [album_id, {}])
     end
 
     def count
@@ -62,10 +69,8 @@ class Audio < MediaContent
       end
 
       options[:q] = query
-      Rails.logger.debug('query inspect')
-      Rails.logger.debug(query)
       resp = database.search(design_doc.id + '/audios', options)
-      Collection.new(resp)
+      Collection.new(resp, self)
     end
 
     def clean_up

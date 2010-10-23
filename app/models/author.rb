@@ -57,8 +57,8 @@ class Author < BaseModel
     Album.get_by_author(self.id)
   end
 
-  def get_tracks 
-    Audio.get_by_author(self.id)
+  def get_tracks(options = {})
+    Audio.get_by_author(self.id, options)
   end
 
   def get_tracks_by_year(year)
