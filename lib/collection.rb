@@ -26,7 +26,7 @@ class Collection
       end
     end
 
-    @total_rows
+    @total_rows || 0
   end
 
   def inspect
