@@ -37,7 +37,7 @@ module AudiosHelper
   end
 
   def is_selected_author?(author_item)
-    @current_author == author_item
+    @author == author_item
   end
 
   def track_img
