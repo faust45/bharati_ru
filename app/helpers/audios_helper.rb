@@ -2,12 +2,12 @@ module AudiosHelper
   include AudioBookmarksHelper
 
   def search_path
-    if params[:author_id]
+    if params[:author_id] && params[:year]
+      audios_search_in_author_year_path(params[:author_id], params[:year])
+    elsif params[:author_id]
       audios_search_in_author_path(params[:author_id])
     elsif params[:album_id]
       audios_search_in_album_path(params[:album_id])
-    elsif params[:year]
-      audios_search_in_author_year_path(params[:author], params[:year])
     end
   end
 

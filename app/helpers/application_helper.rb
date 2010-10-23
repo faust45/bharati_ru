@@ -1,5 +1,33 @@
 module ApplicationHelper
 
+  def hit_tags(item)
+    cont = h(item.tags)
+    unless cont.blank?
+      "<p>Теги:&nbsp;&nbsp;#{cont}</p>".html_safe
+    end
+  end
+
+  def hit_bookmarks(item)
+    cont = h(item.bookmarks.map{|a| a['name']}, 0)
+    unless cont.blank?
+      "<p>Закладки:&nbsp;&nbsp;#{cont}</p>".html_safe
+    end
+  end
+
+  def h(obj, max_out = 2)
+    obj = obj.highlight(params[:q])
+
+    if obj.is_a?(Array)
+      if i = obj.index{|item| item.is_highlight?}
+        left = i - max_out
+        right = i + max_out
+        obj[left..right].join(',&nbsp;').html_safe
+      end
+    else
+      obj.html_safe
+    end
+  end
+
   def site_ppath
     SitePath.new(params, self)
   end

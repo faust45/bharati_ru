@@ -5,7 +5,7 @@ function(doc) {
      ret.add(doc.title, {field: "title", "boost": 10.0});
 
      if(doc.tags) {
-       ret.add(doc.tags.join(','), {field: "tags", "boost": 7.0});
+       ret.add(doc.tags.join(','), {field: "tags", "boost": 5.0});
      }
 
      if (doc.bookmarks) {
@@ -14,7 +14,7 @@ function(doc) {
          cont.push(doc.bookmarks[i].name)
        }
        
-       ret.add(cont.join(','), {field: "bookmarks", "boost": 5.0});
+       ret.add(cont.join(','), {field: "bookmarks", "boost": 7.0});
      }
 
      if (doc.description) {

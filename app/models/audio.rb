@@ -51,14 +51,14 @@ class Audio < MediaContent
       options[:skip] = (page - 1) * per_page
 
       query = "(title:#{q} OR tags:#{q} OR bookmarks:#{q})"
-      if !params[:author_id].blank?
+      if !params[:author_id].blank? && !params[:year].blank?
+        query = "author_id: #{params[:author_id]} AND year:#{params[:year]} AND " + query
+      elsif !params[:author_id].blank?
         query = "author_id:#{params[:author_id]} AND " + query
       elsif !params[:album_id].blank?
         album = Album.get_doc!(params[:album_id])
         tracks = album.tracks.join(' ')
         query = "(#{tracks}) AND " + query
-      elsif !params[:year].blank?
-        query = "year:#{params[:year]} AND " + query
       end
 
       options[:q] = query

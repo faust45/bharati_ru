@@ -1,0 +1,15 @@
+<div id="content">
+
+  <div class="block search">
+    <div class="title"><small>Результаты поиска</small></div>
+    <div class="text">
+      <%= render :partial => 'search_item', :collection => @audios %>
+
+      <div class="pagenav">
+        <span>1</span> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a class="next" href="#">Следующая</a> <a href="#">&gt;&gt;</a>
+      </div>
+    </div>
+    <div class="bottom"></div>
+  </div>
+
+</div>

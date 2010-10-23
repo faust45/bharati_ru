@@ -10,9 +10,7 @@ class SitePath
   end
 
   def to_s
-    content_tag(:div, :class => 'logo inner') do
-      (main_path > audios_path > author_path > album_path > year_path).to_s
-    end
+    (main_path > audios_path > author_path > album_path > year_path > search_path).to_s
   end
 
 
@@ -40,13 +38,19 @@ class SitePath
 
     def album_path
       if params[:album_id]
-        "<div class='track'>#{album.title}</div>".html_safe
+        "#{album.title}".html_safe
       end
     end
 
     def year_path
       if params[:year]
-        "<div class='track'>#{params[:year]}</div>".html_safe
+        "#{params[:year]}".html_safe
+      end
+    end
+
+    def search_path
+      if params[:q]
+        RawItem.new "поиск по слову “#{params[:q]}”".html_safe
       end
     end
 
@@ -64,19 +68,51 @@ class SitePath
 
   class Path
     def initialize(path)
-      @path = path
+      @path_items = []
+      @path_items << path
     end
 
     def >(path)
       if path
-        @path << "<strong><i>&gt;</i></strong>".html_safe + path
+        @path_items << path
       end
 
       self
     end
 
+    def pointer 
+      "<strong><i>&gt;</i></strong>".html_safe
+    end
+
     def to_s
-      @path.html_safe
+      first_line = @path_items[0..2]
+      second_line = @path_items.from(3)
+
+      first_line.map! {|el|
+        if el.is_a?(RawItem)
+          "<i>#{el.to_s}</i>"
+        else
+          el
+        end
+      }
+      html = first_line.join(pointer)
+
+      if second_line.any?
+        html << pointer
+      end
+
+      cont = "<div class='logo inner'>#{html}</div>".html_safe
+      if second_line.any?
+        cont << "<div class='track'>#{second_line.join("&nbsp;#{pointer}&nbsp;")}</div>".html_safe
+      end
+
+      cont
+    end
+  end
+
+  class RawItem < Struct.new(:cont)
+    def to_s
+      cont
     end
   end
 

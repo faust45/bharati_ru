@@ -1,0 +1,10 @@
+<div class="pagenav">
+  <% pages.each do |i| %>
+    <% if i == current_page %>
+      <span><%= i %></span>
+    <% else %>
+      <%= link_to i.to_s, url_for(params.merge(:page => i)) %>
+    <% end %>
+  <% end %>
+  <a class="next" href=<%= url_for(params.merge(:page => current_page + 1)) %>>Следующая &gt;&gt;</a>
+</div>

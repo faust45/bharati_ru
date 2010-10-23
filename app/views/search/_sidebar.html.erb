@@ -1,0 +1,26 @@
+<% sidebar do %>
+<div class="block searchOptions">
+  <div class="title">Настройки поиска</div>
+  <div class="text">
+    <div class="item">
+      <p>Где искать:</p>
+      <ul>
+        <% if %>
+          <li><span><%= search_in_current %></span></li>
+        <% end %>
+        <li><%= search_in_audios %></li>
+      </ul>
+    </div>
+    <div class="item">
+      <p>Искать по автору:</p>
+      <ul>
+        <li><%= search_in_all_authors %></li>
+        <% @authors.each do |a| %>
+          <li><%= search_in_author a %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom"></div>
+</div>
+<% end %>
