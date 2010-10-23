@@ -8,6 +8,8 @@ module AudiosHelper
       audios_search_in_author_path(params[:author_id])
     elsif params[:album_id]
       audios_search_in_album_path(params[:album_id])
+    else
+      audios_search_path
     end
   end
 
