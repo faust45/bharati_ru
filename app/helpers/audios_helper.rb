@@ -104,6 +104,8 @@ module AudiosHelper
       :title => @current_track.title,
       :file  => file_url(@current_track.source),
       :duration => @current_track.duration,
+      :addBookmarkButton => false,
+      :addToFavoriteButton => false
     }
 
     options.map do |key, value|

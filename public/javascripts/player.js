@@ -5,31 +5,42 @@ var isIE  = (navigator.appVersion.indexOf("MSIE") != -1) ? true : false;
 var isWin = (navigator.appVersion.toLowerCase().indexOf("win") != -1) ? true : false;
 var isOpera = (navigator.userAgent.indexOf("Opera") != -1) ? true : false;
 
+/*
+js interface
+
+playerStop() playerPlay()
+addBookmark() //callback
+getCurrentTime()
+addToFavorite() //callback
+goToTime(ms_sec) - вызывает переход плеера на нуюную секунду
+ 
+
+было бы здорово в flashvars возможность перадать необязательные флаги отображать кнопку или нет:
+addBookmarkButton = true/false
+addToFavoriteButton
+repeatButton
+addToFavoriteButtonActive = true //тогда кнопка активна при старте
+*/
+
 
 //--------------------------------------------------------------
 
 Player = {
-  addNewUserBookmark: function(time) {
-    try {
-      this.player().addNewUserBookmark(time);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-
   addBookmark: function() {
     $.log('addBookmark');
+    $.log(this.getCurrentTime());
   },
 
   addToFavorite: function() {
     $.log('addToFavorite');
   },
 
-  getCurrentSec: function() {
+  getCurrentTime: function() {
+    return this.player().getCurrentTime();
   },
 
-  gotoTime: function(time) {
-    this.player().playerGoTo(time);
+  goToTime: function(time) {
+    this.player().goToTime(time);
   },
 
   player: function() {

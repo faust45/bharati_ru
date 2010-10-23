@@ -9,7 +9,7 @@ function BookmarkBehavior(li, config) {
   var time = link.attr('data-time');
 
   li.click(function() {
-    Player.gotoTime(time);
+    Player.goToTime(time);
     return false;
   });
 };
