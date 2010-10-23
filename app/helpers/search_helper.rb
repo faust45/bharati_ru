@@ -24,7 +24,7 @@ module SearchHelper
     if is_scoped_by_author(nil)
       content_tag(:span, 'по всем автарам')
     else
-      link_to 'по всем автарам', audios_search_path(:q => params[:q])
+      link_to 'по всем авторам', audios_search_path(:q => params[:q])
     end
   end
 
