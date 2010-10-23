@@ -37,11 +37,15 @@ class BaseModel < CouchRest::Model::Base
       Collection.new(resp, self, {:view => name, :view_options => options})
     end
 
-    def paginate(method, params = {})
+    def get_paginate_options(options = {})
       per_page = 10
-      page = (params[:page] || 1).to_i
+      page = (options[:page] || 0).to_i
 
-      self.send(method, :skip => per_page * page, :limit => per_page)
+      {:skip => per_page * page, :limit => per_page}
+    end
+
+    def paginate(method, params = {})
+      self.send(method, get_paginate_options(params))
     end
 
     def get_doc(id)
@@ -100,10 +104,7 @@ class BaseModel < CouchRest::Model::Base
   end
 
   def paginate(method, params = {})
-    per_page = 10
-    page = (params[:page] || 1).to_i
-
-    self.send(method, :skip => per_page * page, :limit => per_page)
+    self.send(method, self.class.get_paginate_options(params))
   end
 
   def make_copy 

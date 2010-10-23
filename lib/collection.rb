@@ -30,7 +30,7 @@ class Collection
   end
 
   def inspect
-    "#{self.class} #{collection.inspect}"
+    "#{self.class} #{collection.inspect}   view: #{@view_name} options: #{@view_options.inspect}"
   end
 
 end
