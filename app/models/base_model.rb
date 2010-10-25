@@ -27,8 +27,11 @@ class BaseModel < CouchRest::Model::Base
         end
       end
 
-      name = "global/#{name}"
-      database.view(name, options)
+      path = "global/#{name}"
+
+      ActiveSupport::Notifications.instrument("query.couchdb", :query => options.merge(:view => name)) do
+        database.view(path, options)
+      end
     end
     
     def view_docs(name, options = {})
