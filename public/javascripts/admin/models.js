@@ -10,7 +10,7 @@ Model.Album = {
   },
 
   tracks: function(albumID, fun) {
-    var options = {startkey: [albumID], endkey: [albumID, {}], 'descending': true};
+    var options = {'startkey': [albumID], 'endkey': [albumID, {}]};
     db.viewDocs(this.viewTracks, options, fun);
   },
 
