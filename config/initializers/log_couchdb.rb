@@ -30,18 +30,29 @@ module CouchDbInstrumentation
 
     protected
 
-    def append_info_to_payload(payload)
-      super
-      payload[:couchdb_runtime] = CouchDbInstrumentation::LogSubscriber.runtime
-    end
-
-    module ClassMethods
-      def log_process_action(payload)
-        messages, couchdb_runtime = super, payload[:couchdb_runtime]
-        messages << ("CouchDb: %.1fms" % couchdb_runtime.to_f) if couchdb_runtime
-        messages
+      def cleanup_view_runtime
+        #if use couchdb
+          db_rt_before_render = CouchDbInstrumentation::LogSubscriber.reset_runtime
+          runtime = super
+          db_rt_after_render = CouchDbInstrumentation::LogSubscriber.reset_runtime
+          CouchDbInstrumentation::LogSubscriber.runtime = db_rt_before_render + db_rt_after_render
+          runtime - db_rt_after_render
+        #end
       end
-    end
+      
+
+      def append_info_to_payload(payload)
+        super
+        payload[:couchdb_runtime] = CouchDbInstrumentation::LogSubscriber.runtime
+      end
+
+      module ClassMethods
+        def log_process_action(payload)
+          messages, couchdb_runtime = super, payload[:couchdb_runtime]
+          messages << ("CouchDb: %.1fms" % couchdb_runtime.to_f) if couchdb_runtime
+          messages
+        end
+      end
   end
 end
 
