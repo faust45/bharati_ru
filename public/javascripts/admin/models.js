@@ -1,5 +1,9 @@
 Model = {};
 
+Model.SbAlbum = {
+  viewAll: 'sb_albums_all'
+}
+
 Model.Album = {
   viewAll: 'albums_by_author',
   viewTracks: 'album_tracks',
@@ -101,9 +105,11 @@ db = {
   },
 
   view: function(viewName, options, fun) {
+    options = options || {};
     options.reduce = options.reduce || false;
 
-    $.getJSON(this.uri() + this.ddocID + '_view/' + viewName + encodeOptions(options) + '&callback=?', function(data) {
+    var path = this.uri() + this.ddocID + '_view/' + viewName;
+    $.getJSON(path + encodeOptions(options) + '&callback=?', function(data) {
       data.trim = trim;
       data.getIDs = getIDs;
       fun(data);

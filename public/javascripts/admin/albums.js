@@ -30,8 +30,14 @@ View.Album = {
 
     db.all(Model.Album, {}, function(data) {
       self.cont.mustache(template, data);
-      self.bindEvents();
+
+      db.all(Model.SbAlbum, {}, function(data) {
+        var template = "<li class='sb-book' data-id='{{_id}}'><a>Книга {{book_num}}. {{#trim}}{{title}}{{/trim}}</a> <b></b></li>";
+        self.cont.mustache(template, data, 'prepend');
+        self.bindEvents();
+      });
     });
+
   },
 
   bindEvents: function() {

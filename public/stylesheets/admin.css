@@ -16,3 +16,7 @@
 #authors_nav li.current a {
   color: #1CADB0; 
 }
+
+
+.list.dir ul li.sb-book a{background:#F8F8F8 url(../images/sb_book_dir.png) no-repeat 1px -1px;}
+.list.dir ul li.current a{background:#F8F8F8 url(../images/open_dir1.png) no-repeat 1px -1px;}
