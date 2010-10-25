@@ -101,7 +101,7 @@ module AudiosHelper
   #  track_duration (required)
   def js_track_params
     options = {
-      :title => @current_track.title,
+      :title => escape(@current_track.title),
       :file  => file_url(@current_track.source),
       :duration => @current_track.duration,
       :addBookmarkButton => false,
