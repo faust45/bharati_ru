@@ -27,13 +27,19 @@ class Album < BaseModel
       view_docs('albums_by_track', :key => track_id)
     end
 
-    def get_by_title_or_create(title)
-      album = view_docs('albums_by_title', :key => title)
+    def get_by_title(title)
+       albums = view_docs('albums_by_title', :key => title)
+       albums.first
+    end
 
-      unless album.blank?
-        album.first
+    def get_by_title_or_create(title)
+      klass = SbAlbum::TITLE =~ title ? SbAlbum : Album
+
+      album = klass.get_by_title(title)
+      if album.blank?
+        klass.create(:title => title)
       else
-        create(:title => title)
+        album
       end
     end
   end
