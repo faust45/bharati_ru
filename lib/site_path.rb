@@ -44,7 +44,7 @@ class SitePath
 
     def year_path
       if params[:year]
-        "#{params[:year]}".html_safe
+        "#{params[:year]} год".html_safe
       end
     end
 
