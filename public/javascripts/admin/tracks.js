@@ -152,6 +152,10 @@ Paginator = function(ol, total, funNewPage) {
   var template = '<li> <a data-num={{.}} href="#">{{.}}</a></li>';
   var pagesMax = total / perPage;
 
+  if (0 < total % perPage) {
+    pagesMax = pagesMax + 1; 
+  }
+
   ol.mustache(template, range(1, pagesMax), 'append');
   ol.find('a').each(function() {
     var a  = $(this);
