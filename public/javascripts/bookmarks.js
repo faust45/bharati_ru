@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('div.bookmarks li').behavior(BookmarkBehavior);
+  $('div.bookmarks li[class=bookmark]').behavior(BookmarkBehavior);
 });
 
 

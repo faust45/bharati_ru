@@ -1,13 +1,13 @@
 <div class="bookmarks">
   <ul>
     <% @current_track.bookmarks.each do |b| %>
-      <li>
-        <% unless b.time.blank? %>
+      <% unless b.time.blank? %>
+        <li class="bookmark">
           <%= link_to "#{b.str_time}&nbsp;&nbsp;#{b.name}".html_safe, '#', 'data-time' => b.time %>
-        <% else %>
-          <%= b.name %>
-        <% end %>
-      </li>
+        </li>
+      <% else %>
+        <li class="bookmark-text-only"> <%= b.name %> </li>
+      <% end %>
     <% end %>
   </ul>
 </div>

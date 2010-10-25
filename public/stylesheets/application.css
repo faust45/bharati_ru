@@ -37,3 +37,7 @@ div.temp-info ul li {
 div.temp-info a {
   text-decoration: underline;
 }
+
+li.bookmark-text-only {
+  color: white;
+}
