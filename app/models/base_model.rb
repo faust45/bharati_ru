@@ -42,9 +42,9 @@ class BaseModel < CouchRest::Model::Base
 
     def get_paginate_options(options = {})
       per_page = 10
-      page = (options[:page] || 0).to_i
+      page = (options[:page] || 1).to_i
 
-      {:skip => per_page * page, :limit => per_page}
+      {:skip => per_page * (page - 1), :limit => per_page}
     end
 
     def paginate(method, params = {})
