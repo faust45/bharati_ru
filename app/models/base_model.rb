@@ -78,7 +78,7 @@ class BaseModel < CouchRest::Model::Base
     def use_rand_id
       before_save do
         if new?
-          self[:_id] = (rand(99999999) + 1).to_s
+          self[:_id] ||= (rand(99999999) + 1).to_s
         end
       end
     end

@@ -62,6 +62,12 @@ MahaMandala::Application.routes.draw do
   match 'users/change_css_style/:css_style' => 'users#change_css_style', :as => 'user_change_css_style'
 
   match 'audios' => 'audios#index', :as => 'audios'
+
+  match 'audios/album/Bhagavatam' => 'audios#bhagavatam', :as => 'audios_bhagavatam'
+  match 'audios/album/SbBook:num' => 'audios#bhagavatam', :as => 'audios_bhagavatam'
+  match 'audios/album/Bhagavatam/book/:book_num' => 'audios#bhagavatam', :as => 'audios_bhagavatam'
+  match 'audios/album/Bhagavatam/book/:book_num/:id_track' => 'audios#bhagavatam', :as => 'audios_bhagavatam'
+
   match 'audios/album/:album_id/' => 'audios#album', :as => 'album'
   match 'audios/album/:album_id/track/:id' => 'audios#album', :as => 'album_track'
   match 'audios/author/:author_id' => 'audios#author', :as => 'author_audios'

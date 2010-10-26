@@ -1,5 +1,5 @@
 class AudiosController < ApplicationController
-  free_actions :index, :search, :album, :author, :year, :show
+  free_actions :index, :search, :album, :author, :year, :show, :bhagavatam
 
   def index
     @audios  = Audio.paginate(:get_all, :page => params[:page])
@@ -40,6 +40,23 @@ class AudiosController < ApplicationController
         @current_track = @tracks.first
       end
     end
+
+    render :album
+  end
+
+  def bhagavatam
+    @books = SbAlbum.get_all
+
+    unless params[:num].blank?
+      @album = @books.find{|b| b.book_num == params[:num]}
+    end
+
+    unless @album
+      @album = @books.first
+    end
+
+    @tracks = @album.get_tracks
+    @current_track = @tracks.first
 
     render :album
   end

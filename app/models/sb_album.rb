@@ -1,25 +1,15 @@
-class SbAlbum < BaseModel
+class SbAlbum < AlbumBase
   use_as_id :gen_id
 
   TITLE = /^Шримад Бхагаватам.*?Книга/
 
-  property :title
-  property :description
-  property :author_id
-  property :is_hand_sort, :default => false 
-  property :tracks, [], :default => []
   property :book_num 
-
-  timestamps!
-
-  has_photo_attachment :cover, :thumb => {:size => 'x77'}
 
   before_create :assign_book_num
   before_create :cleanup_title
 
 
   class<< self 
-
     def get_all
       view_docs('sb_albums_all')
     end
@@ -50,6 +40,10 @@ class SbAlbum < BaseModel
 
   def gen_id
     self.class.gen_id(title)
+  end
+
+  def to_param
+    'Bhagavatam'
   end
 
   private

@@ -35,7 +35,8 @@ module AudiosHelper
     if @year
       author_year_audio_path(@author.id, @year, track.id)
     else
-      album_track_path(@album.id, track.id)
+      rrr
+      album_track_path(@album, track.id)
     end
   end
 
