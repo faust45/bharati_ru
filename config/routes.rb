@@ -61,6 +61,10 @@ MahaMandala::Application.routes.draw do
   match 'users/logout' => 'users#logout', :as => 'logout'
   match 'users/change_css_style/:css_style' => 'users#change_css_style', :as => 'user_change_css_style'
 
+  match 'publications' => 'publications#index', :as => 'publications'
+  match 'publications/author/:author_id' => 'publications#author', :as => 'author_publications'
+  match 'publications/:id' => 'publications#show', :as => 'show_publication'
+
   match 'audios' => 'audios#index', :as => 'audios'
 
   match 'audios/album/Bhagavatam' => 'audios#bhagavatam', :as => 'audios_bhagavatam'

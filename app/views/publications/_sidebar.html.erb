@@ -1,0 +1,25 @@
+<% sidebar do %>
+  <div class="block book">
+    <div class="title">Книга</div>
+    <div class="text">
+      <a href="#"><img width="91" height="119" alt="" src="pics/photo.png"></a>
+      <table>
+        <tbody><tr>
+            <th>Автор</th>
+            <td><a href="#">Шридхар Махарадж</a></td>
+          </tr>
+          <tr>
+            <th>Перевод</th>
+            <td><a href="#">Бхарати Махарадж</a></td>
+          </tr>
+          <tr>
+            <th><img alt="" src="images/tags.png"></th>
+            <td><a href="#">совесть</a>, <a href="#">эго</a>, <a href="#">препятствия</a>, <a href="#">помощь</a>, <a href="#">вера</a></td>
+          </tr>
+      </tbody></table>
+      <p><%= @publication.description %></p>
+      <div class="download">Скачать эту книгу:<br><a href="#"><img alt="" src="images/pdf.png"></a><a href="#"><img alt="" src="images/doc.png"></a></div>
+    </div>
+    <div class="bottom"></div>
+  </div>
+<% end %>

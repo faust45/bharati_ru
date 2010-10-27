@@ -1,0 +1,11 @@
+<div class="item">
+  <a href="#"><img width="91" height="119" alt="" src="pics/photo.png"></a>
+  <div class="name"><%= link_to "“#{last_item.title}”", show_publication_path(last_item) %></div>
+  <div class="about">
+    <span>Тип:</span> книга<br>
+    <span>Автор:</span> Б.Р. Шридхар Махарадж<br>
+    <span>Перевод:</span>  Б.Ч Бхарати Махарадж
+  </div>
+  <p><%= last_item.description.truncate(100) %></p>
+  <div class="date"><%= d last_item.created_at %></div>
+</div>

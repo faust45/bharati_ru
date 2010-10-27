@@ -53,6 +53,10 @@ class Author < BaseModel
   end
 
 
+  def get_publications(options = {})
+    Publication.get_by_author_or_translator(self.id, options)
+  end
+
   def get_albums
     Album.get_by_author(self.id)
   end
