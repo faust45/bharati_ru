@@ -20,7 +20,8 @@ class SbAlbum < AlbumBase
     end
 
     def gen_id(title)
-      title.match(/^Шримад Бхагаватам. Книга\s*(\d+)/)
+      m = title.match(/^Шримад Бхагаватам. Книга\s*(\d+\.\d+)/)
+      title.match(/^Шримад Бхагаватам. Книга\s*(\d+)/) unless m
       "SbBook#{$1}"
     end
 
