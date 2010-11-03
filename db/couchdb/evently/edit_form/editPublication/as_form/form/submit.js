@@ -8,7 +8,7 @@ function(args) {
     data[attr] = this.ctl.getData(); 
   });
 
-  var doc = $.extend(false,  EditDocForm.currentDoc, data);
+  var doc = $.extend(false, EditDocForm.currentDoc, data);
   $$(this).app.db.saveDoc(doc, {
     success: function(resp) {
       self.trigger('formSaved');

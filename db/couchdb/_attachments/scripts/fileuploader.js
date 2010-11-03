@@ -1184,11 +1184,15 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         var action = params.action || this._options.action;
         //var queryString = qq.obj2url(params);
 
-        xhr.open("PUT", action, true);
-        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        xhr.setRequestHeader("X-File-Name", encodeURIComponent(name));
-        xhr.setRequestHeader("Content-Type", Mime.type(name));
-        xhr.send(file);
+        this._options.action.url(name, function(url) {
+          xhr.open("PUT", url, true);
+
+          xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+          xhr.setRequestHeader("X-File-Name", encodeURIComponent(name));
+          xhr.setRequestHeader("Content-Type", Mime.type(name));
+
+          xhr.send(file);
+        });
     },
     _onComplete: function(id, xhr){
         // the request was aborted/cancelled

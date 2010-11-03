@@ -29,3 +29,7 @@ function typeOf(obj) {
     return typeof(obj);
   }
 }
+
+function getRand() {
+  return parseInt(Math.random(10000) * 10000);
+}

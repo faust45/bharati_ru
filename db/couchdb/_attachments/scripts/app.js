@@ -17,26 +17,44 @@ EditDocForm = {
 }
 
 ImgUpdater = function(doc, attr) {
-  function updateOwner(resp) {
-    $.log('update owner');
+  var imgId; 
+  if(!isBlank(doc[attr])) {
+    imgId = doc[attr][0]; 
+  }
 
-    if(isBlank(doc[attr])) {
+  function updateOwner(resp, cb) {
+    if(!imgId) {
       doc[attr] = [resp.id];
-      DocsStore.saveDoc(doc, function() {
-        $.log(doc[attr]);
+      DocsStore.saveDoc(doc, {
+        success: function(newDoc) {
+          cb(doc);
+        }
       });
+    } else {
+      cb(doc);
     }
-    //DocsStore.saveDoc(doc);
   }
 
   return {
-    url: function(fileName) {
-      var id = isBlank(doc.cover_attachments) ? $.couch.newUUID() : doc.cover_attachments[0];
-      return FileStore.uri + id + '/' + changeFileName(fileName, 'img');
+    url: function(fileName, cb) {
+      var id = !imgId ? $.couch.newUUID() : imgId;
+      var p = FileStore.uri + id + '/' + 'img' + '?';
+
+      if (imgId) {
+        FileStore.openDoc(imgId, {
+          success: function(imgDoc) {
+            cb(p + qq.obj2url({rev: imgDoc._rev}));
+          }
+        });
+      } else {
+        cb(p);
+      }
+
+      return p;
     },
 
-    uploadComplete: function(resp) {
-      updateOwner(resp);
+    uploadComplete: function(resp, cb) {
+      updateOwner(resp, cb);
     }
   }
 }
