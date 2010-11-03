@@ -24,6 +24,10 @@ class Publication < Content
     end
   end
 
+  def cover_attachments
+    self['cover_attachments']
+  end
+
   def created_at
     self.when_uploaded
   end
