@@ -1,0 +1,77 @@
+/*--------------------   ||| author: TecHMeaT ||| email: techmeat@ya.ru ||| icq: 70-20-770 |||   ---------------------*/
+
+html, body, div, span, object, iframe, a, address, em, font, img, strong, b, u, i{margin:0; padding:0; border:0; outline:0; vertical-align:baseline; background:transparent;}
+body{margin:10px 15px; color:#544D46; text-align:center; font:14px/1.2 Arial, Geneva, sans-serif; background:#EEE;}
+a{color:#0A5D94; text-decoration:none;}
+a:hover{color:#70B8F8;}
+
+/* ====================================
+===== STRUCTURE ======================= */
+
+.wrap{position:relative; width:auto; max-width:1400px; margin:0 auto; padding:10px 0; text-align:left; background:#FFF;
+	box-shadow:0 0 15px #000;
+	-webkit-box-shadow:0 0 15px #000;
+	-moz-box-shadow:0 0 15px #000;
+}
+
+#sidebar{position:absolute; left:0; width:300px; border-right:1px solid #666;}
+.big #sidebar{display:none;}
+	#sidebar ul{margin:0 20px; padding:0; list-style:none;}
+		#sidebar ul li{margin:5px 0;}
+			#sidebar ul a:hover{text-decoration:underline;}
+			#sidebar ul ul{margin:0 20px; padding:0 0 5px 0; list-style:none; font-size:16px;}
+				#sidebar ul ul a{color:#4667A3;}
+
+#content{position:relative; overflow:hidden; margin:0 0 0 300px; padding:0 20px 0 30px; border-left:1px solid #666; background:#FFF;}
+.big #content{margin:0; border:0;}
+	.hide{position:absolute; top:3px; left:3px; width:16px; height:16px; background:url(../images/hide.png) no-repeat 0 -16px; cursor:pointer;}
+	.big .hide{background-position:0 0;}
+
+.tabs{clear:both; height:35px; font-size:12px;}
+	.tabs ul{margin:0; padding:0;}
+		.tabs li{float:left; margin:0 10px 0 0; list-style:none;}
+			.tabs li a{display:block; width:70px; height:20px; padding:0 10px; line-height:20px; color:#2786C2; background:#F5F5F2;}
+			.tabs li a:hover{color:#EF5846; background:#F5F5F2;}
+			.tabs li.active a{color:#FFF; font-weight:900; background:#70B8F8;}
+
+.cnt{display:none;}
+.cnt.active{display:block;}
+
+.newTrack{height:30px; margin:0 0 50px 0;}
+
+.list{position:relative; overflow:hidden; margin:0 0 20px 0;}
+.subList{float:right; width:350px; height:330px; overflow:auto; margin:0 0 20px 30px;}
+	.list ul{margin:0; padding:0;}
+		.list ul li{position:relative; list-style:none; border-bottom:1px solid #CCC;}
+			.list ul li a{display:block; height:32px; line-height:32px; padding:0 0 0 45px; color:#3D6CA8; background:#F8F8F8 url(../images/mp31.png) no-repeat 4px 2px; cursor:pointer;}
+			.list ul li a:hover{color:#EF5846;}
+			.list ul li.current a{background-color:#51DEE8;}
+			.list ul li b{display:none; position:absolute; top:0; right:0; width:32px; height:32px; background:#FCC url(../images/settings.png) no-repeat 0 0; cursor:pointer;}
+			.list ul li:hover b{display:block;}
+			.list.dir ul li a{background:#F8F8F8 url(../images/dir1.png) no-repeat 1px -1px;}
+			.list.dir ul li.current a{background:#F8F8F8 url(../images/open_dir1.png) no-repeat 1px -1px;}
+	.list ol{height:20px; margin:0; padding:10px 0;}
+		.list ol li{float:left; margin:0 5px 0 0; list-style:none;}
+			.list ol li a{display:block; padding:0 3px; color:#2786C2; background:#F8F8F8;}
+			.list ol li a.active{color:#FFF; font-weight:900; background:#70B8F8;}
+
+.form{min-height:200px;}
+	.form div{margin:0 0 10px 0;}
+		.form div select{margin:0 5px 0 0;}
+	.form ul{margin:0; padding:0;}
+	.form li{list-style:none;}
+	.form label{cursor:default;}
+	.form .response{padding-left:10px;}
+
+.photos{position:relative; overflow:hidden; width:500px;}
+	.photos a{float:left; margin:0 10px 10px 0;}
+		.photos img{vertical-align:bottom;}
+
+
+
+
+
+
+
+
+

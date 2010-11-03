@@ -1,0 +1,22 @@
+.list ul li b{
+  background:url(../images/settings.png) no-repeat 0 0; cursor:pointer !important;
+}
+
+.button {
+  cursor: pointer;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  border: none;
+}
+
+#upload_tracks_list {
+  padding-top: 4em !important;
+}
+
+#authors_nav li.current a {
+  color: #1CADB0; 
+}
+
+
+.list.dir ul li.sb-book a{background:#F8F8F8 url(../images/sb_book_dir.png) no-repeat 1px -1px;}
+.list.dir ul li.current a{background:#F8F8F8 url(../images/open_dir1.png) no-repeat 1px -1px;}
