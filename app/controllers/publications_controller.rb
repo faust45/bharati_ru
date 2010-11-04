@@ -1,5 +1,5 @@
 class PublicationsController < ApplicationController
-  free_actions :index, :show, :author
+  free_actions :index, :show, :author, :bhagavatam
 
   def index
     @acharya = Author.get_acharya_lib
