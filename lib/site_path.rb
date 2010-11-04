@@ -10,7 +10,7 @@ class SitePath
   end
 
   def to_s
-    (main_path > audios_path > author_path > album_path > year_path > search_path).to_s
+    (main_path > audios_path > publications_path > author_path > album_path > year_path > search_path).to_s
   end
 
 
@@ -21,8 +21,17 @@ class SitePath
     end
 
     def audios_path
-      name = content_tag(:i, 'Аудио')
-      link_to(name, helper.audios_path)
+      if params[:controller] == "audios"
+        name = content_tag(:i, 'Аудио')
+        link_to(name, helper.audios_path)
+      end
+    end
+
+    def publications_path
+      if params[:controller] == "publications"
+        name = content_tag(:i, 'Библиотека')
+        link_to(name, helper.publications_path)
+      end
     end
 
     def author_path
