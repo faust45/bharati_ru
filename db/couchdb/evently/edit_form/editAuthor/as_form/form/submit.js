@@ -8,7 +8,6 @@ function(args) {
     data[attr] = this.ctl.getData(); 
   });
 
-  $.log(data);
   var doc = $.extend(false, EditDocForm.currentDoc, data);
   $$(this).app.db.saveDoc(doc, {
     success: function(resp) {

@@ -18,16 +18,18 @@
       $(selector, root).evently(handlers, app, args);
 
       var input;
-      if(input = asCustomInput(selector)) {
-        h.as_form.fields.push(input);
-      }
+      $(selector).each(function() {
+        if(input = asCustomInput(this)) {
+          h.as_form.fields.push(input);
+        }
+      });
 
       $$(selector).formEdit = h.as_form;
     });
   };
 
-  function asCustomInput(selector) {
-    var el = $(selector)[0];
+  function asCustomInput(el) {
+    //var el = $(selector)[0];
     if (!el) { return }
 
     switch(el.tagName) {
@@ -65,6 +67,15 @@
 
 
 (function($) {
-  //$.evently.fn.before.form_object = function(h, cb, args) {
-  //};
+  $.evently.fn.after.path = function(h, rendered, args) {
+    var elem = this;
+    console.log('in path plugin');
+      //elem.bind(h.name, function() {$.log(elem, name)});
+    // todo make pathbinder plugin
+    // if (h.path) {
+      // elem.pathbinder(name, h.path);
+    // }
+
+
+  };
 })(jQuery);

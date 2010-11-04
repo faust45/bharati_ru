@@ -8,9 +8,8 @@ function(args) {
     data[attr] = this.ctl.getData(); 
   });
 
-  $.log(data);
-  var doc = $.extend(false, EditDocForm.currentDoc, data);
-  $$(this).app.db.saveDoc(doc, {
+  data['couchrest-type'] = 'Author';
+  $$(this).app.db.saveDoc(data, {
     success: function(resp) {
       self.trigger('formSaved');
     }

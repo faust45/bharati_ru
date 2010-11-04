@@ -1,3 +1,14 @@
+function range(first, last) {
+  var arr = [];
+
+  for(var i=first; i <= last; i=i+1) {
+    arr.push(i);
+  }
+
+  return arr;
+}
+
+
 function changeFileName(name, replaceWith) {
   return name.replace(/^.+(\.\w+)$/, function() {
     return replaceWith + RegExp.$1
