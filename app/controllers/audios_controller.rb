@@ -75,4 +75,10 @@ class AudiosController < ApplicationController
     redirect_to(path)
   end
 
+  def block_title 
+    'Лекции'
+  end
+  helper_method :block_title 
+
+
 end

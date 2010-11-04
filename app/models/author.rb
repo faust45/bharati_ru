@@ -1,6 +1,8 @@
 class Author < BaseModel
 
   ACHARYA = ['AcharyaMj', 'GovindaMj', 'SridharMj']
+  ACHARYA_LIB = ['SridharMj', 'SarasvatiThakur', 'BhaktivinodThakur']
+
   NAMES_IDS = {
     'Б.Н. Ачарья Махарадж'  => 'AcharyaMj',
     'Б.С. Говинда Махарадж' => 'GovindaMj',
@@ -18,7 +20,7 @@ class Author < BaseModel
 
   use_as_id :id_by_display_name
 
-  has_photo_attachment :main_photo, :thumb => {:size => 'x119'}
+  #has_photo_attachment :main_photo, :thumb => {:size => 'x119'}
   has_attachments :photos, BigPhotoStore
 
   
@@ -33,8 +35,14 @@ class Author < BaseModel
       end
     end
 
+    def get_acharya_lib
+      @acharya_lib ||= ACHARYA_LIB.map do |id|
+        self.get_doc!(id)
+      end
+    end
+
     def get_authors
-      @authors ||= get_all - get_acharya
+      @authors ||= get_all - get_acharya_lib
     end
 
     def get_by_name_or_create(display_name)
@@ -50,8 +58,22 @@ class Author < BaseModel
     def id_by_name(name)
       NAMES_IDS[name.to_couch_id]
     end
+
+    def display_name_by_id(author_id)
+      @cache_authors_names ||= Author.get_all.inject({}) do |h, doc|
+        h[doc.id] = doc.display_name
+        h
+      end
+
+      @cache_authors_names[author_id]
+    end
   end
 
+  def main_photo
+    if self['main_photo_attachments_tmp']
+      self['main_photo_attachments_tmp'][0]
+    end
+  end
 
   def get_publications(options = {})
     Publication.get_by_author_or_translator(self.id, options)
@@ -88,6 +110,14 @@ class Author < BaseModel
     end
 
     map
+  end
+
+  def get_books(options = {})
+    Publication.get_books_by_author(self.id, options)
+  end
+
+  def get_articles(options = {})
+    Publication.get_articles_by_author(self.id, options)
   end
 
   def id_by_display_name

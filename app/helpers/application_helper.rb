@@ -1,5 +1,27 @@
 module ApplicationHelper
 
+  def author_display_name(content)
+    Author.display_name_by_id(content.author_id)
+  end
+
+  def author_path(author)
+    author_publications_path(author)
+  end
+
+  def author_main_photo(author)
+    if author.main_photo
+      photo_thumb(author.main_photo, {:width => 88, :height => 119}, true)
+    else
+      ''
+    end
+  end
+
+  def photo_thumb(img_id, size, round = false)
+    p = "http://93.94.152.87:81/#{img_id}?size=#{size[:height]}x#{size[:width]}"
+    p << "&round=1" if round
+    image_tag(p)
+  end
+
   def hit_tags(item)
     cont = h(item.tags)
     unless cont.blank?
@@ -60,14 +82,7 @@ module ApplicationHelper
     (1..max)
   end
 
-  def author_main_photo(author)
-    if author.main_photo
-      image_tag(file_url(author.main_photo.thumbs['small']), :width => "88", :height => "119")
-    else
-      ''
-    end
-  end
-
+  
   def file_url(doc)
     db = FileStore.database.name
     "http://93.94.152.87/#{db}/#{doc['doc_id']}/#{doc['file_name']}"

@@ -1,10 +1,13 @@
 <div class="item">
-  <% if false %>
-    <a href="#"><img width="91" height="119" alt="" src="http://192.168.1.100:8000/<%= last_item.cover_attachments[0] %>"></a>
+  <% if last_item.cover %>
+    <%= link_to cover_thumb(last_item), show_publication_path(last_item) %></a>
   <% end %>
   <div class="name"><%= link_to "“#{last_item.title}”", show_publication_path(last_item) %></div>
   <div class="about">
-    <span>Тип:</span> книга<br>
+    <span>Тип:</span> <%= publication_type(last_item) %><br>
+    <span>Автор:</span> <%= author_display_name(last_item) %> <br>
+  </div>
+  <div class="about">
   </div>
   <p><%= last_item.description.truncate(100) %></p>
   <div class="date"><%= d last_item.created_at %></div>

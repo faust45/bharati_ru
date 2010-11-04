@@ -42,7 +42,7 @@ class Audio < MediaContent
     def get_by_album(album_id)
       view_docs('album_tracks', :startkey => [album_id], :endkey => [album_id, {}])
     end
-
+    
     def count
       resp = view('audios_all', :reduce => true)
       resp['rows'][0]['value']

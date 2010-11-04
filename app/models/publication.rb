@@ -22,10 +22,26 @@ class Publication < Content
       options[:key] = id
       view_docs('publications_by_author_or_translator', options)
     end
+
+    def get_articles_by_author(author_id, options)
+      options[:key] = author_id
+      view_docs('articles_by_author', options)
+    end
+
+    def get_books_by_author(author_id, options)
+      options[:key] = author_id
+      view_docs('books_by_author', options)
+    end
+
+    def get_all_bhagavatam(options = {})
+      view_docs('publication_bhagavatam', options)
+    end
   end
 
-  def cover_attachments
-    self['cover_attachments']
+  def cover
+    if self['cover_attachments']
+      self['cover_attachments'][0]
+    end
   end
 
   def created_at

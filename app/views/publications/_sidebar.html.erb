@@ -2,14 +2,11 @@
   <div class="block book">
     <div class="title">Книга</div>
     <div class="text">
+      <a href="#"><%= photo_thumb(@publication.cover, {:height => 119, :width => 91}, true) %></a>
       <table>
         <tbody><tr>
             <th>Автор</th>
-            <td><a href="#">Шридхар Махарадж</a></td>
-          </tr>
-          <tr>
-            <th>Перевод</th>
-            <td><a href="#">Бхарати Махарадж</a></td>
+            <td><a href="#"><%= author_display_name(@publication) %></a></td>
           </tr>
           <tr>
             <th><img alt="" src="/images/tags.png"></th>

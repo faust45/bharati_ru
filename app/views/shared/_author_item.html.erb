@@ -7,9 +7,9 @@
   </li>
 <% else %>
   <li>
-    <% if author_item.main_photo.thumbs %>
+    <% if author_item.main_photo %>
       <%= link_to(author_main_photo(author_item) + "<span>#{author_item.display_name}</span>".html_safe,
-        author_audios_path(author_item))
+        author_path(author_item))
       %>
     <% end %>
   </li>

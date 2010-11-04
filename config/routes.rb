@@ -62,6 +62,7 @@ MahaMandala::Application.routes.draw do
   match 'users/change_css_style/:css_style' => 'users#change_css_style', :as => 'user_change_css_style'
 
   match 'publications' => 'publications#index', :as => 'publications'
+  match 'publications/bhagavatam' => 'publications#bhagavatam', :as => 'publication_bhagavatam'
   match 'publications/author/:author_id' => 'publications#author', :as => 'author_publications'
   match 'publications/:id' => 'publications#show', :as => 'show_publication'
 
