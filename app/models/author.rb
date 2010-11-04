@@ -42,7 +42,10 @@ class Author < BaseModel
     end
 
     def get_authors
-      @authors ||= get_all - get_acharya_lib
+      ids = (ACHARYA + ACHARYA_LIB).uniq
+      @authors ||= get_all.reject{|author| 
+        ids.include?(author.id)
+      }
     end
 
     def get_by_name_or_create(display_name)
