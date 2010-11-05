@@ -69,9 +69,10 @@ MahaMandala::Application.routes.draw do
   match 'audios' => 'audios#index', :as => 'audios'
 
   match 'audios/album/Bhagavatam' => 'audios#bhagavatam', :as => 'audios_bhagavatam'
-  match 'audios/album/SbBook:num' => 'audios#bhagavatam', :as => 'audios_bhagavatam'
-  match 'audios/album/Bhagavatam/book/:book_num' => 'audios#bhagavatam', :as => 'audios_bhagavatam'
-  match 'audios/album/Bhagavatam/book/:book_num/:id_track' => 'audios#bhagavatam', :as => 'audios_bhagavatam'
+  match 'audios/album/Bhagavatam/Book/:book_num' => 'audios#bhagavatam', :as => 'audios_bhagavatam_book', 
+        :constraints => { :book_num => /\d+.?\d?/ }
+  match 'audios/album/Bhagavatam/Book/:book_num/:track_id' => 'audios#bhagavatam', :as => 'audios_bhagavatam_track',
+        :constraints => { :book_num => /\d+.?\d?/ }
 
   match 'audios/album/:album_id/' => 'audios#album', :as => 'album'
   match 'audios/album/:album_id/track/:id' => 'audios#album', :as => 'album_track'

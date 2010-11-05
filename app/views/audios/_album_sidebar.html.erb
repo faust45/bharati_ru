@@ -2,6 +2,9 @@
   <div class="block playList">
     <div class="title">Треки альбома</div>
     <div class="text">
+      <% if @books %>
+        <%= render :partial => 'select_sb_book' %>
+      <% end %>
       <ul>
         <%= render :partial => 'track_item', :collection => @tracks %>
       </ul>

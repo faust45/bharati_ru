@@ -1,0 +1,10 @@
+<div id="popup_block">
+  <h3 class="link_popup"><strong><%= @album.title %></strong></h3>
+  <div id="popup_block_in" style="display: none;"><div id="popup_block_in2"><div id="popup_block_in3">
+        <ul>
+          <% @books.each do |book| %>
+            <%= sb_book_title(book) %>
+          <% end %>
+        </ul>
+  </div></div></div>
+</div>

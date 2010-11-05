@@ -3,20 +3,24 @@ class SbAlbum < AlbumBase
 
   TITLE = /^Шримад Бхагаватам.*?Книга/
 
-  property :book_num 
+  property :book_num, String
 
   before_create :assign_book_num
   before_create :cleanup_title
 
 
   class<< self 
-    def get_all
-      view_docs('sb_albums_all')
+    def get_all(options = {})
+      view_docs('sb_albums_all', options)
     end
 
     def get_by_title(title)
       id = gen_id(title)
       self.get_doc(id)
+    end
+
+    def get_by_track(track_id)
+      view_docs('sb_albums_by_track', :key => track_id)
     end
 
     def gen_id(title)
@@ -41,6 +45,10 @@ class SbAlbum < AlbumBase
 
   def gen_id
     self.class.gen_id(title)
+  end
+
+  def title
+    "Книга #{book_num} #{self[:title]}"
   end
 
   def to_param

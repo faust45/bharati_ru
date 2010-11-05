@@ -1,6 +1,14 @@
 module AudiosHelper
   include AudioBookmarksHelper
 
+  def sb_book_title(book)
+    options = {:class => "hover"} if book == @album
+
+    content_tag(:li, options) do
+      link_to book.title, audios_bhagavatam_book_path(book.book_num)
+    end
+  end
+
   def author_name
     if @author
       @author.display_name
@@ -34,6 +42,8 @@ module AudiosHelper
   def track_path(track)
     if @year
       author_year_audio_path(@author.id, @year, track.id)
+    elsif @album.is_a?(SbAlbum)
+      audios_bhagavatam_track_path(@album.book_num, track.id)
     else
       album_track_path(@album, track.id)
     end

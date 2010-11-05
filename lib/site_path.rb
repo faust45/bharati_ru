@@ -10,7 +10,8 @@ class SitePath
   end
 
   def to_s
-    (main_path > audios_path > publications_path > publication_title > author_path > album_path > year_path > search_path).to_s
+    (main_path > audios_path > publications_path > publication_title > bhagavatam_author > author_path > 
+      bhagavatam_album > album_path > year_path > search_path).to_s
   end
 
 
@@ -18,6 +19,22 @@ class SitePath
     def main_path
       link = link_to('<span>Бхарати<span>.ру</span></span>'.html_safe + ico_beta, root_path)
       Path.new(link)
+    end
+
+    def bhagavatam_author
+      if params[:controller] == "audios" and params[:action] == "bhagavatam"
+        author_id = 'BharatiMj'
+        author = Author.display_name_by_id(author_id)
+        name = "<i>#{author}</i>".html_safe
+        link_to(name, author_audios_path(author_id))
+      end
+    end
+
+    def bhagavatam_album
+      if params[:controller] == "audios" and params[:action] == "bhagavatam"
+        album = Album.get_doc('Bhagavatam')
+        album.title.html_safe
+      end
     end
 
     def audios_path
@@ -35,7 +52,7 @@ class SitePath
     end
 
     def publication_title
-      if params[:controller] == "publications" && params[:action] == "show"
+      if params[:controller] == "publications" and params[:action] == "show"
         @publication ||= Publication.get_doc(params[:id])
         content_tag(:i, @publication.title)
       end

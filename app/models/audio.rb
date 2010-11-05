@@ -88,6 +88,14 @@ class Audio < MediaContent
     update_attributes(:source_file => new_file)
   end
 
+  def from_bhagavatam
+    books = SbAlbum.get_by_track(self.id)
+
+    if books.any?
+      books.first
+    end
+  end
+
   def bookmarks_raw
     self.bookmarks.map do |v|
       "#{v['str_time']} #{v['name']}"

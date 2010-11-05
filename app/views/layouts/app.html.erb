@@ -5,7 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>BharatiRU</title>
     <%= stylesheet_link_tag 'style' %>
-    <%= stylesheet_link_tag 'jquery.autocomplete' %>
     <%= stylesheet_link_tag 'application' %>
     <%= stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' %>
 
@@ -13,9 +12,10 @@
     <%#= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" %>
     <%#= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" %>
     <%= javascript_include_tag 'jquery.min', 'jquery-ui.min' %>
-    <%= javascript_include_tag 'jquery.form' %>
-    <%= javascript_include_tag 'rails', 'mustache', 'jquery.behavior' %>
+    <%= javascript_include_tag 'jquery.mousewheel' %>
+    <%= javascript_include_tag 'rails', 'jquery.behavior' %>
     <%= javascript_include_tag 'application', 'common' %>
+    <%= javascript_include_tag 'audio_sb_albums' %>
     <%= yield :include_js %>
 
     <script>

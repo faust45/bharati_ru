@@ -47,30 +47,32 @@ class AudiosController < ApplicationController
   def bhagavatam
     @books = SbAlbum.get_all
 
-    unless params[:num].blank?
-      @album = @books.find{|b| b.book_num == params[:num]}
+    unless params[:book_num].blank?
+      @album = @books.find{|b| b.book_num == params[:book_num]}
     end
 
-    unless @album
-      @album = @books.first
-    end
-
+    @album ||= @books.first
     @tracks = @album.get_tracks
-    @current_track = @tracks.first
+
+    unless params[:track_id].blank?
+      @current_track = @tracks.find{|track| track.id == params[:track_id]}
+    end
+    @current_track ||= @tracks.first
 
     render :album
   end
 
   def show
     track = Audio.get_doc!(params[:id])
-    albums = track.get_albums
     path =
-    if albums.any?
-      album_track_path(albums.first.id, track.id)
-    else
-      year = track.record_date.year
-      author_year_audio_path(track.author.id, year, track.id)
-    end
+      if book = track.from_bhagavatam
+        audios_bhagavatam_track_path(book.book_num, track.id)
+      elsif (albums = track.get_albums).any?
+        album_track_path(albums.first.id, track.id)
+      else
+        year = track.record_date.year
+        author_year_audio_path(track.author.id, year, track.id)
+      end
 
     redirect_to(path)
   end
