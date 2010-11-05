@@ -1,6 +1,6 @@
 <% sidebar do %>
   <div class="block lect">
-    <div class="title">Лекции Учителей</div>
+    <div class="title"><%= block_title %> Учителей</div>
 
     <div class="text">
       <ul><!-- Картинки придется формировать в форматах .png или .gif, т.к. требуются закругленный уголки. Рекомендую .png, т.к. в этом варианте качество лучше, вес меньше. -->
@@ -12,7 +12,7 @@
   </div>
 
   <div class="block lect">
-    <div class="title">Лекции Проповедников</div>
+    <div class="title"><%= block_title %> Проповедников</div>
     <div class="text">
       <ul><!-- Картинки придется формировать в форматах .png или .gif, т.к. требуются закругленный уголки. Рекомендую .png, т.к. в этом варианте качество лучше, вес меньше. -->
         <%= render :partial => 'author_item', :collection => @authors %>

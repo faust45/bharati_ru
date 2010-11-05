@@ -13,6 +13,9 @@ gem 'actionmailer',      '= 3.0.0', :require => 'action_mailer'
 gem 'validatable'
 gem 'mini_magick'
 
+gem 'rscribd'
+gem 'scribd_fu'
+
 gem 'mongrel'
 #gem 'thin'
 gem 'hirb'
@@ -33,7 +36,6 @@ gem 'couchrest_extended_document'
 gem 'couchrest_model'
 gem 'json_pure'
 gem 'rest-client'
-gem 'fastercsv'
 
 git 'http://github.com/mislav/will_paginate.git', :branch => 'rails3' do
   gem 'will_paginate', :require => 'will_paginate'

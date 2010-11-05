@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BharatiRU Admin</title>
+    <link rel="stylesheet" href="style/admin_main.css" type="text/css">
+    <link rel="stylesheet" href="style/admin.css" type="text/css">
+    <link rel="stylesheet" href="style/fileuploader.css" type="text/css">
+  </head>
+  <body>
+    <div class="wrap">
+      <div id="sidebar">
+      </div>
+
+      <div id="content">
+        <div class="list">
+          <ul id="last_docs">
+          </ul>
+          <ol class="pages">
+          </ol>
+        </div>
+
+        <div id="edit_form" class="form">
+        </div>
+      </div>
+    </div>
+ </body>
+
+  <script src="vendor/couchapp/loader.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    $.couch.app(function(app) {
+      //$("#content").evently("content", app);
+
+      $("#last_docs").evently("last_docs", app);
+      $("#edit_form").evently("edit_form", app);
+      $("#sidebar").evently('sidebar', app);
+      $("#last_docs").trigger('publications');
+      //$.pathbinder.begin("/authors");
+      //$.evently.connect("#account","#profile", ["loggedIn","loggedOut"]);
+    });
+  </script>
+</html>

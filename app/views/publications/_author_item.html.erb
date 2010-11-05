@@ -1,0 +1,8 @@
+<div class="new">
+  <% if author_item.cover %>
+    <%= link_to cover_thumb(author_item), show_publication_path(author_item) %></a>
+  <% end %>
+  <div class="name"><%= link_to "“#{author_item.title}”", show_publication_path(author_item) %></div>
+  <p><%= author_item.description.truncate(100) %></p>
+  <div class="date"><%= d author_item.created_at %></div>
+</div>

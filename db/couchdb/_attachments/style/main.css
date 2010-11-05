@@ -1,0 +1,19 @@
+/* add styles here */
+
+body {
+  font:1em Helvetica, sans-serif;
+  padding:4px;
+}
+
+h1 {
+  margin-top:0;
+}
+
+
+div.input {
+  margin-bottom: 1em;
+}
+
+form .submit {
+  margin-top: 2em;
+}

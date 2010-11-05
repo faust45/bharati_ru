@@ -1,0 +1,12 @@
+<%= render :partial => 'shared/author_sidebar' %>
+
+<div class="block last-publ">
+  <div class="title">Последние публикации</div>
+  <div class="text">
+    <%= render :partial => 'last_item', :collection => @publications %>
+    <%= pages(@publications) %>
+  </div>
+  <div class="bottom"></div>
+</div>
+
+<%#= render :partial => 'shared/tags' %>

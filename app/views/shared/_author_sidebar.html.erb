@@ -1,0 +1,34 @@
+<% sidebar do %>
+  <div class="block lect">
+    <div class="title"><%= block_title %> Учителей</div>
+
+    <div class="text">
+      <ul><!-- Картинки придется формировать в форматах .png или .gif, т.к. требуются закругленный уголки. Рекомендую .png, т.к. в этом варианте качество лучше, вес меньше. -->
+        <%= render :partial => 'shared/author_item', :collection => @acharya %>
+      </ul>
+    </div>
+
+    <div class="bottom"></div>
+  </div>
+
+  <div class="block lect">
+    <div class="title"><small><%= block_title %> Проповедников</small></div>
+    <div class="text">
+      <ul><!-- Картинки придется формировать в форматах .png или .gif, т.к. требуются закругленный уголки. Рекомендую .png, т.к. в этом варианте качество лучше, вес меньше. -->
+        <%= render :partial => 'shared/author_item', :collection => @authors %>
+      </ul>
+    </div>
+    <div class="bottom"></div>
+  </div>
+
+  <div class="block lect">
+    <div class="title">Вайшнавские писания</div>
+    <div class="text">
+      <ul><!-- Картинки придется формировать в форматах .png или .gif, т.к. требуются закругленный уголки. Рекомендую .png, т.к. в этом варианте качество лучше, вес меньше. -->
+        <li><%= link_to bhagavatam_cover + ' Шримад Бхагаватам', publication_bhagavatam_path %></li>
+      </ul>
+    </div>
+    <div class="bottom"></div>
+  </div>
+
+<% end %>
