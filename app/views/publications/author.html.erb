@@ -9,14 +9,14 @@
 <div class="block update">
   <div class="tabs">
     <ul class="tab2">
-      <li><a class="active" href="#" rel="0"><b></b><u>Книги</u><i></i></a></li><li class="clear"><span><span></span></span></li>
-      <li><a class="" href="#" rel="1"><b></b><u>Статьи</u><i></i></a></li><li class="clear"><span><span></span></span></li>
+      <li><a class="<%= books_active %>" href="#" rel="0"><b></b><u>Книги</u><i></i></a></li><li class="clear"><span><span></span></span></li>
+      <li><a class="<%= articles_active %>" href="#" rel="1"><b></b><u>Статьи</u><i></i></a></li><li class="clear"><span><span></span></span></li>
     </ul>
   </div>
-  <div id="tab-1" class="tab-container bookTab lastTab active">
+  <div id="tab-1" class="tab-container bookTab lastTab <%= books_active %>">
     <%= render :partial => 'author_item', :collection => @books %>
   </div>
-  <div id="tab-2" class="tab-container bookTab">
+  <div id="tab-2" class="tab-container bookTab <%= articles_active %>">
     <%= render :partial => 'author_item', :collection => @articles %>
   </div>
   <div class="bottom"></div>

@@ -6,6 +6,14 @@ module PublicationsHelper
     'article' => 'статья'
   }
 
+  def articles_active
+    'active' if !@books.any?
+  end
+
+  def books_active
+    'active' if @books.any?
+  end
+
   def bhagavatam_cover
     @@bhagavatam ||= Publication.get_all_bhagavatam(:limit => 1)
     cover_thumb @@bhagavatam.first

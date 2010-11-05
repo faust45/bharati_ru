@@ -16,7 +16,7 @@ module ApplicationHelper
     end
   end
 
-  def photo_thumb(img_id, size, round = false)
+  def photo_thumb(img_id, size, round = false) 
     p = "http://93.94.152.87:81/#{img_id}?size=#{size[:height]}x#{size[:width]}"
     p << "&round=1" if round
     image_tag(p)

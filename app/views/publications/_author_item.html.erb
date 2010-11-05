@@ -1,6 +1,6 @@
 <div class="new">
   <% if author_item.cover %>
-    <%= link_to photo_thumb(author_item.cover, {:width =>91, :height => 119}, true), show_publication_path(author_item) %></a>
+    <%= link_to cover_thumb(author_item), show_publication_path(author_item) %></a>
   <% end %>
   <div class="name"><%= link_to "“#{author_item.title}”", show_publication_path(author_item) %></div>
   <p><%= author_item.description.truncate(100) %></p>

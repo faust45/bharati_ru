@@ -1,6 +1,6 @@
 <% sidebar do %>
   <div class="block book">
-    <div class="title">Книга</div>
+    <div class="title"><%= publication_type(@publication).mb_chars.titlecase %></div>
     <div class="text">
       <a href="#"><%= photo_thumb(@publication.cover, {:height => 119, :width => 91}, true) %></a>
       <table>
