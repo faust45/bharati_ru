@@ -90,8 +90,33 @@ class Author < BaseModel
     Audio.get_by_author(self.id, options)
   end
 
-  def get_tracks_by_year(year)
-    Audio.get_by_author_and_year(self.id, year)
+  def get_tracks_by_year(year, options = {})
+    Audio.get_by_author_and_year(self.id, year, options)
+  end
+
+  def get_tracks_by_year_month(year, month)
+    Audio.get_by_author_and_year_month(self.id, year, month)
+  end
+
+  def get_year_months(year)
+    map = ActiveSupport::OrderedHash.new 
+    options = {
+      :startkey => [self.id, year],
+      :endkey   => [self.id, year, {}],
+      :reduce   => true, 
+      :group    => true
+    }
+
+    resp = view('audios_by_author_and_year_month', options)
+
+    resp['rows'].each do |row|
+      count = row['value']
+      month = row['key'][2]
+
+      map[month] = count
+    end
+
+    map
   end
 
   def get_years_with_tracks_count

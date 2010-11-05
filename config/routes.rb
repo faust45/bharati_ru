@@ -79,7 +79,8 @@ MahaMandala::Application.routes.draw do
   match 'audios/author/:author_id' => 'audios#author', :as => 'author_audios'
   match 'audios/show/:id' => 'audios#show', :as => 'show_audio'
   match 'audios/author/:author_id/year/:year' => 'audios#year', :as => 'author_year_audios'
-  match 'audios/author/:author_id/year/:year/:id' => 'audios#year', :as => 'author_year_audio'
+  match 'audios/author/:author_id/year/:year/:month' => 'audios#year', :as => 'author_year_month_audios'
+  match 'audios/author/:author_id/year/:year/:month/:track_id' => 'audios#year', :as => 'author_year_month_track'
 
 
   match 'audios/search' => 'search#audios', :as => 'audios_search'

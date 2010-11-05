@@ -9,6 +9,15 @@ module AudiosHelper
     end
   end
 
+  def li_month(month)
+    month, count = month
+    options = {:class => "hover"} if month == @month
+
+    content_tag(:li, options) do
+      link_to ru_month(month), author_year_month_audios_path(@author.id, @year, month)
+    end
+  end
+
   def author_name
     if @author
       @author.display_name
@@ -41,7 +50,7 @@ module AudiosHelper
 
   def track_path(track)
     if @year
-      author_year_audio_path(@author.id, @year, track.id)
+      author_year_month_track_path(@author.id, @year, @month, track.id)
     elsif @album.is_a?(SbAlbum)
       audios_bhagavatam_track_path(@album.book_num, track.id)
     else

@@ -29,13 +29,21 @@ class AudiosController < ApplicationController
   end
 
   def year
-    @year = params[:year]
     @author = Author.get_doc!(params[:author_id])
+    @year  = params[:year]
+    @month = params[:month]
 
     unless @year.blank?
-      @tracks = @author.get_tracks_by_year(@year)
-      if params[:id]
-        @current_track = Audio.get_doc!(params[:id])
+      @months_with_tracks =  @author.get_year_months(@year)
+
+      if @month.blank?
+        @month = @months_with_tracks.first.first 
+      end
+
+      @tracks = @author.get_tracks_by_year_month(@year, @month)
+
+      if params[:track_id]
+        @current_track = Audio.get_doc!(params[:track_id])
       else
         @current_track = @tracks.first
       end
@@ -71,7 +79,8 @@ class AudiosController < ApplicationController
         album_track_path(albums.first.id, track.id)
       else
         year = track.record_date.year
-        author_year_audio_path(track.author.id, year, track.id)
+        month = track.record_date.month.to_s.rjust(2,'0')
+        author_year_month_track_path(track.author.id, year, month, track.id)
       end
 
     redirect_to(path)

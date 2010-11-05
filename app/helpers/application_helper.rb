@@ -1,4 +1,9 @@
 module ApplicationHelper
+  RU_MONTH = %w(январь февраль март апрель май июнь июль август сентябрь октябрь ноябрь декабрь) 
+
+  def ru_month(month)
+   RU_MONTH[month.to_i - 1]
+  end
 
   def author_display_name(content)
     Author.display_name_by_id(content.author_id)

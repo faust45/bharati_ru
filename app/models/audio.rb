@@ -27,10 +27,17 @@ class Audio < MediaContent
       view_docs('audios_by_author', options)
     end
 
-    def get_by_author_and_year(author_id, year)
+    def get_by_author_and_year(author_id, year, options = {})
+      options[:startkey] = [author_id, year]
+      options[:endkey]   = [author_id, year, {}, {}]
+
+      view_docs('audios_by_author_and_record_date', options)
+    end
+
+    def get_by_author_and_year_month(author_id, year, month)
       options = {
-        :startkey => [author_id, year], 
-        :endkey   => [author_id, year, {}, {}]
+        :startkey => [author_id, year, month], 
+        :endkey   => [author_id, year, month, {}]
       }
       view_docs('audios_by_author_and_record_date', options)
     end
