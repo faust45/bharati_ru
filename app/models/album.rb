@@ -30,4 +30,13 @@ class Album < AlbumBase
     end
   end
 
+  def tracks_count
+    if self.id == 'Bhagavatam'
+      resp = view('sb_albums_by_track', :limit => 0)
+      resp['total_rows']
+    else
+      tracks.size
+    end
+  end
+
 end
