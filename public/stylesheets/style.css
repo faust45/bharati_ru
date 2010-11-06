@@ -32,7 +32,7 @@ h2{font-size:15px; font-weight:300;}
 				#nav form .field{position:absolute; left:35px; top:5px; width:110px; border:0 !important; font-size:100%; color:#999; background:none;}
 				#nav form .field.over{color:#000;}
 				#nav form .field:focus{outline:none;}
-				#nav form .button{display:none;}
+				#nav form .button{width: 14px; height: 14px;background: url("../images/loupe.png") no-repeat;border:none;cursor:pointer;margin: 9px 0 0 15px;}
 			#nav .selector{display:none; position:absolute; top:17px; left:21px; width:137px; height:200px;}
 			#nav form:hover .selector, #nav form.hover .selector{display:block;}
 				#nav .selector .top{position:relative; top:0; left:0; width:137px; height:23px; background:url(../images/bg_selector.png) no-repeat -137px 0;}
@@ -41,10 +41,6 @@ h2{font-size:15px; font-weight:300;}
 					#nav .selector a:hover{color:#0160A4;}
 					#nav .selector a.active{color:#CE580F;}
 				#nav .selector .bottom{position:relative; top:0; left:0; width:137px; height:12px; background:url(../images/bg_selector.png) no-repeat -274px 0;}
-				
-			
-			
-				
 
 #header{position:relative; width:962px; height:162px; margin:0 auto; text-align:left; z-index:4;}
 	.temple{position:absolute; top:15px; left:640px; width:322px; height:425px; background:url(../images/temple.jpg) no-repeat 0 0;}
@@ -58,7 +54,7 @@ h2{font-size:15px; font-weight:300;}
 			#header .logo i{padding:0 0 0 8px; font-size:170%; font-style:normal;}
 			#header .logo strong i{font-size:50%;;}
 	#header .quote{position:absolute; left:372px; top:0; width:410px; padding:32px 0 0 0; font-size:114%; line-height:1.2;}
-	#header .track, #header .searchText, #header .lastSteep{position:absolute; left:0; top:100px; width:100%;font-size:210%; color:#FFF; text-align:center;}
+	#header .track, #header .searchText, #header .lastSteep, #header .doing{position:absolute; left:0; top:100px; width:100%;font-size:210%; color:#FFF; text-align:center;}
 
 #main{position:relative; width:962px; margin:0 auto; padding:0 0 40px 0; text-align:left; z-index:6; overflow:hidden;}
 	#content{float:right; position:relative; width:590px; _margin:0 -40px 0 0;}
@@ -133,7 +129,7 @@ h2{font-size:15px; font-weight:300;}
 	.last-audio p, .last-publ p, .search p{margin:0;}
 	.last-audio .date, .last-audio .date a, .last-publ .date, .last-publ .date a, .search .date, .search .date a{font-size:100%; color:#989FA5;}
 	.about{margin:0 0 5px 0;}
-		.about span{color:#989FA5;}
+		.about .ab-t { padding: 0 10px 0 0; color:#989FA5; }
 
 .bookmarks li{margin:0 0 0 10px; list-style:none; color:#00AEEF; font-size:116%;}
 .quotes li{margin:0 0 10px 10px; list-style:none; font-size:116%;}
@@ -143,13 +139,14 @@ h2{font-size:15px; font-weight:300;}
 	.lecture h1{font-size:100%; font-weight:300;}
 
 .trackAuthor{position:relative; margin:0 0 25px 0; padding:0; color:#00AEEF; font-size:116%; overflow:hidden;}
-	.trackAuthor .trackPhoto{float:left; width:281px; margin:0 30px 0 0;}
-		.trackAuthor .trackPhoto img{float:right;}
-	.trackAuthor .trackInfo{position:relative; overflow:hidden;}
+	.trackAuthor .trackPhoto{float:left; margin:0 30px 0 0;}
+		
+	.trackAuthor .trackInfo{position:relative;}
 	.trackAuthor .trackInfo.center{text-align:center;}
 		.trackAuthor .author{margin:0 0 15px 0;}
 			.trackAuthor .author span{color:#FFF;}
-		.trackAuthor .tags{min-height:40px; margin:0 0 25px 0; padding:0 0 0 43px; background:url(../images/tags.png) no-repeat 0 5px;}
+		.trackAuthor .tags{min-height:40px; margin:0 0 25px 0; }
+		.trackAuthor .tags img { float: left; margin: 5px 10px 0 0; }
 		.trackAuthor .download{height:26px;}
 			.trackAuthor .download a{display:block; float:left; height:26px; margin:0 15px; color:#FFF; font-size:120%; background:url(../images/bg_downloads.png) repeat-x 0 0;}
 				.trackAuthor .download b{display:block; float:left; width:15px; height:26px; margin:0 0 0 -15px; background:url(../images/bg_downloads.png) no-repeat 0 -26px;}
@@ -168,14 +165,16 @@ h2{font-size:15px; font-weight:300;}
 /* ====================================
 ===== SIDEBAR STYLES ================== */
 
-#sidebar .block{margin:0 0 23px 0; font-size:100%;}
+#sidebar .block{margin:0 0 23px 0; font-size:100%; }
 	#sidebar .block .title{height:57px; padding:0 0 0 20px; font-size:215%; line-height:57px; background:url(../images/bg_block_title.png) no-repeat 0 0;}
+		#sidebar .block .title p { position: relative; top: -8px; }
+		#sidebar .block .title .tlink { position: relative; top: -43px; left: 35px; }
 	#sidebar .block .text{min-height:100px; padding:10px 15px 20px 15px; border-top:1px solid #214058; background:url(../images/bg_block_sidebar.png) repeat 0 0;}
 	#sidebar .block .bottom{height:10px; background:url(../images/bg_block_bottom.png) no-repeat 0 0;}
 
 .new{font-size:114%;}
 	#sidebar .new .text{padding-top:25px;}
-	.new img{float:left; width:80px; height:97px; margin:3px 15px 0 0; }
+	.new img{float:left; width:91px; height:119px; margin:3px 15px 0 0; }
 	.new .name{margin:0 0 15px 0; font-size:128%;}
 	.new p{margin:0 0 10px 0;}
 	.new .date{font-size:100%; color:#989FA5;}
@@ -192,6 +191,7 @@ h2{font-size:15px; font-weight:300;}
 		.book td{padding:0 0 10px 0; vertical-align:top;}
 	.book .download{font-size:116%;}
 		.book .download img{float:none; width:auto; height:auto; margin:5px 10px 0 0;}
+	.book p { text-align: justify; }
 
 .expert{font-size:100%;}
 	.expert img{float:left; width:80px; height:97px; margin:3px 15px 10px 0;}
@@ -280,6 +280,11 @@ h2{font-size:15px; font-weight:300;}
 		.update .rss a{color:#FFF; font-size:114%;}
 		.update .rss a:hover{color:#F75D53;}
 
+	.recital { margin:0 0 20px 0; padding:0 0 15px 0; position:relative; border-bottom:1px solid #25465D; overflow:hidden; }
+		.recital img { float: left; margin: 3px 15px 10px 0; width: 91px; height: 119px; }
+		.recital .name { font-size: 18px; margin: 0 0 5px; }
+		.recital .about { font-size: 16px; }
+
 .forum{font-size:100%;}
 	.forum .item{margin:0 0 15px 0; border-bottom:1px solid #244357;}
 		.forum .item .name{font-size:114%;}
@@ -320,15 +325,37 @@ h2{font-size:15px; font-weight:300;}
 
 
 
-/* NEW */
-#popup_block{ width: 295px;}
-h3.link_popup{ cursor: pointer; width:295px; height:26px; color:#333333; background:url(../images/bg_popup_h3.png) no-repeat 0 0; font-weight:normal; position:relative; z-index:10}
-h3.link_popup strong{ display:block; padding:5px 0 0 30px; background:url(../images/galka.gif) no-repeat 10px 8px; color:#333333; font-weight:normal; cursor:pointer;}
-#popup_block_in{display:none; position:absolute; background: url(../images/bg_popup_t.png) no-repeat 0 0; width:264px; z-index:20; padding: 26px 0 0 12px; margin-left:19px; margin-top:-18px;}
-#popup_block_in2{background:url(../images/bg_popup_b.png) no-repeat 0 100%; min-height:26px;}
-#popup_block_in3{}
-#popup_block_in ul{padding:0 5px 12px 19px; font-size:0.9em}
-#popup_block_in ul li{padding:0; margin:0; border:0;}
-#popup_block_in ul a{color:#091d28;}
-#popup_block_in ul a:hover{color:#2072ac;}
-#popup_block_in ul li.hover a{ color:#ce580f;}
+.cit { padding: 0 150px 30px 70px; text-align: center; font-size: 16px; }
+
+
+.lect .rss{padding:0 40px 20px 15px; text-align:right; background:url(../images/bg_block_tab-container.png) repeat 0 0;}
+	.lect .rss img{margin:-40px 0 0 0;}
+	.lect .rss a{color:#FFF; font-size:114%;}
+	.lect .rss a:hover{color:#F75D53;}
+
+.aboutevent { }
+	.aboutevent .imag { float: left; margin: 5px 15px 30px 0; }
+	.aboutevent .look { float: left; width: 240px; color: #555f6e; }
+	.aboutevent .look .cuss { width: 80px; float: left; }
+	.aboutevent .look .hookup { width: 155px; float: left; color: #fff; }
+	.aboutevent .look .links { padding: 15px 0 0; }
+		.links a { padding: 5px 0 5px 30px; display: block; margin: 0 0 3px; }
+		.cam { background: url("../images/camera.png") 0 6px no-repeat;  }
+		.aud { background: url("../images/audio.png") 0 6px no-repeat; }
+		.vid { background: url("../images/video.png") 2px 2px no-repeat; }
+		.read { background: url("../images/read.png") 2px 2px no-repeat; }
+
+	.word { margin: 0 0 20px; font-size: 16px; }
+	.aboutevent .social { font-size: 16px; margin: 100px 0 0; }
+	.aboutevent .social p { margin: 0 0 15px; }
+	.aboutevent .social a { margin: 0 10px 0 0; }
+
+.cl { clear: both; font-size: 0pt; line-height: 0px; height: 0; }
+
+.cameraman { text-align: center; margin: 0 0 20px; }
+.f-name { text-align: center; font-size: 22px; line-height: 22px; }
+.docum { margin: 0 0 20px; text-align: justify; }
+.fs16 { font-size: 16px; } 
+
+.ref { padding: 20px 0 0; }
+.ref a { padding: 5px 0 5px 35px; display: block; margin: 0 0 3px; font-size: 18px; }
