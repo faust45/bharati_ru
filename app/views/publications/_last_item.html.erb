@@ -4,18 +4,11 @@
   <% end %>
   <div class="name"><%= link_to "“#{last_item.title}”", show_publication_path(last_item) %></div>
   <div class="about">
-    <table>
-      <tbody><tr>
-          <td class="ab-t">Тип:</td>
-          <td> <%= publication_type(last_item) %> </td>
-        </tr>
-        <tr>
-          <td class="ab-t">Автор:</td>
-          <td> <%= author_display_name(last_item) %> </td>
-        </tr>
-    </tbody></table>
+    <span>Тип:</span> <%= publication_type(last_item) %><br>
+    <span>Автор:</span> <%= author_display_name(last_item) %> <br>
   </div>
-  <div class="cl"></div>
+  <div class="about">
+  </div>
   <p><%= last_item.description.truncate(100) %></p>
   <div class="date"><%= d last_item.created_at %></div>
 </div>
