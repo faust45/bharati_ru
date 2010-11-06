@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   layout :choose_layout
-  free_actions :login, :logout, :create, :new
+  free_actions :login, :logout
 
   def login
     if request.post?
