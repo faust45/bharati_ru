@@ -1,7 +1,7 @@
 class Author < BaseModel
 
   ACHARYA = ['AcharyaMj', 'GovindaMj', 'SridharMj']
-  ACHARYA_LIB = ['SridharMj', 'SarasvatiThakur', 'BhaktivinodThakur']
+  ACHARYA_LIB = ['GovindaMj', 'SridharMj', 'SarasvatiThakur', 'BhaktivinodThakur']
 
   NAMES_IDS = {
     'Б.Н. Ачарья Махарадж'  => 'AcharyaMj',
