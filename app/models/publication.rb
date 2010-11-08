@@ -12,9 +12,12 @@ class Publication < Content
   property :genre
   property :publication_type
 
+  before_create :ipaper_id_uniq
+
 
   class<<self
     def get_all(options = {})
+      options[:descending] ||= true
       view_docs('publications_all', options)
     end
 
@@ -36,6 +39,14 @@ class Publication < Content
     def get_all_bhagavatam(options = {})
       view_docs('publication_bhagavatam', options)
     end
+
+    def get_by_ipaper_id(ipaper_id)
+      view_docs('publications_by_ipaper_id', :key => ipaper_id)
+    end
+
+    def exists?(doc)
+      get_by_ipaper_id(doc.ipaper_id).any?
+    end
   end
 
   def cover
@@ -47,5 +58,14 @@ class Publication < Content
   def created_at
     self.when_uploaded
   end
+
+  private
+    def ipaper_id_uniq
+      if Publication.exists?(self)
+        raise Dublicate 
+      end
+    end
+
+    class Dublicate < Exception; end
 
 end
