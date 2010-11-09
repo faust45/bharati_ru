@@ -2,6 +2,7 @@ class Author < BaseModel
 
   ACHARYA = ['AcharyaMj', 'GovindaMj', 'SridharMj']
   ACHARYA_LIB = ['GovindaMj', 'SridharMj', 'SarasvatiThakur', 'BhaktivinodThakur']
+  AUTHORS_LIB = ['BharatiMj', 'GoswamiMj']
 
   NAMES_IDS = {
     'Б.Н. Ачарья Махарадж'  => 'AcharyaMj',
@@ -25,8 +26,8 @@ class Author < BaseModel
 
   
   class <<self
-    def get_all
-      view_docs('authors_all')
+    def get_all(options = {})
+      view_docs('authors_all', options)
     end
 
     def get_acharya
@@ -47,6 +48,13 @@ class Author < BaseModel
         ids.include?(author.id)
       }
     end
+
+    def get_authors_lib
+      @authors_lib ||= get_all.reject{|author| 
+        !AUTHORS_LIB.include?(author.id)
+      }
+    end
+
 
     def get_by_name_or_create(display_name)
       author = get(id_by_name(display_name))

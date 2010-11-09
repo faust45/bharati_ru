@@ -3,7 +3,7 @@ class PublicationsController < ApplicationController
 
   def index
     @acharya = Author.get_acharya_lib
-    @authors = Author.get_authors
+    @authors = Author.get_authors_lib
 
     @publications = Publication.paginate(:get_all, :page => params[:page])
   end
