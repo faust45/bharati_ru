@@ -10,7 +10,7 @@ class PublicationsController < ApplicationController
 
   def author
     @acharya = Author.get_acharya_lib
-    @authors = Author.get_authors
+    @authors = Author.get_authors_lib
 
     @author = Author.get_doc!(params[:author_id])
     @books  = @author.get_books
@@ -19,7 +19,7 @@ class PublicationsController < ApplicationController
 
   def bhagavatam
     @acharya = Author.get_acharya_lib
-    @authors = Author.get_authors
+    @authors = Author.get_authors_lib
 
     @publications = Publication.get_all_bhagavatam
 
