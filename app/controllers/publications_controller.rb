@@ -13,8 +13,8 @@ class PublicationsController < ApplicationController
     @authors = Author.get_authors
 
     @author = Author.get_doc!(params[:author_id])
-    @books  = @author.paginate(:get_books, :page => params[:page])
-    @articles = @author.paginate(:get_articles, :page => params[:page])
+    @books  = @author.get_books
+    @articles = @author.get_articles
   end
 
   def bhagavatam
