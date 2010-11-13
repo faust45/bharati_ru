@@ -1,0 +1,7 @@
+[
+  {
+    "from": "/index",
+    "to": "_design/global/index.html",
+    "method": "GET"
+  }
+]

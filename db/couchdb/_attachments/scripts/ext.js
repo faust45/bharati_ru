@@ -1,3 +1,27 @@
+jQuery(function($){
+  $.datepicker.setDefaults({
+    dateFormat: 'yy-mm-dd'
+  });
+});
+
+(function($) {
+  var BASE62 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+  Date.prototype.toCouchId = function() {
+    var ms = new Date().getTime(), base = 62, res = [];
+    ms = parseInt(ms + "00");
+    var ost;
+
+    while(ms > 0) {
+      ost = parseInt(ms % base);
+      ms = parseInt(ms / base);
+      res.unshift(BASE62[ost]);
+    }
+
+    return res.join('');
+  }
+})();
+
 //(function($) {
 //  $.evently.fn.render.mustachee = function(h, args) {
 //    h.mustache = h.mustachee;
@@ -6,26 +30,44 @@
 //})(jQuery);
 
 (function($) {
-  $.evently.fn.after.as_form = function(h, rendered, args) {
-    var render = (h.render || "replace").replace(/\s/g,"")
-      , root = (render == "replace") ? el : rendered
-      , el = this, app = $$(el).app
-      , selectors = $.evently.utils.rfun(el, h.as_form, args)
+  $.evently.fn.setup.as_list = function(h, cb, args) {
+    console.log('in as_list');
+    var el = this, app = $$(el).app, common = App.last_docs.listCommon
+      , selectors = $.evently.utils.rfun(el, common, args)
       ;
 
-    h.as_form.fields = [];
-    $.forIn(selectors, function(selector, handlers) {
+    $.extend(true, h, common);
+    //$.forIn(selectors, function(selector, handlers) {
+    //  $(selector, root).evently(handlers, app, args);
+    //});
+    
+    cb()
+  };
+})(jQuery);
+
+
+(function($) {
+  $.evently.fn.after.as_form = function(h, rendered, args) {
+    var render = (h.render || "replace").replace(/\s/g,"")
+      , el = this, app = $$(el).app
+      , root = (render == "replace") ? el : rendered
+      , selectorsFields = $.evently.utils.rfun(el, h.fields, args)
+      ;
+
+    
+    var fields = [];
+    $.forIn(selectorsFields, function(selector, handlers) {
       $(selector, root).evently(handlers, app, args);
 
       var input;
       $(selector).each(function() {
         if(input = asCustomInput(this)) {
-          h.as_form.fields.push(input);
+          fields.push(input);
         }
       });
-
-      $$(selector).formEdit = h.as_form;
     });
+
+    $(this).find('form')[0].fields = fields;
   };
 
   function asCustomInput(el) {
@@ -40,6 +82,8 @@
         }
       case 'SELECT':
         return asSelectInput(el);
+      case 'TEXTAREA':
+        return asTextInput(el);
     }
   }
 
@@ -79,3 +123,35 @@
 
   };
 })(jQuery);
+
+/*
+function procAll(elem, events, app) {
+  // store the app on the element for later use
+  if (app) {$$(elem).app = app;}
+  if (typeof events == "string") {
+    events = extractEvents(events, app.ddoc);
+  }
+
+  forIn(events, function(name, h) {
+    eventlyHandler(elem, name, h, args);
+  });
+  
+  return events;
+}
+
+function eventlyHandler(elem, name, h, args) {
+  if ($.evently.log) {
+    elem.bind(name, function() {
+      $.log(elem, name);
+    });
+  }
+
+  if (h.path) {
+    elem.pathbinder(name, h.path);
+  }
+
+  for (var i=0; i < h.length; i++) {
+    eventlyHandler(elem, name, h[i], args);
+  }
+};
+*/

@@ -2,7 +2,7 @@ class Publication < Content
 
   TYPES = [:book, :article]
 
-  use_as_id :when_uploaded
+  use_as_id :gen_id
 
   property :ipaper_id
   property :ipaper_access_key
@@ -64,6 +64,11 @@ class Publication < Content
       if Publication.exists?(self)
         raise Dublicate 
       end
+    end
+
+    def gen_id
+      alpha = ('a'..'z').to_a
+      when_uploaded.to_couch_id + alpha.to_a[rand(alpha.size - 1)]
     end
 
     class Dublicate < Exception; end

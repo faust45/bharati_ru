@@ -16,6 +16,8 @@ couchapp_load([
   "vendor/couchapp/jquery.evently.js",
   "vendor/couchapp/jquery.evently.couch.js",
   "vendor/couchapp/jquery.pathbinder.js",
+  "scripts/jquery.ui.core.js",
+  "scripts/jquery.ui.datepicker.js",
   "scripts/fileuploader.js",
   "scripts/app.js",
   "scripts/ext.js",

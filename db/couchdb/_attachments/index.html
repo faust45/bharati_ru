@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="style/admin_main.css" type="text/css">
     <link rel="stylesheet" href="style/admin.css" type="text/css">
     <link rel="stylesheet" href="style/fileuploader.css" type="text/css">
+    <link rel="stylesheet" href="style/jquery.ui.all.css" type="text/css">
+    <link rel="stylesheet" href="style/jquery.ui.theme.css" type="text/css">
+    <link rel="stylesheet" href="style/jquery.ui.base.css" type="text/css">
   </head>
   <body>
     <div class="wrap">
@@ -12,11 +15,10 @@
       </div>
 
       <div id="content">
-        <div class="list">
-          <ul id="last_docs">
-          </ul>
-          <ol class="pages">
-          </ol>
+        <div id="top_menu">
+        </div>
+
+        <div id="last_docs" class="list">
         </div>
 
         <div id="edit_form" class="form">
@@ -29,11 +31,45 @@
   <script type="text/javascript" charset="utf-8">
     $.couch.app(function(app) {
       //$("#content").evently("content", app);
+      App = app.ddoc.evently;
+      App.app = app;
 
       $("#last_docs").evently("last_docs", app);
+      $("#last_docs").evently("listEvents", app);
       $("#edit_form").evently("edit_form", app);
+      $("#edit_form").evently("formEvents", app);
+      $("#edit_form").evently('new_form', app);
       $("#sidebar").evently('sidebar', app);
+      $("#top_menu").evently('top_menu', app);
+
+      //Run
+      $("#top_menu").trigger('publications');
       $("#last_docs").trigger('publications');
+
+      //path
+      $("#last_docs").pathbinder('publications', '/publications');
+      $("#last_docs").pathbinder('publications', '/publications/page/:page');
+      $("#last_docs").pathbinder('albums_publication', '/publication_albums');
+      $("#last_docs").pathbinder('currentChanged', '/publications/:id');
+
+      $("#last_docs").pathbinder('authors', '/authors');
+      $("#last_docs").pathbinder('authors', '/authors/page/:page');
+      $("#last_docs").pathbinder('currentChanged', '/authors/:id');
+
+      $("#last_docs").pathbinder('events', '/events');
+      $("#last_docs").pathbinder('currentChanged', '/events/:id');
+
+      $("#edit_form").pathbinder('newPublicationAlbum', '/publication_albums_new');
+      $("#edit_form").pathbinder('albumPublication', '/album_publication/:id');
+      $("#edit_form").pathbinder('publication', '/publications/:id');
+
+      $("#edit_form").pathbinder('newAuthor', '/author/new');
+      $("#edit_form").pathbinder('author', '/authors/:id');
+
+      $("#edit_form").pathbinder('event', '/events/:id');
+      $("#edit_form").pathbinder('newEvent', '/events_new');
+
+
       //$.pathbinder.begin("/authors");
       //$.evently.connect("#account","#profile", ["loggedIn","loggedOut"]);
     });

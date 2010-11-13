@@ -1,0 +1,57 @@
+<div class="tabs">
+  <ul>
+    <li class="active"><a href="#">Basic</a></li>
+    <li><a href="#">Contacts</a></li>
+    <li><a href="#">Description</a></li>
+  </ul>
+  <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
+</div>
+
+<form data-type="Event">
+  <div class="cnt active">
+      <div class="input"><input class="store-text field" name="title" type="text" size="25"></div>
+      <div class="input">
+          <select name="event_type" class="event-type can-changed field">
+              <option id="">Select type</option>
+              <option id="public_meet_up">публичные встречи</option>
+              <option id="web_conf">интернет-конференции</option>
+              <option id="maharadj">деятельность Махараджа</option>
+              <option id="projects">проекты и участие в них</option>
+              <option id="novelty">новинки</option>
+          </select>
+      </div>
+
+      <div class="input">
+          <div>Дата начала:</div>
+          <input class="store-text field date" name="start_date" type="text" size="25">
+          <input class="store-text field" name="start_time" type="text" size="6">
+      </div>
+
+      <div class="input">
+          <div>Дата актуальности:</div>
+          <input class="store-text field date" name="end_date" type="text" size="25">
+          <input class="store-text field" name="end_time" type="text" size="6">
+      </div>
+
+      <div class="input">
+        <div class="photo-input">
+        </div>
+      </div>
+  </div>
+
+  <div class="cnt">
+      <div class="input">
+          <div>Phone:</div>
+          <input class="store-text field" name="phone" type="text" size="25">
+      </div>
+
+      <div class="input">
+          <div>Mail:</div>
+          <input class="store-text field" name="mail" type="text" size="25" value="{{mail}}">
+      </div>
+  </div>
+
+  <div class="cnt">
+      <textarea name="description" class="store-text field" rows="25" cols="35"></textarea>
+  </div>
+</form>

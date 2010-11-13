@@ -1,0 +1,5 @@
+{
+  "view": "albums_publication_all",
+  "include_docs": true,
+  "reduce": false
+}

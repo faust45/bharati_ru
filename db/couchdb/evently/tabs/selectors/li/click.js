@@ -1,0 +1,3 @@
+function() {
+  $.log('click force');
+}

@@ -274,10 +274,11 @@ function $$(node) {
 (function($) {
   $.evently.fn.after.selectors = function(h, rendered, args) {
     var render = (h.render || "replace").replace(/\s/g,"")
-      , root = (render == "replace") ? el : rendered
       , el = this, app = $$(el).app
+      , root = (render == "replace") ? el : rendered
       , selectors = $.evently.utils.rfun(el, h.selectors, args)
       ;
+    
     $.forIn(selectors, function(selector, handlers) {
       $(selector, root).evently(handlers, app, args);
     });
