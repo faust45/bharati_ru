@@ -11,6 +11,7 @@ class Publication < Content
   property :translator_id
   property :genre
   property :publication_type
+  property :main_photo
 
   before_create :ipaper_id_uniq
 
