@@ -51,9 +51,7 @@ class Publication < Content
   end
 
   def cover
-    if self['cover_attachments']
-      self['cover_attachments'][0]
-    end
+    main_photo
   end
 
   def created_at
