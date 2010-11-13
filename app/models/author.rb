@@ -18,6 +18,7 @@ class Author < BaseModel
   property :full_name
   property :display_name
   property :description
+  property :main_photo
 
   use_as_id :id_by_display_name
 
@@ -77,12 +78,6 @@ class Author < BaseModel
       end
 
       @cache_authors_names[author_id]
-    end
-  end
-
-  def main_photo
-    if self['main_photo_attachments_tmp']
-      self['main_photo_attachments_tmp'][0]
     end
   end
 
