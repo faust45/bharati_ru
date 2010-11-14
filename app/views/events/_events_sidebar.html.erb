@@ -1,0 +1,13 @@
+<% sidebar do %>
+  <div class="block lect">
+  <div class="title"><p>События</p><%= link_to 'Все события &gt;&gt;'.html_safe, events_path,:class => "tlink" %></div>
+
+    <div class="text">
+      <ul>
+        <%= render :partial => 'event_type_item', :collection => event_types %>
+      </ul>
+    </div>
+
+    <div class="bottom"></div>
+  </div>
+<% end %>

@@ -94,11 +94,18 @@ module ApplicationHelper
   end
 
   def d(date)
-    if date
+    unless date.blank?
       l(date.to_date, :format => :long)
     end
 
   rescue TypeError => ex
+  end
+
+  def dt(date, time)
+    res = d(date)
+    res << " в #{time}" unless time.blank?
+
+    res
   end
 
   def collect_options(items, &block)

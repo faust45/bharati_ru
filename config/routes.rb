@@ -66,6 +66,10 @@ MahaMandala::Application.routes.draw do
   match 'publications/author/:author_id' => 'publications#author', :as => 'author_publications'
   match 'publications/:id' => 'publications#show', :as => 'show_publication'
 
+  match 'events' => 'events#index', :as => 'events'
+  match 'events/type/:type' => 'events#type', :as => 'events_type'
+  match 'events/:id' => 'events#show', :as => 'show_event'
+
   match 'audios' => 'audios#index', :as => 'audios'
 
   match 'audios/album/Bhagavatam' => 'audios#bhagavatam', :as => 'audios_bhagavatam'

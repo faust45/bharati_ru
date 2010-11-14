@@ -1,0 +1,16 @@
+<div class="recital">
+  <%= link_to photo_thumb(event_item.main_photo, {:height => "119", :width => "91"}, true), show_event_path(event_item.id) %>
+  <div class="name"><%= link_to event_item.title, show_event_path(event_item.id) %></div>
+  <div class="about">
+    <table>
+      <tbody><tr>
+          <% unless event_item.start_date.blank? %>
+            <td class="ab-t">Начало:</td>
+            <td> <%= dt event_item.start_date, event_item.start_time %></td>
+        <% end %>
+        </tr>
+    </tbody></table>
+  </div>
+  <div class="cl"></div>
+  <p><%= event_item.description %></p>
+</div>

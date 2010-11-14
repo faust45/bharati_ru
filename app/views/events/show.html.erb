@@ -1,0 +1,33 @@
+<%= render :partial => 'events_sidebar' %>
+
+<div class="block aboutevent">
+  <div class="title">Об этом событии</div>
+  <div class="text">
+    <div class="imag">
+      <%= photo_thumb(@event.main_photo, {:height => "202", :width => "281"}, true) %>
+    </div>
+
+    <div class="look">
+      <div class="cuss">Тип:</div>
+      <div class="hookup"><%= @event.event_type_human %></div>
+      <div class="cl"></div>
+
+      <div class="cuss">Когда:</div>
+      <div class="hookup"><%= dt @event.start_date, @event.start_time %></div>
+      <div class="cl"></div>
+
+      <% unless @event.phone.blank? %>
+        <div class="cuss">Телефон:</div>
+        <div class="hookup"><%= @event.phone %></div>
+        <div class="cl"></div>
+      <% end %>
+    </div>
+    <div class="cl"></div> 
+
+    <div class="word">
+      <%= @event.description %>
+    </div>
+  </div>
+
+  <div class="bottom"></div>
+</div>
