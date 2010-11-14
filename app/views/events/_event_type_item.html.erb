@@ -1,12 +1,12 @@
 <li>
   <% if event_type_item[:id] == @type %>
     <strong>
-      <img height="119" width="88" alt="" src="pics/photo.png">
+      <img height="119" width="88" alt="" src="/images/events/<%= event_type_item[:id] %>.png">
       <span><%= event_type_item[:title] %></span>
     </strong>
   <% else %>
     <a href="<%= events_type_path(event_type_item[:id]) %>">
-      <img height="119" width="88" alt="" src="pics/photo.png">
+      <img height="119" width="88" alt="" src="/images/events/<%= event_type_item[:id] %>.png">
       <span><%= event_type_item[:title] %></span>
     </a>
   <% end %>
