@@ -3,7 +3,7 @@
   <div class="container">
     <ul><!-- Для пунктов этого меню часть элементов формируется в common.js -->
       <li><a href="#">Учители</a></li><!-- При наличии class="active" пункт будет выделен, как и при наведении (сделал 2 варианта, т.к. не знаю какой именно требуется) -->
-      <li><a href="#">Новости</a></li>
+      <li><%= link_to 'События', events_path %></li>
       <li><%= link_to 'Библиотека', publications_path %></li>
       <li><%= link_to 'Аудио', audios_path %></li>
       <li><a href="#">Видео</a></li>
