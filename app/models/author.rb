@@ -57,9 +57,8 @@ class Author < BaseModel
     end
 
     def get_authors
-      ids = (ACHARYA + ACHARYA_LIB).uniq
       @authors ||= get_all.reject{|author| 
-        ids.include?(author.id)
+        TEACHERS.include?(author.id)
       }
     end
 
