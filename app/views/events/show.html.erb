@@ -4,7 +4,7 @@
   <div class="title">Об этом событии</div>
   <div class="text">
     <div class="imag">
-      <%= photo_thumb(@event.main_photo_horizontal, @event.main_photo, {:height => "202", :width => "281"}, true) %>
+      <%= photo_thumb(@event.main_photo_horizontal || @event.main_photo, {:height => "202", :width => "281"}, true) %>
     </div>
 
     <div class="look">
