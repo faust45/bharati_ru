@@ -21,6 +21,12 @@
         <div class="hookup"><%= @event.phone %></div>
         <div class="cl"></div>
       <% end %>
+
+      <% unless @event.mail.blank? %>
+        <div class="cuss">Mail:</div>
+        <div class="hookup"><%= @event.mail %></div>
+        <div class="cl"></div>
+      <% end %>
     </div>
     <div class="cl"></div> 
 
