@@ -9,7 +9,7 @@ module TeachersHelper
     if @teacher == teacher
       content_tag(:strong, photo)
     else
-      link_to photo, teachers_path(teacher.id)
+      link_to photo, teacher_show_path(teacher.id)
     end
   end
 end

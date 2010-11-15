@@ -71,7 +71,7 @@ MahaMandala::Application.routes.draw do
   match 'events/:id' => 'events#show', :as => 'show_event'
 
   match 'teachers' => 'teachers#index', :as => 'teachers'
-  match 'teachers/:id' => 'teachers#index', :as => 'teachers'
+  match 'teachers/:id' => 'teachers#index', :as => 'teacher_show'
 
   match 'audios' => 'audios#index', :as => 'audios'
 
