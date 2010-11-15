@@ -90,7 +90,23 @@ jQuery(function($){
   function asTextInput(el) {
     el.ctl = {
       getData: function() {
-        return $(el).val();
+        $.log('in get data');
+        var value = $(el).val();
+        $.log('in get data', el, value);
+        if ($(el).hasClass('text-array')) {
+          var arr = [];
+          var raw = value.split('\n');
+          $.each(raw, function(i) {
+            var el = $.trim(raw[i]);
+            if(!isBlank(el)) {
+              arr.push(el);
+            }
+          });
+
+          value = arr;
+        }
+
+        return value;
       }
     }
 

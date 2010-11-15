@@ -3,6 +3,7 @@
     <li id="track-tab-1" class="active"><a href="#">Basic</a></li>
     <li id="track-tab-2"><a href="#">Additional</a></li>
     <li id="track-tab-2"><a href="#">Bio</a></li>
+    <li id="track-tab-2"><a href="#">Extracts</a></li>
   </ul>
   <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
 </div>
@@ -33,6 +34,13 @@
       </div>
 
       <div class="input"> 
+        <div>Фото из меню:</div>
+        <div class="photo-input" data-photo="page_menu">
+        </div>
+      </div>
+
+      <div class="input"> 
+        <div>Внутренеe фото:</div>
         <div class="photo-input" data-photo="inner">
         </div>
       </div>
@@ -42,6 +50,13 @@
     <div class="input">
       <div>Биография:</div>
       <textarea name="bio" class="store-text field" rows="25" cols="35">{{bio}}</textarea>
+    </div>
+  </div>
+
+  <div class="cnt">
+    <div class="input">
+      <div>Цитаты:</div>
+      <textarea name="extracts" class="store-text field text-array" rows="25" cols="35">{{extracts}}</textarea>
     </div>
   </div>
 </form>
