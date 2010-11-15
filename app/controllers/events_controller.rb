@@ -8,8 +8,8 @@ class EventsController < ApplicationController
 
   def type
     @type = params[:type]
-    @actual_events = Event.get_actual_by_type(params[:type])
-    @not_actual_events = Event.get_not_actual_by_type(params[:type])
+    @actual_events = Event.get_actual(:type => params[:type])
+    @not_actual_events = Event.get_not_actual(:type => params[:type])
 
     render :index
   end
