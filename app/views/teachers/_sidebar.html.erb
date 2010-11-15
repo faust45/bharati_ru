@@ -4,16 +4,18 @@
 
     <div class="text back-t">
       <div class="cameraman">
-        <%= photo_thumb(@author.main_photo_inner, {:width => "316", :height => "227"}, true) %>
+        <%= photo_thumb(@teacher.main_photo_inner, {:width => "316", :height => "227"}, true) %>
       </div>
 
       <div class="f-name">
         <%= @teacher.full_name %>
       </div>
 
+      <% if @teacher.life_years %>
       <div class="f-name fs16">
         (<%= @teacher.life_years %>)
       </div>
+      <% end %>
 
       <div class="docum">
       </div>

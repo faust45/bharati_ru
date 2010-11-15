@@ -4,9 +4,7 @@
   <div class="list-teach lect">
     <ul>
       <% @teachers.each do |teacher| %>
-        <li>
-          <%= link_to(photo_thumb(teacher.main_photo, {:width => "117", :height => "183"}, true), name(teacher)) %>
-        </li>
+        <li> <%= teacher_li(teacher) %> </li>
       <% end %>
     </ul>
   </div>

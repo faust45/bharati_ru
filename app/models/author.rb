@@ -20,7 +20,7 @@ class Author < BaseModel
   property :display_name
   property :description
   property :main_photo
-  property :main_photo_big
+  property :main_photo_inner
   property :life_years
   property :short_bio
   property :bio
