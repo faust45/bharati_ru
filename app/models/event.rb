@@ -19,6 +19,7 @@ class Event < BaseModel
   property :phone
   property :mail
   property :main_photo
+  property :main_photo_horizontal
 
   class<< self
     def get_all(options = {})
