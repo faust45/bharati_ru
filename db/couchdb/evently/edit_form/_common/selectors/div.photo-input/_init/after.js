@@ -1,6 +1,7 @@
 function() {
-  var photoType = $(this).attr('data-photo') || "vertical";
-  var updater = EditDocForm.getMainPhoto(photoType);
+  $.log('in photo after', this);
+  var photoPrefix = $(this).attr('data-photo');
+  var updater = EditDocForm.getMainPhoto(photoPrefix);
   var el = $(this).find('.uploader');
 
   var uploader = new qq.FileUploader({

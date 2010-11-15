@@ -1,9 +1,15 @@
 function(doc) {
   if(doc['couchrest-type'] == 'Event') {
+    var type, end;
+
     if (doc.end_date) {
-      emit([doc.event_type, doc.end_date + ' ' + doc.end_time], null);
+      end = doc.end_date + ' ' + doc.end_time;
     } else {
-      emit([doc.event_type, {}], null);
+      end = {};
     }
+
+     
+    emit([doc.event_type, end], null);
+    emit(['any', end], null);
   }
 }

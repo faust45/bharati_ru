@@ -19,8 +19,8 @@ couchapp_load([
   "scripts/jquery.ui.core.js",
   "scripts/jquery.ui.datepicker.js",
   "scripts/fileuploader.js",
+  "scripts/utils.js",
   "scripts/app.js",
   "scripts/ext.js",
-  "scripts/mime_types.js",
-  "scripts/utils.js",
+  "scripts/mime_types.js"
 ]);

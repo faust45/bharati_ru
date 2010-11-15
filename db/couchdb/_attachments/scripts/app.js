@@ -24,18 +24,17 @@ EditDocForm = {
 
   getMainPhoto: function(type) {
     var source = this, doc = this.doc();
-    var attr = (type == 'horizontal') ? 'main_photo_' + type : 'main_photo';
+    var attr = !isBlank(type) ? 'main_photo_' + type : 'main_photo';
     var id = doc[attr],
-        isBlank = !id;
+        isExists = id;
                   
     function path() {
-      var id = isBlank ? $.couch.newUUID() : doc[attr];
+      var id = !isExists ? $.couch.newUUID() : doc[attr];
       return FileStore.uri + id + '/' + 'img' + '?';
     }
 
     function url(fileName, upload) {
-      if (!isBlank) {
-        $.log('in !isBlank', isBlank, attr, id);
+      if (isExists) {
         FileStore.openDoc(id, {
           success: function(imgDoc) {
             upload(path() + qq.obj2url({rev: imgDoc._rev}));
@@ -47,7 +46,7 @@ EditDocForm = {
     }
 
     function update(resp, cb) {
-      if (isBlank) {
+      if (!isExists) {
         source.update_attr(attr, resp.id)
         source.save(cb);
       } else {
@@ -59,7 +58,7 @@ EditDocForm = {
       url: url,
       onUploadComplete: update,
       id: id,
-      isBlank: isBlank
+      isExists: isExists
     }
   },
 
@@ -110,8 +109,8 @@ EditDocForm = {
 }
 
 
-DocsStore = $.couch.db('rocks_dev');
-FileStore = $.couch.db('rocks_file_store_dev');
+DocsStore = $.couch.db('rocks');
+FileStore = $.couch.db('rocks_file_store');
 
 $(document).ready(function() {
   //$.ajaxSetup({transport:'flXHRproxy'});

@@ -1,7 +1,8 @@
 <div class="tabs" id="track_form_tabs">
   <ul data-tabsid="edit_track_form">
     <li id="track-tab-1" class="active"><a href="#">Basic</a></li>
-    <li id="track-tab-2"><a href="#">Bookmarks</a></li>
+    <li id="track-tab-2"><a href="#">Additional</a></li>
+    <li id="track-tab-2"><a href="#">Bio</a></li>
   </ul>
   <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
 </div>
@@ -13,6 +14,35 @@
       <div class="input"><input class="store-text" name="display_name" type="text" size="25" value="{{display_name}}"></div>
       <div class="photo-input">
       </div>
+  </div>
+
+  <div class="cnt">
+      <div class="input">
+          <div>Полное имя:</div>
+          <input class="store-text field" name="full_name" type="text" size="25" value="{{full_name}}">
+      </div>
+
+      <div class="input">
+          <div>Годы:</div>
+          <input class="store-text field" name="life_years" type="text" size="25" value="{{life_years}}">
+      </div>
+
+      <div class="input">
+          <div>Короткоая биография:</div>
+          <textarea name="short_bio" class="store-text field" rows="10" cols="35">{{short_bio}}</textarea>
+      </div>
+
+      <div class="input"> 
+        <div class="photo-input" data-photo="inner">
+        </div>
+      </div>
+  </div>
+
+  <div class="cnt">
+    <div class="input">
+      <div>Биография:</div>
+      <textarea name="bio" class="store-text field" rows="25" cols="35">{{bio}}</textarea>
+    </div>
   </div>
 </form>
 {{/doc}}

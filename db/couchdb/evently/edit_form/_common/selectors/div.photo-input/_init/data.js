@@ -1,8 +1,8 @@
 function() {
-  var photoType = $(this).attr('data-photo') || "vertical";
-  var photo = EditDocForm.getMainPhoto(photoType);
+  var photoPrefix = $(this).attr('data-photo');
+  var photo = EditDocForm.getMainPhoto(photoPrefix);
 
-  if (!photo.isBlank) {
+  if (photo.isExists) {
     return {imgId: photo.id + '?round=1&' + getRand()}
   } else {
     return {};
