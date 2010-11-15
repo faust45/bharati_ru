@@ -1,5 +1,6 @@
 function() {
-  var updater = new ImgUpdater(EditDocForm, 'cover_attachments');
+  var photoType = $(this).attr('data-photo') || "vertical";
+  var updater = EditDocForm.getMainPhoto(photoType);
   var el = $(this).find('.uploader');
 
   var uploader = new qq.FileUploader({
@@ -10,7 +11,7 @@ function() {
     onSubmit: function(id, fileName) { },
     onComplete: function(id, fileName, responseJSON) {
       if (responseJSON) {
-        updater.uploadComplete(responseJSON, function(doc) {
+        updater.onUploadComplete(responseJSON, function(doc) {
           $('#edit_form').trigger('editPublication', doc);
         });
       }

@@ -22,12 +22,45 @@ EditDocForm = {
     return this.currentDoc;
   },
 
-  setMainPhotoId: function(id) {
-    this.currentDoc.main_photo = id;
-  },
+  getMainPhoto: function(type) {
+    var source = this, doc = this.doc();
+    var attr = (type == 'horizontal') ? 'main_photo_' + type : 'main_photo';
+    var id = doc[attr],
+        isBlank = !id;
+                  
+    function path() {
+      var id = isBlank ? $.couch.newUUID() : doc[attr];
+      return FileStore.uri + id + '/' + 'img' + '?';
+    }
 
-  getMainPhotoId: function() {
-    return this.currentDoc.main_photo;
+    function url(fileName, upload) {
+      if (!isBlank) {
+        $.log('in !isBlank', isBlank, attr, id);
+        FileStore.openDoc(id, {
+          success: function(imgDoc) {
+            upload(path() + qq.obj2url({rev: imgDoc._rev}));
+          }
+        });
+      } else {
+        upload(path());
+      }
+    }
+
+    function update(resp, cb) {
+      if (isBlank) {
+        source.update_attr(attr, resp.id)
+        source.save(cb);
+      } else {
+        cb(doc);
+      }
+    }
+
+    return {
+      url: url,
+      onUploadComplete: update,
+      id: id,
+      isBlank: isBlank
+    }
   },
 
   update_attr: function(attr, value) {
@@ -77,42 +110,8 @@ EditDocForm = {
 }
 
 
-ImgUpdater = function(source, attr) {
-  var imgId = source.getMainPhotoId();
-
-  function updateOwner(resp, cb) {
-    if(!imgId) {
-      source.setMainPhotoId(resp.id);
-      source.save(cb);
-    } else {
-      cb(source.doc());
-    }
-  }
-
-  return {
-    url: function(fileName, cb) {
-      var id = !imgId ? $.couch.newUUID() : imgId;
-      var p = FileStore.uri + id + '/' + 'img' + '?';
-
-      if (imgId) {
-        FileStore.openDoc(imgId, {
-          success: function(imgDoc) {
-            cb(p + qq.obj2url({rev: imgDoc._rev}));
-          }
-        });
-      } else {
-        cb(p);
-      }
-    },
-
-    uploadComplete: function(resp, cb) {
-      updateOwner(resp, cb);
-    }
-  }
-}
-
-DocsStore = $.couch.db('rocks');
-FileStore = $.couch.db('rocks_file_store');
+DocsStore = $.couch.db('rocks_dev');
+FileStore = $.couch.db('rocks_file_store_dev');
 
 $(document).ready(function() {
   //$.ajaxSetup({transport:'flXHRproxy'});
