@@ -70,6 +70,9 @@ MahaMandala::Application.routes.draw do
   match 'events/type/:type' => 'events#type', :as => 'events_type'
   match 'events/:id' => 'events#show', :as => 'show_event'
 
+  match 'teachers' => 'teachers#index', :as => 'teachers'
+  match 'teachers/:id' => 'teachers#index', :as => 'teachers'
+
   match 'audios' => 'audios#index', :as => 'audios'
 
   match 'audios/album/Bhagavatam' => 'audios#bhagavatam', :as => 'audios_bhagavatam'

@@ -1,0 +1,31 @@
+<% sidebar do %>
+  <div class="block lect">
+    <div class="top"></div>
+
+    <div class="text back-t">
+      <div class="cameraman">
+        <%= photo_thumb(@author.main_photo_inner, {:width => "316", :height => "227"}, true) %>
+      </div>
+
+      <div class="f-name">
+        <%= @teacher.full_name %>
+      </div>
+
+      <div class="f-name fs16">
+        (<%= @teacher.life_years %>)
+      </div>
+
+      <div class="docum">
+      </div>
+
+      <div class="docum">
+        <%= @teacher.short_bio %>
+      </div>
+
+      <div class="ref">
+      </div>
+    </div>
+
+    <div class="bottom"></div>
+  </div>
+<% end %>

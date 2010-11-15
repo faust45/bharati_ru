@@ -1,6 +1,7 @@
 class Author < BaseModel
 
   ACHARYA = ['AcharyaMj', 'GovindaMj', 'SridharMj']
+  TEACHERS = %w(AcharyaMj GovindaMj SridharMj SarasvatiThakur BabajiGaurakishor BhaktivinodThakur DjaganathBabaji)
   ACHARYA_LIB = ['GovindaMj', 'SridharMj', 'SarasvatiThakur', 'BhaktivinodThakur']
   AUTHORS_LIB = ['BharatiMj', 'GoswamiMj']
 
@@ -19,6 +20,10 @@ class Author < BaseModel
   property :display_name
   property :description
   property :main_photo
+  property :main_photo_big
+  property :life_years
+  property :short_bio
+  property :bio
 
   use_as_id :id_by_display_name
 
@@ -27,8 +32,16 @@ class Author < BaseModel
 
   
   class <<self
+    def get_teachers
+      @teachers ||= begin
+        TEACHERS.map do |id| 
+          get_doc(id)
+        end
+      end
+    end
+
     def get_all(options = {})
-      view_docs('authors_all', options)
+      @get_all ||= view_docs('authors_all', options)
     end
 
     def get_acharya
