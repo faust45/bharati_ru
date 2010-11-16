@@ -1,0 +1,30 @@
+<% render :partial => 'sidebar' %>
+
+<div class="block">
+  <div class="title">Обратная связь</div>
+  <div class="text padd-right">
+    <div class="pulley">
+      <p class="tit">Почта Бхарати Махараджа:</p>  
+      <p><a href="#">Bharati@mail.ru</a></p>
+    </div>
+    <div class="pulley">
+      <p class="tit">Позвонить нам: </p>  
+      <p>+7-905-796-70-25 Александр</p>
+    </div>
+    <div class="pulley back">
+      <%= form_glance(@feedback, :method => 'post') do |f| %>
+        <%= f.title "Написать нам" %>
+        <%= f.bug %>
+
+        <%= f.string :name %>
+        <%= f.string :mail %>
+        <%= f.string :topic %>
+        <%= f.text   :body %>
+
+        <%= f.submit %>
+      <% end %>
+    </div>
+  </div>
+  <div class="bottom"></div>
+</div>
+

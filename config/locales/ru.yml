@@ -1,1 +1,20 @@
 ru:
+  views:
+    labels:
+      feedback_msg:
+        name: Ваше имя
+        mail: Ваша электронная почта
+        topic: Тема
+        body: Сообщение
+  
+  activemodel:
+    errors:
+      models:
+        feedback_msg:
+          attributes:
+            name: 
+              blank: укажите Ваше имя
+            mail: 
+              blank: укажите свою почту
+            body:
+              blank: напишите сообщение

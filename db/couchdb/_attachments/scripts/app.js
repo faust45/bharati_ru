@@ -22,6 +22,15 @@ EditDocForm = {
     return this.currentDoc;
   },
 
+  docIsUnread: function() {
+    return !this.doc().is_read;
+  },
+
+  markAsRead: function(cb) {
+    this.update_attr('is_read', true);
+    this.save(cb);
+  },
+
   getMainPhoto: function(type) {
     var source = this, doc = this.doc();
     var attr = !isBlank(type) ? 'main_photo_' + type : 'main_photo';
@@ -109,8 +118,8 @@ EditDocForm = {
 }
 
 
-DocsStore = $.couch.db('rocks');
-FileStore = $.couch.db('rocks_file_store');
+DocsStore = $.couch.db('rocks_dev');
+FileStore = $.couch.db('rocks_file_store_dev');
 
 $(document).ready(function() {
   //$.ajaxSetup({transport:'flXHRproxy'});

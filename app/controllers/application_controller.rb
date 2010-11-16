@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   use_zero_auth
 
-  protect_from_forgery
+  #protect_from_forgery
 
   if Rails.env.production?
     #rescue_from User::AccessDenied, :with => :page_404

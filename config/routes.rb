@@ -73,6 +73,9 @@ MahaMandala::Application.routes.draw do
   match 'teachers' => 'teachers#index', :as => 'teachers'
   match 'teachers/:id' => 'teachers#index', :as => 'teacher_show'
 
+  match 'contacts' => 'contacts#feedback', :as => 'feedback', :via => :get
+  match 'contacts' => 'contacts#post_msg', :as => 'post_msg', :via => :post
+
   match 'audios' => 'audios#index', :as => 'audios'
 
   match 'audios/album/Bhagavatam' => 'audios#bhagavatam', :as => 'audios_bhagavatam'

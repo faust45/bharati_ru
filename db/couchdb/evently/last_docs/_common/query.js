@@ -17,5 +17,6 @@ function(e, params) {
     "limit": 10,
     "reduce": false,
     "include_docs": true
+    "descending": true
   }
 }

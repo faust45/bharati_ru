@@ -59,6 +59,10 @@
       $("#last_docs").pathbinder('events', '/events');
       $("#last_docs").pathbinder('currentChanged', '/events/:id');
 
+      $("#last_docs").pathbinder('feedback_msgs', '/feedback_list');
+      $("#last_docs").pathbinder('currentChanged', '/feedback/:id');
+      $("#last_docs").pathbinder('markAsRead', '/feedback/:id');
+
       $("#edit_form").pathbinder('newPublicationAlbum', '/publication_albums_new');
       $("#edit_form").pathbinder('albumPublication', '/album_publication/:id');
       $("#edit_form").pathbinder('publication', '/publications/:id');
@@ -69,6 +73,7 @@
       $("#edit_form").pathbinder('event', '/events/:id');
       $("#edit_form").pathbinder('newEvent', '/events_new');
 
+      $("#edit_form").pathbinder('feedback', '/feedback/:id');
 
       //$.pathbinder.begin("/authors");
       //$.evently.connect("#account","#profile", ["loggedIn","loggedOut"]);

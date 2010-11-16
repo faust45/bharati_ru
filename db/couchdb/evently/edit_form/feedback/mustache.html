@@ -1,0 +1,34 @@
+<div class="tabs">
+  <ul class="custom_tabs">
+    <li class="active"><a href="#">Basic</a></li>
+    <li><a href="#">Response</a></li>
+  </ul>
+  <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
+</div>
+
+
+{{#doc}}
+<form>
+  <div class="cnt active">
+      <div class="input">
+          От: {{name}}
+      </div>
+
+      <div class="input">
+          Mail: {{mail}}
+      </div>
+
+      <div class="input">
+          Тема: {{topic}}
+      </div>
+
+      <div class="input">
+          <div>Сообщение:</div>
+          {{body}}
+      </div>
+  </div>
+
+  <div class="cnt">
+  </div>
+</form>
+{{/doc}}
