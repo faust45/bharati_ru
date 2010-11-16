@@ -21,9 +21,11 @@ class Author < BaseModel
   property :description
   property :main_photo
   property :main_photo_inner
+  property :main_photo_page_menu
   property :life_years
   property :short_bio
   property :bio
+  property :extracts, []
 
   use_as_id :id_by_display_name
 
