@@ -412,15 +412,3 @@ h2{font-size:15px; font-weight:300;}
 input { outline: none; }
 textarea { outline: none; resize: none; }
 
-/* NEW */
-#popup_block{ width: 295px;}
-h3.link_popup{ cursor: pointer; width:295px; height:26px; color:#333333; background:url(../images/bg_popup_h3.png) no-repeat 0 0; font-weight:normal; position:relative; z-index:10}
-h3.link_popup strong{ display:block; padding:5px 0 0 30px; background:url(../images/galka.gif) no-repeat 10px 8px; color:#333333; font-weight:normal; cursor:pointer;}
-#popup_block_in{display:none; position:absolute; background: url(../images/bg_popup_t.png) no-repeat 0 0; width:264px; z-index:20; padding: 26px 0 0 12px; margin-left:19px; margin-top:-18px;}
-#popup_block_in2{background:url(../images/bg_popup_b.png) no-repeat 0 100%; min-height:26px;}
-#popup_block_in3{}
-#popup_block_in ul{padding:0 5px 12px 19px; font-size:0.9em}
-#popup_block_in ul li{padding:0; margin:0; border:0;}
-#popup_block_in ul a{color:#091d28;}
-#popup_block_in ul a:hover{color:#2072ac;}
-#popup_block_in ul li.hover a{ color:#ce580f;}
