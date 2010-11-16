@@ -11,7 +11,7 @@
         <%= @teacher.full_name %>
       </div>
 
-      <% if @teacher.life_years %>
+      <% unless @teacher.life_years.blank? %>
       <div class="f-name fs16">
         (<%= @teacher.life_years %>)
       </div>
