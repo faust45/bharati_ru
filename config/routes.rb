@@ -73,7 +73,7 @@ MahaMandala::Application.routes.draw do
   match 'teachers' => 'teachers#index', :as => 'teachers'
   match 'teachers/:id' => 'teachers#index', :as => 'teacher_show'
 
-  match 'contacts' => 'contacts#feedback', :as => 'contacts'
+  match 'contacts' => 'contacts#feedback', :as => 'contacts', :via => :get
   match 'contacts' => 'contacts#feedback', :as => 'feedback', :via => :get
   match 'contacts/follow' => 'contacts#on_other_sites', :as => 'on_other_sites'
   match 'contacts/links' => 'contacts#links', :as => 'contacts_links'
