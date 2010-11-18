@@ -8,7 +8,8 @@ class ContactsController < ApplicationController
   def post_msg
     @feedback = FeedbackMsg.new(params[:feedback_msg])
 
-    if @feedback.save
+    if @feedback.valid?
+      FeedbackMailer.feedback(@feedback).deliver
       flash[:notice] = "Ок"
       redirect_to feedback_path
     else
