@@ -1,9 +1,9 @@
 class FeedbackMailer < ActionMailer::Base
-  default :to => "faust451@gmail.com"
+  default :to => "faust451@gmail.com, kanicadidi@gmail.com"
 
   def feedback(msg)
+    @msg = msg
     mail(:from => msg.mail,
-         :msg => msg,
          :subject => "Feedback from BharatiRU #{msg.topic}")
   end
   
