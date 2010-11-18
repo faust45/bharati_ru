@@ -5,7 +5,6 @@ class FeedbackMsg < BaseModel
   property :mail
   property :topic
   property :body
-  property :is_read
 
   validates_presence_of :name, :mail, :body
 
