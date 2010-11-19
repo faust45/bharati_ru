@@ -26,19 +26,14 @@ EditDocForm = {
     return !this.doc().is_read;
   },
 
-  markAsRead: function(cb) {
-    this.update_attr('is_read', true);
-    this.save(cb);
-  },
-
-  getMainPhoto: function(type) {
+  getMainPhoto: function(type, namespace) {
     var source = this, doc = this.doc();
     var attr = !isBlank(type) ? 'main_photo_' + type : 'main_photo';
-    var id = doc[attr],
+    var id = this.getAttrValue(namespace, attr),
         isExists = id;
                   
     function path() {
-      var id = !isExists ? $.couch.newUUID() : doc[attr];
+      var id = !isExists ? $.couch.newUUID() : this.getAttrValue(namespace, attr);
       return FileStore.uri + id + '/' + 'img' + '?';
     }
 
@@ -56,7 +51,7 @@ EditDocForm = {
 
     function update(resp, cb) {
       if (!isExists) {
-        source.update_attr(attr, resp.id)
+        source.update_attr(namespace, attr, resp.id)
         source.save(cb);
       } else {
         cb(doc);
@@ -71,9 +66,23 @@ EditDocForm = {
     }
   },
 
-  update_attr: function(attr, value) {
+  update_attr: function(namespace, attr, value) {
     var doc = this.currentDoc;
+    if (namespace) {
+      doc[namespace] = doc[namespace] || {};
+      doc = doc[namespace]
+    }
+
     doc[attr] = value;
+  },
+
+  getAttrValue: function(namespace, attr) {
+    var doc = this.currentDoc;
+    if (namespace) {
+      doc = doc[namespace] || {};
+    }
+
+    return doc[attr];
   },
 
   update: function(hash) {

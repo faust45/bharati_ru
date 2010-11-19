@@ -1,8 +1,10 @@
 function() {
-  $.log('in photo after', this);
   var photoPrefix = $(this).attr('data-photo');
-  var updater = EditDocForm.getMainPhoto(photoPrefix);
   var el = $(this).find('.uploader');
+  var container = $(this).parent().parent();
+  var namespace = container.attr('data-space');
+
+  var updater = EditDocForm.getMainPhoto(photoPrefix, namespace);
 
   var uploader = new qq.FileUploader({
     element: el[0],

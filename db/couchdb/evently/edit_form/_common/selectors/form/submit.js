@@ -5,13 +5,14 @@ function(args) {
 
   $.each(fields, function(el) {
     var attr = $(this).attr('name');
-    data[attr] = this.ctl.getData();
+    var container = $(this).parent().parent();
+    var namespace = container.attr('data-space'); 
+
+    EditDocForm.update_attr(namespace, attr, this.ctl.getData());
   });
-
-  $.log('in send data', fields, data);
-
-  EditDocForm.update(data);
   EditDocForm.setCouchrestTypeIfBlank($(this).attr('data-type'));
+
+  $.log(EditDocForm.doc());
 
   EditDocForm.save(function(resp) {
     self.trigger('formSaved');

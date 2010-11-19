@@ -1,0 +1,63 @@
+<div class="tabs" id="track_form_tabs">
+  <ul data-tabsid="edit_track_form">
+    <li id="track-tab-1" class="active"><a href="#">About</a></li>
+    <li id="track-tab-2"><a href="#">Учение</a></li>
+    <li id="track-tab-2"><a href="#">С чего начать</a></li>
+  </ul>
+  <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
+</div>
+
+
+{{#doc}}
+<form>
+  <div class="cnt active" data-space="about">
+     <div class="input"> 
+       <div class="photo-input" data-photo="icon">
+       </div>
+     </div>
+
+     <div class="input">
+       <div>Описание:</div>
+       <textarea name="description" class="store-text field" rows="25" cols="35">{{description}}</textarea>
+     </div>
+  </div>
+
+  <div class="cnt" data-space="ychenie">
+     <div class="input"> 
+        <div>Иконка:</div>
+        <div class="photo-input" data-photo="icon">
+        </div>
+      </div>
+
+      <div class="input"> 
+        <div>Фотка:</div>
+        <div class="photo-input" data-photo="big">
+        </div>
+      </div>
+
+    <div class="input">
+      <div>Описание:</div>
+      <textarea name="description" class="store-text field" rows="25" cols="35">{{description}}</textarea>
+    </div>
+  </div>
+
+  <div class="cnt" data-space="to_start">
+      <div class="input"> 
+          <div>Иконка:</div>
+          <div class="photo-input" data-photo="icon">
+          </div>
+      </div>
+
+      <div class="input"> 
+          <div>Фотка:</div>
+          <div class="photo-input" data-photo="big">
+          </div>
+      </div>
+
+      <div class="input">
+          <div>Описание:</div>
+          <textarea name="description" class="store-text field" rows="25" cols="35">{{description}}</textarea>
+      </div>
+  </div>
+</form>
+{{/doc}}
