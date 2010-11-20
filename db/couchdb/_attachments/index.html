@@ -58,6 +58,7 @@
 
       $("#last_docs").pathbinder('events', '/events');
       $("#last_docs").pathbinder('currentChanged', '/events/:id');
+      $("#last_docs").pathbinder('events', '/events/page/:page');
 
       $("#last_docs").pathbinder('feedback_msgs', '/feedback_list');
       $("#last_docs").pathbinder('currentChanged', '/feedback/:id');

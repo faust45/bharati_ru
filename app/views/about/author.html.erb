@@ -1,0 +1,41 @@
+<% render :partial => 'sidebar' %>
+
+<div class="trackAuthor lecture">
+
+  <table>
+    <tbody><tr>
+        <td><div class="trackPhoto"><%= link_to author_inner_photo(@author) %></div></td>
+        <td>
+          <div class="drill">
+            <div class="tenor">
+              <%= @author.full_name %>
+            </div>
+            <p><%= link_to 'Слушать аудиозаписи', author_audios_path(@author), :class => 'aud' %></p>
+          </div>
+        </td>
+      </tr>
+  </tbody></table>
+
+
+</div>
+
+
+<div class="block update">
+  <div class="tabs">
+    <ul class="tab2">
+      <li><a class="active" href="#" rel="0"><b></b><u>Биография</u><i></i></a></li><li class="clear"><span><span></span></span></li>
+      <li><a class="" href="#" rel="1"><b></b><u>Цитаты</u><i></i></a></li><li class="clear"><span><span></span></span></li>
+    </ul>
+  </div>
+  <div id="tab-1" class="tab-container bookTab lastTab active">
+    <div class="word">
+      <%= @author.bio %>
+    </div>
+  </div>
+  <div id="tab-2" class="tab-container bookTab ">
+    <div class="quotes">
+    </div>
+  </div>
+  <div class="bottom"></div>
+</div>
+

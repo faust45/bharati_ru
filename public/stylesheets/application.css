@@ -41,3 +41,7 @@ div.temp-info a {
 li.bookmark-text-only {
   color: white;
 }
+
+.update .item {
+  min-height: 5em;
+}

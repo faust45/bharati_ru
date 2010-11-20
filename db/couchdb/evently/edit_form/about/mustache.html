@@ -16,10 +16,16 @@
        </div>
      </div>
 
+     {{#about}}
+     <div class="input">
+         <div>Заголовок:</div>
+         <input class="store-text field" name="title" type="text" size="25" value="{{title}}">
+     </div>
      <div class="input">
        <div>Описание:</div>
        <textarea name="description" class="store-text field" rows="25" cols="35">{{description}}</textarea>
      </div>
+     {{/about}}
   </div>
 
   <div class="cnt" data-space="ychenie">
@@ -35,10 +41,16 @@
         </div>
       </div>
 
+    {{#ychenie}}
+    <div class="input">
+        <div>Заголовок:</div>
+        <input class="store-text field" name="title" type="text" size="25" value="{{title}}">
+    </div>
     <div class="input">
       <div>Описание:</div>
       <textarea name="description" class="store-text field" rows="25" cols="35">{{description}}</textarea>
     </div>
+    {{/ychenie}}
   </div>
 
   <div class="cnt" data-space="to_start">
@@ -54,10 +66,16 @@
           </div>
       </div>
 
+      {{#to_start}}
+      <div class="input">
+          <div>Заголовок:</div>
+          <input class="store-text field" name="title" type="text" size="25" value="{{title}}">
+      </div>
       <div class="input">
           <div>Описание:</div>
           <textarea name="description" class="store-text field" rows="25" cols="35">{{description}}</textarea>
       </div>
+      {{/to_start}}
   </div>
 </form>
 {{/doc}}

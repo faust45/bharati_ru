@@ -1,0 +1,36 @@
+module AboutHelper
+  ABOUT = {
+     :about => '<span class="white">Бхарати</span>.ру',
+     :ychenie    => 'Учение Бхакти',
+     :to_start   => 'С чего начать?'
+    }
+
+  MAP = {
+    'about' => 'about',
+    'about_ychenie' => 'ychenie',
+    'about_to_start' => 'to_start',
+  }
+
+  def have_inner_photo(about_section)
+    !about_section.main_photo_big.blank?
+  end
+
+  def about_icon(section)
+    section = MAP[section.to_s]
+    icon = About[section].main_photo_icon
+    photo_thumb(icon, {:height => "120", :width => "86"}, true)
+  end
+
+  def about_inner_photo
+    if @about.main_photo_big
+      photo_thumb(@about.main_photo_big, {:width => 281, :height => 202}, true)
+    else
+      ''
+    end
+  end
+
+  def about_text(section)
+    section = MAP[section.to_s]
+    ABOUT[section.to_sym]
+  end
+end

@@ -1,6 +1,11 @@
 module ApplicationHelper
   RU_MONTH = %w(январь февраль март апрель май июнь июль август сентябрь октябрь ноябрь декабрь) 
 
+  def slink_to(photo, text, href, options = {})
+    text = content_tag(:span, text.html_safe)
+    link_to photo + text, href, options
+  end
+
   def ru_month(month)
    RU_MONTH[month.to_i - 1]
   end
@@ -21,10 +26,19 @@ module ApplicationHelper
     end
   end
 
+  def author_inner_photo(author)
+    if author.main_photo_inner
+      photo_thumb(author.main_photo_inner, {:width => 281, :height => 202}, true)
+    else
+      ''
+    end
+  end
+
+
   def photo_thumb(img_id, size, round = false) 
     p = "http://93.94.152.87:81/#{img_id}?size=#{size[:height]}x#{size[:width]}"
     p << "&round=1" if round
-    image_tag(p)
+    image_tag(p, size)
   end
 
   def hit_tags(item)

@@ -1,0 +1,27 @@
+<% render :partial => 'sidebar' %>
+
+<% if have_inner_photo(@about) %>
+<div class="trackAuthor lecture">
+  <table>
+    <tbody><tr>
+        <td>
+          <div class="trackPhoto">
+            <a href="#"><%= about_inner_photo %></a>
+          </div>
+        </td>
+        <td>
+        </td>
+      </tr>
+  </tbody></table>
+</div>
+<% end %>
+
+<div class="block">
+  <div class="title"><%= @about.title.html_safe %></div>
+  <div class="text">
+    <div class="word">
+      <%= @about.description %>
+    </div>
+  </div>
+  <div class="bottom"></div>
+</div>

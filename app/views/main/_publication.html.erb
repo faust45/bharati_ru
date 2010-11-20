@@ -1,0 +1,8 @@
+<div class="new">
+  <%= link_to publication_photo(publication), show_publication_path(publication) %>
+  <div class="item">
+    <div class="name"><%= link_to publication.title, show_publication_path(publication) %></div>
+    <div class="txt"><%= publication.author.display_name %></div>
+    <div class="date"><%= d publication.created_at %></div>
+  </div>
+</div>

@@ -66,6 +66,11 @@ MahaMandala::Application.routes.draw do
   match 'publications/author/:author_id' => 'publications#author', :as => 'author_publications'
   match 'publications/:id' => 'publications#show', :as => 'show_publication'
 
+  match 'about' => 'about#index', :as => 'about', :defaults => {:about => 'about'}
+  match 'about/ychenie' => 'about#index', :as => 'about_ychenie', :defaults => {:about => 'ychenie'}
+  match 'about/to_start' => 'about#index', :as => 'about_to_start', :defaults => {:about => 'to_start'}
+  match 'about/author/:id' => 'about#author', :as => 'about_author'
+
   match 'events' => 'events#index', :as => 'events'
   match 'events/type/:type' => 'events#type', :as => 'events_type'
   match 'events/:id' => 'events#show', :as => 'show_event'

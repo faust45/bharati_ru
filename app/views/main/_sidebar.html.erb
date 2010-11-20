@@ -1,0 +1,36 @@
+<% sidebar do %>
+  <div class="block new">
+    <div class="title">Новость</div>
+    <div class="text">
+      <a href="#"><img height="97" width="80" alt="" src="pics/photo.png"></a>
+      <div class="name"><a href="#">Бхарати Махарадж в Украине!</a></div>
+      <p>15-18 июня в Запорожье, в культурном центре “Анаэль” пройдет цикл философских встреч с Бхарати Махараджем.</p>
+      <div class="date">15 мая 2010 года</div>
+    </div>
+    <div class="bottom"></div>
+  </div>
+
+  <div class="block update">
+    <div class="title">Обновления</div>
+    <div class="tabs">
+      <ul class="tab3">
+        <li><a class="active" href="#" rel="0"><b></b><u>Аудио</u><i></i></a></li><li class="clear"><span><span></span></span></li>
+        <li><a href="#" rel="2"><b></b><u>Тексты</u><i></i></a></li><li class="clear"><span><span></span></span></li>
+      </ul>
+    </div>
+    <div id="tab-1" class="tab-container audioTab active">
+      <%= render :partial => 'audio', :collection => @audios %>
+    </div>
+    <div id="tab-3" class="tab-container audioTab">
+      <%= render :partial => 'publication', :collection => @publications %>
+    </div>
+
+    <div class="rss">
+      <img height="49" width="49" alt="" src="images/rss.png"><br>
+      <a href="#">Рассылка обновлений</a>
+    </div>
+    <div class="bottom"></div>
+  </div>
+
+  <div class="bottom"></div>
+<% end %>

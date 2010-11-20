@@ -10,7 +10,7 @@ class SitePath
   end
 
   def to_s
-    (main_path > events_path > audios_path > publications_path > publication_title > bhagavatam_author > author_path > 
+    (main_path > about_path > events_path > audios_path > publications_path > publication_title > bhagavatam_author > author_path > 
       bhagavatam_album > album_path > year_path > search_path).to_s
   end
 
@@ -19,6 +19,13 @@ class SitePath
     def main_path
       link = link_to('<span>Бхарати<span>.ру</span></span>'.html_safe + ico_beta, root_path)
       Path.new(link)
+    end
+
+    def about_path
+      if params[:controller] == "about"
+        name = content_tag(:i, 'О сайте')
+        link_to(name, helper.about_path)
+      end
     end
 
     def events_path

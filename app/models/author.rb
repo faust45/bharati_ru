@@ -1,9 +1,10 @@
 class Author < BaseModel
 
-  ACHARYA = ['AcharyaMj', 'GovindaMj', 'SridharMj']
+  ACHARYA = %w(AcharyaMj GovindaMj SridharMj)
   TEACHERS = %w(AcharyaMj GovindaMj SridharMj SarasvatiThakur BabajiGaurakishor BhaktivinodThakur DjaganathBabaji)
-  ACHARYA_LIB = ['GovindaMj', 'SridharMj', 'SarasvatiThakur', 'BhaktivinodThakur']
-  AUTHORS_LIB = ['BharatiMj', 'GoswamiMj']
+  ACHARYA_LIB = %w(GovindaMj SridharMj SarasvatiThakur BhaktivinodThakur)
+  AUTHORS_LIB = %w(BharatiMj GoswamiMj)
+  MATH_AUTHORS = %w(BharatiMj GoswamiMj SrutasravaPr SiddhantiMj)
 
   NAMES_IDS = {
     'Б.Н. Ачарья Махарадж'  => 'AcharyaMj',
@@ -62,6 +63,12 @@ class Author < BaseModel
       @authors ||= get_all.reject{|author| 
         TEACHERS.include?(author.id)
       }
+    end
+
+    def get_math_authors
+      @math_authors ||= MATH_AUTHORS.map do |id|
+        self.get_doc!(id)
+      end
     end
 
     def get_authors_lib
