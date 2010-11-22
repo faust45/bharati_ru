@@ -1,0 +1,7 @@
+<div class="new">
+  <div class="item">
+    <div class="name"><%= link_to audio.title, show_audio_path(audio) %></a></div>
+    <div class="txt"><%= audio.author.display_name %><br>Лекция от <%= d audio.record_date %></div>
+    <div class="date"><%= d audio.created_at %></div>
+  </div>
+</div>

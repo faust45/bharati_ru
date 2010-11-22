@@ -26,6 +26,13 @@ class Event < BaseModel
       view_docs('events_all', options)
     end
 
+    def get_main
+      db = database
+      doc = db.get('events_main_album', :include_docs => true)
+      resp = db.documents(:keys => doc['events'] || [], :include_docs => true)
+      Collection.new resp, self 
+    end
+
     def get_actual(options = {})
       now = Time.now
       type = options.delete(:type) || 'any'

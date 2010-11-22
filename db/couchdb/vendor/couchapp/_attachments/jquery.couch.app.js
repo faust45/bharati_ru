@@ -86,12 +86,16 @@
       moduleCache.push({ key: [name, parents], module: module });
     }
     var require = function (name, parents) {
+      $.log('in require');
       var cachedModule = getCachedModule(name, parents);
+      $.log('after cacherequire');
       if (cachedModule !== null) {
         return cachedModule;
       }
       var exports = {};
+      $.log('beforeresolv');
       var resolved = resolveModule(name, name.split('/'), parents, ddoc);
+      $.log('after resolv');
       var source = resolved[0]; 
       parents = resolved[1];
       var s = "var func = function (exports, require) { " + source + " };";

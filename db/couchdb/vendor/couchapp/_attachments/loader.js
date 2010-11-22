@@ -8,7 +8,7 @@ function couchapp_load(scripts) {
 couchapp_load([
   "/_utils/script/sha1.js",
   "/_utils/script/json2.js",
-  "/_utils/script/jquery.js",
+  "scripts/jquery-1.4.4.js",
   "/_utils/script/jquery.couch.js",
   "vendor/couchapp/jquery.couch.app.js",
   "vendor/couchapp/jquery.couch.app.util.js",
@@ -16,11 +16,14 @@ couchapp_load([
   "vendor/couchapp/jquery.evently.js",
   "vendor/couchapp/jquery.evently.couch.js",
   "vendor/couchapp/jquery.pathbinder.js",
-  "scripts/jquery.ui.core.js",
+  "vendor/couchapp/docform.js",
+  "scripts/jquery-ui.min.js",
   "scripts/jquery.ui.datepicker.js",
   "scripts/fileuploader.js",
+  "scripts/jquery.form.js",
   "scripts/utils.js",
   "scripts/app.js",
+  "scripts/form2object.js",
   "scripts/ext.js",
   "scripts/mime_types.js"
 ]);

@@ -90,9 +90,7 @@ jQuery(function($){
   function asTextInput(el) {
     el.ctl = {
       getData: function() {
-        $.log('in get data');
         var value = $(el).val();
-        $.log('in get data', el, value);
         if ($(el).hasClass('text-array')) {
           var arr = [];
           var raw = value.split('\n');
@@ -116,7 +114,8 @@ jQuery(function($){
   function asSelectInput(el) {
     el.ctl = {
       getData: function() {
-        return $(el).find('option[selected=true]').attr('value');
+        var value = $(el).val();
+        return value;
       }
     }
 
@@ -171,3 +170,47 @@ function eventlyHandler(elem, name, h, args) {
   }
 };
 */
+
+function dbUpdate(app, handler, id, options, fun) {
+  $.log('in dbUpdate');
+  var path = app.db.uri + app.ddoc._id + "/_update/" + handler + "/" + id + encodeOptions(options);
+  $.log(path);
+
+  $.ajax({
+    type: 'PUT', 
+    url: path,
+    success: fun
+  });
+}
+
+function fetchDocs(ids, fun) {
+  var app = App.app;
+  var path = app.db.uri + '_all_docs&include_docs=true';
+
+  $.ajax({
+    type: 'POST', 
+    contentType: 'application/json',
+    data: {"keys": ["id1", "id2"]},
+    url: path,
+    success: fun
+  });
+}
+
+
+
+function encodeOptions(options) {
+  var buf = [];
+  if (typeof(options) === "object" && options !== null) {
+    for (var name in options) {
+      if ($.inArray(name, ["error", "success", "beforeSuccess", "ajaxStart"]) >= 0)
+        continue;
+      var value = options[name];
+      if ($.inArray(name, ["key", "startkey", "endkey"]) >= 0) {
+        value = toJSON(value);
+      }
+      buf.push(encodeURIComponent(name) + "=" + encodeURIComponent(value));
+    }
+  }
+  return buf.length ? "?" + buf.join("&") : "";
+}
+

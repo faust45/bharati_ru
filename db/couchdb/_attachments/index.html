@@ -30,9 +30,10 @@
   <script src="vendor/couchapp/loader.js"></script>
   <script type="text/javascript" charset="utf-8">
     $.couch.app(function(app) {
-      //$("#content").evently("content", app);
       App = app.ddoc.evently;
       App.app = app;
+
+      $("#edit_form").evently("form", app);
 
       $("#last_docs").evently("last_docs", app);
       $("#last_docs").evently("listEvents", app);
@@ -73,6 +74,7 @@
 
       $("#edit_form").pathbinder('event', '/events/:id');
       $("#edit_form").pathbinder('newEvent', '/events_new');
+      $("#edit_form").pathbinder('event_album', '/events/album/album_main');
 
       $("#edit_form").pathbinder('feedback', '/feedback/:id');
 

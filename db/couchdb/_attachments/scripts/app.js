@@ -33,7 +33,7 @@ EditDocForm = {
         isExists = id;
                   
     function path() {
-      var id = !isExists ? $.couch.newUUID() : this.getAttrValue(namespace, attr);
+      var id = !isExists ? $.couch.newUUID() : source.getAttrValue(namespace, attr);
       return FileStore.uri + id + '/' + 'img' + '?';
     }
 

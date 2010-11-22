@@ -5,6 +5,8 @@ class MainController < ApplicationController
     @acharya = Author.get_acharya
     @audios = Audio.get_all(:limit => 5)
     @publications = Publication.get_all(:limit => 5)
+
+    @events = Event.get_main
   end
 
 end

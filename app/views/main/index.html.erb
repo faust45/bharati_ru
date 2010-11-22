@@ -17,7 +17,7 @@
     <p>Шри Чайтанья Сарасват Матх</p>
     <ul><!-- Картинки придется формировать в форматах .png или .gif, т.к. требуются закругленный уголки. Рекомендую .png, т.к. в этом варианте качество лучше, вес меньше. -->
       <% @acharya.each do |teacher| %>
-        <li><%= link_to author_main_photo(teacher) + "<span>#{teacher.display_name}</span>".html_safe %></li>
+        <li><%= link_to author_main_photo(teacher) + "<span>#{teacher.display_name}</span>".html_safe, teacher_show_path(teacher) %></li>
       <% end %>
     </ul>
   </div>
@@ -26,10 +26,11 @@
 <div class="block events">
   <div class="title">События</div>
   <div class="text">
-    <div class="item">
-      <h2><a href="#">В настоящее время Бхарати Свами переводит 10 Песню Шримад Бхагаватам</a></h2>
-      <p>Архив сайта постоянно пополняется новыми стихами, вы можете скачивать последние переводы или читать на сайте</p>
-    </div>
+    <% @events.each do |event| %>
+      <div class="item">
+        <h2><%= link_to event.title, show_event_path(event) %></h2>
+      </div>
+    <% end %>
   </div>
   <div class="bottom"></div>
 </div>
