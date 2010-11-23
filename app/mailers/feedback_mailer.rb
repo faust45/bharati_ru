@@ -1,5 +1,5 @@
 class FeedbackMailer < ActionMailer::Base
-  default :to => "faust451@gmail.com, kanicadidi@gmail.com"
+  default :to => "faust451@gmail.com, kanicadidi@gmail.com, tochka108@gmail.com"
 
   def feedback(msg)
     @msg = msg
