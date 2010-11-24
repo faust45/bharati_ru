@@ -1,0 +1,45 @@
+<div class="tabs">
+  <ul>
+    <li class="active"><a href="#">Basic</a></li>
+    <li><a href="#">Description</a></li>
+  </ul>
+  <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
+</div>
+
+
+{{#doc}}
+<form>
+  <input type='hidden' name='_id' value='{{_id}}' />
+  <input type='hidden' name='_rev' value='{{_rev}}' />
+
+  <div class="cnt active">
+      <div class="input"><input class="store-text" name="title" type="text" size="25" value="{{title}}"></div>
+      <div class="input">
+          <select name="author_id" class="author-select can-changed field">
+          </select>
+      </div>
+
+      <div class="input">
+          <div>Дата записи:</div>
+          {{record_date}}
+      </div>
+
+      <div class="input">
+          <img src="{{thumbnail_medium}}" />
+      </div>
+
+      <div class="input">
+        <div class="photo-input">
+        </div>
+      </div>
+  </div>
+
+  <div class="cnt active">
+      <div class="input">
+          <textarea name="description" class="store-text field" rows="25" cols="35">
+              {{description}}
+          </textarea>
+      </div>
+  </div>
+</form>
+{{/doc}}

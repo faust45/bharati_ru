@@ -48,6 +48,10 @@
       $("#last_docs").trigger('publications');
 
       //path
+      $("#last_docs").pathbinder('videos', '/videos');
+      $("#last_docs").pathbinder('videos', '/videos/page/:page');
+      $("#last_docs").pathbinder('currentChanged', '/videos/:id');
+
       $("#last_docs").pathbinder('publications', '/publications');
       $("#last_docs").pathbinder('publications', '/publications/page/:page');
       $("#last_docs").pathbinder('albums_publication', '/publication_albums');
@@ -79,6 +83,8 @@
       $("#edit_form").pathbinder('feedback', '/feedback/:id');
 
       $("#edit_form").pathbinder('about', '/about/:id');
+
+      $("#edit_form").pathbinder('video', '/videos/:id');
 
       //$.pathbinder.begin("/authors");
       //$.evently.connect("#account","#profile", ["loggedIn","loggedOut"]);
