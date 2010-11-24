@@ -76,9 +76,7 @@ module AudiosHelper
   end
 
   def player
-    content_for :before_main_block do
       render :partial => 'player'
-    end
   end
 
   def album_navigation

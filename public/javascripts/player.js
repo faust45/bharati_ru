@@ -109,7 +109,7 @@ function initPlayer(id, trackParams) {
    var code =
    AC_FL_RunContent("src", "/player",
      "wmode", "transparent",
-     "width", "950",
+     "width", "590",
      "height", "119",
      "align", "middle",
      "id", id,
