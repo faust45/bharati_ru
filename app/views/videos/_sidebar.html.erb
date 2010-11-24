@@ -1,0 +1,23 @@
+<% sidebar do %>
+  <div class="block lect">
+    <div class="title"><%= block_title %> Учителей</div>
+
+    <div class="text">
+      <%= menu_glance(:icon => :author_main_photo, :text => :display_name) do |m| %>
+        <% m.author_videos :collection => @acharya %>
+      <% end %>
+    </div>
+
+    <div class="bottom"></div>
+  </div>
+
+  <div class="block lect">
+    <div class="title"><small><%= block_title %> Проповедников</small></div>
+    <div class="text">
+      <%= menu_glance(:icon => :author_main_photo, :text => :display_name) do |m| %>
+        <% m.author_videos :collection => @authors %>
+      <% end %>
+    </div>
+    <div class="bottom"></div>
+  </div>
+<% end %>

@@ -1,0 +1,9 @@
+<%= render :partial => 'sidebar' %>
+
+<div class="block last-audio last-video">
+  <div class="title">Последнее видео</div>
+  <div class="text">
+    <%= render :partial => 'video_item', :collection => @videos %>
+  </div>
+  <div class="bottom"></div>
+</div>

@@ -81,6 +81,30 @@ function removeUserBookmark() {
 }
 
 
+function initVideoPlayer(id, trackParams) {
+   var code =
+   AC_FL_RunContent("src", "http://vimeo.com/moogaloop.swf",
+     "wmode", "transparent",
+     "width", "540",
+     "height", "340",
+     "align", "middle",
+     "id", id,
+     "quality", "high",
+     "bgcolor", "#ffffff",
+     "name", "PlayerLight",
+     "allowScriptAccess","sameDomain",
+     "type", "application/x-shockwave-flash",
+     "pluginspage", "http://www.adobe.com/go/getflashplayer",
+     "FlashVars", trackParams
+   );
+
+   jQuery(function($) {
+     $(document).ready(function() {
+       $('#player_block').html(code);
+     });
+   });
+}
+
 function initPlayer(id, trackParams) {
    var code =
    AC_FL_RunContent("src", "/player",

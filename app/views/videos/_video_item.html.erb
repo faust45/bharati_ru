@@ -1,0 +1,6 @@
+<div class="item">
+  <a href="<%= show_video_path(video_item) %>"><img src="<%= video_item.thumbnail_small %>"></a>
+  <div class="name"><%= link_to video_item.title, show_video_path(video_item) %></div>
+  <p>Лекция от 12 октября 1987 года <%= video_item.author.display_name %></p>
+  <div class="date"><%= d video_item.upload_at %></div>
+</div>

@@ -1,0 +1,11 @@
+<% include_js 'player.js' %>
+
+<div class="block video">
+  <div class="title"><small><%= @video.title %></small></div>
+  <div class="text">
+    <div id="player_block" class="container">
+      <% video_player %>
+    </div>
+  </div>
+  <div class="bottom"></div>
+</div>
