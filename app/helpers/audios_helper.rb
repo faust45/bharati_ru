@@ -1,6 +1,14 @@
 module AudiosHelper
   include AudioBookmarksHelper
 
+  def author_path(author)
+    if author.is_teacher?
+      teacher_show_path(author)
+    else
+      about_author_path(author)
+    end
+  end
+
   def sb_book_title(book)
     options = {:class => "hover"} if book == @album
 

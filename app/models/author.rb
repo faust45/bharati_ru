@@ -102,6 +102,10 @@ class Author < BaseModel
     end
   end
 
+  def is_teacher?
+    TEACHERS.include? self.id
+  end
+
   def get_publications(options = {})
     Publication.get_by_author_or_translator(self.id, options)
   end

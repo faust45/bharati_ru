@@ -1,7 +1,7 @@
 <div class="trackAuthor">
   <div class="trackPhoto"><%= track_img %></div>
   <div class="trackInfo">
-    <div class="author"><span>Автор:</span> <%= author_name %></div>
+    <div class="author"><span>Автор:</span> <%= link_to author_name, author_path(@current_track.author)  %></div>
     <div class="tags"><%= tags %></div>
 
     <div class="download"><%= link_to "<b>&#160;</b><i>&#160;</i>скачать этот трек (#{source_size(@current_track)})".html_safe, file_url(@current_track.source) %></div>
