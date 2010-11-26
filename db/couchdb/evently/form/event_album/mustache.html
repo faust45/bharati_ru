@@ -1,8 +1,15 @@
-<a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
+<div class="tabs">
+  <ul>
+    <li class="active"><a href="#">Events</a></li>
+    <li><a href="#">News</a></li>
+  </ul>
+  <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
+</div>
 
 <form>
     <input type='hidden' name='_id' value='events_main_album' />
     <input type='hidden' name='_rev' value='{{albumRev}}' />
+
     <div class="cnt active">
         <div class="input">
             <ul>
@@ -13,5 +20,10 @@
               {{/items}}
             </ul>
         </div>
+    </div>
+
+    <div class="cnt">
+        <ul class="main-news">
+        </ul>
     </div>
 </form>

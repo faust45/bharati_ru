@@ -11,7 +11,7 @@ class Admin::AudiosController < AdminController
   end
 
   def new 
-    audio = Audio.new(:source_file => params['file'])
+    audio = Audio.new(:source_file => params['file'].tempfile)
     audio.save
     logger.info audio.inspect
 
@@ -20,7 +20,7 @@ class Admin::AudiosController < AdminController
 
   def upload_photo
     audio = Audio.get_doc!(params['id'])
-    audio.photos_file = params['file']
+    audio.photos_file = params['file'].tempfile
     audio.save
 
     audio = Audio.get_doc!(audio.id)
@@ -33,7 +33,7 @@ class Admin::AudiosController < AdminController
     is_need_update_info = is_need_update_info == 'true' ? true : false
 
     audio = Audio.get_doc!(params[:track_id])
-    audio.source_replace(params['file'], is_need_update_info)
+    audio.source_replace(params['file'].tempfile, is_need_update_info)
 
     audio = Audio.get_doc!(audio.id)
     render :json => {'success' => true, 'doc' => audio} 
