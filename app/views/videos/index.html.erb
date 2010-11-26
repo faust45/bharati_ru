@@ -4,6 +4,7 @@
   <div class="title">Последнее видео</div>
   <div class="text">
     <%= render :partial => 'video_item', :collection => @videos %>
+    <%= pages(@videos) %>
   </div>
   <div class="bottom"></div>
 </div>

@@ -7,7 +7,7 @@ class VideosController < ApplicationController
 
   def author
     @author = Author.get_doc!(params[:author_id])
-    @videos = @author.get_videos
+    @videos = @author.paginate(:get_videos, :page => params[:page])
 
     @years = @author.get_years_with_videos_count
     @years.delete(nil)

@@ -62,8 +62,8 @@ MahaMandala::Application.routes.draw do
   match 'users/change_css_style/:css_style' => 'users#change_css_style', :as => 'user_change_css_style'
 
   match 'videos' => 'videos#index', :as => 'videos'
+  match 'videos/author/:author_id/:id' => 'videos#show', :as => 'show_author_video'
   match 'videos/author/:author_id' => 'videos#author', :as => 'author_videos'
-  match 'videos/author/:author_id/:id' => 'videos#author', :as => 'show_author_video'
   match 'videos/author/:author_id/year/:year' => 'videos#year', :as => 'author_year_videos'
   match 'videos/author/:author_id/year/:year/:id' => 'videos#year', :as => 'show_author_year_video'
   match 'videos/:id' => 'videos#show', :as => 'show_video'

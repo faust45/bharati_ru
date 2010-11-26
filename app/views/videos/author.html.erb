@@ -10,6 +10,7 @@
 
   <div id="tab-1" class="tab-container videoTab lastTab active">
     <%= render :partial => 'video_author', :collection => @videos %>
+    <%= pages(@videos) %>
   </div>
 
   <div id="tab-2" class="tab-container yearsTab">
