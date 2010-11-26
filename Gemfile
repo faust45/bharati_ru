@@ -11,7 +11,7 @@ gem 'railties',          '= 3.0.3', :require => 'rails'
 gem 'actionmailer',      '= 3.0.3', :require => 'action_mailer'
 
 gem 'validatable'
-gem 'mini_magick'
+gem 'mini_magick', '= 1.2.5'
 
 gem 'rscribd'
 gem 'scribd_fu'
