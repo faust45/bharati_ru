@@ -1,0 +1,25 @@
+<%= render :partial => 'sidebar' %>
+
+<div class="block update">
+  <div class="tabs">
+    <ul class="tab3">
+      <li><a class="active" href="#" rel="0"><b></b><u>Последнее</u><i></i></a></li><li class="clear"><span><span></span></span></li>
+      <li><a href="#" rel="2"><b></b><u>По годам</u><i></i></a></li><li class="clear"><span><span></span></span></li>
+    </ul>
+  </div>
+
+  <div id="tab-1" class="tab-container videoTab lastTab active">
+    <%= render :partial => 'video_author', :collection => @videos %>
+  </div>
+
+  <div id="tab-2" class="tab-container yearsTab">
+    <% @years.reverse_each do |year, count| %>
+      <%= render :partial => 'year_item', :locals => {:year => year, :count => count} %>
+    <% end %>
+  </div>
+
+
+  <div class="bottom"></div>
+</div>
+
+

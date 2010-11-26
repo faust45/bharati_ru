@@ -106,6 +106,14 @@ class Author < BaseModel
     TEACHERS.include? self.id
   end
 
+  def get_videos(options = {})
+    Video.get_by_author(self.id, options)
+  end
+
+  def get_videos_by_year(year, options = {})
+    Video.get_by_author_and_year(self.id, year, options)
+  end
+
   def get_publications(options = {})
     Publication.get_by_author_or_translator(self.id, options)
   end
@@ -167,6 +175,28 @@ class Author < BaseModel
 
     map
   end
+
+  def get_years_with_videos_count
+    map = ActiveSupport::OrderedHash.new 
+    options = {
+      :startkey => [self.id], 
+      :endkey   => [self.id, {}], 
+      :reduce   => true, 
+      :group    => true
+    }
+
+    resp = view('videos_by_author_and_year', options)
+
+    resp['rows'].each do |row|
+      count = row['value']
+      year  = row['key'][1]
+
+      map[year] = count
+    end
+
+    map
+  end
+
 
   def get_books(options = {})
     Publication.get_books_by_author(self.id, options)

@@ -1,6 +1,22 @@
 module ApplicationHelper
   RU_MONTH = %w(январь февраль март апрель май июнь июль август сентябрь октябрь ноябрь декабрь) 
 
+  def main_path(&block)
+    PagePath.new(self, &block)
+  end
+
+  def search_path
+
+  end
+
+  def year_folder
+    image_tag('/images/year_folder.png', :class => 'year-folder')
+  end
+
+  def menu_glance(options = {}, &block)
+    MenuGlance.new(self, options, &block).to_s
+  end
+
   def slink_to(photo, text, href, options = {})
     text = content_tag(:span, text.html_safe)
     link_to photo + text, href, options
@@ -158,6 +174,12 @@ module ApplicationHelper
 
   def content(&block)
     content_for(:content, block)
+  end
+
+  def p_sidebar(template)
+    content_for(:sidebar) do
+      render :partial => template
+    end
   end
 
   def sidebar(&block)

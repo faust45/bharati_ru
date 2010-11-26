@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   layout 'app'
+  clear_helpers #discard helper :all in ActionController::Base
 
   #include NoficationSystem 
 

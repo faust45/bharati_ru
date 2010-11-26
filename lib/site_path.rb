@@ -1,7 +1,7 @@
 class SitePath
   attr_reader :params
   attr_reader :helper
-  delegate :ico_beta, :link_to, :content_tag, :root_path, :audios_path, :author_audios_path, :to => :helper
+  delegate :author_videos_path, :ico_beta, :link_to, :content_tag, :root_path, :audios_path, :author_audios_path, :to => :helper
 
 
   def initialize(params, helper)
@@ -10,7 +10,7 @@ class SitePath
   end
 
   def to_s
-    (main_path > about_path > events_path > audios_path > publications_path > publication_title > bhagavatam_author > author_path > 
+    (main_path > videos_path > about_path > events_path > audios_path > publications_path > publication_title > bhagavatam_author > author_path > 
       bhagavatam_album > album_path > year_path > search_path).to_s
   end
 
@@ -19,6 +19,13 @@ class SitePath
     def main_path
       link = link_to('<span>Бхарати<span>.ру</span></span>'.html_safe + ico_beta, root_path)
       Path.new(link)
+    end
+
+    def videos_path
+      if params[:controller] == "videos"
+        name = content_tag(:i, 'Видео')
+        link_to(name, helper.videos_path)
+      end
     end
 
     def about_path
@@ -75,11 +82,19 @@ class SitePath
     def author_path
       if params[:author_id]
         name = "<i>#{author.display_name}</i>".html_safe
-        link_to(name, author_audios_path(author.id))
+        if params[:controller] == 'audios'
+          link_to(name, author_audios_path(author.id))
+        elsif params[:controller] == 'videos'
+          link_to(name, author_videos_path(author.id))
+        end
       elsif params[:album_id]
         author = album.author
         name = "<i>#{author.display_name}</i>".html_safe
-        link_to(name, author_audios_path(author.id))
+        if params[:controller] == 'audios'
+          link_to(name, author_audios_path(author.id))
+        elsif params[:controller] == 'videos'
+          link_to(name, author_videos_path(author.id))
+        end
       end
     end
 

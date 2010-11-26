@@ -1,0 +1,7 @@
+<div class="new">
+  <%= link_to image_tag(video_author.thumbnail_small), show_video(video_author) %>
+  <div class="item">
+    <div class="name"><%= link_to video_author.title, show_video(video_author) %></div>
+    <div class="date"><%= d video_author.record_date %></div>
+  </div>
+</div>

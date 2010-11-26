@@ -46,10 +46,6 @@ module AudiosHelper
     end
   end
 
-  def year_folder
-    image_tag('/images/year_folder.png', :class => 'year-folder')
-  end
-
   def link_to_author_year(year)
     img = image_tag('/images/year_folder.png', :class => 'year-folder')
     link = img + "&nbsp;&nbsp;#{year}&nbsp;&nbsp;(#{count})".html_safe

@@ -1,6 +1,6 @@
 class Collection
   attr_reader :raw, :collection
-  delegate :reject, :inject, :any?, :find, :-, :+, :[], :first, :last, :to_a, :each, :map, :size, :length, :to => :collection
+  delegate :to_ary, :reject, :inject, :any?, :find, :-, :+, :[], :first, :last, :to_a, :each, :map, :size, :length, :to => :collection
 
   def initialize(resp, klass, options = {})
     @klass = klass
@@ -10,6 +10,11 @@ class Collection
     @collection = resp['rows'].map do |row|
       klass.new(row['doc'], :directly_set_attributes => true)
     end
+  end
+
+  def model_name
+
+
   end
 
   def total_rows

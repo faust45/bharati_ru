@@ -85,8 +85,8 @@ function initVideoPlayer(id, trackParams) {
    var code =
    AC_FL_RunContent("src", "http://vimeo.com/moogaloop.swf",
      "wmode", "transparent",
-     "width", "540",
-     "height", "340",
+     "width", "547",
+     "height", "410",
      "align", "middle",
      "id", id,
      "quality", "high",

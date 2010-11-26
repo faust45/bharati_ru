@@ -23,6 +23,20 @@ class Video < Content
       options[:descending] = true
       view_docs('videos_all', options)
     end
+    
+    def get_by_author(author_id, options = {})
+      options[:descending] = true
+      options[:key] = author_id
+      view_docs('videos_by_author', options)
+    end
+
+    def get_by_author_and_year(author_id, year, options = {})
+      options[:startkey] = [author_id, year.to_s]
+      options[:endkey]   = [author_id, year.to_s, {}, {}]
+
+      view_docs('videos_by_auhtor_and_record_date', options)
+    end
+
   end
 
 

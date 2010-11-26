@@ -1,0 +1,11 @@
+<% if is_current?(item) %>
+  <div class="item active">
+    <%= image_tag item.thumbnail_small %>
+    <div class="name"><span><b><%= item_counter + 1 %>.</b>&nbsp; <%= item.title %></span></div>
+  </div>
+<% else %>
+  <div class="item">
+    <%= link_to image_tag(item.thumbnail_small), show_video(item) %>
+    <div class="name"><a href="<%= show_video(item) %>"><b><%= item_counter + 1 %>.</b>&nbsp; <%= item.title %></a></div>
+  </div>
+<% end %>
