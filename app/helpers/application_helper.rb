@@ -5,6 +5,10 @@ module ApplicationHelper
     PagePath.new(self, &block)
   end
 
+  def is_selected_author?(author_item)
+    @author == author_item
+  end
+
   def search_path
 
   end

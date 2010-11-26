@@ -67,10 +67,6 @@ module AudiosHelper
     image_tag photo.thumbs['small']['url'] if photo
   end
 
-  def is_selected_author?(author_item)
-    @author == author_item
-  end
-
   def track_img
     unless @current_track.photos.blank?
       i = rand(@current_track.photos.size)
