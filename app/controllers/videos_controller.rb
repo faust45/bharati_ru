@@ -39,7 +39,7 @@ class VideosController < ApplicationController
   helper_method :acharya
 
   def authors
-    @authors ||= Author.get_math_authors.reject{|a| ['SiddhantiMj', 'SrutasravaPr', 'SrutasravaPr'].include?(a.id) }
+    @authors ||= Author.get_math_authors.reject{|a| ['SiddhantiMj', 'SrutasravaPr', 'GoswamiMj'].include?(a.id) }
   end
   helper_method :authors
 
