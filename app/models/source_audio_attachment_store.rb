@@ -12,7 +12,7 @@ class SourceAudioAttachmentStore < FileStore
     def assign_meta_info
       super
 
-      info = Mp3Info.open(file.original_filename, :encoding => 'utf-8')
+      info = Mp3Info.open(file.tempfile.path, :encoding => 'utf-8')
 
       assign_from_tags(info.tag2)
       self.duration = calc_duration(info)
