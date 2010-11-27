@@ -129,7 +129,7 @@ module ApplicationHelper
 
   def d(date)
     unless date.blank?
-      l(Date.parse(date), :format => :long)
+      l(date.to_date, :format => :long)
     end
 
   rescue ArgumentError, TypeError => ex
