@@ -5,7 +5,7 @@ module EventsHelper
 
   def d(text)
     text.gsub(/(http.+?)\s*\[(.*?)\]/) do
-      link_to($2, $1)
+      link_to($2, $1, :target => '_blank')
     end
   end
 end
