@@ -13,11 +13,10 @@ class About
     end
 
     def [](key) 
-      @about ||= BaseModel.database.get('about_site')
-      @cache ||= {}
+      @about = BaseModel.database.get('about_site')
 
       if @about[key.to_s]
-        @cache[key] ||= HHash.new @about[key.to_s] 
+        HHash.new @about[key.to_s] 
       end
     end
   end
