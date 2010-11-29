@@ -1,6 +1,16 @@
 module ApplicationHelper
   RU_MONTH = %w(январь февраль март апрель май июнь июль август сентябрь октябрь ноябрь декабрь) 
 
+  def t(text)
+    text = text.sub(/^/, '&nbsp;' * 5)
+    text.gsub!(/\n/, '<br />' + '&nbsp;' * 5)
+    text.gsub!(/(http.+?)\s*\[(.*?)\]/) do
+      link_to($2, $1, :target => '_blank')
+    end
+
+    raw text
+  end
+
   def main_path(&block)
     PagePath.new(self, &block)
   end
