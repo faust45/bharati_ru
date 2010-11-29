@@ -7,19 +7,9 @@
 </div>
 
 <form>
-    <input type='hidden' name='_id' value='events_main_album' />
-    <input type='hidden' name='_rev' value='{{albumRev}}' />
-
     <div class="cnt active">
-        <div class="input">
-            <ul>
-              {{#items}}
-                {{#doc}}
-                  <li><img src='images/arrow.png' /><input type='hidden' name='events[]' value={{_id}}>{{title}}</li>
-                {{/doc}}
-              {{/items}}
-            </ul>
-        </div>
+        <ul class="main-events">
+        </ul>
     </div>
 
     <div class="cnt">
