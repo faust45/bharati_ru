@@ -1,10 +1,20 @@
 <% sidebar do %>
+  <div class="block new">
+    <div class="title">Новость</div>
+    <div class="text">
+      <%= link_to photo_news(@news), show_event_path(@news) %>
+      <div class="name"><%= link_to @news.title, show_event_path(@news) %></div>
+      <p><%= short_t @news.short_description %></p>
+    </div>
+    <div class="bottom"></div>
+  </div>
+
   <div class="block update">
     <div class="title">Обновления</div>
     <div class="tabs">
-      <ul class="tab3">
-        <li><a class="active" href="#" rel="0"><b></b><u>Аудио</u><i></i></a></li><li class="clear"><span><span></span></span></li>
-        <li><a href="#" rel="2"><b></b><u>Тексты</u><i></i></a></li><li class="clear"><span><span></span></span></li>
+      <ul>
+        <li><a href="#" class="active"><b></b><u>Аудио</u><i></i></a></li>
+        <li><a href="#"><b></b><u>Тексты</u><i></i></a></li>
       </ul>
     </div>
     <div id="tab-1" class="tab-container audioTab active">
@@ -16,6 +26,21 @@
 
     <div class="bottom"></div>
   </div>
+
+  <div class="block expert">
+    <div class="title">Мысль мудреца</div>
+    <div class="text">
+      <img height="119" width="81" alt="" src="http://93.94.152.87:81/04965b7427e1379b1174f675586077eb?round=1">
+      <div class="name">“Если дикарь перестал верить в своего деревянного бога, то это не значит того, что Бога нет, а только то, что Бог не деревянный”.</div>
+      <p>Толстой Лев Николаевич.</p>
+      <div class="twitter">
+        <img height="53" width="76" alt="" src="images/twitter.png"><br>
+        <a href="http://twitter.com/#!/bharati_ru" target="_blank">Следите за мыслью на Twitter</a>
+      </div>
+    </div>
+    <div class="bottom"></div>
+  </div>
+
 
   <div class="bottom"></div>
 <% end %>

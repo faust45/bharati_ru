@@ -1,0 +1,8 @@
+<div class="new">
+  <%= link_to video_photo(video), show_video_path(video) %>
+  <div class="item">
+    <div class="name"><%= link_to video.title, show_video_path(video) %></div>
+    <div class="txt"><%= video.author.display_name %></div>
+    <div class="date"><%= d video.created_at %></div>
+  </div>
+</div>

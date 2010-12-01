@@ -19,4 +19,8 @@ function() {
       }
     }
   });
+
+  el.find('li').draggable({
+    helper:'clone'
+  });
 }

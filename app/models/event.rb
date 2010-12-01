@@ -11,6 +11,7 @@ class Event < BaseModel
 
   property :title
   property :description
+  property :short_description
   property :event_type
   property :start_date
   property :start_time
@@ -32,6 +33,14 @@ class Event < BaseModel
       resp = db.documents(:keys => doc['events'] || [], :include_docs => true)
       Collection.new resp, self 
     end
+
+    def get_news
+      db = database
+      doc = db.get('events_main_album', :include_docs => true)
+      resp = db.documents(:keys => doc['news'] || [], :include_docs => true)
+      Collection.new resp, self 
+    end
+
 
     def get_actual(options = {})
       now = Time.now

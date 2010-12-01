@@ -9,12 +9,10 @@ function() {
     ul.append(html);
   }
 
-  $.log('in after events', el);
   el.droppable({
     hoverClass: 'dropHere',
     drop: function(event, ui) {
       var li = ui.draggable;
-      $.log('in events drop', li);
       if (!li.parent().hasClass('main-events')) {
         append($(this), li);
       }

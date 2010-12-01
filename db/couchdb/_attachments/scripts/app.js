@@ -145,8 +145,8 @@ Mp3Uploader = function() {
 }
 
 
-DocsStore = $.couch.db('rocks_dev');
-FileStore = $.couch.db('rocks_file_store_dev');
+DocsStore = $.couch.db('rocks');
+FileStore = $.couch.db('rocks_file_store');
 
 $(document).ready(function() {
   //$.ajaxSetup({transport:'flXHRproxy'});
