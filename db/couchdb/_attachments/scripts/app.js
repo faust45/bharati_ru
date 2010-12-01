@@ -127,6 +127,24 @@ EditDocForm = {
 }
 
 
+Mp3Uploader = function() {
+  function path(fileName) {
+    var id = $.couch.newUUID();
+    return FileStore.uri + id + '/' + fileName; 
+  }
+
+  function url(name, upload) {
+    var url = path(name);
+    $.log('in get  url', url);
+    upload(url);
+  }
+
+  return {
+    url: url
+  }
+}
+
+
 DocsStore = $.couch.db('rocks_dev');
 FileStore = $.couch.db('rocks_file_store_dev');
 

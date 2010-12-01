@@ -37,10 +37,12 @@
 
       $("#last_docs").evently("last_docs", app);
       $("#last_docs").evently("listEvents", app);
+      $("#last_docs").evently("list", app);
       $("#edit_form").evently("edit_form", app);
       $("#edit_form").evently("formEvents", app);
       $("#edit_form").evently('new_form', app);
       $("#sidebar").evently('sidebar', app);
+      $("#top_menu").evently('top_menu', app);
       $("#top_menu").evently('top_menu', app);
 
       //Run
@@ -69,6 +71,8 @@
       $("#last_docs").pathbinder('currentChanged', '/feedback/:id');
       $("#last_docs").pathbinder('markAsRead', '/feedback/:id');
 
+      $("#last_docs").pathbinder('audio_books', '/audio_books');
+
       $("#edit_form").pathbinder('newPublicationAlbum', '/publication_albums_new');
       $("#edit_form").pathbinder('albumPublication', '/album_publication/:id');
       $("#edit_form").pathbinder('publication', '/publications/:id');
@@ -83,6 +87,7 @@
       $("#edit_form").pathbinder('feedback', '/feedback/:id');
 
       $("#edit_form").pathbinder('about', '/about/:id');
+      $("#").pathbinder('about', '/about/:id');
 
       $("#edit_form").pathbinder('video', '/videos/:id');
 
