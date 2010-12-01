@@ -9,6 +9,7 @@ class MainController < ApplicationController
 
     @events = Event.get_main
     @news = Event.get_news.first
+    @video = Video.get_main.first
   end
 
 end

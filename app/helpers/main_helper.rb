@@ -1,4 +1,6 @@
 module MainHelper
+  include VideosHelper
+
   def publication_photo(pub)
     photo_thumb(pub.main_photo , {:height => "88", :width => "77"}, true)
   end

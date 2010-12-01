@@ -23,6 +23,13 @@ class Video < Content
       options[:descending] = true
       view_docs('videos_all', options)
     end
+
+    def get_main
+      db = database
+      doc = db.get('events_main_album', :include_docs => true)
+      resp = db.documents(:keys => doc['videos'] || [], :include_docs => true)
+      Collection.new resp, self 
+    end
     
     def get_by_author(author_id, options = {})
       options[:descending] = true

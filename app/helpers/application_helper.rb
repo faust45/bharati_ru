@@ -150,9 +150,19 @@ module ApplicationHelper
     "http://93.94.152.87/#{db}/#{doc['doc_id']}/#{doc['file_name']}"
   end
 
-  def d(date)
+  def dy(date)
+    d(date, 'года')
+  end
+
+  def d(date, prefix = nil)
     unless date.blank?
-      l(date.to_date, :format => :long)
+      date = l(date.to_date, :format => :long) 
+
+      if prefix
+        date += '&nbsp;' + prefix
+      end
+
+      raw date
     end
 
   rescue ArgumentError, TypeError => ex
