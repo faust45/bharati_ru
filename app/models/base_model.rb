@@ -20,6 +20,11 @@ class BaseModel < CouchRest::Model::Base
       @ddoc
     end
 
+    def get_all_docs(keys)
+      resp = database.documents(:keys => keys, :include_docs => true)
+      Collection.new resp, self 
+    end
+
     def view(name, options = {})
       if viewFun = design_doc['views'][name]
         if viewFun['reduce']
