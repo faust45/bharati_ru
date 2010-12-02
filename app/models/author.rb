@@ -4,7 +4,7 @@ class Author < BaseModel
   TEACHERS = %w(AcharyaMj GovindaMj SridharMj SarasvatiThakur BabajiGaurakishor BhaktivinodThakur DjaganathBabaji)
   ACHARYA_LIB = %w(GovindaMj SridharMj SarasvatiThakur BhaktivinodThakur)
   AUTHORS_LIB = %w(BharatiMj GoswamiMj)
-  MATH_AUTHORS = %w(BharatiMj GoswamiMj SrutasravaPr SiddhantiMj)
+  MATH_AUTHORS = %w(BharatiMj GoswamiMj SrutasravaPr SiddhantiMj AvadhutMj)
 
   NAMES_IDS = {
     'Б.Н. Ачарья Махарадж'  => 'AcharyaMj',
@@ -54,29 +54,20 @@ class Author < BaseModel
     end
 
     def get_acharya_lib
-      @acharya_lib ||= ACHARYA_LIB.map do |id|
-        self.get_doc!(id)
-      end
+      @acharya_lib ||= get_all_docs(ACHARYA_LIB)
     end
 
     def get_authors
-      @authors ||= get_all.reject{|author| 
-        TEACHERS.include?(author.id)
-      }
+      @authors ||= get_all_docs(MATH_AUTHORS)
     end
 
     def get_math_authors
-      @math_authors ||= MATH_AUTHORS.map do |id|
-        self.get_doc!(id)
-      end
+      @math_authors ||= get_all_docs(MATH_AUTHORS)
     end
 
     def get_authors_lib
-      @authors_lib ||= get_all.reject{|author| 
-        !AUTHORS_LIB.include?(author.id)
-      }
+      @authors_lib ||= get_all_docs(AUTHORS_LIB)
     end
-
 
     def get_by_name_or_create(display_name)
       author = get(id_by_name(display_name))
