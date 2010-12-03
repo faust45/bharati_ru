@@ -28,6 +28,9 @@ class PublicationsController < ApplicationController
     @acharya = Author.get_acharya_lib
     @authors = Author.get_authors_lib
 
+    @classic = AlbumPublication.get_classic
+    @vaishnava = AlbumPublication.get_vaishnava
+
     @author = Author.get_doc!(params[:author_id])
     @books  = @author.get_books
     @articles = @author.get_articles
