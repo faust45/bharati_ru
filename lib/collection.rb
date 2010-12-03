@@ -1,5 +1,5 @@
 class Collection
-  attr_reader :raw, :collection
+  attr_reader :raw, :collection, :view_options
   delegate :to_ary, :reject, :inject, :any?, :find, :-, :+, :[], :first, :last, :to_a, :each, :map, :size, :length, :to => :collection
 
   def initialize(resp, klass, options = {})
@@ -13,13 +13,13 @@ class Collection
   end
 
   def model_name
-
-
   end
 
   def total_rows
     unless @total_rows
-      if @view_options.keys.find{|k| ['key', 'startkey'].include?(k.to_s)}
+      if is_all_docs_view? 
+        @total_rows = collection.size
+      elsif @view_options.keys.find{|k| ['key', 'startkey'].include?(k.to_s)}
         @view_options[:reduce] = true
         @view_options.delete(:limit)
         @view_options.delete(:skip)
@@ -37,5 +37,10 @@ class Collection
   def inspect
     "#{self.class} #{collection.inspect}   view: #{@view_name} options: #{@view_options.inspect}"
   end
+
+  private
+    def is_all_docs_view?
+      @view_name == '_all_docs'
+    end
 
 end
