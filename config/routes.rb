@@ -69,7 +69,7 @@ MahaMandala::Application.routes.draw do
   match 'videos/:id' => 'videos#show', :as => 'show_video'
 
   match 'publications' => 'publications#index', :as => 'publications'
-  match 'publications/bhagavatam' => 'publications#bhagavatam', :as => 'publication_bhagavatam'
+  match 'publications/album/:album_id' => 'publications#album', :as => 'publications_album'
   match 'publications/author/:author_id' => 'publications#author', :as => 'author_publications'
   match 'publications/:id' => 'publications#show', :as => 'show_publication'
 

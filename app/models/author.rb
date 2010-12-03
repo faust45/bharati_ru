@@ -14,7 +14,8 @@ class Author < BaseModel
     'Б.П. Сиддханти Махарадж' => 'SiddhantiMj',
     'Б.Л. Акинчан Махарадж'   => 'AkinchanMj',
     'Шруташрава Прабху'       => 'SrutasravaPr',
-    'Б.Ч. Бхарати Махарадж'   => 'BharatiMj'
+    'Б.Ч. Бхарати Махарадж'   => 'BharatiMj',
+    'Б.Б. Авадхут Махарадж'   => 'AvadhutMj' 
   }.inject({}) {|h, (k, v)| h[k.to_couch_id] = v; h }
 
   property :full_name

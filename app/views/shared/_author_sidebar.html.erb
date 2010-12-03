@@ -14,7 +14,7 @@
   <div class="block lect">
     <div class="title"><small><%= block_title %> Проповедников</small></div>
     <div class="text">
-      <ul><!-- Картинки придется формировать в форматах .png или .gif, т.к. требуются закругленный уголки. Рекомендую .png, т.к. в этом варианте качество лучше, вес меньше. -->
+      <ul>
         <%= render :partial => 'shared/author_item', :collection => @authors %>
       </ul>
     </div>
@@ -22,11 +22,21 @@
   </div>
 
   <div class="block lect">
-    <div class="title">Вайшнавские писания</div>
+    <div class="title"><small>Вайшнавская литература</small></div>
     <div class="text">
-      <ul><!-- Картинки придется формировать в форматах .png или .gif, т.к. требуются закругленный уголки. Рекомендую .png, т.к. в этом варианте качество лучше, вес меньше. -->
-        <li><%= link_to bhagavatam_cover + ' Шримад Бхагаватам', publication_bhagavatam_path %></li>
-      </ul>
+      <%= menu_glance(:icon => :cover_thumb, :text => :title) do |m| %>
+        <%= m.publications_album :collection => @vaishnava %>
+      <% end %>
+    </div>
+    <div class="bottom"></div>
+  </div>
+
+  <div class="block lect">
+    <div class="title"><small>Классическая литература</small></div>
+    <div class="text">
+      <%= menu_glance(:icon => :cover_thumb, :text => :title) do |m| %>
+        <%= m.publications_album :collection => @classic %>
+      <% end %>
     </div>
     <div class="bottom"></div>
   </div>

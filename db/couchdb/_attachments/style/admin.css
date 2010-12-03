@@ -28,4 +28,20 @@ ul.ui-droppable {
 
 #sidebar {
   height: 100%;
+  z-index: 10;
 }
+
+#content {
+  z-index: 12;
+}
+
+.wrap {
+  z-index: 11;
+}
+
+#trash {
+  min-height: 10em;
+  margin-top: 10em;
+  vertical-align:bottom;
+}
+-- background: url(../images/trashempty.png) no-repeat 1px -1px;
