@@ -10,7 +10,7 @@ class SitePath
   end
 
   def to_s
-    (main_path > videos_path > about_path > events_path > audios_path > publications_path > publication_title > bhagavatam_author > author_path > 
+    (main_path > videos_path > about_path > events_path > audios_path > publications_path > publications_album > publication_title > bhagavatam_author > author_path > 
       bhagavatam_album > album_path > year_path > search_path).to_s
   end
 
@@ -79,6 +79,14 @@ class SitePath
       end
     end
 
+    def publications_album
+      if params[:controller] == "publications" and params[:action] == "album"
+        @album ||= AlbumPublication.get_doc(params[:album_id])
+        content_tag(:i, @album.title)
+      end
+    end
+
+
     def author_path
       if params[:author_id]
         name = "<i>#{author.display_name}</i>".html_safe
@@ -99,7 +107,7 @@ class SitePath
     end
 
     def album_path
-      if params[:album_id]
+      if params[:controller] == 'audios' && params[:album_id]
         "#{album.title}".html_safe
       end
     end

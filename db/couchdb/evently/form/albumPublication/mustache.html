@@ -1,0 +1,27 @@
+<div class="tabs">
+  <ul class="custom_tabs" data-formid="FormAlbumPublication">
+    <li class="active"><a href="#">Basic</a></li>
+    <li><a href="#">Publications</a></li>
+  </ul>
+  <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
+</div>
+
+
+{{#doc}}
+<form type="AlbumPublication">
+  <div class="cnt active">
+      <div class="input"><input class="store-text field" name="title" type="text" size="25" value="{{title}}"></div>
+      <div class="input">
+          <select name="author_id" class="author-select can-changed field">
+          </select>
+      </div>
+      <div class="input photo-input">
+      </div>
+  </div>
+
+  <div class="cnt">
+      <ul class="collection" data-name="publications">
+      </ul>
+  </div>
+</form>
+{{/doc}}
