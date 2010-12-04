@@ -8,7 +8,7 @@ class MainController < ApplicationController
     @videos = Video.get_all(:limit => 5)
 
     @events = Event.get_main
-    @news = Event.get_news.first
+    @news = Event.get_news
     @video = Video.get_main.first
   end
 

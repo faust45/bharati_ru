@@ -2,11 +2,13 @@
   <% if @news %>
     <div class="block new">
       <div class="title">Новость</div>
-      <div class="text">
-        <%= link_to photo_news(@news), show_event_path(@news) %>
-        <div class="name"><%= link_to @news.title, show_event_path(@news) %></div>
-        <p><%= short_t @news.short_description %></p>
-      </div>
+      <% @news.each do |n| %>
+        <div class="text">
+          <%= link_to photo_news(n), show_event_path(n) %>
+          <div class="name"><%= link_to n.title, show_event_path(n) %></div>
+          <p><%= short_t n.short_description %></p>
+        </div>
+      <% end %>
       <div class="bottom"></div>
     </div>
   <% end %>

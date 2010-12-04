@@ -41,7 +41,7 @@ ul.ui-droppable {
 
 #trash {
   min-height: 10em;
-  margin-top: 10em;
+  padding-top: 10em;
   vertical-align:bottom;
 }
 -- background: url(../images/trashempty.png) no-repeat 1px -1px;
