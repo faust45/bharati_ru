@@ -1,6 +1,12 @@
 module ApplicationHelper
   RU_MONTH = %w(январь февраль март апрель май июнь июль август сентябрь октябрь ноябрь декабрь) 
 
+  def m_link_to(text, section) 
+    options = {}
+    options[:class] = 'active' if params[:controller] == section.to_s
+    link_to text, send("#{section}_path"), options
+  end
+
   def t(text)
     unless text.blank?
       text = text.sub(/^/, '&nbsp;' * 5)
