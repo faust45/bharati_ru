@@ -10,8 +10,10 @@
           <td> <%= publication_type(last_item) %> </td>
         </tr>
         <tr>
-          <td class="ab-t">Автор:</td>
-          <td> <%= author_display_name(last_item) %> </td>
+          <% if last_item.author_id %>
+            <td class="ab-t">Автор:</td>
+            <td> <%= author_display_name(last_item) %> </td>
+          <% end %>
         </tr>
     </tbody></table>
   </div>
