@@ -11,7 +11,7 @@ class AlbumPublication < AlbumBase
     end
 
     def get_classic
-      get_all_docs(CLASSIC)
+      get_all_docs(CLASSIC).first
     end
 
     def get_vaishnava
