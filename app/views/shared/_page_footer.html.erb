@@ -3,19 +3,17 @@
   <div class="bg"></div>
   <div class="container">
     <div class="copyright">© 2010 bharati.ru</div>
-    <ul>
-      <li><a href="#">Учители</a></li>
-      <li><a href="#">События</a></li>
-      <li><a href="#">Библиотека</a></li>
-
-      <li><a href="audio.html" class="active">Аудио</a></li>
-      <li><a href="#">Видео</a></li>
+    <ul><!-- Для пунктов этого меню часть элементов формируется в common.js -->
+      <li><%= m_link_to 'Учители', :teachers %></li><!-- При наличии class="active" пункт будет выделен, как и при наведении (сделал 2 варианта, т.к. не знаю какой именно требуется) -->
+      <li><%= m_link_to 'Библиотека', :publications%></li>
+      <li><%= m_link_to 'Аудио', :audios %></li>
+      <li><%= m_link_to 'Видео', :videos %></li>
       <li><a href="#">Фото</a></li>
+      <li><%= m_link_to 'События', :events%></li>
       <li><a href="#">Форум</a></li>
-      <li><a href="#">О сайте</a></li>
+      <li><%= m_link_to 'О сайте', :about %></li>
       <li><a href="#">Магазин</a></li>
-
-      <li><a href="#">Контакты</a></li>
+      <li><%= m_link_to 'Контакты', :contacts %></li>
     </ul>
   </div>
 </div>
