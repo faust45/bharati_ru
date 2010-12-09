@@ -27,7 +27,8 @@ module DB
 
 
     def server
-      CouchRest.new('http://192.168.1.100:5984')
+      auth = "#{config.user}:#{config.pass}@" if config.user
+      CouchRest.new("http://#{auth}192.168.1.100:5984")
     end
   end
 
