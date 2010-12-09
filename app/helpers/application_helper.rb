@@ -14,7 +14,7 @@ module ApplicationHelper
       end
 
       lines = text.split("\n")
-      lines.map!{|l| l.mb_chars.strip.gsub("&nbsp;", '').sub(/^/, '&nbsp;' * 5) }
+      lines.map!{|l| l.mb_chars.gsub('&nbsp;', '') }
 
       raw lines.join('<br />') 
     end
