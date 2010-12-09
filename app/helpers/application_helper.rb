@@ -9,13 +9,14 @@ module ApplicationHelper
 
   def t(text)
     unless text.blank?
-      text = text.sub(/^/, '&nbsp;' * 5)
-      text.gsub!(/\n/, '<br />' + '&nbsp;' * 5)
       text.gsub!(/(http.+?)\s*\[(.*?)\]/) do
         link_to($2, $1, :target => '_blank')
       end
 
-      raw text
+      lines = text.split("\n")
+      lines.map!{|l| l.mb_chars.strip.gsub("&nbsp;", '').sub(/^/, '&nbsp;' * 5) }
+
+      raw lines.join('<br />') 
     end
   end
 
