@@ -13,8 +13,8 @@ ru:
         feedback_msg:
           attributes:
             name: 
-              blank: укажите Ваше имя
+              blank: укажите ваше имя
             mail: 
-              blank: укажите свою почту
+              blank: укажите вашу почту
             body:
               blank: напишите сообщение
