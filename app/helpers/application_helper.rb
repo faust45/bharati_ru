@@ -40,7 +40,7 @@ module ApplicationHelper
   end
 
   def search_path
-
+    audios_search_path
   end
 
   def year_folder
@@ -240,6 +240,12 @@ module ApplicationHelper
   def include_js(*names)
     content_for(:include_js) do
       javascript_include_tag(*names)
+    end
+  end
+
+  def include_css(*names)
+    content_for(:include_css) do
+      stylesheet_link_tag(*names)
     end
   end
 
