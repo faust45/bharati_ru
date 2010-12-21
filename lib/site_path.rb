@@ -10,7 +10,7 @@ class SitePath
   end
 
   def to_s
-    (main_path > videos_path > about_path > events_path > audios_path > publications_path > publications_album > publication_title > bhagavatam_author > author_path > 
+    (main_path > photos_path > videos_path > about_path > events_path > audios_path > publications_path > photo_album > publications_album > publication_title > bhagavatam_author > author_path > 
       bhagavatam_album > album_path > year_path > search_path).to_s
   end
 
@@ -19,6 +19,13 @@ class SitePath
     def main_path
       link = link_to('<span>Бхарати<span>.ру</span></span>'.html_safe + ico_beta, root_path)
       Path.new(link)
+    end
+
+    def photos_path
+      if params[:controller] == "photos"
+        name = content_tag(:i, 'Фото')
+        link_to(name, helper.photos_path)
+      end
     end
 
     def videos_path
@@ -86,6 +93,12 @@ class SitePath
       end
     end
 
+    def photo_album
+      if params[:controller] == "photos" and params[:action] == "album"
+        album ||= PhotoAlbum.get_doc(params[:id])
+        content_tag(:i, album.title)
+      end
+    end
 
     def author_path
       if params[:author_id]
