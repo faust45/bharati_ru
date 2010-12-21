@@ -32,7 +32,7 @@ div.loader {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-image: url('images/loader.gif');
+	background-image: url('../images/loader.gif');
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -87,10 +87,10 @@ div.navigation a.pageLink:focus {
 	outline: none;
 }
 div.navigation a.prev {
-	background-image: url(images/prevPageArrow.gif);
+	background-image: url(../images/prevPageArrow.gif);
 }
 div.navigation a.next {
-	background-image: url(images/nextPageArrow.gif);
+	background-image: url(../images/nextPageArrow.gif);
 }
 ul.thumbs {
 }

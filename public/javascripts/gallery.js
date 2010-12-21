@@ -21,7 +21,7 @@ $(document).ready(function() {
       captionContainerSel:       '#caption',
       loadingContainerSel:       '#loading',
       renderSSControls:          true,
-      renderNavControls:         true,
+      renderNavControls:         false,
       playLinkText:              'Play Slideshow',
       pauseLinkText:             'Pause Slideshow',
       prevLinkText:              '&lsaquo; Previous Photo',
