@@ -1,0 +1,32 @@
+<% include_js 'jquery.galleriffic', 'jquery.opacityrollover', 'gallery' %>
+<% include_css 'galleriffic' %>
+
+<% sidebar do %>
+  <div class="block lect">
+    <div class="title">Фото альбома</div>
+
+    <div id="thumbs" class="navigation text">
+      <ul class="thumbs">
+        <%= render :partial => 'photo', :collection => @photos %>
+      </ul>
+    </div>
+
+    <div class="bottom"></div>
+  </div>
+<% end %>
+
+<div class="content" id="gallery" style="display: block;">
+  <div class="controls" id="controls"><div class="ss-controls"><a title="Play Slideshow" class="play" href="#play">Play Slideshow</a></div><div class="nav-controls"><a title="‹ Previous Photo" rel="history" class="prev" href="#24">‹ Previous Photo</a><a title="Next Photo ›" rel="history" class="next" href="#drop">Next Photo ›</a></div></div>
+  <div class="slideshow-container">
+    <div class="loader" id="loading" style="display: none;"></div>
+    <div class="slideshow" id="slideshow"></div>
+  </div>
+  <div class="caption-container" id="caption"><span class="image-caption current" style="opacity: 1;"><div class="caption">
+        <div class="download">
+          <a href="http://farm4.static.flickr.com/3261/2538183196_8baf9a8015_b.jpg">Download Original</a>
+        </div>
+        <div class="image-title">Title #0</div>
+        <div class="image-desc">Description</div>
+  </div></span></div>
+</div>
+

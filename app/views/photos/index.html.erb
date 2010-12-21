@@ -1,0 +1,14 @@
+<% include_js 'jquery.galleriffic', 'jquery.opacityrollover' %>
+<% include_css 'galleriffic' %>
+
+<% sidebar do %>
+<% end %>
+
+
+<div class="block last-publ">
+  <div class="title">Альбомы</div>
+  <div class="text">
+    <%= render :partial => 'album_preview', :collection => @albums %>
+  </div>
+  <div class="bottom"></div>
+</div>
