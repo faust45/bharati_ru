@@ -61,6 +61,9 @@ MahaMandala::Application.routes.draw do
   match 'users/logout' => 'users#logout', :as => 'logout'
   match 'users/change_css_style/:css_style' => 'users#change_css_style', :as => 'user_change_css_style'
 
+  match 'photos' => 'photos#index', :as => 'photos'
+  match 'photos/album/:id' => 'photos#album', :as => 'album_photos'
+
   match 'videos' => 'videos#index', :as => 'videos'
   match 'videos/author/:author_id/:id' => 'videos#show', :as => 'show_author_video'
   match 'videos/author/:author_id' => 'videos#author', :as => 'author_videos'
