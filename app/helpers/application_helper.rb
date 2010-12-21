@@ -85,10 +85,15 @@ module ApplicationHelper
   end
 
 
-  def photo_thumb(img_id, size, round = false) 
+  def photo_thumb_url(img_id, size, round = false) 
     p = "http://93.94.152.87:81/#{img_id}?size=#{size[:height]}x#{size[:width]}"
+    p << "&thumb=1" if size[:thumb] 
     p << "&round=1" if round
-    image_tag(p)
+    p
+  end
+
+  def photo_thumb(img_id, size, round = false) 
+    image_tag(photo_thumb_url(img_id, size, round))
   end
 
   def hit_tags(item)
@@ -150,7 +155,6 @@ module ApplicationHelper
 
     (1..max)
   end
-
   
   def file_url(doc)
     db = FileStore.database.name
