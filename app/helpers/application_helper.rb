@@ -158,7 +158,7 @@ module ApplicationHelper
   
   def file_url(doc)
     db = FileStore.database.name
-    "http://93.94.152.87/#{db}/#{doc['doc_id']}/#{doc['file_name']}"
+    "http://mp3.bharati.ru/#{db}/#{doc['doc_id']}/#{doc['file_name']}"
   end
 
   def dy(date)
