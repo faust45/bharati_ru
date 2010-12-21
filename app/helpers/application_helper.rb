@@ -86,7 +86,7 @@ module ApplicationHelper
 
 
   def photo_thumb_url(img_id, size, round = false) 
-    p = "http://93.94.152.87:81/#{img_id}?size=#{size[:height]}x#{size[:width]}"
+    p = "http://photos.bharati.ru/#{img_id}?size=#{size[:height]}x#{size[:width]}"
     p << "&thumb=1" if size[:thumb] 
     p << "&round=1" if round
     p
