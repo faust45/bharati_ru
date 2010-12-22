@@ -1182,10 +1182,11 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         params = params || {};
         params['qqfile'] = name;
         var action = params.action || this._options.action;
+        FileUploader.upload(file);
         //var queryString = qq.obj2url(params);
-        var action = this._options.action;
+        //var action = this._options.action;
 
-        if (typeof(action.url) == 'function') {
+        /*if (typeof(action.url) == 'function') {
           this._options.action.url(name, function(url) {
             xhr.open("PUT", url, true);
 
@@ -1195,17 +1196,7 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
 
             xhr.send(file);
           });
-        } else {
-            $.log('xhr PUT', action);
-            xhr.open("PUT", action, true);
-
-            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-            xhr.setRequestHeader("X-File-Name", encodeURIComponent(name));
-            xhr.setRequestHeader("Content-Type", Mime.type(name));
-
-            xhr.send(file);
-
-        }
+        }*/
     },
     _onComplete: function(id, xhr){
         // the request was aborted/cancelled

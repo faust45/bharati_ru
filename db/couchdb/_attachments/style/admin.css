@@ -39,9 +39,93 @@ ul.ui-droppable {
   z-index: 11;
 }
 
+.file-upload-dragover {}
+.file-upload {
+  min-height: 2em;
+  min-width: 10em;
+  cursor: pointer !important;
+}
+
+.file-upload input {
+  display: none;
+}
+
+
+.file-upload-list {
+}
+
+.file-upload-list li {
+  margin-top: 0.8em;
+  margin-left: 1em;
+  padding-left: 1.3em;
+  max-width: 20em;
+  background: url("../images/loading.gif") no-repeat;
+}
+
+.file-upload-dragover button.awesome {
+  background-color: #E33100 !important;
+}
+
+button.awesome:hover {
+  background-color: #E33100 !important;
+}
+
+button.awesome {
+  background: #2DAEBF url(../images/alert-overlay.png) repeat-x;
+  display: inline-block;
+  padding: 5px 10px 6px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  line-height: 1;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-box-shadow: 0 1px 3px #999;
+  -webkit-box-shadow: 0 1px 3px #999;
+  text-shadow: 0 -1px 1px #222;
+  border-bottom: 1px solid #222;
+  position: relative;
+  cursor: pointer !important;
+}
+
 #trash {
   min-height: 10em;
   padding-top: 10em;
   vertical-align:bottom;
 }
--- background: url(../images/trashempty.png) no-repeat 1px -1px;
+
+
+li.dropHere a {
+  background-color: #E33100 !important;
+}
+
+.dropHere {
+  background-color: #E33100 !important;
+}
+
+ul.album-photos li {
+  float: left; 
+  padding-left: 0.5em;
+}
+
+input.awesome {
+  display: inline-block;
+  padding: 5px 10px 6px;
+  text-decoration: none;
+  line-height: 1;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-box-shadow: 0 3px 3px #999;
+  -webkit-box-shadow: 0 1px 3px #299;
+  text-shadow: 2 -1px 1px #222;
+  border-bottom: 1px solid #222;
+}
+
+.all-docs {
+  margin-top: 2em !important;
+}
+
+.collection .ui-droppable {
+  background-color: #E33100 !important;
+  min-height: 15em;
+}

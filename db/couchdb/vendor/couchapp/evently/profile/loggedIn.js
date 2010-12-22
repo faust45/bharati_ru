@@ -14,7 +14,7 @@ function(e, r) {
         $$(widget).profile = profile;
         widget.trigger("profileReady", [profile]);
       } else {
-        widget.trigger("noProfile", [userCtx]);
+        //widget.trigger("noProfile", [userCtx]);
       }
     }
   });

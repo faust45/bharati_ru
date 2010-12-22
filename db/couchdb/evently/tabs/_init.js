@@ -1,4 +1,0 @@
-function() {
-  $.log('init force');
-}
-

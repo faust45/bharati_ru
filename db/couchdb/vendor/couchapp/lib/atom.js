@@ -18,8 +18,6 @@ exports.header = function(data) {
   var f = <feed xmlns="http://www.w3.org/2005/Atom"/>;
   f.title = data.title;
   f.id = data.feed_id;
-  f.link.@href = data.feed_link;
-  f.link.@rel = "self";
   f.generator = "CouchApp on CouchDB";
   f.updated = rfc3339(data.updated);
   return f.toXMLString().replace(/\<\/feed\>/,'');
@@ -36,4 +34,19 @@ exports.entry = function(data) {
   entry.link.@href = data.alternate;
   entry.link.@rel = "alternate";
   return entry;
+}
+
+exports.link = function(rel, href) {
+  var link = <link />;
+  link.@rel  = rel;
+  link.@href = href;
+
+  return link.toXMLString();
+}
+
+function addLink(feed, ref, href) {
+  var link = <link />;
+  link.@ref  = ref;
+  link.@href = href;
+  feed.link += link;
 }

@@ -1,0 +1,22 @@
+<div class="tabs">
+  <ul>
+    <li class="active"><a href="#">Basic</a></li>
+    <li><a href="#">Description</a></li>
+  </ul>
+</div>
+
+
+<form>
+  <div class="cnt active">
+      <ul class="album-photos">
+      {{#items}}
+         <li draggable=true data-id="{{.}}" class="photo">
+             <input type="hidden" name="photos[]" value="{{.}}"/>
+             <img src="http://192.168.1.100:8000/{{.}}?size=100x100&thumb=1" />
+             <div class="edit"></div>
+         </li>
+      {{/items}}
+      </ul>
+  </div>
+
+</form>

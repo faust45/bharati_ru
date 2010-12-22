@@ -1,3 +1,7 @@
 function(doc) {
-  return {doc: doc};
+  function if_new() {
+    return doc._id == undefined;
+  }
+
+  return {doc: doc, if_new: if_new};
 }

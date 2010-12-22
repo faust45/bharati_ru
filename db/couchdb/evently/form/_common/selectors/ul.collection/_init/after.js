@@ -13,8 +13,9 @@ function(e) {
   
   el.droppable({
     hoverClass: 'dropHere',
-    accept: 'li.item',
+    scope: 'sub-albums',
     drop: function(event, ui) {
+      $.log('drop to sub album');
       var li = ui.draggable;
       append(li);
     }

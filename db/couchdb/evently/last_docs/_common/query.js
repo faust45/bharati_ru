@@ -1,11 +1,15 @@
 function(e, params) {
   var app = $$(this).app;
-  var viewName = e.type + '_all';
+  var viewName = params.view;
   if (!app.ddoc.views[viewName]) {
-    viewName = e.type;
+    viewName = viewName + '_all';
   }
 
-  params = params || {page: 1}
+  if (!app.ddoc.views[viewName]) {
+    alert('Error: could not detect view ' + viewName);
+  }
+
+  params = params || {};
   page = params.page || 1;
 
   var offset = (page - 1) * 10;

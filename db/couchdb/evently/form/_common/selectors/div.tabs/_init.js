@@ -1,3 +1,3 @@
 function() {
-  $(this).find('ul').tabs();
+  $(this).find('ul').formTabs();
 }

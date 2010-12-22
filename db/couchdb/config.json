@@ -1,0 +1,11 @@
+{
+  "dev": {
+    "docs_store": "rocks_dev",
+    "file_store": "rocks_file_store_dev"
+  },
+
+  "prod": {
+    "docs_store": "rocks",
+    "file_store": "rocks_file_store"
+  }
+}

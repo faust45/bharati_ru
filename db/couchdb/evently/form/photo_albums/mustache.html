@@ -1,0 +1,33 @@
+<div class="tabs">
+  <ul>
+    <li class="active"><a href="#">Basic</a></li>
+    <li><a href="#">Description</a></li>
+  </ul>
+  <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
+</div>
+
+
+{{#doc}}
+<form>
+  <input type='hidden' name='_id' value='{{_id}}' />
+  <input type='hidden' name='_rev' value='{{_rev}}' />
+  <input type='hidden' name='type' value='PhotoAlbum' />
+  <div class="upload" data-type="Photo" data-bind-to-album="photos">
+  </div>
+
+  <div class="cnt active">
+      <div class="input"><input class="store-text" name="title" type="text" size="25" value="{{title}}"></div>
+
+     <ul class="album-photos">
+     {{#photos}}
+         <li draggable=true data-id="{{.}}" class="photo">
+             <input type="hidden" name="photos[]" value="{{.}}"/>
+             <img src="http://photos.bharati.ru/{{.}}?size=92x92&thumb=1&round=1" />
+             <div class="edit"></div>
+         </li>
+     {{/photos}}
+     </ul>
+  </div>
+
+</form>
+{{/doc}}

@@ -23,6 +23,10 @@ exports.init = function(newDoc, oldDoc, userCtx, secObj) {
     return userCtx.roles.indexOf(role) != -1
   };
 
+  v.isBharatiRuAdmin = function() {
+    return v.isRole('BharatiRuAdmin') || v.isAdmin();
+  };
+
   v.require = function() {
     for (var i=0; i < arguments.length; i++) {
       var field = arguments[i];

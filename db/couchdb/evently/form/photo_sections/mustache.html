@@ -1,0 +1,34 @@
+<div class="tabs">
+  <ul>
+    <li class="active"><a href="#">Basic</a></li>
+    <li><a href="#">Description</a></li>
+  </ul>
+  <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
+</div>
+
+
+{{#doc}}
+<form>
+  <input type='hidden' name='_id' value='{{_id}}' />
+  <input type='hidden' name='_rev' value='{{_rev}}' />
+  <input type='hidden' name='type' value='PhotoSection' />
+
+  <div class="cnt active">
+      <div class="input"><input class="store-text" name="title" type="text" size="25" value="{{title}}"></div>
+      {{#if_new}}
+      <div class="input">
+        <input type='text' class="store-text" name='_id' value='{{_id}}' size="25" />
+      </div>
+      {{/if_new}}
+
+      <div class="upload">
+      </div>
+      <div class="photo">
+      </div>
+
+     <ul class="collection" data-name="albums">
+     </ul>
+  </div>
+
+</form>
+{{/doc}}

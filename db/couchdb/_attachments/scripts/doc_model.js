@@ -1,81 +1,84 @@
-DocModel = function(id) {
+DocModel = function(id, options) {
+  options = options || {};
   var doc, onloadColbacks = [];
 
-  loadDoc(id);
+  onload(options.onload);
+
+  if (id != 'new') {
+    loadDoc();
+  } else {
+    doc = {};
+    runCallbacks();
+  }
   
   function loadDoc() {
     DocsStore.openDoc(id, {
       success: function(openDoc) {
         doc = openDoc;
-        onloadColbacks.forEach(function(cb) {
-          cb(doc, update);
-        })
+        runCallbacks();
       }
     });
   }
 
-  function update(form, d) {
-    var data = d || form2json(form);
-    $.log('in doc update', data);
-    $.each(data, function(key, value) {
-      if (key != '_rev' && key != '_id') {
-        doc[key] = value;
+  function addToAlbum(attr, ids) {
+    var isChanged = false;
+
+    if (!doc[attr]) {
+      doc[attr] = [];
+    }
+
+    var album = doc[attr];
+
+    for(var i in ids) {
+      var id = ids[i];
+
+      if (album.indexOf(id) == -1) {
+        album.push(id);
+        isChanged = true;
       }
+    };
+
+    isChanged && save();
+  }
+
+  function update(form, d) {
+    var data = d || form2json(form), isChanged = false;
+
+    $.each(data, function(key, value) {
+      if (doc[key] != value) {
+        isChanged = true;
+      }
+      doc[key] = value;
     });
 
-    save();
+    if (!doc._id) {
+      doc._id = (new Date()).toCouchId();
+    }
+
+    isChanged && save();
   }
 
   function save() {
     DocsStore.saveDoc(doc, {
-      success: function(resp) { loadDoc(); }
+      success: function(resp) { id = resp.id; loadDoc(); }
     });
   }
 
   function onload(cb) {
-    onloadColbacks.push(cb);
+    if (typeof cb == 'function') {
+      onloadColbacks.push(cb);
+    }
+  }
+
+  function runCallbacks() {
+    onloadColbacks.forEach(function(cb) {
+      cb(doc, update, addToAlbum, loadDoc);
+    })
   }
 
   return {
     onload: onload,
     update: update,
     save: save
-  }
-}
-
-
-PhotoUploader = function(doc, updater, attr) {
-  attr = attr || 'main_photo';
-  var photoExists = !!doc[attr];
-
-  function url(name, cb) {
-    photoExists ? updatePhoto(cb) : createPhoto(cb);
-  }
-
-  function createPhoto(cb) {
-    var path = FileStore.uri + $.couch.newUUID() + '/' + 'img';
-    cb(path);
-  }
-
-  function updatePhoto(cb) {
-    var photoId = doc[attr];
-
-    FileStore.openDoc(photoId, {
-      success: function(photoDoc) {
-        var path = FileStore.uri + photoId + '/' + 'img?rev=' + photoDoc._rev;
-        cb(path);
-      }
-    });
-  }
-
-  function updateOwner(resp) {
-    var data = {};
-    data[attr] = resp.id; 
-    updater(null, data);
-  }
-
-  return {
-    url: url,
-    updateOwner: updateOwner
   }
 }

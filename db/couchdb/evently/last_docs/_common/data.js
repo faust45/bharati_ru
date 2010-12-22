@@ -1,3 +1,3 @@
-function(resp, a, b) {
-  return {items: resp.rows};
+function(resp, e, params) {
+  return {items: resp.rows, link: params.view};
 }

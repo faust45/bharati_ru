@@ -2,6 +2,15 @@ jQuery(function($){
   $.datepicker.setDefaults({
     dateFormat: 'yy-mm-dd'
   });
+
+  $.doWithEach = function(arr, cb) {
+    $.each(arr, function(i) {
+      cb(arr[i]);
+    });
+  }
+
+  $.fn.format = function() {
+  }
 });
 
 (function($) {

@@ -161,7 +161,7 @@
 		{
 			if (fieldNode.nodeName == 'TEXTAREA')
 			{
-				return fieldNode.innerHTML;
+				return fieldNode.value;
 			}
 			else
 			{

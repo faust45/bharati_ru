@@ -1,7 +1,9 @@
-<ul>
+<input id="search" type="text" class="awesome" size="20">
+
+<ul class="all-docs">
 {{#items}}
   {{#doc}}
-    <li class="item {{custom_class}}" data-id="{{_id}}">
+    <li class="item" data-id="{{_id}}">
       {{>item}}
     </li>
   {{/doc}}

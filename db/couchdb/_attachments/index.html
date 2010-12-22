@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>BharatiRU Admin</title>
+    <link rel="stylesheet" href="style/buttons.css" type="text/css">
     <link rel="stylesheet" href="style/admin_main.css" type="text/css">
     <link rel="stylesheet" href="style/admin.css" type="text/css">
     <link rel="stylesheet" href="style/fileuploader.css" type="text/css">
@@ -10,6 +11,9 @@
     <link rel="stylesheet" href="style/jquery.ui.base.css" type="text/css">
   </head>
   <body>
+    <div id="account"></div>
+    <div id="profile"></div>
+
     <div class="wrap">
       <div id="sidebar">
       </div>
@@ -32,67 +36,40 @@
     $.couch.app(function(app) {
       App = app.ddoc.evently;
       App.app = app;
+      App.db = app.db;
+
+      App.env = (App.app.db.name == 'rocks_dev') ? 'dev' : 'prod';
+      App.config = app.ddoc.config[App.env];
+
+      DocsStore = $.couch.db(App.config.docs_store);
+      FileStore = $.couch.db(App.config.file_store);
+
+      $("#account").evently("account", app);
+      $("#profile").evently("profile", app);
+      $.evently.connect("#account","#profile", ["loggedIn","loggedOut"]);
+
+
+      $("#last_docs").evently("listEvents", app);
+      $("#last_docs").evently("last_docs", app);
 
       $("#edit_form").evently("form", app);
-
-      $("#last_docs").evently("last_docs", app);
-      $("#last_docs").evently("listEvents", app);
-      $("#last_docs").evently("list", app);
       $("#edit_form").evently("edit_form", app);
       $("#edit_form").evently("formEvents", app);
-      $("#edit_form").evently('new_form', app);
+
       $("#sidebar").evently('sidebar', app);
-      $("#top_menu").evently('top_menu', app);
       $("#top_menu").evently('top_menu', app);
 
       //Run
-      $("#top_menu").trigger('publications');
-      $("#last_docs").trigger('publications');
+      function Run() {
+        $.pathbinder.go('publications');
+      }
 
       //path
-      $("#last_docs").pathbinder('videos', '/videos');
-      $("#last_docs").pathbinder('videos', '/videos/page/:page');
-      $("#last_docs").pathbinder('currentChanged', '/videos/:id');
+      $("#last_docs").pathbinder('dispache', ':view');
+      $("#last_docs").pathbinder('dispache', ':view/page/:page');
+      $("#last_docs").pathbinder('dispache', ':form/:id');
 
-      $("#last_docs").pathbinder('publications', '/publications');
-      $("#last_docs").pathbinder('publications', '/publications/page/:page');
-      $("#last_docs").pathbinder('albums_publication', '/publication_albums');
-      $("#last_docs").pathbinder('currentChanged', '/publications/:id');
-
-      $("#last_docs").pathbinder('authors', '/authors');
-      $("#last_docs").pathbinder('authors', '/authors/page/:page');
-      $("#last_docs").pathbinder('currentChanged', '/authors/:id');
-
-      $("#last_docs").pathbinder('events', '/events');
-      $("#last_docs").pathbinder('currentChanged', '/events/:id');
-      $("#last_docs").pathbinder('events', '/events/page/:page');
-
-      $("#last_docs").pathbinder('feedback_msgs', '/feedback_list');
-      $("#last_docs").pathbinder('currentChanged', '/feedback/:id');
-      $("#last_docs").pathbinder('markAsRead', '/feedback/:id');
-
-      $("#last_docs").pathbinder('audio_books', '/audio_books');
-
-      $("#edit_form").pathbinder('newPublicationAlbum', '/publication_albums_new');
-      $("#edit_form").pathbinder('albumPublication', '/album_publication/:id');
-      $("#edit_form").pathbinder('publication', '/publications/:id');
-
-      $("#edit_form").pathbinder('newAuthor', '/author/new');
-      $("#edit_form").pathbinder('author', '/authors/:id');
-
-      $("#edit_form").pathbinder('event', '/events/:id');
-      $("#edit_form").pathbinder('newEvent', '/events_new');
-      $("#edit_form").pathbinder('event_album', '/events/album/:id');
-
-      $("#edit_form").pathbinder('feedback', '/feedback/:id');
-
-      $("#edit_form").pathbinder('about', '/about/:id');
-      $("#edit_form").pathbinder('about', '/about/:id');
-
-      $("#edit_form").pathbinder('video', '/videos/:id');
-
-      //$.pathbinder.begin("/authors");
-      //$.evently.connect("#account","#profile", ["loggedIn","loggedOut"]);
-    });
+      Run();
+    }, {db: 'rocks', design: "global"});
   </script>
 </html>

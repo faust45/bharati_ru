@@ -1,6 +1,4 @@
-function(cb, ev, params) {
-  var id = params.id;
-  var model = new DocModel(id);
-  model.onload(cb);
+function(cb, ev, id) {
+  var id = id || $(ev.target).attr('data-id');
+  var model = new DocModel(id, {onload: cb});
 }
-

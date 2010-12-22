@@ -1,7 +1,20 @@
 [
   {
-    "from": "/index",
+    "from": "/",
     "to": "_design/global/index.html",
     "method": "GET"
+  },
+
+  {
+    "from": "/audios",
+    "to": "_list/feed/audios_all",
+    "method": "GET",
+    "query": {
+      "descending": true,
+      "limit": 10,
+      "format": "atom",
+      "include_docs": "true",
+      "reduce": false
+    }
   }
 ]

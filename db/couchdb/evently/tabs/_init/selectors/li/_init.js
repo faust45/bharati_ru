@@ -1,0 +1,4 @@
+function() {
+  $.log('init li');
+}
+

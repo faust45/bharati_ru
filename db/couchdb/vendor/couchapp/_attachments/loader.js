@@ -25,5 +25,6 @@ couchapp_load([
   "scripts/app.js",
   "scripts/form2object.js",
   "scripts/ext.js",
+  "scripts/file.js",
   "scripts/mime_types.js"
 ]);

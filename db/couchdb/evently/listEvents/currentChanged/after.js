@@ -1,3 +1,3 @@
-function(e, params) {
-  $(this).find('li[data-id=' + params.id + ']').addClass('current');
+function(e, id) {
+  $(this).find('li[data-id=' + id + ']').addClass('current');
 }
