@@ -21,7 +21,7 @@ class BaseModel < CouchRest::Model::Base
     end
 
     def get_all_docs(keys)
-      options = {:keys => keys, :include_docs => true}
+      options = {:keys => Array(keys), :include_docs => true}
       resp = database.documents(options)
       Collection.new(resp, self, {:view => '_all_docs', :view_options => options}) 
     end

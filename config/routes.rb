@@ -62,6 +62,7 @@ MahaMandala::Application.routes.draw do
   match 'users/change_css_style/:css_style' => 'users#change_css_style', :as => 'user_change_css_style'
 
   match 'photos' => 'photos#index', :as => 'photos'
+  match 'photos/:section_id' => 'photos#index', :as => 'photos_section'
   match 'photos/album/:id' => 'photos#album', :as => 'album_photos'
 
   match 'videos' => 'videos#index', :as => 'videos'
