@@ -47,4 +47,9 @@ li.bookmark-text-only {
 }
 
 .album-cover li {
+
+}
+
+#main {
+  min-height: 50em;
 }
