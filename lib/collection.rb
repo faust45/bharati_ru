@@ -1,6 +1,6 @@
 class Collection
   attr_reader :raw, :collection, :view_options
-  delegate :to_ary, :reject, :inject, :any?, :find, :-, :+, :[], :first, :last, :to_a, :each, :map, :size, :length, :to => :collection
+  delegate :find_all, :to_ary, :reject, :inject, :any?, :find, :-, :+, :[], :first, :last, :to_a, :each, :map, :size, :length, :to => :collection
 
   def initialize(resp, klass, options = {})
     @klass = klass
