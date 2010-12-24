@@ -1,7 +1,7 @@
 class PhotoSection < BaseModel 
 
   MATH = %w(Teachers Preachers Temples)
-  BS   = %w(Public Pilgrimages)
+  BS   = %w(Public Countries Pilgrimages)
 
   property :title
   property :albums, []
