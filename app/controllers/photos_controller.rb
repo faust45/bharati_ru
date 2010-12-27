@@ -4,6 +4,7 @@ class PhotosController < ApplicationController
   def index
     @sections_math = PhotoSection.get_math
     @sections_bs   = PhotoSection.get_bs
+    @sections_scripts   = PhotoSection.get_scripts
 
     unless params[:section_id].blank?
       @section = PhotoSection.get_doc(params[:section_id])

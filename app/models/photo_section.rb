@@ -2,6 +2,7 @@ class PhotoSection < BaseModel
 
   MATH = %w(Teachers Preachers Temples)
   BS   = %w(Public Countries Pilgrimages)
+  Scripts = %w(SrimadBhagavatam)
 
   property :title
   property :albums, []
@@ -18,6 +19,10 @@ class PhotoSection < BaseModel
 
     def get_bs
       get_all.find_all{|el| BS.include?(el.id) }
+    end
+
+    def get_scripts
+      get_all.find_all{|el| Scripts.include?(el.id) }
     end
   end
 
