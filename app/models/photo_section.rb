@@ -18,7 +18,9 @@ class PhotoSection < BaseModel
     end
 
     def get_bs
-      get_all.find_all{|el| BS.include?(el.id) }
+      BS.map {|id|
+        get_all.find{|el| el.id == id }
+      }
     end
 
     def get_scripts
