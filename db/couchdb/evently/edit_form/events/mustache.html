@@ -1,0 +1,82 @@
+<div class="tabs">
+  <ul>
+    <li class="active"><a href="#">Basic</a></li>
+    <li><a href="#">Contacts</a></li>
+    <li><a href="#">Description</a></li>
+    <li><a href="#">Albums</a></li>
+  </ul>
+  <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt=""></a>
+</div>
+
+
+{{#doc}}
+<form data-type="Event">
+  <input type='hidden' name='_id' value='{{_id}}' />
+  <input type='hidden' name='_rev' value='{{_rev}}' />
+  <input type='hidden' name='couchrest-type' value='Event' />
+
+  <div class="cnt active">
+      <div class="input"><input class="store-text field" name="title" type="text" size="25" value="{{title}}"></div>
+      <div class="input">
+          <select name="event_type" class="event-type can-changed field">
+              <option value="">Select type</option>
+              <option value="public_meet_up">публичные встречи</option>
+              <option value="web_conf">интернет-конференции</option>
+              <option value="maharadj">деятельность Махараджа</option>
+              <option value="projects">проекты и участие в них</option>
+              <option value="novelty">новинки</option>
+          </select>
+      </div>
+
+      <div class="input">
+          <div>Дата начала:</div>
+          <input class="store-text field date" name="start_date" type="text" size="25" value="{{start_date}}">
+          <input class="store-text field" name="start_time" type="text" size="6" value="{{start_time}}">
+      </div>
+
+      <div class="input">
+          <div>Дата актуальности:</div>
+          <input class="store-text field date" name="end_date" type="text" size="25" value="{{end_date}}">
+          <input class="store-text field" name="end_time" type="text" size="6" value="{{end_time}}">
+      </div>
+
+      <div class="input">
+        Vertical:
+        <div class="upload" data-field="main_photo">
+        </div>
+        <div class="photo"></div>
+      </div>
+
+      <div class="input"> 
+          Horizontal:
+        <div class="upload" data-field="main_photo_horizontal">
+        </div>
+        <div class="photo"></div>
+      </div>
+  </div>
+
+  <div class="cnt">
+      <div class="input">
+          <div>Phone:</div>
+          <input class="store-text field" name="phone" type="text" size="25" value="{{phone}}">
+      </div>
+
+      <div class="input">
+          <div>Mail:</div>
+          <input class="store-text field" name="mail" type="text" size="25" value="{{mail}}">
+      </div>
+  </div>
+
+  <div class="cnt">
+      <div class="input">
+        <div>Короткое:</div>
+        <textarea id="coo" name="short_description" class="store-text field" rows="6" cols="35">{{short_description}}</textarea>
+      </div>
+
+      <div class="input">
+        <div>Полное:</div>
+        <textarea name="description" class="store-text field" rows="15" cols="35">{{description}}</textarea>
+      </div>
+  </div>
+</form>
+{{/doc}}

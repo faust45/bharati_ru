@@ -1,0 +1,14 @@
+<input id="search" type="text" class="awesome" size="20">
+
+<ul class="all-docs">
+{{#items}}
+  {{#doc}}
+    <li class="item" data-id="{{_id}}">
+      {{>item}}
+    </li>
+  {{/doc}}
+{{/items}}
+</ul>
+
+{{>add}}
+<ol class="pages"></ol>

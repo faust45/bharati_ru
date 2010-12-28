@@ -1,7 +1,8 @@
 FileUploader = function(dropzone, options) {
   new View();
-  var db = options.db || DocsStore,
+  var db = options.db || FileStore,
       uploadQuery = {}, count = 0;
+
 
   function upload(myFile, itemUI) {
     var xhr = new XMLHttpRequest(),
@@ -22,7 +23,7 @@ FileUploader = function(dropzone, options) {
     }
 
     function run(rev) {
-      var url = db.uri + id + '/' + 'img?';
+      var url = path();
       if(rev) url = url + 'rev=' + rev;
 
       xhr.open("PUT", url, true);
@@ -47,7 +48,7 @@ FileUploader = function(dropzone, options) {
         try { response = eval("(" + xhr.responseText + ")"); }
         catch(err) { response = {}; }
 
-        options.success && options.success(response);
+        options.success && options.success(response, fileName(), path());
         isUploadQueryEmpty() && options.queryEmpty && options.queryEmpty();
       }
     }
@@ -67,6 +68,14 @@ FileUploader = function(dropzone, options) {
 
     function isUploadQueryEmpty() {
       return count == 0;
+    }
+
+    function path() {
+      return 'http://192.168.1.100:5984' + db.uri + id + '/' + fileName() + '?';
+    }
+
+    function fileName() {
+      return (options.nativeName ? escape(myFile.fileName) : 'img')
     }
   }
 

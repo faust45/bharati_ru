@@ -40,7 +40,7 @@ a:hover{color:#70B8F8;}
 .newTrack{height:30px; margin:0 0 50px 0;}
 
 .list{position:relative; overflow:hidden; margin:0 0 20px 0;}
-.subList{float:right; width:350px; height:330px; overflow:auto; margin:0 0 20px 30px;}
+.subList{float:right; max-width:350px; height:330px; overflow:auto; margin:0 0 20px 30px;}
 	.list ul{margin:0; padding:0;}
 		.list ul li{position:relative; list-style:none; border-bottom:1px solid #CCC;}
 			.list ul li a{display:block; height:32px; line-height:32px; padding:0 0 0 45px; color:#3D6CA8; background:#F8F8F8 url(../images/mp31.png) no-repeat 4px 2px; cursor:pointer;}

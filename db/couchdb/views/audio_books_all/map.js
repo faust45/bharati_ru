@@ -1,5 +1,5 @@
 function(doc) {
-  if (doc['couchrest-type'] == 'AudioBook') {
+  if (doc.type == 'AudioBook') {
     emit(null, null);
   }
 }

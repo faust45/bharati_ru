@@ -180,10 +180,8 @@ function eventlyHandler(elem, name, h, args) {
 };
 */
 
-function dbUpdate(app, handler, id, options, fun) {
-  $.log('in dbUpdate');
-  var path = app.db.uri + app.ddoc._id + "/_update/" + handler + "/" + id + encodeOptions(options);
-  $.log(path);
+function dbUpdate(db, ddoc, handler, id, options, fun) {
+  var path = 'http://192.168.1.100:5984' + db.uri + '_design/' + ddoc + "/_update/" + handler + "/" + id + encodeOptions(options);
 
   $.ajax({
     type: 'PUT', 

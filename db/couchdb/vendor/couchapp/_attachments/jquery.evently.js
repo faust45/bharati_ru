@@ -46,7 +46,12 @@ function $$(node) {
   // this allows you to specify callbacks as functions or strings
   function evfun(fun, hint) {
     if (fun && fun.match && fun.match(/^function/)) {
-      eval("var f = "+fun);
+      try {
+        eval("var f = "+fun);
+      } catch(e) {
+        $.log({"message": "Error in evently function.", "error": e, "src" : fun, "hint":hint});
+        throw(e);
+      }
       if (typeof f == "function") {
         return function() {
           try {

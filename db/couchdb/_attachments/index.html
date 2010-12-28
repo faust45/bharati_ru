@@ -22,6 +22,8 @@
         <div id="top_menu">
         </div>
 
+        <div id="sub_list" class="list subList">
+        </div>
         <div id="last_docs" class="list">
         </div>
 
@@ -48,16 +50,19 @@
       $("#profile").evently("profile", app);
       $.evently.connect("#account","#profile", ["loggedIn","loggedOut"]);
 
+      $(document).evently('dispache', app);
+      $("#top_menu").evently('top_menu', app);
 
       $("#last_docs").evently("listEvents", app);
       $("#last_docs").evently("last_docs", app);
 
-      $("#edit_form").evently("form", app);
+      $("#sub_list").evently("sub_list", app);
+
       $("#edit_form").evently("edit_form", app);
       $("#edit_form").evently("formEvents", app);
+      $("#edit_form").evently("form", app);
 
       $("#sidebar").evently('sidebar', app);
-      $("#top_menu").evently('top_menu', app);
 
       //Run
       function Run() {
@@ -65,11 +70,11 @@
       }
 
       //path
-      $("#last_docs").pathbinder('dispache', ':view');
-      $("#last_docs").pathbinder('dispache', ':view/page/:page');
-      $("#last_docs").pathbinder('dispache', ':form/:id');
+      $(document).pathbinder('dispache', ':view');
+      $(document).pathbinder('dispache', ':view/page/:page');
+      $(document).pathbinder('dispache', ':form/:id');
 
       Run();
-    }, {db: 'rocks', design: "global"});
+    }, {db: 'rocks_dev', design: "global"});
   </script>
 </html>

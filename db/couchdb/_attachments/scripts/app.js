@@ -1,3 +1,27 @@
+AudioBook = function(book) {
+  var add = function(sourceId, fileName, tags) {
+    var track = {
+      _id: new Date().toCouchId(),
+      source: {doc_id: sourceId, file_name: fileName},
+      type: "AudioBookTrack", 
+      duration: tags.duration,
+      title: tags.title[0]
+    };
+
+    DocsStore.saveDoc(track, {success: addToBook});
+  };
+
+  function addToBook(track) {
+    dbUpdate(DocsStore, 'global', 'add_to_album', book._id, {field: 'tracks', item: track.id}, function() { });
+  }
+
+
+  return {
+    add: add
+  };
+}
+
+
 MyApp = {
   init: function() {
   }

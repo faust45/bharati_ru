@@ -1,3 +1,0 @@
-function(resp) {
-  return resp;
-}
