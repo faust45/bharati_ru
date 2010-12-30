@@ -19,10 +19,6 @@ module PublicationsHelper
     cover_thumb @@bhagavatam.first
   end
 
-  def cover_thumb(publication)
-    photo_thumb(publication.cover, {:width =>91, :height => 119}, true)
-  end
-
   def publication_type(publication)
     TYPES[publication.publication_type]
   end

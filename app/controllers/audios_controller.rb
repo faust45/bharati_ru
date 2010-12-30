@@ -1,10 +1,50 @@
 class AudiosController < ApplicationController
-  free_actions :index, :search, :album, :author, :year, :show, :bhagavatam
+  free_actions :index, :search, :album, :author, :year, :show, :bhagavatam, :books_vaishnava, :books_classic, :books
 
   def index
     @audios  = Audio.paginate(:get_all, :page => params[:page])
     @acharya = Author.get_acharya
     @authors = Author.get_authors
+
+    @books_classic = HHash.new(:title => 'Вайшнавские идеи в произведениях классиков', 
+                               :icon => '0498a25066d3195129cff34b2762363c',
+                               :description => 'книги Льва Толстого, Достоевского, Чехова, Гюго и других мыслителей')
+    @books_math    = HHash.new(:title => 'Вайшнавские аудиокниги', 
+                               :icon => '0498a2467fb5d3547cdef53cc9c1a629',
+                               :description => 'Бхагавад Гита, Шримад Бхагаватам и другие')
+  end
+
+  def common
+    @acharya = Author.get_acharya
+    @authors = Author.get_authors
+
+    @books_classic = HHash.new(:title => 'Вайшнавские идеи в произведениях классиков', 
+                               :icon => '0498a25066d3195129cff34b2762363c',
+                               :description => 'книги Льва Толстого, Достоевского, Чехова, Гюго и других мыслителей')
+    @books_math    = HHash.new(:title => 'Вайшнавские аудиокниги', 
+                               :icon => '0498a2467fb5d3547cdef53cc9c1a629',
+                               :description => 'Бхагавад Гита, Шримад Бхагаватам и другие')
+  end
+
+  def books
+    @album = AudioBook.get_doc!(params[:id])
+    @tracks = @album.get_tracks
+    @current_track = @tracks.find{|el| el.id == params[:track_id]} 
+    @current_track ||= @tracks.first
+  end
+
+  def books_vaishnava
+    common
+    @audio_books = AudioBook.vaishnava 
+
+    render :audio_books
+  end
+
+  def books_classic
+    common
+    @audio_books = AudioBook.classic
+
+    render :audio_books
   end
 
   def album

@@ -1,0 +1,16 @@
+<% sidebar do %>
+  <div class="block playList">
+    <div class="title">Треки</div>
+    <div class="text">
+      <% if @months_with_tracks %>
+        <%= render :partial => 'select_month' %>
+      <% elsif @books %>
+        <%= render :partial => 'select_sb_book' %>
+      <% end %>
+      <ul>
+        <%= render :partial => 'book_track_item', :collection => @tracks %>
+      </ul>
+    </div>
+    <div class="bottom"></div>
+  </div>
+<% end %>

@@ -1,5 +1,9 @@
 module AudiosHelper
-  include AudioBookmarksHelper
+  include ImagesHelper
+
+  def audio_book_icon(book_type)
+    photo_thumb_round(book_type.icon, Images::MENU_BOOKS)
+  end
 
   def author_path(author)
     if author.is_teacher?

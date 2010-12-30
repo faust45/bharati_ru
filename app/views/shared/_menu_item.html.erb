@@ -1,0 +1,14 @@
+<% if current_page?(path) %>
+  <li>
+    <strong>
+      <%= photo %>
+      <span><%= title %></span>
+    </strong>
+  </li>
+<% else %>
+  <li>
+    <% if photo %>
+      <%= link_to(photo + "<span>#{title}</span>".html_safe, path) %>
+    <% end %>
+  </li>
+<% end %>

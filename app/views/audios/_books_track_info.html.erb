@@ -1,0 +1,6 @@
+<div class="trackAuthor">
+  <div class="trackPhoto"><%= photo_thumb_round(@current_track.main_photo, {:height => 300, :width => 300}) %></div>
+  <div class="trackInfo">
+    <div class="download"><%= link_to "<b>&#160;</b><i>&#160;</i>скачать этот трек (#{source_size(@current_track)})".html_safe, file_url(@current_track.source) %></div>
+  </div>
+</div>

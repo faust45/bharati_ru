@@ -1,0 +1,13 @@
+<% if current_page?(path) %>
+  <div class="item active">
+    <span><%= link_to(photo, path) %></span>
+    <div class="name"><span><%= title %></span></div>
+    <p><%= description %></p>
+  </div>
+<% else %>
+  <div class="item">
+    <%= link_to(photo, path) %>
+    <div class="name"><%= link_to title, path %></div>
+    <p><%= description %></p>
+  </div>
+<% end %>

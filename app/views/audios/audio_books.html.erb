@@ -1,0 +1,10 @@
+<%= render :partial => 'author_sidebar' %>
+
+<div class="block last-audio">
+  <div class="title">Последние аудиокниги</div>
+  <div class="text">
+    <%= render :partial => 'audio_book_item', :collection => @audio_books %>
+    <%= pages(@audio_books) %>
+  </div>
+  <div class="bottom"></div>
+</div>

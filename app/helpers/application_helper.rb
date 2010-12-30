@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include ImagesHelper
+
   RU_MONTH = %w(январь февраль март апрель май июнь июль август сентябрь октябрь ноябрь декабрь) 
 
   def m_link_to(text, section) 
@@ -51,6 +53,10 @@ module ApplicationHelper
     MenuGlance.new(self, options, &block).to_s
   end
 
+  def menu_glance_next(options = {}, &block)
+    MenuGlanceNext.new(self, options, &block).to_s
+  end
+
   def slink_to(photo, text, href, options = {})
     text = content_tag(:span, text.html_safe)
     link_to photo + text, href, options
@@ -82,18 +88,6 @@ module ApplicationHelper
     else
       ''
     end
-  end
-
-
-  def photo_thumb_url(img_id, size, round = false) 
-    p = "http://photos.bharati.ru/#{img_id}?size=#{size[:height]}x#{size[:width]}"
-    p << "&thumb=1" if size[:thumb] 
-    p << "&round=1" if round
-    p
-  end
-
-  def photo_thumb(img_id, size, round = false) 
-    image_tag(photo_thumb_url(img_id, size, round))
   end
 
   def hit_tags(item)

@@ -3,7 +3,7 @@
     <div class="title"><%= block_title %> Учителей</div>
 
     <div class="text">
-      <ul><!-- Картинки придется формировать в форматах .png или .gif, т.к. требуются закругленный уголки. Рекомендую .png, т.к. в этом варианте качество лучше, вес меньше. -->
+      <ul>
         <%= render :partial => 'author_item', :collection => @acharya %>
       </ul>
     </div>
@@ -14,9 +14,20 @@
   <div class="block lect">
     <div class="title"><%= block_title %> Проповедников</div>
     <div class="text">
-      <ul><!-- Картинки придется формировать в форматах .png или .gif, т.к. требуются закругленный уголки. Рекомендую .png, т.к. в этом варианте качество лучше, вес меньше. -->
+      <ul>
         <%= render :partial => 'author_item', :collection => @authors %>
       </ul>
+    </div>
+    <div class="bottom"></div>
+  </div>
+
+  <div class="block audios">
+    <div class="title">Аудиокниги</div>
+    <div class="text">
+      <%= menu_glance_next(:icon => :audio_book_icon, :partial => 'div') do |m| %>
+        <%= m.audio_books_vaishnava @books_math    %>
+        <%= m.audio_books_classic   @books_classic %>
+      <% end %>
     </div>
     <div class="bottom"></div>
   </div>

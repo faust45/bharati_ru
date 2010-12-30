@@ -1,0 +1,16 @@
+<% item = audio_book_item  %>
+
+<div class="item">
+  <%= link_to cover_thumb(item), audio_books_path(item) %>
+  <div class="name"><%= link_to "“#{item.title}”", audio_books_path(item) %></div>
+  <div class="about">
+    <table>
+      <tbody><tr>
+        </tr>
+        <tr>
+          <td class="ab-t">Автор:</td>
+          <td><%= item.author_display_name %></td>
+        </tr>
+    </tbody></table>
+  </div>
+</div>
