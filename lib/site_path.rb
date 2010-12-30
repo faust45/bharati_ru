@@ -10,7 +10,7 @@ class SitePath
   end
 
   def to_s
-    (main_path > photos_path > videos_path > about_path > events_path > audios_path > audio_books_path > publications_path > photo_album > publications_album > publication_title > bhagavatam_author > author_path > 
+    (main_path > photos_path > videos_path > about_path > events_path > audios_path > audio_books_path > audio_books_one_path > publications_path > photo_album > publications_album > publication_title > bhagavatam_author > author_path > 
       bhagavatam_album > album_path > year_path > search_path).to_s
   end
 
@@ -40,6 +40,13 @@ class SitePath
 
         name = content_tag(:i, title)
         link_to(name, path)
+      end
+    end
+
+    def audio_books_one_path
+      if params[:controller] == "audios" && params[:action] == 'books'
+        book = AudioBook.get_doc(params[:id])
+        book.title.html_safe
       end
     end
 
