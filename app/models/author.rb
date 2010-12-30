@@ -3,7 +3,7 @@ class Author < BaseModel
   ACHARYA = %w(AcharyaMj GovindaMj SridharMj)
   TEACHERS = %w(AcharyaMj GovindaMj SridharMj SarasvatiThakur BabajiGaurakishor BhaktivinodThakur DjaganathBabaji)
   ACHARYA_LIB = %w(GovindaMj SridharMj SarasvatiThakur BhaktivinodThakur)
-  AUTHORS_LIB = %w(BharatiMj GoswamiMj)
+  AUTHORS_LIB = %w(BharatiMj GoswamiMj SrutasravaPr)
   MATH_AUTHORS = %w(BharatiMj GoswamiMj SrutasravaPr SiddhantiMj AvadhutMj)
 
   NAMES_IDS = {
