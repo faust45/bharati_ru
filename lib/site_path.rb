@@ -10,7 +10,7 @@ class SitePath
   end
 
   def to_s
-    (main_path > photos_path > videos_path > about_path > events_path > audios_path > publications_path > photo_album > publications_album > publication_title > bhagavatam_author > author_path > 
+    (main_path > photos_path > videos_path > about_path > events_path > audios_path > audio_books_path > publications_path > photo_album > publications_album > publication_title > bhagavatam_author > author_path > 
       bhagavatam_album > album_path > year_path > search_path).to_s
   end
 
@@ -19,6 +19,28 @@ class SitePath
     def main_path
       link = link_to('<span>Бхарати<span>.ру</span></span>'.html_safe + ico_beta, root_path)
       Path.new(link)
+    end
+
+    def audio_books_path
+      actions = %w(books books_vaishnava books_classic)
+      if params[:controller] == "audios"
+        case params[:action]
+        when 'books_vaishnava'
+          title = 'Вайшнавские аудиокниги'
+          path  = helper.audio_books_vaishnava_path
+        when 'books_classic'
+          title = 'Вайшнавские идеи в произведениях классиков'
+          path  = helper.audio_books_classic_path
+        when 'books'
+          title = 'Аудиокниги'
+          path  = helper.audio_books_vaishnava_path
+        else
+          return
+        end
+
+        name = content_tag(:i, title)
+        link_to(name, path)
+      end
     end
 
     def photos_path
