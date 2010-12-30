@@ -20,7 +20,7 @@ class AudiosController < ApplicationController
 
     @books_classic = HHash.new(:title => 'Вайшнавские идеи в произведениях классиков', 
                                :icon => '0498a25066d3195129cff34b2762363c',
-                               :description => 'книги Льва Толстого, Достоевского, Чехова, Гюго и других мыслителей')
+                               :description => 'Л.Н. Толстой, А.П. Чехов, Н.В. Гоголь и др.')
     @books_math    = HHash.new(:title => 'Вайшнавские аудиокниги', 
                                :icon => '0498a2467fb5d3547cdef53cc9c1a629',
                                :description => 'Бхагавад Гита, Шримад Бхагаватам и другие')
