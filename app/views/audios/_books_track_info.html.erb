@@ -1,5 +1,5 @@
 <div class="trackAuthor">
-  <div class="trackPhoto"><%= photo_thumb_round(@album.main_photo, {:height => 300, :width => 300}) %></div>
+  <div class="trackPhoto"><%= photo_thumb_round(@current_track.main_photo, {:height => 300, :width => 300}) %></div>
   <div class="trackInfo">
     <% if @album.author_display_name %>
       <div class="author"><span>Автор:&nbsp;</span><%= @album.author_display_name %></div>
