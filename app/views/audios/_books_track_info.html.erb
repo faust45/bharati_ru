@@ -2,19 +2,19 @@
   <div class="trackPhoto"><%= photo_thumb_round(@album.main_photo, {:height => 300, :width => 300}) %></div>
   <div class="trackInfo">
     <% if @album.author_display_name %>
-      <div class="author"><span>Автор:</span> <a href="/about/author/BharatiMj"><%= @album.author_display_name %></a></div>
+      <div class="author"><span>Автор:&nbsp;</span><%= @album.author_display_name %></div>
     <% end %>
 
     <% if @album.translate_by %>
-      <div class="author"><span>Переводчик:</span><%= @album.translate_by %></div>
+      <div class="author"><span>Переводчик:&nbsp;</span><%= @album.translate_by %></div>
     <% end %>
 
     <% if @album.read_by %>
-      <div class="author"><span>Текст читает:</span><%= @album.read_by %></div>
+      <div class="author"><span>Текст читает:&nbsp;</span><%= @album.read_by %></div>
     <% end %>
 
     <% if @album.muz_by %>
-      <div class="author"><span>Муз. оформление:</span><%= @album.muz_by %></div>
+      <div class="author"><span>Муз. оформление:&nbsp;</span><%= @album.muz_by %></div>
     <% end %>
 
     <div class="download"><%= link_to "<b>&#160;</b><i>&#160;</i>скачать этот трек (#{source_size(@current_track)})".html_safe, file_url(@current_track.source) %></div>
