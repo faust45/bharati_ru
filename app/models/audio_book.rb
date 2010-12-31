@@ -4,6 +4,9 @@ class AudioBook < BaseModel
   property :tracks
   property :main_photo
   property :author_id
+  property :translate_by
+  property :muz_by
+  property :read_by
 
   class <<self
     def get_all(options = {})
