@@ -17,7 +17,11 @@ class MenuGlanceNext
   end
 
   def method_missing(path_method, object)
-    path  = helper.send(path_method.to_s + '_path')
+    if object.is_a?(HHash) || object.is_a?(Hash)
+      path  = helper.send(path_method.to_s + '_path')
+    else
+      path  = helper.send(path_method.to_s + '_path', object)
+    end
     title = object.send(@text_method) 
     desc  = object.send(:description) 
     photo = helper.send(@icon_method, object)
