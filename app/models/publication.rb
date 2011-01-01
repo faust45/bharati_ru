@@ -15,6 +15,8 @@ class Publication < Content
   property :download_pdf_url
   property :download_original_url
   property :main_photo
+  property :source_pdf
+  property :source_doc
 
   before_create :ipaper_id_uniq
 
