@@ -12,10 +12,13 @@
           </tr>
       </tbody></table>
       <p><%= t @publication.description %></p>
-      <div class="download">
-        Скачать эту книгу:<br />
-        <a href="<%= @publication.download_pdf_url %>"><img alt="" src="images/pdf.png"></a>
-      </div>
+
+      <% if @publication.download_pdf_url %>
+        <div class="download">
+          Скачать эту книгу:<br />
+          <%= link_to(image_tag('pdf.png'), @publication.download_pdf_url) %>
+        </div>
+      <% end %>
     </div>
     <div class="bottom"></div>
   </div>
