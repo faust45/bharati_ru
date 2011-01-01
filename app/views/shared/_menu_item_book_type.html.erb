@@ -1,0 +1,4 @@
+<% html_class = "act" if current_page?(path) %>
+<div class="pivot">
+  <%= link_to(photo + "<span>#{title}</span>".html_safe, path, :class => html_class) %>
+</div>
