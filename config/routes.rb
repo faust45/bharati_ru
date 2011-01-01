@@ -102,6 +102,10 @@ MahaMandala::Application.routes.draw do
   match 'audios/books/:id' => 'audios#books', :as => 'audio_books'
   match 'audios/books/:id/track/:track_id' => 'audios#books', :as => 'audio_books_track'
 
+  match 'audios/kirtans' => 'audios#kirtans', :as => 'kirtans'
+  match 'audios/kirtans/:id' => 'audios#kirtans_show', :as => 'kirtans_show'
+  match 'audios/kirtans/:id/track/:track_id' => 'audios#kirtans', :as => 'kirtans_track'
+
   match 'audios/album/Bhagavatam' => 'audios#bhagavatam', :as => 'audios_bhagavatam'
   match 'audios/album/Bhagavatam/Book/:book_num' => 'audios#bhagavatam', :as => 'audios_bhagavatam_book', 
         :constraints => { :book_num => /\d+.?\d?/ }
