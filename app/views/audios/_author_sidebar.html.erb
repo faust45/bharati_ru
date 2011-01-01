@@ -3,9 +3,9 @@
     <div class="title"><%= block_title %> Учителей</div>
 
     <div class="text">
-      <ul>
+      <div class="all-pivot">
         <%= render :partial => 'author_item', :collection => @acharya %>
-      </ul>
+      </div>
     </div>
 
     <div class="bottom"></div>
@@ -14,9 +14,9 @@
   <div class="block lect">
     <div class="title"><%= block_title %> Проповедников</div>
     <div class="text">
-      <ul>
+      <div class="all-pivot">
         <%= render :partial => 'author_item', :collection => @authors %>
-      </ul>
+      </div>
     </div>
     <div class="bottom"></div>
   </div>

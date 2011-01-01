@@ -1,16 +1,4 @@
-<% if is_selected_author?(author_item) %>
-  <li>
-    <strong>
-      <%= author_main_photo(author_item) %>
-      <span><%= author_item.display_name %></span>
-    </strong>
-  </li>
-<% else %>
-  <li>
-    <% if author_item.main_photo %>
-      <%= link_to(author_main_photo(author_item) + "<span>#{author_item.display_name}</span>".html_safe,
-        author_audios_path(author_item))
-      %>
-    <% end %>
-  </li>
-<% end %>
+<% html_class = "act" if is_selected_author?(author_item) %>
+<div class="pivot">
+  <%= link_to(author_main_photo(author_item) + "<span>#{author_item.display_name}</span>".html_safe, author_audios_path(author_item), :class => html_class) %>
+</div>
