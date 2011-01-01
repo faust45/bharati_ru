@@ -24,9 +24,13 @@
   <div class="block lect">
     <div class="title"><small>Вайшнавская литература</small></div>
     <div class="text">
-      <%= menu_glance(:icon => :cover_thumb, :text => :title) do |m| %>
-        <%= m.publications_album :collection => @vaishnava %>
-      <% end %>
+      <div class="all-pivot">
+        <%= menu_glance_next(:icon => :cover_thumb, :text => :title, :partial => 'book_type') do |m| %>
+          <% @vaishnava.each do |e| %>
+            <%= m.publications_album e %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
     <div class="bottom"></div>
   </div>

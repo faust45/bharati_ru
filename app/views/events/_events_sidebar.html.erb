@@ -3,9 +3,9 @@
   <div class="title"><p>События</p><%= link_to 'Все события &gt;&gt;'.html_safe, events_path,:class => "tlink" %></div>
 
     <div class="text">
-      <ul>
+      <div class="all-pivot">
         <%= render :partial => 'event_type_item', :collection => event_types %>
-      </ul>
+      </div>
     </div>
 
     <div class="bottom"></div>

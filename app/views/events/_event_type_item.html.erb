@@ -1,13 +1,5 @@
-<li>
-  <% if event_type_item[:id] == @type %>
-    <strong>
-      <img height="119" width="88" alt="" src="/images/events/<%= event_type_item[:id] %>.png">
-      <span><%= event_type_item[:title] %></span>
-    </strong>
-  <% else %>
-    <a href="<%= events_type_path(event_type_item[:id]) %>">
-      <img height="119" width="88" alt="" src="/images/events/<%= event_type_item[:id] %>.png">
-      <span><%= event_type_item[:title] %></span>
-    </a>
-  <% end %>
-</li>
+<% html_class = "act" if event_type_item[:id] == @type %>
+<% img_path = "events/#{event_type_item[:id]}.png" %>
+<div class="pivot">
+  <%= link_to(image_tag(img_path, :height => 119, :width => 88) + "<span>#{event_type_item[:title]}</span>".html_safe, events_type_path(event_type_item[:id]), :class => html_class) %>
+</div>
