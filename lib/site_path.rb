@@ -10,7 +10,7 @@ class SitePath
   end
 
   def to_s
-    (main_path > photos_path > videos_path > about_path > events_path > audios_path > audio_books_path > audio_books_one_path > publications_path > photo_album > publications_album > publication_title > bhagavatam_author > author_path > 
+    (main_path > photos_path > videos_path > about_path > events_path > audios_path > kirtans_path > kirtans_album_path > audio_books_path > audio_books_one_path > publications_path > photo_album > publications_album > publication_title > bhagavatam_author > author_path > 
       bhagavatam_album > album_path > year_path > search_path).to_s
   end
 
@@ -19,6 +19,20 @@ class SitePath
     def main_path
       link = link_to('<span>Бхарати<span>.ру</span></span>'.html_safe + ico_beta, root_path)
       Path.new(link)
+    end
+
+    def kirtans_path 
+      if params[:controller] == "audios" && params[:action] == 'kirtans'
+        name = content_tag(:i, 'Молитвы вайшнавов')
+        return link_to(name, helper.kirtans_path)
+      end
+    end
+
+    def kirtans_album_path 
+      if params[:controller] == "audios" && params[:action] == 'kirtans_show'
+        doc = Kirtan.get_doc(params[:id])
+        doc.title.html_safe
+      end
     end
 
     def audio_books_path
