@@ -1,0 +1,12 @@
+<%= render :partial => 'author_sidebar' %>
+
+<div class="block last-audio">
+  <div class="title">Альбомы</div>
+  <div class="text">
+    <%= render :partial => 'kirtan_item', :collection => @kirtans %>
+    <%= pages(@kirtans) %>
+  </div>
+  <div class="bottom"></div>
+</div>
+
+

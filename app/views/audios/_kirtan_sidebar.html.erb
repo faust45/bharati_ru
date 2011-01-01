@@ -1,0 +1,11 @@
+<% sidebar do %>
+  <div class="block playList">
+    <div class="title">Треки</div>
+    <div class="text">
+      <ul>
+        <%= render :partial => 'kirtan_track_item', :collection => @tracks %>
+      </ul>
+    </div>
+    <div class="bottom"></div>
+  </div>
+<% end %>

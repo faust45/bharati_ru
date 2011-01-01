@@ -1,0 +1,9 @@
+<% track_item = kirtan_track_item %>
+
+<li <%= "class='active'" if @current_track.id == track_item.id %>>
+  <% if @current_track.id == track_item.id %>
+    <strong><%= track_item.title %></strong>
+  <% else %>
+    <%= link_to "#{track_item.title}",  kirtans_track_path(@album, track_item) %>
+  <% end %>
+</li>
