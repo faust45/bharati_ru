@@ -1,10 +1,8 @@
 class AudiosController < ApplicationController
-  free_actions :index, :search, :album, :author, :year, :show, :bhagavatam, :books_vaishnava, :books_classic, :books
+  free_actions :index, :search, :album, :author, :year, :show, :bhagavatam, :books_vaishnava, :books_classic, :books, :kirtans, :kirtans_show
 
   def index
     @audios  = Audio.paginate(:get_all, :page => params[:page])
-    @acharya = Author.get_acharya
-    @authors = Author.get_authors
 
     common
   end
@@ -19,6 +17,10 @@ class AudiosController < ApplicationController
     @books_math    = HHash.new(:title => 'Вайшнавские аудиокниги', 
                                :icon => '0498a2467fb5d3547cdef53cc9c1a629',
                                :description => 'Бхагавад Гита, Шримад Бхагаватам и другие')
+
+    @kirtans_menu  = HHash.new(:title => 'Бхаджаны и киртаны', 
+                               :icon => '0498cc3536f3ea7ac794e017818542dc',
+                               :description => 'молитвенные песни вайшнавской традиции')
   end
 
   def books
@@ -35,11 +37,28 @@ class AudiosController < ApplicationController
     render :audio_books
   end
 
-  def books_classic
+  def beoks_classic
     common
     @audio_books = AudioBook.classic
 
     render :audio_books
+  end
+
+  def kirtans
+    @kirtans = Kirtan.get_all
+    common
+  end
+
+  def kirtans_show
+    @album = Kirtan.get_doc!(params[:id])
+
+    @tracks = @album.get_tracks
+    if params[:track_id]
+      @current_track = @tracks.find{|el| el.id == params[:track_id]} 
+    else
+      @current_track = @tracks.first
+    end
+    #@author = @album.author
   end
 
   def album
