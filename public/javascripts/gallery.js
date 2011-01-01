@@ -10,11 +10,13 @@ $(document).ready(function() {
   });
 
   var gallery = $('#thumbs').galleriffic({
+      nextPageLinkText:          'Next &rsaquo;',
+      prevPageLinkText:          '&lsaquo; Prev',
       delay:                     2500,
       numThumbs:                 15,
       preloadAhead:              10,
       enableTopPager:            false,
-      enableBottomPager:         false,
+      enableBottomPager:         true,
       maxPagesToShow:            7,
       imageContainerSel:         '#slideshow',
       controlsContainerSel:      '#controls',

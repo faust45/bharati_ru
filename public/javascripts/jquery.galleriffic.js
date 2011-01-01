@@ -738,9 +738,9 @@
 
 				// Rebuild bottom pager
 				if (this.enableBottomPager) {
-					var $bottomPager = this.find('div.bottom');
+					var $bottomPager = this.find('div.pagenav');
 					if ($bottomPager.length == 0)
-						$bottomPager = this.append('<div class="bottom pagination"></div>').find('div.bottom');
+						$bottomPager = this.append('<div class="pagenav"></div>').find('div.pagenav');
 					else
 						$bottomPager.empty();
 

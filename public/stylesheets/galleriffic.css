@@ -161,3 +161,13 @@ div.gallery-gutter {
 	margin: 10px 20px;
 	text-align: center;
 }
+
+#thumbs .pagenav a {
+  margin-left: 0.3em;
+}
+
+#thumbs .pagenav span {
+  margin-left: 0.3em;
+}
+
+
