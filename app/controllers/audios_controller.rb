@@ -73,8 +73,7 @@ class AudiosController < ApplicationController
   end
 
   def author
-    @acharya = Author.get_acharya
-    @authors = Author.get_authors
+    common
     @author = Author.get_doc!(params[:author_id])
     @albums = @author.get_albums
     @last_tracks = @author.paginate(:get_tracks, :page => params[:page])
