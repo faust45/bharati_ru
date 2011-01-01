@@ -37,7 +37,7 @@ class AudiosController < ApplicationController
     render :audio_books
   end
 
-  def beoks_classic
+  def books_classic
     common
     @audio_books = AudioBook.classic
 
