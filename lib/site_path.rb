@@ -22,7 +22,7 @@ class SitePath
     end
 
     def kirtans_path 
-      if params[:controller] == "audios" && params[:action] == 'kirtans'
+      if params[:controller] == "audios" && %w(kirtans kirtans_show).include?(params[:action])
         name = content_tag(:i, 'Молитвы вайшнавов')
         return link_to(name, helper.kirtans_path)
       end
