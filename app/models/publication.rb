@@ -12,6 +12,9 @@ class Publication < Content
   property :genre
   property :publication_type
   property :main_photo
+  property :download_pdf_url
+  property :download_original_url
+  property :main_photo
 
   before_create :ipaper_id_uniq
 
@@ -56,6 +59,10 @@ class Publication < Content
 
   def created_at
     self.when_uploaded
+  end
+
+  def as_doc
+    Scribd::Document.new({:doc_id => self.ipaper_id})
   end
 
   private
