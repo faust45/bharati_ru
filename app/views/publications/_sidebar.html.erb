@@ -13,14 +13,15 @@
       </tbody></table>
       <p><%= t @publication.description %></p>
 
-      <% if @publication.source_pdf %>
-        <div class="download">
+      <div class="download">
+        <% if @publication.source_pdf || @publication.source_doc %>
           Скачать эту книгу:<br />
+        <% end %>
+
+        <% if @publication.source_pdf %>
           <%= link_to(image_tag('pdf.png'), file_url(@publication.source_pdf)) %>
-        </div>
-      <% end %>
-      <% if @publication.source_doc %>
-        <div class="download">
+        <% end %>
+        <% if @publication.source_doc %>
           <%= link_to(image_tag('doc.png'), file_url(@publication.source_doc)) %>
         </div>
       <% end %>
