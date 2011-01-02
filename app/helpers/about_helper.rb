@@ -16,7 +16,7 @@ module AboutHelper
   end
 
   def about_icon(h)
-    icon = About[h.section].main_photo_icon
+    icon = About[h.type].main_photo_icon
     photo_thumb(icon, {:height => "120", :width => "86"}, true)
   end
 
