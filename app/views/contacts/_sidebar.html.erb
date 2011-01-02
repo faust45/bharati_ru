@@ -2,11 +2,13 @@
   <div class="block lect">
     <div class="title">Контакты</div>
     <div class="text">
-      <%= menu_glance(:icon => :feedback_icon, :text => :feedback_text) do |m| %>
-        <%= m.feedback %>
-        <%= m.on_other_sites %>
-        <%= m.contacts_links %>
-      <% end %>
+      <div class="all-pivot">
+        <% menu_glance_next(:icon => :feedback_icon, :partial => 'book_type') do |m| %>
+          <%= m.feedback(HHash.new({:type => :feedback, :title => "Обратная связь"})) %>
+          <%= m.on_other_sites(HHash.new({:type => :on_other_sites, :title => 'Бхарати.ру на других сайтах'})) %>
+          <%= m.contacts_links(HHash.new({:type => :on_other_sites, :title => 'Ссылки'})) %>
+        <% end %>
+      </div>
     </div>
     <div class="bottom"></div>
   </div>

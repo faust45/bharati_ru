@@ -5,14 +5,8 @@ module ContactsHelper
     :contacts_links => "/images/contacts/links.png"
   }
 
-  MENU_TEXT = {
-    :feedback => "Обратная связь",
-    :on_other_sites => '<span class="white">Бхарати</span>.ру на других сайтах',
-    :contacts_links => "Ссылки"
-  }
-
-  def feedback_icon(section)
-    icon = MENU_ICONS[section]
+  def feedback_icon(h)
+    icon = MENU_ICONS[h[:type]]
     image_tag(icon, :height => "120", :width => "86")
     #photo_thumb(icon, {:height => "120", :width => "86"}, true)
   end
