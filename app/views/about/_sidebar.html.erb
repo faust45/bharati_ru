@@ -4,9 +4,9 @@
     <div class="text">
       <div class="all-pivot">
         <% menu_glance_next(:icon => :about_icon, :partial => 'book_type') do |m| %>
-          <%= m.about(HHash.new({:type => :about, :title => 'Бхарати.ру'})) %>
-          <%= m.about_ychenie(HHash.new({:type  => :ychenie, :title => 'Учение Бхакти'}))   %>
-          <%= m.about_to_start(HHash.new({:type => :to_start, :title => 'С чего начать?'})) %>
+          <%= m.about(About.bharati_ru) %>
+          <%= m.about_ychenie(About.ychenie)   %>
+          <%= m.about_to_start(About.to_start) %>
         <% end %>
       </div>
     </div>
