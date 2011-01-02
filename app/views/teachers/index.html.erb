@@ -3,8 +3,10 @@
 <% content_for :before_content_block do %>
   <div class="list-teach lect">
     <ul>
-      <% @teachers.each do |teacher| %>
-        <li> <%= teacher_li(teacher) %> </li>
+      <% menu_glance_next(:icon => :teacher_photo, :text => :display_name, :partial => 'teacher') do |m| %>
+        <% @teachers.each do |teacher| %>
+          <li> <%= m.teacher_show teacher %> </li>
+        <% end %>
       <% end %>
     </ul>
   </div>
