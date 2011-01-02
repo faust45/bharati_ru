@@ -17,13 +17,23 @@ class MenuGlanceNext
   end
 
   def method_missing(path_method, object)
+    if object.is_a?(Array)
+      object.map do |item|
+        render_menu_item(path_method, item)
+      end.join.html_safe
+    else
+      render_menu_item(path_method, object)
+    end
+  end
+
+  def render_menu_item(path_method, object)
     if object.is_a?(HHash) || object.is_a?(Hash)
       path  = helper.send(path_method.to_s + '_path')
     else
       path  = helper.send(path_method.to_s + '_path', object)
     end
     title = object.send(@text_method) 
-    desc  = object.send(:description) 
+    desc  = object.respond_to?(:description) && object.send(:description) 
     photo = helper.send(@icon_method, object)
 
     render(:partial => "shared/#{@partial}", :locals => {:path => path, :title => title, :photo => photo, :description => desc})

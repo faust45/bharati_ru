@@ -5,9 +5,7 @@
     <div class="text">
       <div class="all-pivot">
         <%= menu_glance_next(:icon => :author_main_photo, :text => :display_name, :partial => 'book_type') do |m| %>
-          <% acharya.each do |a| %>
-            <%= m.author_videos a %>
-          <% end %>
+          <%= m.author_videos acharya %>
         <% end %>
       </div>
     </div>
@@ -20,9 +18,7 @@
     <div class="text">
       <div class="all-pivot">
         <%= menu_glance_next(:icon => :author_main_photo, :text => :display_name, :partial => 'book_type') do |m| %>
-          <% authors.each do |a| %>
-            <%= m.author_videos a %>
-          <% end %>
+          <%= m.author_videos authors %>
         <% end %>
       </div>
     </div>

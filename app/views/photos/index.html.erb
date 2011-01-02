@@ -6,9 +6,11 @@
     <div class="title"><small>Шри Чайтанья Сарасват Матх</small></div>
 
     <div class="text">
-      <%= menu_glance(:icon => :section_cover, :text => :title) do |m| %>
-        <%= m.photos_section :collection => @sections_math %>
-      <% end %>
+      <div class="all-pivot">
+        <%= menu_glance_next(:icon => :section_cover, :text => :title, :partial => 'book_type') do |m| %>
+          <%= m.photos_section @sections_math %>
+        <% end %>
+      </div>
     </div>
 
     <div class="bottom"></div>
@@ -18,9 +20,11 @@
     <div class="title"><small>Фото с Бхарати Махараджем</small></div>
 
     <div class="text">
-      <%= menu_glance(:icon => :section_cover, :text => :title) do |m| %>
-        <%= m.photos_section :collection => @sections_bs %>
-      <% end %>
+      <div class="all-pivot">
+        <%= menu_glance_next(:icon => :section_cover, :text => :title, :partial => 'book_type') do |m| %>
+          <%= m.photos_section @sections_bs %>
+        <% end %>
+      </div>
     </div>
 
     <div class="bottom"></div>
@@ -30,9 +34,11 @@
     <div class="title">Писания</div>
 
     <div class="text">
-      <%= menu_glance(:icon => :section_cover, :text => :title) do |m| %>
-        <%= m.photos_section :collection => @sections_scripts %>
-      <% end %>
+      <div class="all-pivot">
+        <%= menu_glance_next(:icon => :section_cover, :text => :title, :partial => 'book_type') do |m| %>
+          <%= m.photos_section @sections_scripts %>
+        <% end %>
+      </div>
     </div>
 
     <div class="bottom"></div>
