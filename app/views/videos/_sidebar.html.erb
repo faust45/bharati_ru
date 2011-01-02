@@ -3,9 +3,13 @@
     <div class="title"><%= block_title %> Учителей</div>
 
     <div class="text">
-      <%= menu_glance(:icon => :author_main_photo, :text => :display_name) do |m| %>
-        <% m.author_videos :collection => acharya %>
-      <% end %>
+      <div class="all-pivot">
+        <%= menu_glance_next(:icon => :author_main_photo, :text => :display_name, :partial => 'book_type') do |m| %>
+          <% acharya.each do |a| %>
+            <%= m.author_videos a %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
 
     <div class="bottom"></div>
@@ -14,9 +18,13 @@
   <div class="block lect">
     <div class="title"><small><%= block_title %> Проповедников</small></div>
     <div class="text">
-      <%= menu_glance(:icon => :author_main_photo, :text => :display_name) do |m| %>
-        <% m.author_videos :collection => authors %>
-      <% end %>
+      <div class="all-pivot">
+        <%= menu_glance_next(:icon => :author_main_photo, :text => :display_name, :partial => 'book_type') do |m| %>
+          <% authors.each do |a| %>
+            <%= m.author_videos a %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
     <div class="bottom"></div>
   </div>
