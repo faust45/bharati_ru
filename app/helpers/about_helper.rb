@@ -1,8 +1,8 @@
 module AboutHelper
   ABOUT = {
-     :about => '<span class="white">Бхарати</span>.ру',
-     :ychenie    => 'Учение Бхакти',
-     :to_start   => 'С чего начать?'
+     :about => '<span class="white">',
+     :ychenie    => '',
+     :to_start   => ''
     }
 
   MAP = {
@@ -15,9 +15,8 @@ module AboutHelper
     !about_section.main_photo_big.blank?
   end
 
-  def about_icon(section)
-    section = MAP[section.to_s]
-    icon = About[section].main_photo_icon
+  def about_icon(h)
+    icon = About[h.section].main_photo_icon
     photo_thumb(icon, {:height => "120", :width => "86"}, true)
   end
 
