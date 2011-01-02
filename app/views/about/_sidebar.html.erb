@@ -17,7 +17,7 @@
     <div class="title">О проповедниках</div>
     <div class="text">
       <div class="all-pivot">
-        <% menu_glance_next(:icon => :author_main_photo, :text => :display_name) do |m| %>
+        <% menu_glance_next(:icon => :author_main_photo, :text => :display_name, :partial => 'book_type') do |m| %>
           <%= m.about_author authors %>
         <% end %>
       </div>
