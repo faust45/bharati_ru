@@ -17,7 +17,7 @@ class MenuGlanceNext
   end
 
   def method_missing(path_method, object)
-    if object.is_a?(Array)
+    if object.is_a?(Array) || object.is_a?(Collection)
       object.map do |item|
         render_menu_item(path_method, item)
       end.join.html_safe

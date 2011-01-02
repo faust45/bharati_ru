@@ -2,10 +2,10 @@
   <div class="block lect">
     <div class="title">О сайте</div>
     <div class="text">
-      <%= menu_glance(:icon => :about_icon, :text => :about_text) do |m| %>
-        <%= m.about %>
-        <%= m.about_ychenie  %>
-        <%= m.about_to_start %>
+      <% menu_glance_next(:icon => :about_icon, :partial => 'book_type') do |m| %>
+        <%= m.about(HHash.new({:type => :about, :title => 'Бхарати.ру'})) %>
+        <%= m.about_ychenie(HHash.new({:type  => :ychenie, :title => 'Учение Бхакти'}))   %>
+        <%= m.about_to_start(HHash.new({:type => :to_start, :title => 'С чего начать?'})) %>
       <% end %>
     </div>
     <div class="bottom"></div>
@@ -14,8 +14,8 @@
   <div class="block lect aboutsite">
     <div class="title">О проповедниках</div>
     <div class="text">
-      <%= menu_glance(:icon => :author_main_photo, :text => :display_name) do |m| %>
-        <%= m.about_author :collection => authors %>
+      <% menu_glance_next(:icon => :author_main_photo, :text => :display_name) do |m| %>
+        <%= m.about_author authors %>
       <% end %>
     </div>
     <div class="bottom"></div>
