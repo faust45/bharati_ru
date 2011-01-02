@@ -1,15 +1,15 @@
 class About
   class<< self
     def bharati_ru
-      self['about']
+      HHash.new self['about']
     end
 
     def ychenie
-      self['ychenie']
+     HHash.new self['ychenie']
     end
 
     def to_start
-      self['to_start']
+      HHash.new self['to_start']
     end
 
     def [](key) 
