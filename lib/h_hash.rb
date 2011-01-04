@@ -12,4 +12,9 @@ class HHash < HashWithIndifferentAccess
     self[method]
   end
 
+  #respond_to Any
+  def respond_to?(*args)
+    true
+  end
+
 end
