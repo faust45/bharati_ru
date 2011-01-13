@@ -18,9 +18,9 @@ class AudiosController < ApplicationController
                                :icon => '0498a2467fb5d3547cdef53cc9c1a629',
                                :description => 'Бхагавад Гита, Шримад Бхагаватам и другие')
 
-    @kirtans_menu  = HHash.new(:title => 'Бхаджаны и киртаны', 
+    @kirtans_menu  = HHash.new(:title => 'Шри Чайтанья Сарасват Матх - Шри-Хари-Киртан', 
                                :icon => '0498cc3536f3ea7ac794e017818542dc',
-                               :description => 'молитвенные песни вайшнавской традиции')
+                               :description => 'Шрилы Б.С. Говинды Махараджа и Шрилы Б.Р. Шридхара Махараджа')
   end
 
   def books
