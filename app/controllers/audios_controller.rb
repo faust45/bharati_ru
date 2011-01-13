@@ -20,7 +20,7 @@ class AudiosController < ApplicationController
 
     @kirtans_menu  = HHash.new(:title => 'Шри Чайтанья Сарасват Матх - Шри-Хари-Киртан', 
                                :icon => '0498cc3536f3ea7ac794e017818542dc',
-                               :description => 'Шрилы Б.С. Говинды Махараджа и Шрилы Б.Р. Шридхара Махараджа')
+                               :description => 'Пение Шрилы Б.С. Говинды Махараджа и Шрилы Б.Р. Шридхара Махараджа')
   end
 
   def books
