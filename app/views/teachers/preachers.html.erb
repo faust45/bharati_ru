@@ -11,7 +11,7 @@
     <ul>
       <% menu_glance_next(:icon => :teacher_photo, :text => :display_name, :partial => 'teacher') do |m| %>
         <% @teachers.each do |teacher| %>
-          <li> <%= m.teacher_show teacher %> </li>
+          <li> <%= m.preacher_show teacher %> </li>
         <% end %>
       <% end %>
     </ul>

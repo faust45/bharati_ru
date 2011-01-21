@@ -88,6 +88,8 @@ MahaMandala::Application.routes.draw do
 
   match 'teachers' => 'teachers#index', :as => 'teachers'
   match 'teachers/:id' => 'teachers#index', :as => 'teacher_show'
+  match 'preachers' => 'teachers#preachers', :as => 'preachers'
+  match 'preachers/:id' => 'teachers#preachers', :as => 'preacher_show'
 
   match 'contacts' => 'contacts#feedback', :as => 'contacts', :via => :get
   match 'contacts' => 'contacts#feedback', :as => 'feedback', :via => :get
