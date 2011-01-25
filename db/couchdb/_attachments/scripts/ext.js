@@ -180,14 +180,36 @@ function eventlyHandler(elem, name, h, args) {
 };
 */
 
-function dbUpdate(db, ddoc, handler, id, options, fun) {
-  var path = 'http://192.168.1.100:5984' + db.uri + '_design/' + ddoc + "/_update/" + handler + "/" + id + encodeOptions(options);
+function dbUpdate(db, ddoc, handler, id, options, fun, isForce) {
+  var path = 'http://admin.bharati.ru' + db.uri + '_design/' + ddoc + "/_update/" + handler + "/" + id + encodeOptions(options);
 
-  $.ajax({
-    type: 'PUT', 
-    url: path,
-    success: fun
-  });
+  function run() {
+    $.ajax({
+      type: 'PUT', 
+      url: path,
+      complete: completeHandler,
+    });
+  }
+
+  function errorHandler(reqStatus, error) {
+    $.log('in errorHandler', error);
+    if (error == "conflict") {
+      isForce && run();
+    }
+  }
+
+  function completeHandler(req) {
+    var resp = $.httpData(req, "json");
+    $.log('in completeHandler', resp);
+
+    if (req.status == 200 || req.status == 201 || req.status == 202) {
+      fun(resp);
+    } else {
+      errorHandler(req.status, resp.error);
+    }
+  }
+
+  run();
 }
 
 function fetchDocs(ids, fun) {

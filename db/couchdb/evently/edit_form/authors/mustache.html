@@ -11,8 +11,18 @@
 
 {{#doc}}
 <form>
+  <input type='hidden' name='_id' value='{{_id}}'    />
+  <input type='hidden' name='_rev' value='{{_rev}}'  />
+  <input type='hidden' name='couchrest-type' value='Author' />
+
   <div class="cnt active">
       <div class="input"><input class="store-text" name="display_name" type="text" size="25" value="{{display_name}}"></div>
+      {{#if_new}}
+      ID:
+      <div class="input">
+        <input type='text' class="store-text" name='_id' value='{{_id}}' size="25" />
+      </div>
+      {{/if_new}}
       <div class="input">
         <div class="upload" data-field="main_photo">
         </div>

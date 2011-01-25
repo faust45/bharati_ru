@@ -1,4 +1,4 @@
-function(cb, ev, doc, r) {
+function(cb, e, ev, doc) {
   var el = $(this),
       attr = el.attr('data-name'),
       collection = doc[attr];

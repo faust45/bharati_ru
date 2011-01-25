@@ -45,28 +45,23 @@ function $$(node) {
 
   // this allows you to specify callbacks as functions or strings
   function evfun(fun, hint) {
-    if (fun && fun.match && fun.match(/^function/)) {
-      try {
+    try {
+      if (fun && fun.match && fun.match(/^function/)) {
         eval("var f = "+fun);
-      } catch(e) {
-        $.log({"message": "Error in evently function.", "error": e, "src" : fun, "hint":hint});
-        throw(e);
-      }
-      if (typeof f == "function") {
-        return function() {
-          try {
+        if (typeof f == "function") {
+          return function() {
             return f.apply(this, arguments);
-          } catch(e) {
-            // IF YOU SEE AN ERROR HERE IT HAPPENED WHEN WE TRIED TO RUN YOUR FUNCTION
-            $.log({"message": "Error in evently function.", "error": e, 
-              "src" : fun, "hint":hint});
-            throw(e);
-          }
-        };
+          };
+        }
       }
+
+      return fun;
+    } catch(e) {
+      $.log({"message": "Error in evently function.", "error": e, "src" : fun, "hint":hint});
+      throw(e);
     }
-    return fun;
   };
+
   function rfun(me, fun, args) {
     // if the field is a function, call it, bound to the widget
     var f = evfun(fun, me);

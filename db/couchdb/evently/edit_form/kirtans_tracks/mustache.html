@@ -1,0 +1,19 @@
+<a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt="" /></a>
+
+{{#doc}}
+<form>
+  <input type='hidden' name='_id' value='{{_id}}' />
+  <input type='hidden' name='_rev' value='{{_rev}}' />
+  <input type='hidden' name='type' value='AudioBookTrack' />
+
+  <div class="cnt active">
+      <div class="input"><input class="store-text field" name="title" type="text" size="25" value="{{title}}"></div>
+      <div class="input">
+        Картинка:
+        <div class="upload" data-field="main_photo">
+        </div>
+        <div class="photo"></div>
+      </div>
+  </div>
+</form>
+{{/doc}}

@@ -1,4 +1,5 @@
 function(e) {
+  /*
   $(this).find('ul li').draggable({
     helper:'clone',
     cursor: 'move',
@@ -6,4 +7,5 @@ function(e) {
     appendTo: '.wrap',
     zIndex:  20000 
   });
+  */
 }

@@ -1,18 +1,22 @@
 AudioBook = function(book) {
   var add = function(sourceId, fileName, tags) {
+    //What if tags blank?
+    tags = tags || {};
+    title =  tags.title ? tags.title[0] : fileName;
+
     var track = {
-      _id: new Date().toCouchId(),
+      _id: (new Date()).toCouchId(),
       source: {doc_id: sourceId, file_name: fileName},
       type: "AudioBookTrack", 
       duration: tags.duration,
-      title: tags.title[0]
+      title: title
     };
 
     DocsStore.saveDoc(track, {success: addToBook});
   };
 
   function addToBook(track) {
-    dbUpdate(DocsStore, 'global', 'add_to_album', book._id, {field: 'tracks', item: track.id}, function() { });
+    dbUpdate(DocsStore, 'global', 'add_to_album', book._id, {field: 'tracks', item: track.id}, function() { }, true);
   }
 
 

@@ -24,7 +24,7 @@ FileUploader = function(dropzone, options) {
 
     function run(rev) {
       var url = path();
-      if(rev) url = url + 'rev=' + rev;
+      if(rev) url = url + '?rev=' + rev;
 
       xhr.open("PUT", url, true);
       xhr.setRequestHeader("Content-Type", Mime.type(myFile.fileName));
@@ -71,7 +71,7 @@ FileUploader = function(dropzone, options) {
     }
 
     function path() {
-      return 'http://192.168.1.100:5984' + db.uri + id + '/' + fileName() + '?';
+      return 'http://admin.bharati.ru' + db.uri + id + '/' + fileName();
     }
 
     function fileName() {

@@ -8,9 +8,19 @@
 
 
 {{#doc}}
-<form type="AlbumPublication">
+<form>
+  <input type='hidden' name='_id' value='{{_id}}'    />
+  <input type='hidden' name='_rev' value='{{_rev}}'  />
+  <input type='hidden' name='couchrest-type' value='AlbumPublication' />
+
   <div class="cnt active">
       <div class="input"><input class="store-text field" name="title" type="text" size="25" value="{{title}}"></div>
+      {{#if_new}}
+      ID:
+      <div class="input">
+        <input type='text' class="store-text" name='_id' value='{{_id}}' size="25" />
+      </div>
+      {{/if_new}}
       <div class="input">
           <select name="author_id" class="author-select can-changed field">
           </select>

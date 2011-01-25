@@ -2,6 +2,7 @@
   <ul class="custom_tabs">
     <li class="active"><a href="#">Basic</a></li>
     <li><a href="#">Tracks</a></li>
+    <li><a href="#">Aditional</a></li>
   </ul>
   <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt="" /></a>
 </div>
@@ -14,6 +15,7 @@
   <input type='hidden' name='type' value='AudioBook' />
 
   <div class="cnt active">
+      <button id="add-duration">Duration</button>
       <div class="input">
           <input class="store-text field" name="title" type="text" size="25" value="{{title}}">
       </div>
@@ -37,6 +39,20 @@
         <ul class="collection" data-name="tracks">
         </ul>
       </div>
+  </div>
+  <div class="cnt">
+    Переводчик:
+    <div class="input">
+          <input class="store-text field" name="translate_by" type="text" size="25" value="{{translate_by}}">
+    </div>
+    Читает:
+    <div class="input">
+          <input class="store-text field" name="read_by" type="text" size="25" value="{{read_by}}">
+    </div>
+    Муз оформление:
+    <div class="input">
+          <input class="store-text field" name="muz_by" type="text" size="25" value="{{muz_by}}">
+    </div>
   </div>
 </form>
 {{/doc}}

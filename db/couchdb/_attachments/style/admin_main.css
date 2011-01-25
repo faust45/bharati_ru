@@ -48,8 +48,9 @@ a:hover{color:#70B8F8;}
 			.list ul li.current a{background-color:#51DEE8;}
 			.list ul li b{display:none; position:absolute; top:0; right:0; width:32px; height:32px; background:#FCC url(../images/settings.png) no-repeat 0 0; cursor:pointer;}
 			.list ul li:hover b{display:block;}
-			.list.dir ul li a{background:#F8F8F8 url(../images/dir1.png) no-repeat 1px -1px;}
-			.list.dir ul li.current a{background:#F8F8F8 url(../images/open_dir1.png) no-repeat 1px -1px;}
+			.list ul.lib li a{background:#F8F8F8 url(../images/lib.png) no-repeat 1px -1px;}
+			.list ul.dir li a{background:#F8F8F8 url(../images/dir1.png) no-repeat 1px -1px;}
+			.list ul.dir li.current a{background:#F8F8F8 url(../images/open_dir1.png) no-repeat 1px -1px;}
 	.list ol{height:20px; margin:0; padding:10px 0;}
 		.list ol li{float:left; margin:0 5px 0 0; list-style:none;}
 			.list ol li a{display:block; padding:0 3px; color:#2786C2; background:#F8F8F8;}

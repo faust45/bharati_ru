@@ -1,4 +1,4 @@
 function(e) {
-  $(this).trigger('submitData');
+  $('#edit_form').find('form').submit();
   return false;
 }

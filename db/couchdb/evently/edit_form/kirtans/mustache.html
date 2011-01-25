@@ -1,0 +1,58 @@
+<div class="tabs">
+  <ul class="custom_tabs">
+    <li class="active"><a href="#">Basic</a></li>
+    <li><a href="#">Tracks</a></li>
+    <li><a href="#">Aditional</a></li>
+  </ul>
+  <a id="submitButton" href="#" class="saved"><img src="images/saved.png" alt="" /></a>
+</div>
+
+
+{{#doc}}
+<form>
+  <input type='hidden' name='_id' value='{{_id}}'    />
+  <input type='hidden' name='_rev' value='{{_rev}}'  />
+  <input type='hidden' name='type' value='Kirtan' />
+
+  <div class="cnt active">
+      <button id="add-duration">Duration</button>
+      <div class="input">
+          <input class="store-text field" name="title" type="text" size="25" value="{{title}}">
+      </div>
+      <div class="input">
+          <select name="author_id" class="author-select can-changed field">
+          </select>
+      </div>
+      {{#if_not_new}}
+      <div class="input">
+        Обложка:
+        <div class="upload" data-field="main_photo">
+        </div>
+        <div class="photo"></div>
+      </div>
+      {{/if_not_new}}
+  </div>
+  <div class="cnt">
+      <div class="upload upload-tracks" data-filename="native" data-type="AudioBookTrack">
+      </div>
+      <div class="input">
+        <ul class="collection" data-name="tracks">
+        </ul>
+      </div>
+  </div>
+  <div class="cnt">
+    Переводчик:
+    <div class="input">
+          <input class="store-text field" name="translate_by" type="text" size="25" value="{{translate_by}}">
+    </div>
+    Читает:
+    <div class="input">
+          <input class="store-text field" name="read_by" type="text" size="25" value="{{read_by}}">
+    </div>
+    Муз оформление:
+    <div class="input">
+          <input class="store-text field" name="muz_by" type="text" size="25" value="{{muz_by}}">
+    </div>
+  </div>
+</form>
+{{/doc}}
