@@ -11,7 +11,7 @@ class AuthorLinks
  
   def method_missing(url_method, title, options = {})
     if url = @object.send(url_method)
-      link_to(url, title, options)
+      link_to(title, url, options)
     end
   end
 
