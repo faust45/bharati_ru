@@ -25,7 +25,14 @@
       </div>
 
       <div class="ref">
+        <% author_links(@teacher) do |a| %>
+          <%= a.photos_link 'Смотреть фото', :class => 'cam' %>
+          <%= a.audios_link 'Смотреть аудиозапись', :class => 'aud' %>
+          <%= a.videos_link 'Смотреть видео', :class => 'vid' %>
+          <%= a.publications_link 'Читать', :class => 'read' %>
+        <% end %>
       </div>
+
     </div>
 
     <div class="bottom"></div>

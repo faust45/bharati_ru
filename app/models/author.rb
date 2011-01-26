@@ -30,6 +30,10 @@ class Author < BaseModel
   property :short_bio
   property :bio
   property :extracts, []
+  property :photos_link
+  property :audios_link
+  property :videos_link
+  property :publications_link
 
   use_as_id :id_by_display_name
 
