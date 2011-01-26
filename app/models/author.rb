@@ -50,10 +50,6 @@ class Author < BaseModel
       end
     end
 
-    def extracts
-      []
-    end
-
     def get_all(options = {})
       @get_all ||= view_docs('authors_all', options)
     end
@@ -102,6 +98,10 @@ class Author < BaseModel
 
       @cache_authors_names[author_id]
     end
+  end
+
+  def extracts
+    []
   end
 
   def is_teacher?
