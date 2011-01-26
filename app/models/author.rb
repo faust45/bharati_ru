@@ -29,7 +29,7 @@ class Author < BaseModel
   property :life_years
   property :short_bio
   property :bio
-  property :extracts, []
+  #property :extracts, []
   property :photos_link
   property :audios_link
   property :videos_link
@@ -48,6 +48,10 @@ class Author < BaseModel
           get_doc(id)
         end
       end
+    end
+
+    def extracts
+      []
     end
 
     def get_all(options = {})
