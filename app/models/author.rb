@@ -43,11 +43,7 @@ class Author < BaseModel
   
   class <<self
     def get_teachers
-      @teachers ||= begin
-        TEACHERS.map do |id| 
-          get_doc(id)
-        end
-      end
+      get_all_docs(TEACHERS)
     end
 
     def get_all(options = {})
@@ -55,9 +51,7 @@ class Author < BaseModel
     end
 
     def get_acharya
-      @acharya ||= ACHARYA.map do |id|
-        self.get_doc!(id)
-      end
+      get_all_docs(ACHARYA)
     end
 
     def get_acharya_lib
@@ -69,7 +63,7 @@ class Author < BaseModel
     end
 
     def get_math_authors
-      @math_authors ||= get_all_docs(MATH_AUTHORS)
+      get_all_docs(MATH_AUTHORS)
     end
 
     def get_authors_lib
