@@ -1,6 +1,15 @@
 module AudiosHelper
   include ImagesHelper
 
+  def link_to_teacher(author)
+    if author.is_teacher?
+      teacher_show_path(author)
+    else
+      preacher_show_path(author)
+    end
+
+  end
+
   def audio_book_icon(book_type)
     photo_thumb_round(book_type.icon, Images::MENU_BOOKS)
   end
@@ -132,7 +141,6 @@ module AudiosHelper
     options = {
       :title => escape(@current_track.title),
       :file  => file_url(@current_track.source),
-      :duration => @current_track.duration,
       :addBookmarkButton => false,
       :addToFavoriteButton => false
     }

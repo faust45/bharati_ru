@@ -102,6 +102,10 @@ class Author < BaseModel
     TEACHERS.include? self.id
   end
 
+  def is_math_author?
+    MATH_AUTHORS.include? self.id
+  end
+
   def get_videos(options = {})
     Video.get_by_author(self.id, options)
   end
