@@ -63,27 +63,3 @@ end
 git 'git://github.com/markevans/dragonfly.git' do
   gem 'dragonfly'
 end
-#
-group(:test) do
-  git "git://github.com/rspec/rspec-rails.git" do
-    gem "rspec-rails"
-  end
-
-  git "git://github.com/rspec/rspec.git" do
-    gem "rspec"
-  end
-
-  git "git://github.com/rspec/rspec-core.git" do
-    gem "rspec-core"
-  end
-
-  git "git://github.com/rspec/rspec-expectations.git" do
-    gem "rspec-expectations"
-  end
-
-  git "git://github.com/rspec/rspec-mocks.git" do
-    gem "rspec-mocks"
-  end
-
-  gem 'flexmock'
-end
