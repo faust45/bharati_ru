@@ -30,6 +30,10 @@ gem 'ruby-debug'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'mime-types'
 
+git 'https://github.com/kpumuk/meta-tags.git' do
+  gem 'meta-tags', :require => 'meta_tags'
+end
+
 
 gem 'couchrest'
 gem 'couchrest_extended_document'
