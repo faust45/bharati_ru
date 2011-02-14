@@ -4,6 +4,7 @@ class Audio < MediaContent
   property :duration
   property :bookmarks, [HHash], :default => [] #:time :str_time :name
   property :extracts, [], :default => []
+  property :keywords, [], :default => []
 
   has_attachment  :source, SourceAudioAttachmentStore
   has_attachments :photos, BigPhotoStore
@@ -85,6 +86,10 @@ class Audio < MediaContent
     end
   end
 
+
+  def to_meta
+    "#{author.display_name} - #{title}"
+  end
 
   def get_albums
     @albums ||= Album.get_by_track(self.id)

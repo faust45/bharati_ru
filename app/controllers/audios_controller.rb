@@ -70,6 +70,9 @@ class AudiosController < ApplicationController
       @current_track = @tracks.first
     end
     @author = @album.author
+
+    @page_title    = "#{@album.title}: #{@current_track.to_meta}"
+    @page_keywords = @current_track.keywords
   end
 
   def author
@@ -120,6 +123,8 @@ class AudiosController < ApplicationController
     end
     @current_track ||= @tracks.first
 
+    @page_title    = "#{@album.title}: #{@current_track.to_meta}"
+    @page_keywords = @current_track.keywords
     render :album
   end
 
