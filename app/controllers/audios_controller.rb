@@ -28,6 +28,9 @@ class AudiosController < ApplicationController
     @tracks = @album.get_tracks
     @current_track = @tracks.find{|el| el.id == params[:track_id]} 
     @current_track ||= @tracks.first
+
+    @page_title    = "#{@album.title}: #{@current_track.to_meta}"
+    @page_keywords = @current_track.keywords
   end
 
   def books_vaishnava

@@ -91,20 +91,20 @@ module ApplicationHelper
   end
 
   def hit_tags(item)
-    cont = h(item.tags)
+    cont = hh(item.tags)
     unless cont.blank?
       "<p>Теги:&nbsp;&nbsp;#{cont}</p>".html_safe
     end
   end
 
   def hit_bookmarks(item)
-    cont = h(item.bookmarks.map{|a| a['name']}, 0)
+    cont = hh(item.bookmarks.map{|a| a['name']}, 0)
     unless cont.blank?
       "<p>Закладки:&nbsp;&nbsp;#{cont}</p>".html_safe
     end
   end
 
-  def h(obj, max_out = 2)
+  def hh(obj, max_out = 2)
     obj = obj.highlight(params[:q])
 
     if obj.is_a?(Array)
