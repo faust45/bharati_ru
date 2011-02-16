@@ -29,7 +29,7 @@ class AudiosController < ApplicationController
     @current_track = @tracks.find{|el| el.id == params[:track_id]} 
     @current_track ||= @tracks.first
 
-    @page_title    = "#{@album.title}: #{@current_track.to_meta}"
+    @page_title    = "#{@album}: #{@current_track}"
     @page_keywords = @current_track.keywords
   end
 
@@ -37,6 +37,7 @@ class AudiosController < ApplicationController
     common
     @audio_books = AudioBook.vaishnava 
 
+    @page_title  = @books_math.title
     render :audio_books
   end
 
@@ -44,12 +45,14 @@ class AudiosController < ApplicationController
     common
     @audio_books = AudioBook.classic
 
+    @page_title  = @books_classic.title
     render :audio_books
   end
 
   def kirtans
     @kirtans = Kirtan.get_all
     common
+    @page_title  = @kirtans_menu.title
   end
 
   def kirtans_show
@@ -74,7 +77,7 @@ class AudiosController < ApplicationController
     end
     @author = @album.author
 
-    @page_title    = "#{@album.title}: #{@current_track.to_meta}"
+    @page_title    = "#{@album}: #{@current_track}"
     @page_keywords = @current_track.keywords
   end
 
@@ -85,6 +88,8 @@ class AudiosController < ApplicationController
     @last_tracks = @author.paginate(:get_tracks, :page => params[:page])
 
     @years = @author.get_years_with_tracks_count
+
+    @page_title = @author.to_s
   end
 
   def year
@@ -108,6 +113,8 @@ class AudiosController < ApplicationController
       end
     end
 
+    @page_title    = "#{@author} - #{@year}: #{@current_track}"
+    @page_keywords = @current_track.keywords
     render :album
   end
 
@@ -126,7 +133,7 @@ class AudiosController < ApplicationController
     end
     @current_track ||= @tracks.first
 
-    @page_title    = "#{@album.title}: #{@current_track.to_meta}"
+    @page_title    = "#{@album}: #{@current_track}"
     @page_keywords = @current_track.keywords
     render :album
   end

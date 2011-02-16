@@ -94,6 +94,10 @@ class Author < BaseModel
     end
   end
 
+  def to_s
+    display_name
+  end
+
   def extracts
     []
   end

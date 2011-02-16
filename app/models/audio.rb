@@ -87,8 +87,8 @@ class Audio < MediaContent
   end
 
 
-  def to_meta
-    "#{author.display_name} - #{title}"
+  def to_s
+    title
   end
 
   def get_albums

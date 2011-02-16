@@ -7,6 +7,7 @@ class AudioBook < BaseModel
   property :translate_by
   property :muz_by
   property :read_by
+  property :publications_link
 
   class <<self
     def get_all(options = {})
@@ -22,6 +23,10 @@ class AudioBook < BaseModel
       options = {:keys => Author::CLASSIC}
       view_docs('audio_books_by_author', options)
     end
+  end
+
+  def to_s
+    title
   end
 
   def get_tracks

@@ -43,6 +43,10 @@ class SbAlbum < AlbumBase
     end
   end
 
+  def to_s
+    title
+  end
+
   def gen_id
     self.class.gen_id(title)
   end
