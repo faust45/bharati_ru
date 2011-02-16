@@ -29,7 +29,7 @@ class AudiosController < ApplicationController
     @current_track = @tracks.find{|el| el.id == params[:track_id]} 
     @current_track ||= @tracks.first
 
-    @page_title    = "#{@album}: #{@current_track}"
+    @page_title    = "Аудиокнига - #{@album}: #{@current_track}"
     @page_keywords = @current_track.keywords
   end
 
