@@ -11,7 +11,7 @@ class PhotoThumbStore < FileStore
 
   private
     def setup
-      @tmp_image ||= MiniMagick::Image.from_file(file.path)
+      @tmp_image ||= MiniMagick::Image.from_file(file_path)
       self.file = Tempfile.new('temp')
       @temp_file = Tempfile.new('temp')
     end

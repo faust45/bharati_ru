@@ -78,4 +78,12 @@ class FileStore < BaseModel
       end
     end
 
+    def file_path
+      if file.is_a?(ActionDispatch::Http::UploadedFile)
+        file.tempfile.path
+      else
+        file.path
+      end
+    end
+
 end
