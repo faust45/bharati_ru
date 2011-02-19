@@ -1,3 +1,6 @@
+Time::DATE_FORMATS[:db] = "%Y/%m/%d %H:%M:%S"
+ActiveSupport.use_standard_json_time_format = false 
+
 class Date
   EN_MONTHS = I18n.with_locale(:en) {I18n.t('date.abbr_month_names')} 
   RU_MONTHS = I18n.with_locale(:ru) {I18n.t('date.month_names')} 
