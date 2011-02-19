@@ -31,5 +31,18 @@ namespace :publications do
       end
     end
   end
+
+  task :update => :environment do
+    ScribdFu.scribd_user.documents.each do |doc|
+      pub = Publication.get_by_ipaper_id(doc.doc_id).first
+      pub.download_original_url = doc.download_url
+      pub.download_pdf_url = doc.download_url('pdf')
+      pub.save
+      p 'ok'
+      p pub.download_pdf_url
+      p pub.download_original_url
+      p ''
+    end
+  end
 end
 
