@@ -87,7 +87,7 @@ Model.Author = {
 }
 
 db = {
-  urlPrefix: "http://93.94.152.87:3000/",
+  urlPrefix: "http://strela:bochka123@93.94.152.87:3000/",
   name: "rocks",
   ddoc: null,
   ddocID: "_design/global/",
