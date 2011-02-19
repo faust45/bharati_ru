@@ -7,7 +7,7 @@ function(e, doc) {
   }
   
   if (doc.extracts) {
-    doc.extracts_raw = doc.extracts.join('\n\n')
+    //doc.extracts_raw = doc.extracts.join('\n\n')
   }
 
   function if_new() {
