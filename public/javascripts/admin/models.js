@@ -139,7 +139,7 @@ db = {
 db.FileStore = {
   attachmentURL: function(doc) {
     var id = doc.doc_id, fileName = doc.file_name;
-    return 'http://93.94.152.87:3000/rocks_file_store/' + id + '/' + fileName;
+    return 'http://photos.bharati.ru/' + id;
   }
 }
 
