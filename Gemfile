@@ -1,18 +1,27 @@
 source 'http://rubygems.org/'
 
-git 'git://github.com/plataformatec/simple_form.git' do
-  gem 'simple_form'
-end
+gem 'activesupport',     '= 3.0.4', :require => 'active_support'
+#gem 'activerecord',      '= 3.0.4', :require => 'active_record'
+gem 'activemodel',       '= 3.0.4', :require => 'active_model'
+gem 'actionpack',        '= 3.0.4', :require => 'action_pack'
+gem 'railties',          '= 3.0.4', :require => 'rails'
+gem 'actionmailer',      '= 3.0.4', :require => 'action_mailer'
 
-gem 'activesupport',     '= 3.0.3', :require => 'active_support'
-gem 'activemodel',       '= 3.0.3', :require => 'active_model'
-gem 'actionpack',        '= 3.0.3', :require => 'action_pack'
-gem 'railties',          '= 3.0.3', :require => 'rails'
-gem 'actionmailer',      '= 3.0.3', :require => 'action_mailer'
-
+gem 'dynamic_form'
 gem 'validatable'
 gem 'mini_magick', '= 1.2.5'
 
+gem 'dm-core'
+gem 'dm-validations'
+gem 'dm-migrations'
+
+git 'https://github.com/datamapper/dm-types.git' do
+  gem 'dm-types'
+end
+
+gem 'dm-sqlite-adapter'
+
+gem 'sqlite3-ruby'
 gem 'rscribd'
 gem 'scribd_fu'
 
@@ -59,11 +68,3 @@ gem 'tzinfo'
 ##git 'git://github.com/rspec/rspec-expectations.git'
 ##git 'git://github.com/rspec/rspec-mocks.git'
 ##git 'git://github.com/rspec/rspec-rails.git'
-#
-git 'git://github.com/rtomayko/rack-cache.git' do
-  gem 'rack-cache'
-end
-
-git 'git://github.com/markevans/dragonfly.git' do
-  gem 'dragonfly'
-end
