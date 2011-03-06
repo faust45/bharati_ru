@@ -132,6 +132,21 @@ MahaMandala::Application.routes.draw do
   end
 
 
+  namespace :forum do
+    root :to => "topics#index"
+    match '/topics/:id' => 'topics#show', :as => 'topic'
+    match '/posts/:post_id' => 'comments#create', :as => 'post_add_comment', :via => [:post]
+
+    match '/profile' => 'profile#edit', :as => 'edit_profile', :via => [:get]
+    match '/profile' => 'profile#update', :as => 'profile', :via => [:post]
+
+    resources :topics do
+      resources :posts do
+        resources :comments
+      end
+    end
+  end
+
   namespace :admin do
     root :to => "audios#index"
 
