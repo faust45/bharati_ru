@@ -16,7 +16,7 @@ gem 'dm-core'
 gem 'dm-validations'
 gem 'dm-migrations'
 
-git 'https://github.com/datamapper/dm-types.git' do
+git 'https://github.com/datamapper/dm-types.git', :tag => 'v1.0.0' do
   gem 'dm-types'
 end
 
