@@ -11,6 +11,7 @@ gem 'dynamic_form'
 gem 'validatable'
 gem 'mini_magick', '= 1.2.5'
 
+gem 'dm-sqlite-adapter'
 gem 'dm-core'
 gem 'dm-validations'
 gem 'dm-migrations'
@@ -19,7 +20,6 @@ git 'https://github.com/datamapper/dm-types.git' do
   gem 'dm-types'
 end
 
-gem 'dm-sqlite-adapter'
 
 gem 'sqlite3-ruby'
 gem 'rscribd'
