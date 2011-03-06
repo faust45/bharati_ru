@@ -1,5 +1,4 @@
 class ZeroAuth::SecurityToken < Hash
-  include ::CouchRest::CastedModel
 
   LIFETIME = 30.days
 

@@ -4,9 +4,9 @@ module ZeroAuth::User::Validations
   included do
     validates_presence_of     :login
     validates_presence_of     :email
-    #validates_uniqueness_of   :email
+    validates_uniqueness_of   :email
     validates_presence_of     :password
-    validates_confirmation_of :password
+    #validates_confirmation_of :password
   end
       #validates_with_method :login, :method => :login_is_unique 
       #validates_is_confirmed :password

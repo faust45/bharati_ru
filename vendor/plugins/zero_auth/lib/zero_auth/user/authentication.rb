@@ -14,16 +14,16 @@ module ZeroAuth::User::Authentication
           user.update_attribute(:verified, true)
         end
       else
-        #logger.info "Not authenticated"
+        logger.info "Not authenticated"
       end
 
       user
     end
 
      def authenticate_by_login(login, pass)
-       if user = self.get(login)
+       if user = self.first(:login => login)
          #logger.info "Attempting authenticate user #{login}"
-         user if user.password == pass
+         user if user.crypt_password == pass
        end
      end
   end

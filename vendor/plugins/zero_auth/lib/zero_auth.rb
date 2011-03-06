@@ -4,7 +4,6 @@ module ZeroAuth
   included do
     include ZeroAuth::User::Attributes
     include ZeroAuth::User::Methods
-    include ZeroAuth::User::Validations
     include ZeroAuth::User::Authentication
   end
 

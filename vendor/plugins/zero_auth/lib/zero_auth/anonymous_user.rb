@@ -6,6 +6,7 @@ class ZeroAuth::AnonymousUser
   def anonymous?
     true
   end
+  alias anon? anonymous?
      
   def logged_in?
     false

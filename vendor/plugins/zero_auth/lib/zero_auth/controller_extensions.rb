@@ -68,6 +68,10 @@ module ZeroAuth::ControllerExtensions
     def free_actions(*actions)
       skip_before_filter :login_required, :only => actions
     end
+
+    def free_actions_all
+      skip_before_filter :login_required
+    end
   end
 
 end
