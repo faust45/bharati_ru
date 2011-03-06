@@ -31,6 +31,10 @@ class String
     value = Russian::translit(self)
     value.gsub(/[^A-Za-z\d]/, '')
   end
+
+  def to_view_type
+    self.gsub(/\:/, '')
+  end
 end
 
 
