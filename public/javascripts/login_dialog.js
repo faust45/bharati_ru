@@ -7,90 +7,66 @@ Login = {};
 
 
 $(document).ready(function() {
-  var dialog = new Login.Dialog();
-  $('a.login').click(function() {
-    dialog.open();
+  $('#pop a.close').click(function() {
+    $('#pop').hide();
     return false;
   });
+
+  RegDialog($('#regist'));
+  LoginDialog($('#login-form'));
 });
 
 //--------------------------------------------------------------
 
+DialogBase = function(form, onResponce, errors) {
+  form.bind('ajax:success', onResponce)
+  form.find('.errors').append(errors);
 
-Login.Dialog = function() {
-  var self  = this;
-  this.div  = $('#login_dialog');
-  this.form = new Login.Form(this.div.find('form'), this.process());
-  this.msg  = this.div.find('.msg');
-
-  this.div.dialog({
-    autoOpen:  false,
-    resizable: false,
-    minWidth:  '300px',
-    modal: true,
-
-    buttons: {
-      'Cancel': function() { self.close();  },
-      'Enter':  function() { self.submit(); },
-    },
-
-    open:  function() { self.form.loginFocus(); self.form.setLogin(''); },
-    close: function() {}
+  form.find('a.butt').click(function() {
+    form.submit();
+    return false;
   });
 }
 
-Login.Dialog.prototype = {
-  open: function() {
-    this.div.dialog('open');
-    this.msg.html('');
-  },
+LoginDialog = function(form) {
+  var errors = $('<p></p>');
+  DialogBase.apply(this, [form, onResponce, errors]);
 
-  close: function() {
-    this.div.dialog('close');
-  },
+  function onResponce(e, data) {
+    var data = eval('(' + data + ')');
 
-  submit: function() {
-    this.form.submit(this.process());
-  },
-
-  process: function() {
-    var self = this;
-
-    return function(resp) {
-      var r = eval( "(" + resp + ")" );
-      if (r.login_success) {
-        self.close();
-        location.reload();
-      } else {
-       self.msg.html(r.flash);
-       self.msg.effect("highlight", {}, 6000); 
-      }
+    if (data.login_success) { 
+      window.location.reload()
+    } else {
+      errors.html('');
+      $(data.errors).each(function() {
+        errors.append('<li>' + this.toString() + '</li>')
+      });
     }
   }
 }
 
-//--------------------------------------------------------------
 
+RegDialog = function(form) {
+  var errors = $('<ul></ul>');
 
-Login.Form = function(form, fun) {
-  this.form = form;
-  this.form.ajaxForm(fun);
-}
+  DialogBase.apply(this, [form, onResponce, errors]);  
 
-Login.Form.prototype = {
-  submit: function(fun) {
-    this.form.ajaxSubmit(fun);
-  },
+  function onResponce(e, data) {
+    var data = eval('(' + data + ')');
+    var userCreated = !data.is_new;
 
-  setLogin: function(value) {
-    this.form.find('input[name=user[login]]').val(value);
-  },
+    if (userCreated) { 
+      onAuthSuccess();
+    } else {
+      errors.html('');
+      $(data.errors).each(function() {
+        errors.append('<li>' + this.toString() + '</li>')
+      });
+    }
+  }
 
-  setPassword: function(value) {
-    this.form.find('input[name=user[password]]').val(value);
-  },
-
-  loginFocus: function() {
-    this.form.find('input[name=user[login]]').focus();
+  function onAuthSuccess() {
+    window.location.reload()
   }
 }
