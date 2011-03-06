@@ -1,0 +1,3 @@
+class Forum < BaseModel
+
+end

@@ -1,0 +1,25 @@
+<div class="top-l">
+  <div class="top-r">
+    <div class="top-c">
+      <!-- tit -->
+      <div class="tit">
+        <%= @post.title %> 
+      </div>
+
+      <!-- new -->
+      <div class="new">
+        <%= auth_link_to 'СОЗДАТЬ НОВУЮ ТЕМУ', new_forum_topic_post_path(@topic)%>
+      </div>
+      <div class="cl"></div>
+    </div>
+  </div>
+</div>
+
+<div class="center-col">
+  <%= render :partial => 'comment', :collection => [@post] + @comments %>
+  <%= render :partial => 'forum/posts/ans_area' %>
+</div>
+
+<div id="template-quote" class="hide">
+  <%= render :partial => 'forum/posts/extract' %>
+</div>

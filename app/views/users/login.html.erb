@@ -1,6 +1,6 @@
-<%= simple_form_for :user, {:action => login_path, :method => :post} do |f| %>
-   <%= f.input :login    %>
-   <%= f.input :password %>
+<%= form_for :user, {:action => login_path, :method => :post} do |f| %>
+   <%= f.text_field :login    %>
+   <%= f.password_field :password %>
 
    <%= f.submit('login') %>
 <% end %>

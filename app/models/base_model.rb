@@ -6,6 +6,12 @@ class BaseModel < CouchRest::Model::Base
 
   as_main_db
 
+  property :type, :type => String
+
+  before_create :assign_type
+
+  timestamps!
+
   class BlankDocId < Exception
   end
 
@@ -53,6 +59,10 @@ class BaseModel < CouchRest::Model::Base
       {:skip => per_page * (page - 1), :limit => per_page}
     end
 
+    def all
+      view_docs('by_type', {:key => to_view_type})
+    end
+
     def paginate(method, params = {})
       self.send(method, get_paginate_options(params))
     end
@@ -68,7 +78,7 @@ class BaseModel < CouchRest::Model::Base
     end
 
     def delete_all
-      get_all.each do |doc|
+      all.each do |doc|
         doc.destroy
       end
     end
@@ -101,6 +111,10 @@ class BaseModel < CouchRest::Model::Base
     def logger
       Rails.logger
     end
+
+    def to_view_type
+      to_s.gsub(':', '')
+    end
   end
 
 
@@ -124,6 +138,10 @@ class BaseModel < CouchRest::Model::Base
     unless new?
       self.class.get(self.id)
     end
+  end
+
+  def assign_type
+    self.type = self.class.to_s.to_view_type
   end
 
 end

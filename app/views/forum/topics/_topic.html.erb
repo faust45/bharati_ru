@@ -1,0 +1,16 @@
+<tr>
+    <td class="col6"><img width="46" height="34" alt="" src="images/folder.gif"></td>
+    <td class="col7">
+      <%= link_to topic, forum_topic_posts_path(topic) %>
+      <p><%= topic.description %></p>
+    </td>
+    <td class="col3"><a href="#"><%= @stat[topic.id][:posts] %></a></td>
+    <td class="col8"><a href="#"><%= @stat[topic.id][:comments] %></a></td>
+    <td class="col5">
+      <% if topic.last_post %>
+        <p>Тема:<%= link_to(topic.last_post.title, forum_topic_post_path(topic, topic.last_post)) %></p>
+        <p>Автор: <a href="#"><%= topic.last_post.author %></a></p>
+        <p><%= d topic.last_post.created_at %></p>
+      <% end %>
+    </td>
+  </tr>

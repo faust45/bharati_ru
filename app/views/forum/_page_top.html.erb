@@ -32,4 +32,23 @@
         <input type="submit" class="button" value=""><!-- кнопка скрыта, т.к. подобная форма поиска подразумевает отправку запроса по enter -->
       </fieldset>
     </form>
+  </div>
+
+  <div class="panel">
+    <div class="panel-t">
+      <%= login_panel %>
+
+      <% if current_user.logged_in? %>
+        <div class="links none">
+          <p><%= link_to 'профиль', forum_edit_profile_path %></p>
+          <div class="line"></div>
+          <p><a href="#">собщения (0)</a></p>
+          <div class="line"></div>
+          <p><a href="#">мои закладки</a></p>
+          <div class="line"></div>
+          <p><%= link_to 'выход', logout_path, :remote => true, :id => 'logout-link' %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

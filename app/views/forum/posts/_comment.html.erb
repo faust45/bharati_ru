@@ -1,0 +1,40 @@
+  <!-- l-col -->
+  <div class="l-col">
+    <div class="name">
+      <a href="#"><%= comment.author %></a>
+      <% if current_user == comment.author %>
+        <span>(это вы)</span>
+      <% end %>
+    </div>
+    <div class="cont">
+      <%= avatar(comment.author) %>
+    </div>
+  </div><!-- /l-col -->
+
+  <!-- r-col -->
+  <div class="r-col">
+    <div class="r-col-b">
+      <div class="r-col-c">
+        <div class="date">
+          <%= d comment.created_at %><span>#</span>
+        </div>
+        <div class="cl"></div>
+
+        <p class="text-body" id="<%= dom_id(comment) %>"><%= comment %></p>
+        <p class="hide raw-body" data-title="" data-author="<%= comment.author %>"><%= comment.body %></p>
+        <%= render_quotes(comment) %>
+
+        <!-- line -->
+        <div class="line"></div>
+
+        <!-- butts -->
+        <div class="butts">
+          <%= auth_link_to 'Редактировать', :class => "red" %>
+          <%= auth_link_to 'Ответить',"#ans" %>
+          <div class="cl"></div>
+        </div>
+        <div class="cl"></div>
+      </div>
+    </div>
+  </div><!-- /r-col -->
+  <div class="cl"></div>

@@ -1,44 +1,38 @@
-class User < BaseModel
+class User
+  include DataMapper::Resource
   include ZeroAuth
 
   class AccessDenided < Exception
   end
 
+  property :full_name, String
+  property :settings,  Object 
+  property :photo_id,  String 
 
-  property :age
-  property :settings, :type => HHash, :default => HHash.new 
+  attr_accessor :photo_file
 
-  view_by :login
 
-  #has_attachment :photo
-
-  def can_add_bookmark?(bm)
-    !is_owner?(bm)
+  def save
+    save_photo
+    super
   end
 
-  def update_settings(attrs)
-    settings.merge!(attrs)
-    self.save_without_callbacks
+  def to_s
+    login 
   end
 
-  def get_audio_bookmark!(id)
-    bm = AudioBookmark.get!(id)
-    is_owner!(bm)
+  def build_comment(attrs)
+    comment = Forum::Comment.new(attrs)
+    comment.author_id = self.id
 
-    bm
+    comment
   end
 
-  def copy_bookmark(id)
-    bm = AudioBookmark.get!(id)
-    new_bm = bm.copy
-    self << new_bm
-    new_bm.save
+  def build_post(attrs)
+    post = Forum::Post.new(attrs)
+    post.author_id = self.id
 
-    new_bm
-  end
-
-  def bookmarks_for(audio)
-    AudioBookmark.find_by_owner_and_audio(self.id, audio.id)
+    post
   end
 
   def is_owner?(item)
@@ -57,4 +51,13 @@ class User < BaseModel
     end
   end
 
+  protected
+    def save_photo
+      if photo_file
+        photo = Photo.create(photo_file)
+        Photo.destroy(self.photo_id)
+
+        self.photo_id = photo.id
+      end
+    end
 end

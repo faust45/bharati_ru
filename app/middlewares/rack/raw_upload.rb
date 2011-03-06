@@ -10,7 +10,7 @@ module Rack
     end
 
     def call(env)
-      raw_file_post?(env) ? convert_and_pass_on(env) : @app.call(env)
+       @app.call(env)
     end
 
     def upload_path?(request_path)

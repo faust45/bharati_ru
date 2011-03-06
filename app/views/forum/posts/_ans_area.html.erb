@@ -1,0 +1,17 @@
+<!-- ans -->
+<div id="ans-title" class="ans <%= 'hide' if ans_hide? %>">
+  ОТВЕТ ДИМИТРИУСУ В ТЕМЕ: <span><%= @post %></span>
+</div>
+
+<!-- area -->
+<div id="ans-area" class="area <%= 'hide' if ans_hide? %>">
+  <form id="form-post-comment" method="POST" action="<%= forum_topic_post_comments_path(@topic, @post) %>">
+    <textarea cols="170" rows="10" name="comment[body]"><%= @comment %></textarea>
+  </form>
+
+  <div class="lin">
+    <%= link_to 'Отправить', '#', :id => 'button-post-comment' %>
+    <a class="pre" href="#">Предварительный просмотр</a>
+    <div class="cl"></div>
+  </div>
+</div>

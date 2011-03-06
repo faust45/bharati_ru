@@ -1,0 +1,16 @@
+<tr>
+  <td class="col1"><%= image_tag "chat.gif", :width => "29", :height => "24", :alt => "" %></td>
+  <td class="col2">
+    <%= link_to post.title, forum_topic_post_path(@topic, post) %>
+  </td>
+  <td class="col3"><%= link_to post.author %></td>
+  <td class="col4">
+    <p><%= @stat[post.id] %> Ответов</p>
+  </td>
+  <td class="col5">
+    <% if post.last_comment %>
+      <p><a href="#"><%= post.last_comment.created_at %></a></p>
+      <p>Автор: <a href="#"><%= post.last_comment.author %></a></p>
+    <% end %>
+  </td>
+</tr>

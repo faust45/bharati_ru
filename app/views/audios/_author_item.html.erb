@@ -1,4 +1,5 @@
+<% raise author_item.inspect %>
 <% html_class = "act" if is_selected_author?(author_item) %>
 <div class="pivot">
-  <%= link_to(author_main_photo(author_item) + "<span>#{author_item.display_name}</span>".html_safe, author_audios_path(author_item), :class => html_class) %>
+  <%= link_to(author_main_photo(author_item) + "<span>#{author_item.display_name}</span>".html_safe, author_audios_path(author_item.id), :class => html_class) %>
 </div>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   layout :choose_layout
-  free_actions :login, :logout
+  free_actions :login, :logout, :create
 
   def login
     if request.post?
@@ -25,44 +25,37 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user].dup)
+    @user = User.new(params[:user])
+    @user.save
 
-    if @user.save
-      redirect_back_or_default(new_admin_video_path)
-    else
-      render :action => :new
+    respond_to do |format|
+      format.js {render :json => {:is_new => @user.new?, :errors => @user.errors}}
     end
   end
 
   def confirm
   end
 
-  def change_css_style 
-    if params[:css_style]
-      current_user.update_settings(:css_style => params[:css_style])
+  private
+    def choose_layout
+      request.xhr? ? nil : 'app'
     end
-  end
 
-private
-  def choose_layout
-    request.xhr? ? nil : 'app'
-  end
-
-  def login_success
-    respond_to do |format|
-      format.html { redirect_to root_path }
-      format.js do
-        render :json => {:login_success => true}.to_json
+    def login_success
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.js do
+          render :json => {:login_success => true}
+        end
       end
     end
-  end
 
-  def login_fail
-    respond_to do |format|
-      format.html
-      format.js do
-        render :json => {:flash => flash[:notice]}.to_json
+    def login_fail
+      respond_to do |format|
+        format.html
+        format.js do
+          render :json => {:flash => flash[:notice]}
+        end
       end
     end
-  end
 end

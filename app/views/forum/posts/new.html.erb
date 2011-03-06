@@ -1,0 +1,18 @@
+<div class="left-col">
+  <form method="post" action="<%= forum_topic_posts_path(@topic) %>">
+    <div class="errors">
+      <%= @post.errors %>
+    </div>
+
+    <div>
+      <input name="post[title]" size="40">
+    </div>
+
+    <div>
+      <textarea name="post[body]" cols="50" rows="20"></textarea>
+    </div>
+
+    
+    <input type="submit" value="Создать">
+  </form>
+</div>

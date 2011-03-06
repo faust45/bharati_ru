@@ -1,0 +1,42 @@
+<div id="header">
+  <!-- logo -->
+  <div class="logo inner">
+    <a href="index.html"><span>Бхарати<span>.ру</span></span></a> <strong><i>&gt;</i></strong> <a href="#"><i> Форум</i></a> 
+  </div>
+
+  <!-- hmenu -->
+  <div class="hmenu-l">
+    <div class="hmenu-r">
+      <div class="hmenu">
+
+        <!-- menu -->
+        <div class="menu">
+          <a class="" href="#"><span>ВОПРОСЫ БХАРАТИ МАХАРАДЖУ</span></a>
+          <a class="act" href="#"><span>ОБСУЖДЕНИЯ</span></a>
+          <a class="" href="#"><span>ПОЛЬЗОВАТЕЛИ</span></a>
+          <div class="cl"></div>
+        </div>
+
+        <!-- bread -->
+        <div class="bread">
+          <%= link_to 'Разделы', forum_root_path %>
+          <% if @topic %>
+            <span>&gt;</span>
+            <%= link_to @topic, forum_topic_posts_path(@topic) %>
+          <% end %>
+          <% if @post %>
+            <span>&gt;</span>
+            <%= @post.title %>
+          <% end %>
+
+        </div>
+
+        <!-- ask -->
+        <div class="ask">
+          <a href="#">ПРАВИЛА ФОРУМА</a>
+        </div>
+        <div class="cl"></div>
+      </div>
+    </div>
+  </div>
+</div>

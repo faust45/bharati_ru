@@ -1,0 +1,27 @@
+<div class="left-col">
+  <!-- top -->
+  <div class="top-l">
+    <div class="top-r">
+      <div class="top-c">
+        <div class="sheet">
+          <table>
+            <tbody><tr>
+                <td class="td5">Форум</td>
+                <td class="td2">Тем</td>
+                <td class="td2">Ответов</td>
+                <td class="td4">Последнее сообщение</td>
+              </tr>
+          </tbody></table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="center-col white font">
+    <div class="themes">
+      <table><tbody>
+          <%= render :partial => 'topic', :collection => @topics %>
+      </tbody></table>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,14 @@ module ApplicationHelper
 
   RU_MONTH = %w(январь февраль март апрель май июнь июль август сентябрь октябрь ноябрь декабрь) 
 
+  def auth_link_to(title, href, options = {})
+    if current_user.anon?
+      options['data-auth'] = true
+    end
+
+    link_to title, href, options
+  end
+
   def m_link_to(text, section) 
     options = {}
     options[:class] = 'active' if params[:controller] == section.to_s
