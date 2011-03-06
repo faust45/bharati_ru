@@ -10,6 +10,13 @@ ru:
   activemodel:
     errors:
       models:
+        forum:
+          post:
+            attributes:
+              title:
+                blank: заполните название темы
+              body:
+                blank: вы забыли напистаь пост
         feedback_msg:
           attributes:
             name: 
