@@ -53,3 +53,9 @@ li.bookmark-text-only {
 #main {
   min-height: 50em;
 }
+
+.hide {
+  display: none;
+}
+
+#main a.cool { width: 112px; height: 27px; background: url("../images/butt4.gif") no-repeat; padding: 6px 0 0; text-align: center; display: block; font-size: 16px; float: left; margin: 0 5px 0 0; }	
