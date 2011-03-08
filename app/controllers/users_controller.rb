@@ -17,7 +17,14 @@ class UsersController < ApplicationController
 
   def logout
     session[:user_id] = nil
-    redirect_to :back
+    respond_to do |format|
+      format.html {
+        redirect_to :back
+      }
+      format.js {
+        render :json => "ok"
+      }
+    end
   end
 
   def new
