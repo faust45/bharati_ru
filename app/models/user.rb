@@ -10,6 +10,7 @@ class User
   property :photo_id,  String 
 
   attr_accessor :photo_file
+  attr_accessor :accept_rules
 
 
   def save
