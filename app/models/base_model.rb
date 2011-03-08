@@ -34,8 +34,8 @@ class BaseModel < CouchRest::Model::Base
 
     def view(name, options = {})
       if viewFun = design_doc['views'][name]
-        if viewFun['reduce']
-          options[:reduce] ||= false
+        unless options[:reduce]
+          options[:reduce] = false
         end
       end
 
