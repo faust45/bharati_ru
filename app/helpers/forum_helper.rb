@@ -9,7 +9,7 @@ module ForumHelper
 
   def avatar(user)
     unless user.photo_id.blank?
-      image_tag('http://192.168.1.3:8000/' + user.photo_id + '?size=162x138')
+      image_tag(photo_thumb_url(user.photo_id, :width => 162, :height => 138)
     end
      
      # <img width="138" height="162" alt="" src="images/ava.jpg">
