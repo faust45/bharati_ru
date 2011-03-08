@@ -16,7 +16,6 @@
     
     $('a.submit').each(function() {
         $(this).click(function() {
-          console.log($(this).parents().find('form')[0]);
           $(this).parents().find('form')[0].submit();
           return false;
         })
