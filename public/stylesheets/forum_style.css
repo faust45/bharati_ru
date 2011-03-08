@@ -251,7 +251,7 @@ input { outline: none; }
 #pop .btabs { background: url("../images/bg_block_tabs1.png") 0 1px no-repeat; } 
 #pop .tabs{position:relative; width:211px; height:42px; overflow:hidden; float: right; }
 #pop .tab-container.active{display:block;}
-#pop .tabs ul{width:211px; height:42px;}
+#pop .tabs ul{width:311px; height:42px;}
 #pop a.active b, #pop a.active:hover b { background: url("../images/tabs-l2.png") no-repeat; }
 #pop a.active i, #pop a.active:hover i { background: url("../images/tabs-r1.png") right top no-repeat; }
 #pop a.active u, #pop a.active:hover u { background: url("../images/tabs-c.gif") repeat-x; color: #015692; }
