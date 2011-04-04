@@ -6,7 +6,7 @@ module Forum::PostsHelper
 
   def render_quotes(msg)
     if quotes = msg.quotes
-      s = msg.quotes.dup
+      s = h(msg.quotes.dup)
 
       s.gsub!(/\[quote(.*?)\]/) do |r|
         apply_attrs = ''

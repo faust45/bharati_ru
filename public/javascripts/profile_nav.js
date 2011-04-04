@@ -1,7 +1,21 @@
 (function ($) {
   $(document).ready(function() {
+    $('#pop').dialog({ modal: true, position: 'center, top', autoOpen: false,
+                       open: function() { $("#fuzz").fadeTo(1000, 0.5); },
+                       close: function() {    $("#fuzz").fadeOut();}
+                     });
+    $("#fuzz").css("height", $(window).height());
+
+    $(window).bind("resize", function(){
+      $("#fuzz").css("height", $(window).height());
+    });
+
+   $(window).scroll(function(e){
+      $("#fuzz").css("height", $(window).height());
+    });
+
     $('.panel a.login').click(function() {
-      $('#pop').show();
+      $('#pop').dialog('open');
       return false;
     });
 

@@ -11,6 +11,11 @@ module ApplicationHelper
     link_to title, href, options
   end
 
+  def menu_link_to(text, path, options = {})
+    options[:class] = 'act' if current_page?(path)
+    link_to content_tag(:span, text), path, options
+  end
+
   def m_link_to(text, section) 
     options = {}
     options[:class] = 'active' if params[:controller] == section.to_s
@@ -175,7 +180,7 @@ module ApplicationHelper
         date += '&nbsp;' + prefix
       end
 
-      raw date
+      (raw date).sub(/^0/, '')
     end
 
   rescue ArgumentError, TypeError => ex

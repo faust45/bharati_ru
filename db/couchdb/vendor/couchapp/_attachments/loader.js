@@ -21,6 +21,8 @@ couchapp_load([
   "scripts/fileuploader.js",
   "scripts/jquery.form.js",
   "scripts/doc_model.js",
+  "scripts/doc_collection.js",
+  "scripts/models.js",
   "scripts/utils.js",
   "scripts/app.js",
   "scripts/form2object.js",

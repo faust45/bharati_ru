@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery
 
   if Rails.env.production?
-    #rescue_from User::AccessDenied, :with => :page_404
+    rescue_from User::AccessDenied, :with => :page_404
     rescue_from ActionView::MissingTemplate, ActionView::Template::Error,
         RestClient::ResourceNotFound, Doc::NotFound,
         :with => :page_404

@@ -1,10 +1,9 @@
-function(e, data, ev, params) {
-  $.log('render page', params);
-  var total = data.total_rows;
-  var maxPages = parseInt(total) / 10;
-  if (total % 10) {
+function(e, ev, collection) {
+  $.log('render page', collection);
+  var maxPages = parseInt(collection.total) / 10;
+  if (collection.total % 10) {
     maxPages = maxPages + 1;
   }
 
-  return {pages: range(1, maxPages), link: params.view};
+  return {pages: range(1, maxPages), link: collection.type};
 }

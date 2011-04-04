@@ -50,3 +50,11 @@ function typeOf(obj) {
 function getRand() {
   return parseInt(Math.random(10000) * 10000);
 }
+
+function toViewName(str) {
+  var s = str.replace(/([a-z])([A-Z])/, function(m, a, b) {
+    return RegExp.$1.toLowerCase() + '_' + RegExp.$2.toLowerCase();
+  });
+
+  return s.toLowerCase();
+}

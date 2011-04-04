@@ -11,7 +11,7 @@ module DB
     def config
       unless @config
         @config = YAML::load(File.open("#{Rails.root}/config/couchdb.yml"))
-        @config = HHash.new @config[Rails.env]
+        @config = OpenStruct.new @config[Rails.env]
       end
 
       @config
@@ -28,7 +28,7 @@ module DB
 
     def server
       auth = "#{config.user}:#{config.pass}@" if config.user
-      CouchRest.new("http://#{auth}192.168.1.100:5984")
+      CouchRest.new("http://localhost:5984")
     end
   end
 

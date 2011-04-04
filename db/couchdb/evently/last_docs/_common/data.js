@@ -1,19 +1,8 @@
-function(resp, e, params) {
+function(e, collection) {
   var viewParams = {
-    items: resp.rows, 
-    link: params.view,
-    title: title
+    items: collection.rows, 
+    link:  collection.type,
   };
-
-  var events = $$(this).evently[params.view];
-  if (events) {
-    attrTitle = events.title;
-    viewParams.listClass = events.listClass;
-  }
-
-  function title() {
-    return this[attrTitle];
-  }
 
   return viewParams;
 }

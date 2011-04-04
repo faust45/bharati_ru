@@ -1,6 +1,6 @@
 {
   "dev": {
-    "docs_store": "rocks_dev",
+    "docs_store": "rocks_new_dev",
     "file_store": "rocks_file_store_dev"
   },
 

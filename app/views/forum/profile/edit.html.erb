@@ -39,37 +39,27 @@
         </div>
       </div>
       <div class="line"></div>
+
       <div class="box">
+        <% form_for current_user, :html => {:id => 'profile_form', :method=>"POST"}, :url => forum_profile_path do |f| %>
         <table>
           <tbody><tr>
               <td class="td2">Пол:</td>
               <td>
-                <select id="">
-                  <option selected="selected" value="">женский</option>
-                  <option value="">женский</option>
-                </select>
+                <%= f.select "sex", [%w(женский w), %w(мужской m)], {:include_blank => true} %>
               </td>
             </tr>
             <tr>
               <td class="td2">День рождения:</td>
               <td>
-                <div class="inp">
-                  <input type="text" onblur="javascript:if(this.value=='')this.value='22'" onfocus="javascript:if(this.value=='22')this.value=''" value="22" id="you_proj_input">
-                </div>
-                <div class="inp1">
-                  <input type="text" onblur="javascript:if(this.value=='')this.value='ноябрь'" onfocus="javascript:if(this.value=='ноябрь')this.value=''" value="ноябрь" id="you_proj_input">
-                </div>
-                <div class="inp2">
-                  <input type="text" onblur="javascript:if(this.value=='')this.value='1987'" onfocus="javascript:if(this.value=='1987')this.value=''" value="1987" id="you_proj_input">
-                </div>
-                <div class="cl"></div>
+                <%= f.date_select 'birthday', :end_year => 80.years.ago.year, :start_year => 10.years.ago.year %>
               </td>
             </tr>
             <tr>
               <td class="td2">Религиозные взгляды:</td>
               <td>
                 <div class="inp3">
-                  <input type="text" id="">
+                  <%= f.text_field 'conseption' %>
                 </div>
               </td>
             </tr>
@@ -78,24 +68,21 @@
           Основное
         </div>
       </div>
+
       <div class="line"></div>
       <div class="box">
         <table>
           <tbody><tr>
               <td class="td2">О себе:</td>
-              <td><div class="are"><textarea cols="" rows="" id=""></textarea></div></td>
+              <td><div class="are"><%= f.text_area 'about_me' %></div></td>
             </tr>
             <tr>
               <td class="td2">Деятельность:</td>
-              <td><div class="are"><textarea cols="" rows="" id=""></textarea></div></td>
+              <td><div class="are"><%= f.text_area 'activities' %></div></td>
             </tr>
             <tr>
               <td class="td2">Интересы:</td>
-              <td><div class="are"><textarea cols="" rows="" id=""></textarea></div></td>
-            </tr>
-            <tr>
-              <td class="td2">Чем мне нравится Бхарати.ру:</td>
-              <td><div class="are1"><textarea class="ar1" cols="" rows="" id=""></textarea></div></td>
+              <td><div class="are"><%= f.text_area 'interests' %></div></td>
             </tr>
         </tbody></table>
         <div class="desp">
@@ -106,28 +93,10 @@
       <div class="box">
         <table>
           <tbody><tr>
-              <td class="td2">Страна:</td>
-              <td>
-                <select id="">
-                  <option selected="selected" value="">Россия</option>
-                  <option value="">Россия</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td class="td2">Город:</td>
-              <td>
-                <select id="">
-                  <option selected="selected" value="">Москва</option>
-                  <option value="">Москва</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
               <td class="td2">Е-mail:</td>
               <td>
                 <div class="inp3">
-                  <input type="text" onblur="javascript:if(this.value=='')this.value='ххххх@gmail.com'" onfocus="javascript:if(this.value=='ххххх@gmail.com')this.value=''" value="ххххх@gmail.com" id="you_proj_input">
+                  <%= f.text_field :email %>
                 </div>
               </td>
             </tr>
@@ -135,7 +104,7 @@
               <td class="td2">Мобильный телефон:</td>
               <td>
                 <div class="inp3">
-                  <input type="text" id="">
+                  <%= f.text_field 'phone' %>
                 </div>
               </td>
             </tr>
@@ -143,23 +112,29 @@
               <td class="td2">Скайп:</td>
               <td>
                 <div class="inp3">
-                  <input type="text" id="">
+                  <%= f.text_field 'skype' %>
                 </div>
               </td>
             </tr>
             <tr>
               <td class="td2">Личный сайт:</td>
-              <td></td>
+              <td> 
+                <div class="inp3">
+                  <%= f.text_field 'site' %>
+                </div>
+              </td>
             </tr>
         </tbody></table>
+         
+        <% end %>
         <div class="desp">
           Контакты
         </div>
       </div>
       <div class="line"></div>
       <div class="butts">
-        <a href="#">Сохранить</a>
-        <a href="#">Отмена</a>
+        <a data-target="profile_form" href="#submit_profile" class="submit">Сохранить</a>
+        <a href="#cancel">Отмена</a>
         <div class="cl"></div>
       </div>
     </div>

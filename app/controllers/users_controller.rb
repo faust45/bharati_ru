@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       else
         flash[:notice] = 'Login fail'
         login_fail
-     end
+      end
     end
   end
 
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     @user.save
 
     respond_to do |format|
-      format.js {render :json => {:is_new => @user.new?, :errors => @user.errors}}
+      format.js {render :json => {:login => @user.login, :is_new => @user.new?, :errors => @user.errors}}
     end
   end
 

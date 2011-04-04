@@ -3,14 +3,14 @@
   <td class="col2">
     <%= link_to post.title, forum_topic_post_path(@topic, post) %>
   </td>
-  <td class="col3"><%= link_to post.author %></td>
+  <td class="col3"><%= link_to post.author, forum_show_profile_path(post.author) %></td>
   <td class="col4">
-    <p><%= @stat[post.id] %> Ответов</p>
+    <p><%= @stat[post.id] || 0 %> Ответов</p>
   </td>
   <td class="col5">
     <% if post.last_comment %>
-      <p><a href="#"><%= post.last_comment.created_at %></a></p>
-      <p>Автор: <a href="#"><%= post.last_comment.author %></a></p>
+      <p><a href="#"><%= d post.last_comment.created_at %></a></p>
+      <p>Автор: <%= link_to post.last_comment.author, forum_show_profile_path(post.last_comment.author) %></p>
     <% end %>
   </td>
 </tr>

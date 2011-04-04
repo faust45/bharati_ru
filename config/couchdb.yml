@@ -1,10 +1,14 @@
 production: 
-  main_db: rocks 
+  main_db: rocks_new_dev
   file_store_db: rocks_file_store
+  user: strela
+  pass: bochka123
 
 development: 
-  main_db: rocks_dev
+  main_db: rocks_new_dev
   file_store_db: rocks_file_store
+  user: strela
+  pass: bochka123
 
 test: 
   main_db: rocks_test

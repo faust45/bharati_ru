@@ -1,7 +1,7 @@
   <!-- l-col -->
   <div class="l-col">
     <div class="name">
-      <a href="#"><%= comment.author %></a>
+      <%= link_to comment.author,  forum_show_profile_path(comment.author) %></a>
       <% if current_user == comment.author %>
         <span>(это вы)</span>
       <% end %>
@@ -16,12 +16,12 @@
     <div class="r-col-b">
       <div class="r-col-c">
         <div class="date">
-          <%= d comment.created_at %><span>#</span>
+          <%= d comment.created_at %> <%= link_to '<span>#</span>'.html_safe, "#comment_#{comment.id}", :name => "comment_#{comment.id}" %>
         </div>
         <div class="cl"></div>
 
         <p class="text-body" id="<%= dom_id(comment) %>"><%= comment %></p>
-        <p class="hide raw-body" data-title="" data-author="<%= comment.author %>"><%= comment.body %></p>
+        <p class="hide raw-body" data-title="" data-author="<%= comment.author %>"><%= comment %></p>
         <%= render_quotes(comment) %>
 
         <!-- line -->
@@ -29,8 +29,12 @@
 
         <!-- butts -->
         <div class="butts">
-          <%= auth_link_to 'Редактировать', :class => "red" %>
-          <%= auth_link_to 'Ответить',"#ans" %>
+          <%= auth_link_to 'Ответить',"#ans_area", :class => 'ans' %>
+          <%= auth_link_to 'Цитировать', '#ans_area', :class => "red ans_with_quote" %>
+
+          <% if comment.is_a?(Forum::Comment) && current_user == comment.author %>
+            <%= auth_link_to 'Удалить', forum_topic_post_comment_path(@topic, @post, comment), :method => 'DELETE' %>
+          <% end %>
           <div class="cl"></div>
         </div>
         <div class="cl"></div>

@@ -8,4 +8,8 @@ class Forum::Comment < Forum::Message
     body.gsub(/\[quote.*\[\/quote\]/m, '')
   end
 
+  def post
+    Forum::Post.get_doc!(post_id)
+  end
+
 end

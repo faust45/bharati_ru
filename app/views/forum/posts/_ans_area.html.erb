@@ -1,6 +1,6 @@
 <!-- ans -->
 <div id="ans-title" class="ans <%= 'hide' if ans_hide? %>">
-  ОТВЕТ ДИМИТРИУСУ В ТЕМЕ: <span><%= @post %></span>
+  ОТВЕТ ДЛЯ {{responde_to_author}} В ТЕМЕ: <span><%= @post %></span>
 </div>
 
 <!-- area -->
@@ -11,7 +11,6 @@
 
   <div class="lin">
     <%= link_to 'Отправить', '#', :id => 'button-post-comment' %>
-    <a class="pre" href="#">Предварительный просмотр</a>
     <div class="cl"></div>
   </div>
 </div>

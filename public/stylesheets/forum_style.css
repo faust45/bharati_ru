@@ -219,6 +219,20 @@ input { outline: none; }
 
 	#main .center-col .inf { margin: 0 0 17px 30px; color: #040404; }
 
+	#main .center-col .create { padding: 35px 0 30px 25px; }
+	#main .center-col .create .name { margin: 0 0 10px; color: #015692; font-size: 16px; line-height: 20px; }
+	#main .center-col .create .name .tp { float: left; margin: 0 15px 0 0; }
+	#main .center-col .create .name .rd { display: none; font-size: 18px; float: left; }
+	#main .center-col .create .name .warn { color: #fb5954; display: block;  }
+	#main .center-col .create .inp { margin: 0 0 30px; background: url("../images/inp7.gif") no-repeat; width: 356px; height: 29px; padding: 5px 0 0 10px; }
+	#main .center-col .create .inp input { font-family: "Myriad Pro"; font-size: 18px; color: #015692; width: 345px; background: none; border: none; border-width: 0; }
+	#main .center-col .create .t-area { margin: 0 0 30px; background: url("../images/bg_t-area.gif") no-repeat; width: 981px; height: 213px; padding: 15px; }
+	#main .center-col .create .t-area textarea { font-family: "Myriad Pro"; font-size: 18px; color: #015692; width: 980px; height: 210px; background: none; border: none; border-width: 0; }
+	
+	#main .center-col .create .buttons a { width: 112px; height: 27px; background: url("../images/butt10.gif") no-repeat; padding: 6px 0 0; text-align: center; display: block; font-size: 16px; float: left; margin: 0 5px 0 0; }	
+	#main .center-col .create .buttons { }
+	#main .center-col .create .buttons a:hover { background-position: 0 -33px; }
+
 	/* ----- white ----- */
 	#main .white { padding: 5px 12px 10px; background: #fff url("../images/white.png") left bottom repeat-x; margin: 0 0 7px; }
 
@@ -251,7 +265,7 @@ input { outline: none; }
 #pop .btabs { background: url("../images/bg_block_tabs1.png") 0 1px no-repeat; } 
 #pop .tabs{position:relative; width:211px; height:42px; overflow:hidden; float: right; }
 #pop .tab-container.active{display:block;}
-#pop .tabs ul{width:311px; height:42px;}
+#pop .tabs ul{width:211px; height:42px;}
 #pop a.active b, #pop a.active:hover b { background: url("../images/tabs-l2.png") no-repeat; }
 #pop a.active i, #pop a.active:hover i { background: url("../images/tabs-r1.png") right top no-repeat; }
 #pop a.active u, #pop a.active:hover u { background: url("../images/tabs-c.gif") repeat-x; color: #015692; }

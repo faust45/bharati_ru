@@ -1,0 +1,100 @@
+<div class="right-col">
+  <!-- l-col -->
+  <div class="l-col m0">
+    <div class="name">
+      <%= @user %> 
+    </div>
+    <div class="cont">
+      <%= avatar(@user) %>
+      <div class="text">
+        <p>Тем: <%= @user.total_stat.posts %></p>
+        <p>Сообщений: <%= @user.total_stat.comments %></p>
+        <p>Зарегистрирован: <%= dd @user.created_at %></p>
+        <p>Последняя активность: <%= d @user.total_stat.last_activ %></p>
+      </div>
+    </div>
+  </div><!-- /l-col -->
+</div>
+
+<div class="left-col pad21 pad0">
+		<!-- top -->
+		<div class="top-l">
+			<div class="top-r">
+				<div class="top-c">
+					<div class="s-menu">
+						<a class="act" href="#"><span>ОБО МНЕ</span></a>
+						<a href="#"><span>МОИ ЗАКЛАДКИ</span></a>
+						<a href="#"><span>СООБЩЕНИЯ</span></a>
+						<a href="#"><span>ТЕМЫ</span></a>
+						<a href="#"><span>ДРУЗЬЯ</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="center-col font">
+			<div class="about">
+				<div class="box">
+					<table>
+						<tbody><tr>
+							<td class="td1">Возраст:</td>
+                                                        <td><%= @user.age %></td>
+						</tr>
+						<tr>
+							<td class="td1">Пол:</td>
+                                                        <td><%= human_sex @user.sex %></td>
+						</tr>
+						<tr>
+							<td class="td1">День рождения:</td>
+                                                        <td><%= dd(@user.birthday) %></td>
+						</tr>
+						<tr>
+							<td class="td1">Религиозные взгляды:</td>
+                                                        <td><%= @user.conseption %></td>
+						</tr>
+					</tbody></table>
+					<div class="desp">
+						Основное
+					</div>
+				</div>
+				<div class="line"></div>
+				<div class="box">
+					<table>
+						<tbody><tr>
+							<td class="td1">О себе:</td>
+                                                        <td><%= @user.about_me %></td>
+						</tr>
+						<tr>
+							<td class="td1">Деятельность:</td>
+                                                        <td><%= @user.activities %></td>
+						</tr>
+						<tr>
+							<td class="td1">Интересы:</td>
+                                                        <td><%= @user.interests %></td>
+						</tr>
+					</tbody></table>
+					<div class="desp">
+						О себе
+					</div>
+				</div>
+				<div class="line"></div>
+				<div class="box">
+					<table>
+						<tbody><tr>
+							<td class="td1">Скайп:</td>
+                                                        <td><%= @user.skype %></td>
+						</tr>
+						<tr>
+							<td class="td1">Сайт:</td>
+                                                        <td><a href="#"><%= @user.site %></a></td>
+						</tr>
+					</tbody></table>
+					<div class="desp">
+						Контакты
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bot"></div>
+	</div>
+

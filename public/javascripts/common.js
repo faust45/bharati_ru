@@ -29,7 +29,9 @@
 			delete cEl;
 		});
 		delete cLength;
-		$(this).find("li").after("<li class='clear'><span><span></li>");
+                if (!$(this).hasClass('login-dialog')) {
+		  $(this).find("li").after("<li class='clear'><span><span></li>");
+                }
 	});
 
 	//Теги

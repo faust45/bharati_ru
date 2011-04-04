@@ -13,8 +13,6 @@ DocModel = function(id, options) {
   }
   
   function loadDoc() {
-    var url = 'http://192.168.1.100:5984' + DocsStore.uri + id;
-
     DocsStore.openDoc(id, {
       success: function(data) {
         doc = data;

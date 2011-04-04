@@ -10,6 +10,14 @@ ru:
   activemodel:
     errors:
       models:
+        user:
+          attributes:
+            login:
+              blank: укажите логин
+            password:
+              blank: укажите пароль 
+            email:
+              blank: укажите почту 
         forum:
           post:
             attributes:

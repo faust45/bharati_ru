@@ -8,7 +8,7 @@ Login = {};
 
 $(document).ready(function() {
   $('#pop a.close').click(function() {
-    $('#pop').hide();
+    $('#pop').dialog('close');
     return false;
   });
 
@@ -57,7 +57,9 @@ RegDialog = function(form) {
     var userCreated = !data.is_new;
 
     if (userCreated) { 
-      onAuthSuccess();
+      //onAuthSuccess();
+      var s = Welcome.replace('{{login}}', data.login);
+      form.replaceWith(s);
     } else {
       errors.html('');
       $(data.errors).each(function() {
@@ -70,3 +72,5 @@ RegDialog = function(form) {
     window.location.reload()
   }
 }
+
+Welcome = 'Вы успешно зарегистрировались!  Спасибо, {{login}}.  Войдите, используя имя и пароль, которые вы ввели при регистрации, и вы сможете воспользоваться всеми возможностями форума.'

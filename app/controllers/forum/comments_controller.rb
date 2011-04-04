@@ -15,4 +15,17 @@ class Forum::CommentsController < ForumController
     end
   end
 
+  def destroy
+    @topic   = Forum::Comment.get_doc!(params[:topic_id])
+    @post    = Forum::Comment.get_doc!(params[:post_id])
+    @comment = Forum::Comment.get_doc!(params[:id])
+
+    if @comment.author == current_user
+      @comment.destroy
+    end
+
+    flash[:notice] = "Комментарий был успешно удален"
+    redirect_to forum_topic_post_path(@topic, @post)
+  end
+
 end

@@ -139,6 +139,9 @@ MahaMandala::Application.routes.draw do
 
     match '/profile' => 'profile#edit', :as => 'edit_profile', :via => [:get]
     match '/profile' => 'profile#update', :as => 'profile', :via => [:post]
+    match '/profile/:login' => 'profile#show', :as => 'show_profile', :via => [:get]
+
+    match '/users' => 'profile#index', :as => 'users', :via => [:get]
 
     resources :topics do
       resources :posts do
