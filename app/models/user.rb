@@ -28,6 +28,10 @@ class User
   attr_accessor :photo_file
   attr_accessor :accept_rules
 
+  def admin?
+    roles.include?('admin')
+  end
+
   def update(attrs)
     year, month, day = attrs.delete('birthday(1i)'), attrs.delete('birthday(2i)'), attrs.delete('birthday(3i)')
 

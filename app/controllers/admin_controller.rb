@@ -4,5 +4,6 @@ class AdminController < ApplicationController
 
   protected
     def admin_only
+      raise User::AccessDenided unless current_user.admin?
     end
 end
