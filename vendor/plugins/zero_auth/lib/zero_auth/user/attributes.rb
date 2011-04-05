@@ -5,8 +5,8 @@ module ZeroAuth::User::Attributes
     class_eval do
       property :id,       DataMapper::Property::Serial
       property :login,    DataMapper::Property::String, :required => true, :unique => true, :messages => {
-        :presence     => 'Укажите login',
-        :is_unique    => 'такой login уже зарегистрирован',
+        :presence     => 'Укажите имя',
+        :is_unique    => 'пользователь с таким именем уже зарегистрирован',
       }
  
       property :email,    DataMapper::Property::String, :required => true, :unique => true, :messages => {
@@ -17,7 +17,7 @@ module ZeroAuth::User::Attributes
       property :crypt_password, DataMapper::Property::BCryptHash, :required => true
       property :security_token, DataMapper::Property::String
 
-      validates_length_of :password, :min => 4, :if => :new?, :message => 'слишком короткий login минимум 4 символа'
+      validates_length_of :password, :min => 4, :if => :new?, :message => 'слишком короткий пароль минимум 4 символа'
 
       #before :create do 
       #  self.security_token = ZeroAuth::SecurityToken.new

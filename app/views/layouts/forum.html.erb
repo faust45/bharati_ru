@@ -36,12 +36,12 @@
   </head>
 
   <body class="arial">
-   <div id="my-wrap">
-    <%= render :partial => 'forum/page_top' %>
-    <%= render :partial => 'forum/header'   %>
-    <div id="main">
-      <%= yield %>
-    </div>
+    <div id="my-wrap">
+      <%= render :partial => 'forum/page_top' %>
+      <%= render :partial => 'forum/header'   %>
+      <div id="main">
+        <%= yield %>
+      </div>
     </div>
 
     <%= render :partial => 'shared/login_popup' if current_user.anon? %>
