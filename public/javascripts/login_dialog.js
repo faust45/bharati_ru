@@ -38,10 +38,7 @@ LoginDialog = function(form) {
     if (data.login_success) { 
       window.location.reload()
     } else {
-      errors.html('');
-      $(data.errors).each(function() {
-        errors.append('<li>' + this.toString() + '</li>')
-      });
+      errors.html('<li>Имя или пароль неверны</li>');
     }
   }
 }
