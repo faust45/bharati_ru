@@ -265,7 +265,7 @@ input { outline: none; }
 #pop .btabs { background: url("../images/bg_block_tabs1.png") 0 1px no-repeat; } 
 #pop .tabs{position:relative; width:211px; height:42px; overflow:hidden; float: right; }
 #pop .tab-container.active{display:block;}
-#pop .tabs ul{width:211px; height:42px;}
+#pop .tabs ul{width:311px; height:42px;}
 #pop a.active b, #pop a.active:hover b { background: url("../images/tabs-l2.png") no-repeat; }
 #pop a.active i, #pop a.active:hover i { background: url("../images/tabs-r1.png") right top no-repeat; }
 #pop a.active u, #pop a.active:hover u { background: url("../images/tabs-c.gif") repeat-x; color: #015692; }
@@ -277,7 +277,7 @@ input { outline: none; }
 #pop .tabs b, .tabs i{display:block; position:absolute; top:0; width:15px; height:42px; text-decoration:none;}
 #pop .tabs a{display:block; height:42px; line-height:42px; color:#c8e1f6; font-size:100%; text-decoration:none;}
 #pop .tabs u{display:block; height:42px; margin:0 10px; text-decoration:none; text-align:center;padding: 0 10px; }
-#pop .tabs li{float:left; position:relative; height:42px; list-style:none; overflow:hidden;}
+#pop .tabs li{float:left; position:relative; height:42px; list-style:none; overflow:hidden;display: inline;list-style-type: none;}
 #pop .tabs .tab3 li{width:117px;}
 #pop .tabs li.clear{width:2px !important;}
 #pop .tab-container{display:none; min-height:100px; _height:100px; padding:20px 30px 15px 15px; background: #fff; color: #015692; }
