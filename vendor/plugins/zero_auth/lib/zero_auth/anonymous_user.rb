@@ -3,6 +3,10 @@ class ZeroAuth::AnonymousUser
     @session = session
   end
 
+  def admin?
+    false
+  end
+
   def anonymous?
     true
   end
