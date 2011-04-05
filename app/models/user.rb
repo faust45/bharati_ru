@@ -13,6 +13,7 @@ class User
   property :settings,  Object
   property :photo_id,  String 
   property :roles,     Object, :default => Set.new 
+  property :is_admin,  Boolean, :default => false
   property :sex ,       Enum['w', 'm', 'any'], :default => 'any'
   property :birthday,   Date
   property :conseption, String 
@@ -29,7 +30,7 @@ class User
   attr_accessor :accept_rules
 
   def admin?
-    roles.include?('admin')
+    is_admin
   end
 
   def update(attrs)
