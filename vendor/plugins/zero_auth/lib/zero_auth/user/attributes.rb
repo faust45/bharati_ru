@@ -17,7 +17,7 @@ module ZeroAuth::User::Attributes
       property :crypt_password, DataMapper::Property::BCryptHash, :required => true
       property :security_token, DataMapper::Property::String
 
-      validates_length_of :password, :min => 4, :if => :new?, :message => 'слишком короткий пароль минимум 4 символа'
+      validates_length_of :password, :min => 4, :if => :new?, :message => 'слишком короткий пароль (минимум 4 символа)'
 
       #before :create do 
       #  self.security_token = ZeroAuth::SecurityToken.new
