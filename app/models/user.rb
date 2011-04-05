@@ -13,7 +13,7 @@ class User
   property :settings,  Object
   property :photo_id,  String 
   property :roles,     Object, :default => Set.new 
-  property :sex ,       Enum['w', 'm']
+  property :sex ,       Enum['w', 'm', 'any'], :default => 'any'
   property :birthday,   Date
   property :conseption, String 
   property :activities, String 
