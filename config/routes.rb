@@ -152,6 +152,19 @@ MahaMandala::Application.routes.draw do
 
   namespace :admin do
     root :to => "audios#index"
+
+    controller 'authors' do
+      scope 'authors' do
+        root :to => "authors#index", :as => :authors
+        match 'destroy', :to => :destroy, :as => :author_destroy
+        match 'save', :to => :update, :as => :author_update
+        match 'new',   :to => :new, :as => :author_new
+        match 'upload/photo', :to => :upload_photo, :as => :author_upload_photo
+      end
+    end
+
+    resources :tags do
+    end
   end
 
   match 'autocomplete/tags', :to => 'admin/tags#autocomplete', :as => :autocomplete_tags
