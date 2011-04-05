@@ -1,6 +1,6 @@
 (function ($) {
   $(document).ready(function() {
-    $('#pop').dialog({ modal: true, position: 'center, top', autoOpen: false,
+    $('#pop').dialog({ modal: false, position: 'center, top', autoOpen: false,
                        open: function() { $("#my-wrap").addClass('cool'); },
                        close: function() {    $("#my-wrap").removeClass('cool');}
                      });
