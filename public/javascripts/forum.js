@@ -82,6 +82,6 @@
 
 
   function showLoginPopup() {
-    $('#pop').show();
+    $('#pop').dialog('open');
   }
 })(jQuery);

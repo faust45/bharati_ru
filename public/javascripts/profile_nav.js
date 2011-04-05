@@ -1,8 +1,8 @@
 (function ($) {
   $(document).ready(function() {
     $('#pop').dialog({ modal: true, position: 'center, top', autoOpen: false,
-                       open: function() { $("#fuzz").fadeTo(1000, 0.5); },
-                       close: function() {    $("#fuzz").fadeOut();}
+                       open: function() { $("#my-wrap").addClass('cool'); },
+                       close: function() {    $("#my-wrap").removeClass('cool');}
                      });
     $("#fuzz").css("height", $(window).height());
 
