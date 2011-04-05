@@ -32,7 +32,7 @@
           <%= auth_link_to 'Ответить',"#ans_area", :class => 'ans' %>
           <%= auth_link_to 'Цитировать', '#ans_area', :class => "red ans_with_quote" %>
 
-          <% if comment.is_a?(Forum::Comment) && current_user == comment.author %>
+          <% if current_user.admin? or comment.is_a?(Forum::Comment) && current_user == comment.author %>
             <%= auth_link_to 'Удалить', forum_topic_post_comment_path(@topic, @post, comment), :method => 'DELETE' %>
           <% end %>
           <div class="cl"></div>

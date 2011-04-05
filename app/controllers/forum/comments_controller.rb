@@ -20,7 +20,7 @@ class Forum::CommentsController < ForumController
     @post    = Forum::Comment.get_doc!(params[:post_id])
     @comment = Forum::Comment.get_doc!(params[:id])
 
-    if @comment.author == current_user
+    if current_user.admin? or @comment.author == current_user
       @comment.destroy
     end
 
