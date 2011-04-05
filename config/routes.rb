@@ -152,57 +152,6 @@ MahaMandala::Application.routes.draw do
 
   namespace :admin do
     root :to => "audios#index"
-
-    controller 'albums' do
-      scope 'albums' do
-        match 'add_track',  :to => :add_track,  :as => :album_add_track
-        match 'drop_track', :to => :drop_track, :as => :album_drop_track
-        match 'upload/cover', :to => :upload_cover, :as => :album_upload_cover
-      end
-    end
-
-    controller 'audios' do
-      scope 'audios' do
-        root :to => "audios#index", :as => :audios
-        match 'save', :to => :update, :as => :audio_update
-        match 'destroy', :to => :destroy, :as => :audio_destroy
-        match 'upload/new',   :to => :new, :as => :audio_new
-        match 'upload/photo', :to => :upload_photo, :as => :audio_upload_photo
-        match 'upload/replace_source', :to => :replace_source, :as => :audio_replace_source
-        match 'author/:author_id', :to => "audios#author", :as => :author_audios
-      end
-    end
-
-    controller 'albums' do
-      scope 'albums' do
-        match 'save', :to => :update, :as => :album_update
-      end
-    end
-     
-    controller :contents do
-      scope '/contents' do
-        match ':id/delete_file', :to => :delete_file, :as => :contents_delete_file
-      end
-    end
-
-    controller :centers do
-      scope :as => 'centers' do
-        match ':id/delete_file', :to => :delete_file, :as => :delete_file
-      end
-    end
-
-    controller 'authors' do
-      scope 'authors' do
-        root :to => "authors#index", :as => :authors
-        match 'destroy', :to => :destroy, :as => :author_destroy
-        match 'save', :to => :update, :as => :author_update
-        match 'new',   :to => :new, :as => :author_new
-        match 'upload/photo', :to => :upload_photo, :as => :author_upload_photo
-      end
-    end
-
-    resources :tags do
-    end
   end
 
   match 'autocomplete/tags', :to => 'admin/tags#autocomplete', :as => :autocomplete_tags
