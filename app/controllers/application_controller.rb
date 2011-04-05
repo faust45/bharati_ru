@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery
 
   if Rails.env.production?
-    rescue_from User::AccessDenided, :with => :page_404
+    rescue_from User::AccessDenided, :with => :goto_root
     rescue_from ActionView::MissingTemplate, ActionView::Template::Error,
         RestClient::ResourceNotFound, Doc::NotFound,
         :with => :page_404
@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   def page_404
     render :template => "shared/404.html.erb", :status => 404
+  end
+
+  def goto_root
+    redirect_to root_path
   end
 
 end
