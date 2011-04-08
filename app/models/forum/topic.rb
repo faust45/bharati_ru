@@ -40,15 +40,18 @@ class Forum::Topic < BaseModel
   end
 
   def last_active
-    @last_active ||= [last_post, last_comment].sort_by(&:created_at).last
+    [last_post, last_comment].sort_by(&:created_at).last
   end
 
   def last_active_post
-    @last_active_post ||= last_active.is_a?(Forum::Post) ? last_active : last_active.post
+    if last_active
+      last_active.is_a?(Forum::Post) ? last_active : last_active.post
+    end
   end
 
   def last_comment
-    @last_comment ||= Forum::Comment.view_docs('forum_comments', :key => ['ForumTopic', self.id], :descending => true, :limit => 1).first
+    Forum::Comment.view_docs('forum_comments', :key => ['ForumTopic', self.id], :descending => true, :limit => 1).first
   end
 
+  memoize :posts, :last_active, :last_comment, :last_active_post
 end

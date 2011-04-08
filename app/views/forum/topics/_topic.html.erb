@@ -7,7 +7,7 @@
     <td class="col3"><a href="#"><%= @stat[topic.id][:posts] || 0 %></a></td>
     <td class="col8"><a href="#"><%= @stat[topic.id][:comments] || 0 %></a></td>
     <td class="col5">
-      <% if topic.last_post %>
+      <% if topic.last_active_post %>
         <p>Тема:&nbsp;<%= link_to(topic.last_active_post.title, forum_topic_post_path(topic, topic.last_active_post)) %></p>
         <p>Автор: <%= link_to topic.last_active.author, forum_show_profile_path(topic.last_active.author) %></a></p>
         <p><%= d topic.last_active.created_at %></p>

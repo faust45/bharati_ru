@@ -1,4 +1,6 @@
 class BaseModel < CouchRest::Model::Base
+  extend ActiveSupport::Memoizable
+  
   include DB
   include ActiveSupport::Memoizable
   include Attachments
