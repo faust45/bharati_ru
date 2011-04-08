@@ -44,7 +44,7 @@ class Forum::Topic < BaseModel
   end
 
   def last_active_post
-    @last_active_post ||= last_active.is_a?(Forum::Post) ? last : last_active.post
+    @last_active_post ||= last_active.is_a?(Forum::Post) ? last_active : last_active.post
   end
 
   def last_comment
