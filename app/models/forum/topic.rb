@@ -39,16 +39,12 @@ class Forum::Topic < BaseModel
     Forum::Post.view_docs('posts_by_topic_id', :key => self.id)
   end
 
-  def last_post_title
-    last.is_a?(Forum::Post) ? last.title : last.post.title
-  end
-
-  def last
+  def last_active
     @last ||= [last_post, last_comment].sort_by(&:created_at).last
   end
 
-  def last_post
-    @last_post ||= Forum::Post.view_docs('posts_by_topic_id', :key => self.id, :descending => true, :limit => 1).first
+  def last_active_post
+    @last_active_post ||= last.is_a?(Forum::Post) ? last : last.post
   end
 
   def last_comment
