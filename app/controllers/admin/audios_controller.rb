@@ -13,11 +13,8 @@ class Admin::AudiosController < AdminController
   def new 
     audio = Audio.new(:source_file => params['file'].tempfile)
     audio.save
+
     logger.info audio.inspect
-    logger.info 'audio.errors'
-    logger.info audio.errors.inspect
-    logger.info 'audio.new?'
-    logger.info audio.new?.inspect
     logger.info params['file'].inspect
     logger.info params['file'].tempfile.inspect
 
