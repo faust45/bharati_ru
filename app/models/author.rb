@@ -4,7 +4,7 @@ class Author < BaseModel
   TEACHERS     = %w(GovindaMj SridharMj SarasvatiThakur BabajiGaurakishor BhaktivinodThakur DjaganathBabaji)
   ACHARYA_LIB  = %w(GovindaMj SridharMj SarasvatiThakur BhaktivinodThakur)
   AUTHORS_LIB  = %w(BharatiMj GoswamiMj SrutasravaPr)
-  MATH_AUTHORS = %w(BharatiMj AcharyaMj GoswamiMj SrutasravaPr SiddhantiMj AvadhutMj)
+  MATH_AUTHORS = %w(AcharyaMj GoswamiMj BharatiMj SrutasravaPr SiddhantiMj AvadhutMj)
   CLASSIC      = %w(Tolstoy Chekhov Gogol SaltykovWedrin Bunin Bulgakov Turgenev Goethe Goncharov)
   VAISHNAVA    = %w(Vjasadeva SridharMj)
 
