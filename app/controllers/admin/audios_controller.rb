@@ -15,11 +15,11 @@ class Admin::AudiosController < AdminController
     audio.save
     logger.info audio.inspect
     logger.info 'audio.errors'
-    logger.info audio.errors
+    logger.info audio.errors.inspect
     logger.info 'audio.new?'
-    logger.info audio.new?
-    logger.info params['file']
-    logger.info params['file'].tempfile
+    logger.info audio.new?.inspect
+    logger.info params['file'].inspect
+    logger.info params['file'].tempfile.inspect
 
     render :json => {'success' => true, 'doc' => audio} 
   end
