@@ -26,7 +26,7 @@
             var form = $('#' + $(this).attr('data-target'));
             form.submit();
           } else {
-            console.log($(this).parents().find('form')[0]); //.submit();
+            $(this).parents().find('form')[0].submit();
           }
           return false;
         })
