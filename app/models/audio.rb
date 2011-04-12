@@ -3,7 +3,7 @@ class Audio < MediaContent
 
   property :duration
   property :bookmarks, [HHash], :default => [] #:time :str_time :name
-  property :extracts
+  property :extracts, [], :default => []
   property :keywords
   property :description
 
