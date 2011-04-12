@@ -164,7 +164,7 @@ FieldSet.prototype = {
       var div = $('<div>', {'class': 'input'});
 
       if (labelText) { 
-        var label = $('<label>' + labelText + '</label>');
+        var label = $('<label>' + labelText + ':</label>');
         div.append(label);
         div.append('<br />');
       }
