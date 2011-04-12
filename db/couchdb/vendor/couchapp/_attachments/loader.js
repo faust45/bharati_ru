@@ -28,5 +28,6 @@ couchapp_load([
   "scripts/form2object.js",
   "scripts/ext.js",
   "scripts/file.js",
-  "scripts/mime_types.js"
+  "scripts/mime_types.js",
+  "scripts/typewatch.js"
 ]);

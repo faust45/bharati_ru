@@ -5,6 +5,7 @@ class AudiosController < ApplicationController
     @audios  = Audio.paginate(:get_all, :page => params[:page])
 
     common
+    @page_title = "Аудио"
   end
 
   def common

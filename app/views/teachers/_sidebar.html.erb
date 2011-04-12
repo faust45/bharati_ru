@@ -6,9 +6,8 @@
       <div class="cameraman">
         <%= photo_thumb(@teacher.main_photo_inner, {:width => "316", :height => "227"}, true) %>
       </div>
-
       <div class="f-name">
-        <%= @teacher.full_name %>
+        <h1><%= @teacher.full_name %></h1>
       </div>
 
       <% unless @teacher.life_years.blank? %>

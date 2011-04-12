@@ -9,6 +9,8 @@ class PublicationsController < ApplicationController
 
     @classic = AlbumPublication.get_classic
     @vaishnava = AlbumPublication.get_vaishnava
+
+    @page_title = "Библиотека"
   end
 
   def album
@@ -21,6 +23,7 @@ class PublicationsController < ApplicationController
     @album = AlbumPublication.get_doc!(params[:album_id])
     @publications = @album.get_publications
 
+    @page_title = ["Библиотека", @album.to_s]
     render :index
   end
 
@@ -34,6 +37,8 @@ class PublicationsController < ApplicationController
     @author = Author.get_doc!(params[:author_id])
     @books  = @author.get_books
     @articles = @author.get_articles
+
+    @page_title = ["Библиотека", @author.to_s]
   end
 
   def bhagavatam
@@ -42,6 +47,9 @@ class PublicationsController < ApplicationController
 
   def show
     @publication = Publication.get_doc!(params[:id])
+
+    @page_title = "#{@publication.author} - #{@publication}"
+    @page_description = @publication.description 
   end
 
   def block_title 

@@ -12,5 +12,12 @@ function(e, params) {
     $('#edit_form').trigger(viewForm, arguments);
   }
 
-  new DocModel(params.id, {onload: onDocLoad});
+  var id = params.id,
+      currPath = $.pathbinder.currentPath().toString();
+
+  if (!id && currPath.match(/http.*$/)) {
+    id = currPath.match(/http.*$/)[0];
+  } 
+
+  new DocModel(id, {onload: onDocLoad});
 }

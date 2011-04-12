@@ -40,7 +40,7 @@
       App.app = app;
       App.db = app.db;
 
-      App.env = (App.app.db.name == 'rocks_dev') ? 'dev' : 'prod';
+      App.env = (App.app.db.name == 'rocks_new_dev') ? 'dev' : 'prod';
       App.config = app.ddoc.config[App.env];
 
       DocsStore = $.couch.db(App.config.docs_store);
@@ -63,6 +63,21 @@
 
       $("#sidebar").evently('sidebar', app);
 
+      $('#search').live('focus', function() {
+        if (!$(this).attr('data-watch')) {
+          var qField = $(this);
+          var options = {
+            callback: function(e, data) { 
+              var view = $('ul.all-docs').attr('data-view');
+              $.pathbinder.go(view + '/q/' + qField.val());
+            },
+          };
+
+          $(this).attr('data-watch', true);
+          $(this).typeWatch( options ); 
+        }
+      });
+
       //Run
       function Run() {
         $.pathbinder.go('Publication');
@@ -74,9 +89,11 @@
       $(document).pathbinder('list', ':view');
       $(document).pathbinder('list', ':view/page/:page');
       $(document).pathbinder('edit', ':view/:id');
+      $(document).pathbinder('fulltext', ':view/q/*');
+      $(document).pathbinder('edit', ':view/http.*');
       $(document).pathbinder('edit_sub_item', ':view/sub/:sub_view/:id');
 
       Run();
-    }, {db: 'rocks', design: "global"});
+    }, {db: 'rocks_new_dev', design: "global"});
   </script>
 </html>

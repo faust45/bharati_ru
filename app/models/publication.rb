@@ -55,6 +55,10 @@ class Publication < Content
     end
   end
 
+  def to_s
+    title
+  end
+
   def cover
     main_photo
   end

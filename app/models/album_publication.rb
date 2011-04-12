@@ -23,6 +23,10 @@ class AlbumPublication < AlbumBase
     end
   end
 
+  def to_s
+    title
+  end
+
   def get_publications
     Publication.get_all_docs(self.publications)
   end

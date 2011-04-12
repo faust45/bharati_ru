@@ -3,6 +3,7 @@ class VideosController < ApplicationController
 
   def index
     @videos = Video.paginate(:get_all, :page => params[:page])
+    @page_title = "Видео"
   end
 
   def author
@@ -11,6 +12,8 @@ class VideosController < ApplicationController
 
     @years = @author.get_years_with_videos_count
     @years.delete(nil)
+
+    @page_title = ["Видео", @author.to_s]
   end
 
   def year
@@ -23,6 +26,7 @@ class VideosController < ApplicationController
 
     @video ||= @videos.first
 
+    @page_title = ["Видео", @author.to_s, @year.to_s]
     render :show
   end
 
@@ -31,6 +35,8 @@ class VideosController < ApplicationController
     @author = @video.author
     @year = @video.record_date.to_date.year
     @videos = @author.get_videos_by_year(@year) if @year
+
+    @page_title = ["Видео", @author.to_s, @year.to_s, @video.to_s]
   end
 
   def acharya

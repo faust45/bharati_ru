@@ -47,6 +47,10 @@ class Video < Content
   end
 
 
+  def to_s
+    title
+  end
+
    def assign_author
      m = description.match(/author\:(.+)\<br\s\/\>/)
      m ||= description.match(/author\:(.+)/)

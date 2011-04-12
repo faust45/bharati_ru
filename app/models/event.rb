@@ -69,6 +69,9 @@ class Event < BaseModel
     end
   end
 
+  def to_s
+    title
+  end
 
   def event_type_human 
     TYPES[event_type]

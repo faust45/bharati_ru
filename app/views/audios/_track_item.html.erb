@@ -1,6 +1,6 @@
 <li <%= "class='active'" if @current_track.id == track_item.id %>>
   <% if @current_track.id == track_item.id %>
-    <strong><%= track_item_counter + 1 %>. “<%= track_item.title %>”</strong>
+    <h1><strong><%= track_item_counter + 1 %>. “<%= track_item.title %>”</strong></h1>
   <% else %>
     <%= link_to "#{track_item_counter + 1}. “#{track_item.title}”",  track_path(track_item) %>
   <% end %>

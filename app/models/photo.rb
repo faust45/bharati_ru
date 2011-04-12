@@ -1,3 +1,3 @@
-class Photo < FileStore 
+class Photo < FileStore
 
 end

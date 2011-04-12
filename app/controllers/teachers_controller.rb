@@ -4,11 +4,15 @@ class TeachersController < ApplicationController
   def index
     @teachers = Author.get_teachers
     teacher
+
+    @page_title = ["Учители", "#{@teacher}"]
   end
 
   def preachers 
     @teachers = Author.get_math_authors
     teacher
+
+    @page_title = ["Проповедники", "#{@teacher}"]
   end
 
   def teacher
@@ -17,6 +21,7 @@ class TeachersController < ApplicationController
     end
 
     @teacher ||= @teachers.first
+    @page_description = @teacher.bio.first(500)
   end
 
 end

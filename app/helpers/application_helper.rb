@@ -3,6 +3,14 @@ module ApplicationHelper
 
   RU_MONTH = %w(январь февраль март апрель май июнь июль август сентябрь октябрь ноябрь декабрь) 
 
+  def meta_tags
+    seo = Seo.get_doc(request.url) || {}
+    meta = {:site => 'Beauty over power | Красота вне закона'}
+    set_meta_tags meta.merge(seo.to_hash)
+
+    display_meta_tags
+  end
+
   def auth_link_to(title, href, options = {})
     if current_user.anon?
       options['data-auth'] = true

@@ -1,3 +1,2 @@
 function(e) {
-  $.log('press');
 }
