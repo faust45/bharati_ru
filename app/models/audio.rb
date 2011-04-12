@@ -3,8 +3,9 @@ class Audio < MediaContent
 
   property :duration
   property :bookmarks, [HHash], :default => [] #:time :str_time :name
-  property :extracts, [], :default => []
-  property :keywords, [], :default => []
+  property :extracts
+  property :keywords
+  property :description
 
   has_attachment  :source, SourceAudioAttachmentStore
   has_attachments :photos, BigPhotoStore
