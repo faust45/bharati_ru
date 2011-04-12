@@ -160,8 +160,10 @@ FieldSet.prototype = {
     var wrap = $('<div>', {'class': cssClass});
 
     $.each(this.fields, function() {
-      var div = $('<div>', {'class': 'input'})
-      div.append($(this).attr('data-label'));
+      var div = $('<div>', {'class': 'input'}),
+          label = $('<label>' + $(this).attr('data-label') + '</label>');
+
+      div.append(label);
       div.append(this);
       wrap.append(div);
     });
