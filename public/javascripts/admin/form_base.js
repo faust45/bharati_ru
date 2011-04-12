@@ -161,7 +161,7 @@ FieldSet.prototype = {
 
     $.each(this.fields, function() {
       var div = $('<div>', {'class': 'input'})
-      div.append(this.attr('data-label'));
+      div.append($(this).attr('data-label'));
       div.append(this);
       wrap.append(div);
     });
