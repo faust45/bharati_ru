@@ -164,6 +164,7 @@ FieldSet.prototype = {
           label = $('<label>' + $(this).attr('data-label') + '</label>');
 
       div.append(label);
+      div.append('<br />');
       div.append(this);
       wrap.append(div);
     });
