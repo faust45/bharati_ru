@@ -44,8 +44,8 @@ View.TrackForm = {
     fields.deleteButton = Button.create('/images/delete.png', deleteTrack);
     fields.photos       = PhotosInput.create('/admin/audios/upload/photo');
     fields.extracts     = SimpleInput.create('textarea', {cols: '60', rows: '15'});
-    fields.description  = SimpleInput.create('textarea', {cols: '60', rows: '15'});
-    fields.keywords     = SimpleInput.create('textarea', {cols: '60', rows: '15'});
+    fields.description  = SimpleInput.create('textarea', {cols: '60', rows: '15', 'data-label': 'Description'});
+    fields.keywords     = SimpleInput.create('textarea', {cols: '60', rows: '15', 'data-label': 'Keywords'});
 
     var basicInfo = new FieldSet(fields, ['title', 'authorID', 'recordDate', 'tags']);
     var bookmarks = new FieldSet(fields, ['bookmarks', 'extracts']);
