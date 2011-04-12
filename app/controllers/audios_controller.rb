@@ -31,7 +31,8 @@ class AudiosController < ApplicationController
     @current_track ||= @tracks.first
 
     @page_title    = "Аудиокнига - #{@album.author_display_name} #{@album}: #{@current_track}"
-    @page_keywords = @current_track.keywords
+    @page_description = @album.description
+    @page_keywords    = @album.keywords
   end
 
   def books_vaishnava
@@ -65,6 +66,8 @@ class AudiosController < ApplicationController
     else
       @current_track = @tracks.first
     end
+
+    @page_description = @current_track.description
     #@author = @album.author
   end
 
@@ -115,6 +118,7 @@ class AudiosController < ApplicationController
     end
 
     @page_title    = "#{@author} - #{@year}: #{@current_track}"
+    @page_description = @current_track.description
     @page_keywords = @current_track.keywords
     render :album
   end
@@ -135,6 +139,7 @@ class AudiosController < ApplicationController
     @current_track ||= @tracks.first
 
     @page_title    = "#{@album}: #{@current_track}"
+    @page_description = @current_track.description
     @page_keywords = @current_track.keywords
     render :album
   end

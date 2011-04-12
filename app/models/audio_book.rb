@@ -8,6 +8,8 @@ class AudioBook < BaseModel
   property :muz_by
   property :read_by
   property :publications_link
+  property :description
+  property :keywords
 
   class <<self
     def get_all(options = {})
