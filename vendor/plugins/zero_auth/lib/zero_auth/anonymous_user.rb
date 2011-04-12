@@ -6,6 +6,7 @@ class ZeroAuth::AnonymousUser
   def admin?
     false
   end
+  alias is_admin? admin?
 
   def anonymous?
     true

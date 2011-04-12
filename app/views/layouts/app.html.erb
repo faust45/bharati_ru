@@ -55,6 +55,9 @@
       </div>
     </div>
 
+    <% if current_user.is_admin? %>
+      <%= render :partial => 'shared/admin_panel' %>
+    <% end %>
     <%= render :partial => 'shared/page_bottom' %>
     <%= render :partial => 'shared/page_footer' %>
   </body>

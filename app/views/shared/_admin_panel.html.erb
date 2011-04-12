@@ -1,0 +1,31 @@
+Seo:
+<%
+  seo = Seo.get_doc(request.url) || Seo.new 
+
+  unless seo.new?
+    opts = {:url => admin_update_seo_path(:seo_id => seo.id), :html => {:method => 'put'}} 
+  end
+%>
+
+<% form_for [:admin, seo], opts do |f| %>
+  Title:
+  <div>
+    <%= f.text_field :title, :size => 30 %>
+  </div>
+
+  Keywords:
+  <div>
+    <%= f.text_area :keywords, :cols => '30', :rows => '10' %>
+  </div>
+
+  Description:
+  <div>
+    <%= f.text_area :description, :cols => '30', :rows => '10' %>
+  </div>
+
+  <%= f.submit %>
+  <% unless seo.new? %>
+    Or
+    <%= link_to 'Destroy', admin_destroy_seo_path(:seo_id => seo.id), :method => 'DELETE' %>
+  <% end %>
+<% end %>

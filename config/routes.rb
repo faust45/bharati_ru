@@ -153,6 +153,15 @@ MahaMandala::Application.routes.draw do
   namespace :admin do
     root :to => "audios#index"
 
+    resources :seos
+    controller 'seos' do
+      scope 'seos' do
+        match 'update', :to => :update, :as => :update_seo
+        match 'destroy', :to => :destroy, :as => :destroy_seo
+      end
+    end
+     
+
     controller 'albums' do
       scope 'albums' do
         match 'add_track',  :to => :add_track,  :as => :album_add_track
