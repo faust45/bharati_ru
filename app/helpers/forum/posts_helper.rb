@@ -18,9 +18,16 @@ module Forum::PostsHelper
         "<div class='quote' #{apply_attrs}>"
       end
 
+      s.gsub!(/\[img(.*?)\]/){|r| "<img src='#{$1}'" }
       s.gsub!(/\[\/quote\]/, '</div>') 
       s.html_safe
     end
+  end
+
+  def filter_comment(c)
+    s = h(c.to_s.dup)
+    s.gsub!(/\[img(.*?)\]/){|r| "<img src='#{$1}'" }
+    s.html_safe
   end
 
 end

@@ -20,7 +20,7 @@
         </div>
         <div class="cl"></div>
 
-        <p class="text-body" id="<%= dom_id(comment) %>"><%= comment %></p>
+        <p class="text-body" id="<%= dom_id(comment) %>"><%= filter_comment comment %></p>
         <p class="hide raw-body" data-title="" data-author="<%= comment.author %>"><%= comment %></p>
         <%= render_quotes(comment) %>
 
