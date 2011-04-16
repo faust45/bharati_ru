@@ -19,10 +19,10 @@
 
         <!-- bread -->
         <div class="bread">
-          <%= link_to 'Разделы', forum_root_path %>
+          <%= link_to 'Разделы', forum_root_path(section_params) %>
           <% if @topic %>
             <span>&gt;</span>
-            <%= link_to @topic, forum_topic_posts_path(@topic) %>
+            <%= link_to @topic, forum_topic_posts_path(@topic, section_params) %>
           <% end %>
           <% if @post %>
             <span>&gt;</span>
