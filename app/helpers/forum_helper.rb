@@ -6,7 +6,7 @@ module ForumHelper
 
 
   def section_params
-    Forum.section_to_params
+    {:section => Forum.section_to_params}
   end
 
   def human_sex s
