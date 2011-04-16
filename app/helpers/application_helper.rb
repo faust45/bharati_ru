@@ -5,7 +5,7 @@ module ApplicationHelper
 
   def meta_tags
     seo = Seo.get_doc(request.url) || {}
-    meta = {:site => 'Beauty over power | Красота вне закона'}
+    meta = {:site => 'Философия Востока: Гармония Красоты и Любви'}
     set_meta_tags meta.merge(seo.to_hash)
 
     display_meta_tags
