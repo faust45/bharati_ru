@@ -3,7 +3,7 @@ class Forum::Message < BaseModel
 
   property :author_id
   property :topic_id
-  property :section_id
+  property :section
   property :body
   property :created_at
 

@@ -1,7 +1,7 @@
 class Forum::Topic < BaseModel
 
   property :title
-  property :section_id
+  property :section
   property :description
 
   def to_s
