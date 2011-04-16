@@ -2,8 +2,6 @@ class Forum::Post < Forum::Message
 
   property :title
 
-  before_create :assign_section
-
   validates_presence_of :title
 
   class <<self
@@ -33,7 +31,7 @@ class Forum::Post < Forum::Message
 
     comment.post_id     = self.id
     comment.topic_id    = self.topic_id
-    comment.section_id  = self.section_id
+    comment.section = self.section
     comment.save
   end
 

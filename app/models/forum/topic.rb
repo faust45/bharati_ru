@@ -10,6 +10,7 @@ class Forum::Topic < BaseModel
 
   def <<(post)
     post.topic_id = self.id
+    post.section = self.section
     post
   end
 

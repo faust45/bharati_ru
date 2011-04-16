@@ -27,9 +27,4 @@ class Forum::Message < BaseModel
     m[0]
   end
 
-  protected
-    def assign_section
-      self.section = Forum.section
-    end
-
 end
