@@ -9,7 +9,7 @@ class Forum::CommentsController < ForumController
     @post << @comment
 
     unless @comment.new?
-      redirect_to forum_topic_post_path(@topic, @post)
+      redirect_to forum_topic_post_path(@topic, @post, :section => @comment.section)
     else
       render 'forum/posts/show'
     end
