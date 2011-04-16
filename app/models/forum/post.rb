@@ -8,7 +8,6 @@ class Forum::Post < Forum::Message
     def stat(topic_id)
       h = {}
       result = view('forum', :reduce => true,
-                             :group => true,
                              :group_level => 4,
                              :startkey => [Forum.section, topic_id, 'ForumComment'],
                              :endkey   => [Forum.section, topic_id, 'ForumComment', {}])

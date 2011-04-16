@@ -21,7 +21,7 @@ class Forum::Topic < BaseModel
 
     def stat
       h = {}
-      result = view('forum', :reduce => true, :group => true, :group_level => 3,
+      result = view('forum', :reduce => true, :group_level => 3,
                              :startkey => [Forum.section],
                              :endkey   => [Forum.section, {}, {}])
 
@@ -32,6 +32,7 @@ class Forum::Topic < BaseModel
         h[id][type] = r['value']
       end
 
+      p result['rows'].map{|e| e['key']}
       h
     end
   end
