@@ -27,6 +27,7 @@ module Forum::PostsHelper
   def filter_comment(c)
     s = h(c.to_s.dup)
     s.gsub!(/\[img(.*?)\]/){|r| "<img src='#{$1}'" }
+    s.gsub!(/\n/, '<br />')
     s.html_safe
   end
 
