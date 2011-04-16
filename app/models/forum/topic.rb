@@ -56,7 +56,7 @@ class Forum::Topic < BaseModel
   end
 
   def last_comment
-    Forum::Comment.view_docs('forum_comments', :key => [Forum.section, self.id, 'ForumComment'], :descending => true, :limit => 1).first
+    Forum::Comment.view_docs('forum_comments', :key => ['ForumTopic', self.id], :descending => true, :limit => 1)
   end
 
   memoize :posts, :last_active, :last_post, :last_comment, :last_active_post
