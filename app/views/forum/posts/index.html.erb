@@ -21,7 +21,7 @@
       <%= render :partial => 'forum/posts/post', :collection => @posts %>
     </tbody></table>
   </div>
-  <%= auth_link_to 'Новая тема', new_forum_topic_post_path(@topic), :class => 'new-th' %>
+  <%= auth_link_to 'Новая тема', new_forum_topic_post_path(@topic, section_params), :class => 'new-th' %>
 
   <div class="cl"></div>
 </div>

@@ -5,7 +5,7 @@ class Forum::PostsController < ForumController
     @topic = Forum::Topic.get_doc!(params[:topic_id])
     @posts = @topic.posts
 
-    @stat = Forum::Post.stat
+    @stat = Forum::Post.stat(@topic.id)
   end
 
   def show

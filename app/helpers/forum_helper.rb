@@ -1,4 +1,14 @@
 module ForumHelper
+  def menu_link_to(text, path, options = {})
+    options[:class] = 'act' if path == request.env['REQUEST_URI']
+    link_to content_tag(:span, text), path, options
+  end
+
+
+  def section_params
+    Forum.section_to_params
+  end
+
   def human_sex s
     case s
     when 'm': 'мужской'

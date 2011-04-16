@@ -1,6 +1,7 @@
 class Forum::Topic < BaseModel
 
   property :title
+  property :section_id
   property :description
 
   def to_s
@@ -13,30 +14,29 @@ class Forum::Topic < BaseModel
   end
 
   class <<self
+    def all
+      view_docs('forum', :key => ['ForumTopic', Forum.section])
+    end
+
     def stat
       h = {}
-      posts = view('forum_posts', :reduce => true, :group => true)
-      comments = view('forum_comments', :reduce => true,
-                                        :group => true,
-                                        :startkey => ['ForumTopic'],
-                                        :endkey => ['ForumTopic', {}])
+      result = view('forum', :reduce => true, :group => true, :group_level => 3,
+                             :startkey => [Forum.section],
+                             :endkey   => [Forum.section, {}, {}])
 
-      posts['rows'].each do |r|
-        h[r['key']] ||= {}
-        h[r['key']][:posts] = r['value']
-      end
-
-      comments['rows'].each do |r|
-        h[r['key'][1]][:comments] = r['value']
+      result['rows'].each do |r|
+        id   = r['key'][1]
+        type = r['key'][2]
+        h[id] ||= {}
+        h[id][type] = r['value']
       end
 
       h
     end
-
   end
 
   def posts
-    Forum::Post.view_docs('posts_by_topic_id', :key => self.id)
+    Forum::Post.view_docs('forum', :key => [Forum.section, self.id, 'ForumPost'])
   end
 
   def last_active_post
@@ -50,11 +50,11 @@ class Forum::Topic < BaseModel
   end
 
   def last_post
-    Forum::Post.view_docs('posts_by_topic_id', :key => self.id, :descending => true, :limit => 1).first
+    Forum::Post.view_docs('forum', :key => [Forum.section, self.id, 'ForumPost'], :descending => true, :limit => 1).first
   end
 
   def last_comment
-    Forum::Comment.view_docs('forum_comments', :key => ['ForumTopic', self.id], :descending => true, :limit => 1).first
+    Forum::Comment.view_docs('forum_comments', :key => [Forum.section, self.id, 'ForumComment'], :descending => true, :limit => 1).first
   end
 
   memoize :posts, :last_active, :last_post, :last_comment, :last_active_post

@@ -1,14 +1,14 @@
 <tr>
   <td class="col6"><%= image_tag "folder.gif", :width => "46", :height => "34" %></td>
     <td class="col7">
-      <%= link_to topic, forum_topic_posts_path(topic) %>
+      <%= link_to topic, forum_topic_posts_path(topic, section_params) %>
       <p><%= topic.description %></p>
     </td>
-    <td class="col3"><a href="#"><%= @stat[topic.id][:posts] || 0 %></a></td>
-    <td class="col8"><a href="#"><%= @stat[topic.id][:comments] || 0 %></a></td>
+    <td class="col3"><a href="#"><%= @stat[topic.id]['ForumPost'] || 0 %></a></td>
+    <td class="col8"><a href="#"><%= @stat[topic.id]['ForumComment'] || 0 %></a></td>
     <td class="col5">
       <% if topic.last_active_post %>
-        <p>Тема:&nbsp;<%= link_to(topic.last_active_post.title, forum_topic_post_path(topic, topic.last_active_post)) %></p>
+        <p>Тема:&nbsp;<%= link_to(topic.last_active_post.title, forum_topic_post_path(topic, topic.last_active_post, section_params)) %></p>
         <p>Автор: <%= link_to topic.last_active.author, forum_show_profile_path(topic.last_active.author) %></a></p>
         <p><%= d topic.last_active.created_at %></p>
       <% end %>

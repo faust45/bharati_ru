@@ -3,6 +3,7 @@ class Forum::Message < BaseModel
 
   property :author_id
   property :topic_id
+  property :section_id
   property :body
   property :created_at
 
@@ -25,5 +26,10 @@ class Forum::Message < BaseModel
     m = body.match(/\[quote.*\[\/quote\]/m)
     m[0]
   end
+
+  protected
+    def assign_section
+      self.section = Forum.section
+    end
 
 end

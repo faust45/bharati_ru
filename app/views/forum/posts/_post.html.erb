@@ -1,7 +1,7 @@
 <tr>
   <td class="col1"><%= image_tag "chat.gif", :width => "29", :height => "24", :alt => "" %></td>
   <td class="col2">
-    <%= link_to post.title, forum_topic_post_path(@topic, post) %>
+    <%= link_to post.title, forum_topic_post_path(@topic, post, section_params) %>
   </td>
   <td class="col3"><%= link_to post.author, forum_show_profile_path(post.author) %></td>
   <td class="col4">

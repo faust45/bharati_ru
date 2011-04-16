@@ -5,7 +5,7 @@
 
 <!-- area -->
 <div id="ans-area" class="area <%= 'hide' if ans_hide? %>">
-  <form id="form-post-comment" method="POST" action="<%= forum_topic_post_comments_path(@topic, @post) %>">
+  <form id="form-post-comment" method="POST" action="<%= forum_topic_post_comments_path(@topic, @post, section_params) %>">
     <textarea cols="170" rows="10" name="comment[body]"><%= @comment %></textarea>
   </form>
 
