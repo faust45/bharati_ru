@@ -25,7 +25,7 @@ class Forum::PostsController < ForumController
     @topic << @post
 
     if @post.save
-      redirect_to forum_topic_post_path(@topic, @post)
+      redirect_to forum_topic_post_path(@topic, @post, :section => @comment.section)
     else
       render :new
     end
