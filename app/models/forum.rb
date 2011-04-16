@@ -9,6 +9,8 @@ class Forum < BaseModel
     def set_section(section)
       if section == 'maharaj_questions'
         Thread.current[:section] = 'maharaj_questions'
+      else
+        Thread.current[:section] = 'discussion'
       end
     end
 
