@@ -5,6 +5,7 @@ class AudioBookTrack < BaseModel
   property :duration
   property :main_photo
   property :keywords, [], :default => []
+  property :description
 
   def to_s
     title
