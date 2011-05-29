@@ -1,5 +1,11 @@
 <% render :partial => 'sidebar' %>
+<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 
 <div class="block update">
   <%= display_ipaper(@publication) %>
 </div>
+
+<% content_for :image_src do %>
+  <link rel="image_src" type="image/jpeg" href="<%= photo_thumb_url(@publication.cover, {:height => 119, :width => 91}, true) %>" />
+<% end %>

@@ -50,6 +50,9 @@ class PublicationsController < ApplicationController
 
     @page_title = "#{@publication.author} - #{@publication}"
     @page_description = @publication.description 
+    if @page_description.blank? 
+      @page_description = @page_title
+    end
   end
 
   def block_title 

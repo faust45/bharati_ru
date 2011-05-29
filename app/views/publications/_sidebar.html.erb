@@ -25,6 +25,19 @@
           <%= link_to(image_tag('doc.png'), file_url(@publication.source_doc)) %>
         <% end %>
       </div>
+
+    <div class="share">
+      <a href="http://twitter.com/share" class="twitter-share-button"
+        data-url="<%= request.url %>"
+        data-text='Публикация – "<%= @publication %>"'
+        data-via="BharatiRu"
+        data-count="none">
+        Tweet
+      </a>
+      <a name="fb_share" class="fbShare" share_url="<%= request.url %>" href="http://www.facebook.com/sharer.php">Share</a>
+    </div>
+
+
     </div>
     <div class="bottom"></div>
   </div>
