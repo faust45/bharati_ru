@@ -7,3 +7,17 @@
     <div class="download"><%= link_to "<b>&#160;</b><i>&#160;</i>скачать этот трек (#{source_size(@current_track)})".html_safe, file_url(@current_track.source) %></div>
   </div>
 </div>
+<div class="share">
+  <a href="http://twitter.com/share" class="twitter-share-button"
+    data-url="<%= request.url %>"
+    data-text='Аудио лекция – "<%= @current_track %>"'
+    data-via="BharatiRu"
+    data-count="none">
+    Tweet
+  </a>
+  <a  name="fb_share" class="fbShare" share_url="<%= request.url %>" href="http://www.facebook.com/sharer.php">Share</a>
+</div>
+
+<% content_for :image_src do %>
+  <link rel="image_src" type="image/jpeg" href="<%= track_img_url %>" />
+<% end %>

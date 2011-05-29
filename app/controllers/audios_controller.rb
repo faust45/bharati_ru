@@ -81,7 +81,8 @@ class AudiosController < ApplicationController
     end
     @author = @album.author
 
-    @page_title    = "#{@album}: #{@current_track}"
+    @page_title       = "#{@album}: #{@current_track}"
+    @page_description = "#{@album}: #{@current_track}"
     @page_keywords = @current_track.keywords
   end
 

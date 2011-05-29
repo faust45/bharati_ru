@@ -88,6 +88,13 @@ module AudiosHelper
     end
   end
 
+  def track_img_url
+    unless @current_track.photos.blank?
+      i = rand(@current_track.photos.size)
+      @current_track.photos[i].thumbs['small']
+    end
+  end
+
   def player
       render :partial => 'player'
   end
