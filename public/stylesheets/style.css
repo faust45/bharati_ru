@@ -456,3 +456,17 @@ h3.link_popup strong{ display:block; padding:5px 0 0 30px; background:url(../ima
 #popup_block_in ul a:hover{color:#2072ac;}
 #popup_block_in ul li.hover a{ color:#ce580f;}
 h1 { font-size: 14px; color: #fff; }
+
+a.fbShare { float: left; padding-top: 1px; }
+.fb_share_count_nub_right, .fb_share_count_right { display: none !important; }
+.FBConnectButton, #custom-fb-button .FBConnectButton_Small .FBConnectButton_Text { background: none; border: 0; margin: 0; padding: 0; }
+#custom-tweet-button, #custom-fb-button { float: left; margin: 0 5px 3px 0; }
+
+
+
+div.share {
+	margin-top:5px;
+	height: 20px;
+}
+div.share iframe.twitter-share-button { float: left; margin-right: 10px; }
+
