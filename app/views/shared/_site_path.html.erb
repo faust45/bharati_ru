@@ -3,6 +3,10 @@
   <%= site_ppath %>
   <br />
   <br />
+  <br />
+  <% if params[:controller] == "main" && params[:action] == 'index' %>
+    <a href="/">На главную</a>
+  <% end %>
   <%= yield :after_logo %>
 </div>
 
