@@ -4,10 +4,7 @@
   <br />
   <br />
   <br />
-  <% if params[:controller] == "main" && params[:action] == 'index' %>
-  <% else %>
-    <a href="/">На главную</a>
-  <% end %>
+  
   <%= yield :after_logo %>
 </div>
 
