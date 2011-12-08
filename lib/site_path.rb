@@ -20,7 +20,7 @@ class SitePath
       if params[:controller] == "main" && params[:action] == 'index'
         link = link_to((helper.image_tag('logo.png')).html_safe, root_path)
       else
-        link = link_to((helper.image_tag('logo-all.png')).html_safe, root_path)
+        link = link_to('<span>Бхарати<span>.ру</span></span>'.html_safe, root_path)
       end
       Path.new(link)
     end
