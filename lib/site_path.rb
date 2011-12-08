@@ -17,7 +17,7 @@ class SitePath
 
   private
     def main_path
-      link = link_to('<span>Бхарати<span>.ру</span></span>'.html_safe + ico_beta, root_path)
+      link = link_to(helper.image_tag('logo.png'), root_path)
       Path.new(link)
     end
 
