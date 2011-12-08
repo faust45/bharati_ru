@@ -1,12 +1,9 @@
 <% include_js 'player.js' %>
 
+<% render :partial => 'sidebar' %>
 
 <% content_for :before_main_block do %>
-  <a href="http://vkontakte.ru/bharati_swami" target="_blank"><img src="../images/vk_main.png"></a>
-  <a href="http://www.facebook.com/bharati.ru" target="_blank"><img src="../images/fb_main.png"></a>
 <% end %>
-
-<% render :partial => 'sidebar' %>
 
 <% content_for :before_logo do %>
   <div class="temple"></div>
@@ -29,6 +26,10 @@
       <% end %>
     </ul>
   </div>
+</div>
+<div>
+  <a href="http://vkontakte.ru/bharati_swami" target="_blank"><img src="../images/vk_main.png"></a>
+  <a href="http://www.facebook.com/bharati.ru" target="_blank"><img src="../images/fb_main.png"></a>
 </div>
 
 <div class="block events">
