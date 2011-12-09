@@ -42,9 +42,9 @@
     <%= render :partial => 'shared/site_path' %>
 
     <%= yield :before_main_block %>
+
     <% if params[:controller] == "main" && params[:action] == 'index' %>
     <% else %>
-      <a href="/">На главную</a>
     <% end %>
 
     <div id="main">
