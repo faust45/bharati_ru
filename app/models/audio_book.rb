@@ -17,7 +17,7 @@ class AudioBook < BaseModel
     end
 
     def vaishnava
-      view_docs('audio_books_vaishnava', options)
+      view_docs('audio_books_vaishnava')
     end
 
     def classic
