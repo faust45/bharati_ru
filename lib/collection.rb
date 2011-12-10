@@ -19,7 +19,7 @@ class Collection
     unless @total_rows
       if is_all_docs_view? 
         @total_rows = collection.size
-      elsif @view_options.keys.find{|k| ['keys', 'key', 'startkey'].include?(k.to_s)}
+      elsif @view_options.keys.find{|k| ['key', 'startkey'].include?(k.to_s)}
         @view_options[:reduce] = true
         @view_options.delete(:limit)
         @view_options.delete(:skip)
