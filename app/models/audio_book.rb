@@ -17,8 +17,7 @@ class AudioBook < BaseModel
     end
 
     def vaishnava
-      options = {:keys => Author::VAISHNAVA}
-      view_docs('audio_books_by_author', options)
+      view_docs('audio_books_vaishnava', options)
     end
 
     def classic
