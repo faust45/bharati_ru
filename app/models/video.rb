@@ -12,7 +12,7 @@ class Video < Content
   property :thumbnail_medium
   property :thumbnail_large
 
-  use_as_id :upload_at
+  use_as_id :upload_at_and_rand
 
   before_create :assign_author
   before_create :assign_record_date
@@ -67,6 +67,12 @@ class Video < Content
        date = PartialDate.parse_ru(m[1])
        p date.to_s
        self[:record_date] = date.to_s if date 
+     end
+   end
+
+   def upload_at_and_rand
+     unless upload_at.blank? 
+       upload_at.to_time + rand(20).seconds
      end
    end
 
