@@ -16,7 +16,9 @@ namespace :videos do
       videos.map! do |video|
         video['vimeo_id'] = video.delete('id')
         video['upload_at'] = video.delete('upload_date').to_time
-        Video.create(video)
+        if Video.get(video['upload_at'].to_couch_id).blank?
+          Video.create(video)
+        end
       end
 
       album.update_attributes(:videos => videos.map(&:id))
