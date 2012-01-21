@@ -11,7 +11,7 @@ namespace :videos do
 
   desc "Fetch videos from vimeo"
   task :fetch_videos => :environment do
-    VideoAlbum.get_all.each do |album|
+    #VideoAlbum.get_all.each do |album|
       #videos = Vimeo::Simple::Album.videos(album.id)
       videos = Vimeo::Simple::User.videos('bharatiru')
       videos.map! do |video|
@@ -23,8 +23,8 @@ namespace :videos do
         end
       end
 
-      album.update_attributes(:videos => videos.map(&:id))
-    end
+      #album.update_attributes(:videos => videos.map(&:id))
+    #end
   end
 end
 
