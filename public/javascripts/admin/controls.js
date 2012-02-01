@@ -18,7 +18,7 @@ Button = {
 AlbumsInput = {
   addURL:  '/admin/albums/add_track',
   dropURL: '/admin/albums/drop_track',
-  template: "<li data-id={{_id}}><label><input type=checkbox />{{title}}</label><span class='response'></span></li>",
+  template: "<li data-id={{_id}}><label><input type=checkbox />{{book_num}} {{title}}</label><span class='response'></span></li>",
 
   create: function() {
     var self = this;
