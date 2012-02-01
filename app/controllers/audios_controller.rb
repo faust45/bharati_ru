@@ -127,6 +127,7 @@ class AudiosController < ApplicationController
 
   def bhagavatam
     @books = SbAlbum.get_all
+    @books = @books.find_all{|a| a.tracks.any?}
 
     unless params[:book_num].blank?
       @album = @books.find{|b| b.book_num == params[:book_num]}
