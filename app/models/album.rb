@@ -23,7 +23,8 @@ class Album < AlbumBase
 
       album = klass.get_by_title(title)
       if album.blank?
-        klass.create(:title => title)
+        #Just have some issue with parsing ID3 tags for SbAlbums, thats why we avoid create albums for SB from tags
+        klass.create(:title => title) if klass == Album
       else
         album
       end

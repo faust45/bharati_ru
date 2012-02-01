@@ -183,8 +183,9 @@ class Audio < MediaContent
 
     def add_to_album(album_name)
       unless album_name.blank?
-        album = Album.get_by_title_or_create(album_name)
-        album << self
+        if album = Album.get_by_title_or_create(album_name)
+          album << self
+        end
       end
     end
 
