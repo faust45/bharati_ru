@@ -90,6 +90,7 @@ class AudiosController < ApplicationController
     common
     @author = Author.get_doc!(params[:author_id])
     @albums = @author.get_albums
+    @albums.reject!{|a| a['couchrest-type'] == "SbAlbum"}
     @last_tracks = @author.paginate(:get_tracks, :page => params[:page])
 
     @years = @author.get_years_with_tracks_count
