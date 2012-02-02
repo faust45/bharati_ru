@@ -159,7 +159,7 @@ module AudiosHelper
   end
 
   def escape(str)
-    str.chars.gsub(/[^a-z0-9-\s]/, '')
+    str.gsub(/[^a-z0-9-\s]/, '')
   end
 
 end
