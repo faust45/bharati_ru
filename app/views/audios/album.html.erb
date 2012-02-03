@@ -10,9 +10,13 @@
   <div class="tabs">
     <ul>
       <li><a href="#" class="active"><b></b><u>Закладки</u><i></i></a></li>
-      <li><a href="#"><b></b><u>Цитаты</u><i></i></a></li>
+      <% if @current_track.extracts.any? %>
+        <li><a href="#"><b></b><u>Цитаты</u><i></i></a></li>
+      <% end %>
 
-      <li><a href="#"><b></b><u>Конспект лекции</u><i></i></a></li>
+      <% unless @current_track.conspect.blank? %>
+        <li><a href="#"><b></b><u>Конспект лекции</u><i></i></a></li>
+      <% end %>
     </ul>
   </div>
   <div class="tab-container lastTab active" id="tab-1">
@@ -22,8 +26,8 @@
     <%= render :partial => 'track_extracts' %>
   </div>
   <div class="tab-container" id="tab-3">
-
     <div class="synopsis">
+      <%= @current_track.conspect %>
     </div>
   </div>
   <div class="bottom"></div>
