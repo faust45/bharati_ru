@@ -27,7 +27,7 @@
     </ul>
   </div>
 
-  <div id="tab-2" class="tab-container lastTab active">
+  <div id="tab-2" class="tab-container lastTab">
     <div class="word">
       <% if @teacher.extracts.any? %>
         <%= @teacher.extracts.join('<br /><br />').html_safe %>
@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <div id="tab-1" class="tab-container audioTab">
+  <div id="tab-1" class="tab-container audioTab active">
     <div class="word">
       <%= t @teacher.bio %>
     </div>
