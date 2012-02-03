@@ -6,6 +6,7 @@ class Audio < MediaContent
   property :extracts, [], :default => []
   property :keywords
   property :description
+  property :conspect
 
   has_attachment  :source, SourceAudioAttachmentStore
   has_attachments :photos, BigPhotoStore
