@@ -29,7 +29,7 @@ class Author < BaseModel
   property :life_years
   property :short_bio
   property :bio
-  #property :extracts, []
+  property :extracts_raw
   property :photos_link
   property :audios_link
   property :videos_link
@@ -99,7 +99,7 @@ class Author < BaseModel
   end
 
   def extracts
-    []
+    @extracts ||= extracts_raw.split("\n")
   end
 
   def is_teacher?
