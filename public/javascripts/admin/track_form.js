@@ -38,12 +38,12 @@ View.TrackForm = {
     fields.authorID   = AuthorInput.create();
     fields.tags       = TagsInput.create();
     fields.recordDate = DateInput.create();
-    fields.bookmarks  = SimpleInput.create('textarea', {cols: '60', rows: '15'});
     fields.mp3File    = Mp3FileInput.create();
     fields.albums     = AlbumsInput.create();
     fields.deleteButton = Button.create('/images/delete.png', deleteTrack);
     fields.photos       = PhotosInput.create('/admin/audios/upload/photo');
-    fields.extracts     = SimpleInput.create('textarea', {cols: '60', rows: '15'});
+    fields.bookmarks    = SimpleInput.create('textarea', {cols: '60', rows: '15', 'data-label': 'Bookmarks'});
+    fields.extracts     = SimpleInput.create('textarea', {cols: '60', rows: '15', 'data-label': 'Quotes'});
     fields.description  = SimpleInput.create('textarea', {cols: '60', rows: '15', 'data-label': 'Description'});
     fields.keywords     = SimpleInput.create('textarea', {cols: '60', rows: '15', 'data-label': 'Keywords'});
 
