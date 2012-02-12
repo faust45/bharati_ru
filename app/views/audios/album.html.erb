@@ -22,13 +22,17 @@
   <div class="tab-container lastTab active" id="tab-1">
     <%= render :partial => 'track_bookmarks' %>
   </div>
-  <div class="tab-container audioTab" id="tab-2">
-    <%= render :partial => 'track_extracts' %>
-  </div>
-  <div class="tab-container" id="tab-3">
-    <div class="synopsis">
-      <%= @current_track.conspect %>
+  <% if @current_track.extracts.any? %>
+    <div class="tab-container audioTab" id="tab-2">
+      <%= render :partial => 'track_extracts' %>
     </div>
-  </div>
+  <% end %>
+  <% unless @current_track.conspect.blank? %>
+    <div class="tab-container" id="tab-3">
+      <div class="synopsis">
+        <%= @current_track.conspect %>
+      </div>
+    </div>
+  <% end %>
   <div class="bottom"></div>
 </div>
