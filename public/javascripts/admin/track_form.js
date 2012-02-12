@@ -49,11 +49,11 @@ View.TrackForm = {
     fields.conspect     = SimpleInput.create('textarea', {cols: '60', rows: '15', 'data-label': 'Conspect'});
 
     var basicInfo = new FieldSet(fields, ['title', 'authorID', 'recordDate', 'tags']);
-    var bookmarks = new FieldSet(fields, ['bookmarks', 'extracts']);
+    var bookmarks = new FieldSet(fields, ['bookmarks', 'extracts', 'conspect']);
     var mp3File   = new FieldSet(fields, ['mp3File', 'deleteButton']);
     var albums    = new FieldSet(fields, ['albums']);
     var photos    = new FieldSet(fields, ['photos']);
-    var seo       = new FieldSet(fields, ['description', 'keywords', 'conspect']);
+    var seo       = new FieldSet(fields, ['description', 'keywords']);
 
     this.append([basicInfo, bookmarks, albums, photos, mp3File, seo]);
 
