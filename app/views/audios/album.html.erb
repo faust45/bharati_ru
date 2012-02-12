@@ -30,7 +30,7 @@
   <% unless @current_track.conspect.blank? %>
     <div class="tab-container" id="tab-3">
       <div class="synopsis">
-        <%= @current_track.conspect %>
+        <%= text_format @current_track.conspect %>
       </div>
     </div>
   <% end %>

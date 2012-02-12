@@ -1,6 +1,10 @@
 module AudiosHelper
   include ImagesHelper
 
+  def text_format(text)
+    text.to_s.gsub(/$/, "\n<br />")
+  end
+
   def link_to_teacher(author)
     if author.is_teacher?
       teacher_show_path(author)
