@@ -10,7 +10,7 @@ class SitePath
   end
 
   def to_s
-    (main_path > photos_path > videos_path > about_path > events_path > audios_path > kirtans_path > kirtans_album_path > audio_books_path > audio_books_one_path > publications_path > photo_album > publications_album > publication_title > bhagavatam_author > author_path > 
+    (main_path > teachers_path > teacher_path > photos_path > videos_path > about_path > events_path > audios_path > kirtans_path > kirtans_album_path > audio_books_path > audio_books_one_path > publications_path > photo_album > publications_album > publication_title > bhagavatam_author > author_path > 
       bhagavatam_album > album_path > year_path > search_path).to_s
   end
 
@@ -23,6 +23,24 @@ class SitePath
         link = link_to('<span>Бхарати<span>.ру</span></span>'.html_safe, root_path)
       end
       Path.new(link)
+    end
+
+    def teachers_path
+      if params[:controller] == "teachers"
+        link_to "Учители", helper.teachers_path
+      end
+    end
+
+    def teacher_path
+      if params[:controller] == "teachers"
+        if params[:id]
+          teacher = Author.get_doc(params[:id])
+        else
+          teacher = Author.get_teachers.first
+        end
+
+        teacher.display_name.html_safe
+      end
     end
 
     def kirtans_path 
