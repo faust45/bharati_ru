@@ -36,7 +36,11 @@ class MenuGlanceNext
     desc  = object.respond_to?(:description) && object.send(:description) 
     photo = helper.send(@icon_method, object)
 
-    render(:partial => "shared/#{@partial}", :locals => {:path => path, :title => title, :photo => photo, :description => desc})
+    if @options[:current]
+      is_current = (object == @options[:current])
+    end
+
+    render(:partial => "shared/#{@partial}", :locals => {:is_current => is_current, :path => path, :title => title, :photo => photo, :description => desc})
   end
 
   def to_s

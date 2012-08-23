@@ -1,2 +1,2 @@
-<% html_class = "act" if current_page?(path) %>
+<% html_class = "act" if current_page?(path) or is_current %>
 <%= link_to(photo + "<span>#{title}</span>".html_safe, path, :class => html_class) %>
