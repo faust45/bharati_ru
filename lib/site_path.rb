@@ -27,7 +27,9 @@ class SitePath
 
     def teachers_path
       if params[:controller] == "teachers"
-        link_to "Учители", helper.teachers_path
+         
+        name = content_tag(:i, 'Учители')
+        link_to name, helper.teachers_path
       end
     end
 
@@ -39,7 +41,7 @@ class SitePath
           teacher = Author.get_teachers.first
         end
 
-        teacher.display_name.html_safe
+        content_tag(:i, teacher.display_name)
       end
     end
 
