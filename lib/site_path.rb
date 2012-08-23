@@ -38,7 +38,11 @@ class SitePath
         if params[:id]
           teacher = Author.get_doc(params[:id])
         else
-          teacher = Author.get_teachers.first
+          if params[:action] == 'preachers'
+            teacher = Author.get_math_authors.first
+          else
+            teacher = Author.get_teachers.first
+          end
         end
 
         content_tag(:i, teacher.display_name)
