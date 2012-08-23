@@ -9,7 +9,7 @@
   
   <div class="list-teach lect">
     <ul>
-      <% menu_glance_next(:icon => :teacher_photo, :text => :display_name, :partial => 'teacher') do |m| %>
+      <% menu_glance_next(:icon => :teacher_photo, :text => :display_name, :partial => 'teacher', :current => @teacher) do |m| %>
         <% @teachers.each do |teacher| %>
           <li> <%= m.teacher_show teacher %> </li>
         <% end %>
