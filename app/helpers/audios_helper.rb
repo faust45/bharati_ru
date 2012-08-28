@@ -3,6 +3,8 @@ module AudiosHelper
 
   def text_format(text)
     text.to_s.gsub(/$/, "\n<br />")
+      .gsub(/\d\d:\d\d:\d\d/){}
+      .html_safe
   end
 
   def link_to_teacher(author)
@@ -46,8 +48,10 @@ module AudiosHelper
   def author_name
     if @author
       @author.display_name
-    else
+    elsif @album.author
       @album.author.display_name
+    elsif @current_track
+      @current_track.author.display_name if @current_track.author
     end
   end
 
