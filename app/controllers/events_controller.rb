@@ -11,7 +11,7 @@ class EventsController < ApplicationController
   def type
     @type = params[:type]
     @actual_events = Event.get_actual(:type => params[:type])
-    @not_actual_events = Event.get_not_actual(:type => params[:type])
+    @not_actual_events = Event.get_not_actual(:type => params[:type], :descending => true)
 
 
     @page_title = ["События", Event::TYPES[@type]]
