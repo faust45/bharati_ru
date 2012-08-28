@@ -2,9 +2,7 @@ module AudiosHelper
   include ImagesHelper
 
   def text_format(text)
-    text.to_s.gsub(/$/, "\n<br />")
-      .gsub(/\d\d:\d\d:\d\d/)
-      .html_safe
+    text.to_s.gsub(/$/, "\n<br />").gsub(/\d\d:\d\d:\d\d/).html_safe
   end
 
   def link_to_teacher(author)
