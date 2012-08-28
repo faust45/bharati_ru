@@ -44,12 +44,12 @@ module AudiosHelper
   end
 
   def author_name
-    if @author
+    if @author and !@author.display_name.blank?
       @author.display_name
-    elsif @album.author
+    elsif @album.author && !@album.author.display_name.blank?
       @album.author.display_name
     elsif @current_track
-      @current_track.author.display_name if @current_track.author.display_name
+      @current_track.author.display_name if @current_track.author
     end
   end
 
