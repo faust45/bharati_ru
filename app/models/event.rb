@@ -43,20 +43,20 @@ class Event < BaseModel
 
 
     def get_actual(options = {})
-      now = Time.now
+      now = Date.now
       type = options.delete(:type) || 'any'
 
       options[:startkey] = [type, nil]
-      options[:endkey]   = [type, now.to_s(:db_s)]
+      options[:endkey]   = [type, now.to_s]
 
       view_docs('events_by_type_and_end_date_time', options)
     end
 
     def get_not_actual(options = {})
-      now = Time.now
+      now = Date.now
       type = options.delete(:type) || 'any'
 
-      options[:startkey] = [type, now.to_s(:db_s)]
+      options[:startkey] = [type, now.to_s]
       options[:endkey]   = [type, {}]
 
       view_docs('events_by_type_and_end_date_time', options)
