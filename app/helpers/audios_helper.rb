@@ -3,7 +3,7 @@ module AudiosHelper
 
   def text_format(text)
     text.to_s.gsub(/$/, "\n<br />")
-      .gsub(/\d\d:\d\d:\d\d/){}
+      .gsub(/\d\d:\d\d:\d\d/)
       .html_safe
   end
 
@@ -51,7 +51,7 @@ module AudiosHelper
     elsif @album.author
       @album.author.display_name
     elsif @current_track
-      @current_track.author.display_name if @current_track.author
+      @current_track.author.display_name if @current_track.author.display_name
     end
   end
 
