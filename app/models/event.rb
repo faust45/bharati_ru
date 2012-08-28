@@ -47,7 +47,7 @@ class Event < BaseModel
       type = options.delete(:type) || 'any'
 
       options[:startkey] = [type, nil]
-      options[:endkey]   = [type, now.to_s(:db)]
+      options[:endkey]   = [type, now.to_s(:db_s)]
 
       view_docs('events_by_type_and_end_date_time', options)
     end
@@ -56,7 +56,7 @@ class Event < BaseModel
       now = Time.now
       type = options.delete(:type) || 'any'
 
-      options[:startkey] = [type, now.to_s(:db)]
+      options[:startkey] = [type, now.to_s(:db_s)]
       options[:endkey]   = [type, {}]
 
       view_docs('events_by_type_and_end_date_time', options)
