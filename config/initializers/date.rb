@@ -1,5 +1,5 @@
 Time::DATE_FORMATS[:db] = "%Y/%m/%d %H:%M:%S"
-Time::DATE_FORMATS[:db_s] = "%Y-%m-/%d %H:%M:%S"
+Time::DATE_FORMATS[:db_s] = "%Y-%m-%d %H:%M:%S"
 Time::DATE_FORMATS[:time] = "%H:%M"
 
 ActiveSupport.use_standard_json_time_format = false 
