@@ -26,8 +26,12 @@
 
       //Google analytics
       //bh = UA-11873157-5
+      <% 
+        code = 'UA-11873157-5'  if @request.domain =~ /bharati.ru/ 
+        code = 'UA-34064479-1'  if @request.domain =~ /bhagavata.ru/ 
+      %>
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-34064479-1']);
+      _gaq.push(['_setAccount', '<%= code %>']);
       _gaq.push(['_trackPageview']);
 
       (function() {
