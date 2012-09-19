@@ -173,7 +173,7 @@ module ApplicationHelper
   
   def file_url(doc)
     db = FileStore.database.name
-    "http://mp3.bharati.ru/#{db}/#{doc['doc_id']}/#{doc['file_name']}"
+    "http://mp3.bhagavata.ru/#{db}/#{doc['doc_id']}/#{doc['file_name']}"
   end
 
   def dy(date)
